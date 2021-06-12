@@ -1,5 +1,5 @@
 # REST Api
-### Réalisé avec NodeJS/Typescript et conteneurisation via Docker/HAProxy
+### Réalisé avec NodeJS/Typescript et conteneurisation via Docker/Nginx
 
 ### Installation :
 
