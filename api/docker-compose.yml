@@ -1,0 +1,80 @@
+version: '3'
+
+services:
+
+  users-service:
+    container_name: users-service
+    build: ./services/users/
+    volumes:
+      - './services/users:/usr/src/app'
+      - './services/users/package.json:/usr/src/package.json'
+    ports:
+      - '3000:3000' # expose ports - HOST:CONTAINER
+    environment:
+      - PORT=3000
+
+  products-service1:
+    container_name: products-service1
+    build: ./services/products/
+    volumes:
+      - './services/products:/usr/src/app'
+      - './services/products/package.json:/usr/src/package.json'
+    ports:
+      - '3001:3001' # expose ports - HOST:CONTAINER
+    environment:
+      - PORT=3001
+    depends_on:
+      users-service:
+        condition: service_started
+    links:
+      - users-service
+
+
+  products-service2:
+    container_name: products-service2
+    build: ./services/products/
+    volumes:
+      - './services/products:/usr/src/app'
+      - './services/products/package.json:/usr/src/package.json'
+    ports:
+      - '3002:3002' # expose ports - HOST:CONTAINER
+    environment:
+      - PORT=3002
+    depends_on:
+      users-service:
+        condition: service_started
+    links:
+      - users-service
+
+  swagger:
+    container_name: swagger
+    build: ./services/products/swagger/
+    volumes:
+      - './services/products/swagger:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '3003:3001' # expose ports - HOST:CONTAINER
+    depends_on:
+      users-service:
+        condition: service_started
+      products-service1:
+        condition: service_started
+      products-service2:
+        condition: service_started
+    links:
+      - users-service
+      - products-service1
+      - products-service2
+      
+
+      
+
+  nginx:
+    container_name: nginx-proxy
+    build: ./nginx/
+    ports:
+      - '80:80' # expose ports - HOST:CONTAINER
+    links:
+      - users-service
+      - products-service1
+      - products-service2
