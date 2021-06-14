@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 
 //example : https://github.com/firebase/snippets-node/blob/master/messaging/index.js
 
-var serviceAccount = require("./serviceAccountKey.json");
+var serviceAccount = require("./serviceAccountKey.json.js");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -22,7 +22,7 @@ admin.initializeApp({
 
 
 
-app.post('/firebase/suscribe', (req, res)=>{
+app.post('/notifications/suscribe', (req, res)=>{
     const  registrationTokens = req.body.registrationTokens;
     const topic = req.body.topic;
 
@@ -43,7 +43,7 @@ app.post('/firebase/suscribe', (req, res)=>{
 
 
 
-app.post('/firebase/unsuscribe', (req, res)=>{
+app.post('/notifications/unsuscribe', (req, res)=>{
     const  registrationTokens = req.body.registrationTokens;
     const topic = req.body.topic;
 
@@ -64,7 +64,7 @@ app.post('/firebase/unsuscribe', (req, res)=>{
 })
 
 
-app.post('/firebase/notification', (req, res)=>{
+app.post('/notifications/send', (req, res)=>{
    
     const topicName = req.body.topicName;
 
