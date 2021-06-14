@@ -21,7 +21,7 @@ export class ProductController extends Controller {
 	/**
 	 * Retrieves the details of an existing product.
 	 * Supply the unique product ID from either and receive corresponding product details.
-	  * @param id The product's identifier
+	 * @param id The product's identifier
 	 * @summary Retrieves a specific existing product
 	 */
 	@Get('/{id}')
