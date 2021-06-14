@@ -10,20 +10,20 @@ import { ProductsService } from "../services/product.service";
 export class ProductController extends Controller {
 
 	/**
-    * Retrieves all existing products.
-	*  @summary Retrieves all existing products
-    */
+     * Retrieves all existing products.
+	 *  @summary Retrieves all existing products
+     */
 	@Get()
 	public async getAll(): Promise<IProduct[]> {
 		return new ProductsService().getAll();
 	}
 
 	/**
-    * Retrieves the details of an existing product.
-    * Supply the unique product ID from either and receive corresponding product details.
-	* @param id The product's identifier
-	* @summary Retrieves a specific existing product
-    */
+	 * Retrieves the details of an existing product.
+	 * Supply the unique product ID from either and receive corresponding product details.
+	  * @param id The product's identifier
+	 * @summary Retrieves a specific existing product
+	 */
 	@Get('/{id}')
 	public async get(@Path() id: string): Promise<IProduct> {
 		return new ProductsService().get(id);
