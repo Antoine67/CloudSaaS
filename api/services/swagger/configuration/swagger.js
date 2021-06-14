@@ -6,7 +6,7 @@ const swaggerDefinition = {
     version: '1.0.0', // Version of the app
     description: 'Node eat API official documentation', // short description of the app
   },
-  host: 'localhost:8080', // the host or url of the app
+  host: 'localhost', // the host or url of the app
   basePath: '/api', // the basepath of your endpoint
 };
 

@@ -2,54 +2,66 @@ version: '3'
 
 services:
 
-  users-service:
-    container_name: users-service
-    build: ./services/users/
+  users_structures_service:
+    container_name: users_structures_service
+    build: ./services/users_structures/
     volumes:
-      - './services/users:/usr/src/app'
-      - './services/users/package.json:/usr/src/package.json'
+      - './services/users_structures:/usr/src/app'
+      - './services/users_structures/package.json:/usr/src/package.json'
     ports:
       - '3000:3000' # expose ports - HOST:CONTAINER
     environment:
       - PORT=3000
 
-  products-service1:
-    container_name: products-service1
-    build: ./services/products/
+  products_menus_service1:
+    container_name: products_menus_service1
+    build: ./services/products_menus/
     volumes:
-      - './services/products:/usr/src/app'
-      - './services/products/package.json:/usr/src/package.json'
+      - './services/products_menus:/usr/src/app'
+      - './services/products_menus/package.json:/usr/src/package.json'
     ports:
       - '3001:3001' # expose ports - HOST:CONTAINER
     environment:
       - PORT=3001
-    depends_on:
-      users-service:
-        condition: service_started
-    links:
-      - users-service
 
 
-  products-service2:
-    container_name: products-service2
-    build: ./services/products/
+  products_menus_service2:
+    container_name: products_menus_service2
+    build: ./services/products_menus/
     volumes:
-      - './services/products:/usr/src/app'
-      - './services/products/package.json:/usr/src/package.json'
+      - './services/products_menus:/usr/src/app'
+      - './services/products_menus/package.json:/usr/src/package.json'
     ports:
       - '3002:3002' # expose ports - HOST:CONTAINER
     environment:
       - PORT=3002
-    depends_on:
-      users-service:
-        condition: service_started
-    links:
-      - users-service
 
-  swagger:
-    container_name: swagger
+  order_deliveries_service:
+    container_name: order_deliveries_service
+    build: ./services/order_deliveries/
+    volumes:
+      - './services/order_deliveries:/usr/src/app'
+      - './services/order_deliveries/package.json:/usr/src/package.json'
+    ports:
+      - '3003:3003' # expose ports - HOST:CONTAINER
+    environment:
+      - PORT=3003
+
+
+  notifications_service:
+    container_name: notifications_service
+    build: ./services/notifications/
+    volumes:
+      - './services/notifications:/usr/src/app'
+      - './services/notifications/package.json:/usr/src/package.json'
+    ports:
+      - '3050:3050' # expose ports - HOST:CONTAINER
+    environment:
+      - PORT=3050
+
+  swagger_service:
+    container_name: swagger_service
     build: ./services/swagger/
-    stdin_open: true 
     volumes:
       - './services/swagger:/usr/src/app'
       - '/usr/src/app/node_modules'
@@ -57,20 +69,10 @@ services:
       - '4000:4000' # expose ports - HOST:CONTAINER
     environment:
       - PORT=4000
-    depends_on:
-      users-service:
-        condition: service_started
-      products-service1:
-        condition: service_started
-      products-service2:
-        condition: service_started
-    links:
-      - users-service
-      - products-service1
-      - products-service2
-      
+
 
       
+
 
   nginx:
     container_name: nginx-proxy
@@ -78,6 +80,7 @@ services:
     ports:
       - '80:80' # expose ports - HOST:CONTAINER
     links:
+      - swagger_service
       - users-service
       - products-service1
       - products-service2

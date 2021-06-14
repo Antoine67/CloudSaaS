@@ -3,12 +3,51 @@
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { UserController } from './controller/user.controller';
+import { ProductController } from './controller/product.controller';
 import * as express from 'express';
 
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
+    "IProduct": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "name": {"dataType":"string","required":true},
+            "description": {"dataType":"string","required":true},
+            "restaurant_id": {"dataType":"double","required":true},
+            "price": {"dataType":"double"},
+            "available": {"dataType":"boolean","required":true},
+            "ingredients": {"dataType":"array","array":{"dataType":"string"}},
+        },
+        "additionalProperties": true,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Pick_IProduct.Exclude_keyofIProduct.id__": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string","required":true},"description":{"dataType":"string","required":true},"restaurant_id":{"dataType":"double","required":true},"price":{"dataType":"double"},"available":{"dataType":"boolean","required":true},"ingredients":{"dataType":"array","array":{"dataType":"string"}}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Omit_IProduct.id_": {
+        "dataType": "refAlias",
+        "type": {"ref":"Pick_IProduct.Exclude_keyofIProduct.id__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ProductCreationParams": {
+        "dataType": "refAlias",
+        "type": {"ref":"Omit_IProduct.id_","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "Partial_Omit_IProduct.id__": {
+        "dataType": "refAlias",
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string"},"description":{"dataType":"string"},"restaurant_id":{"dataType":"double"},"price":{"dataType":"double"},"available":{"dataType":"boolean"},"ingredients":{"dataType":"array","array":{"dataType":"string"}}},"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "ProductUpdateParams": {
+        "dataType": "refAlias",
+        "type": {"ref":"Partial_Omit_IProduct.id__","validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const validationService = new ValidationService(models);
 
@@ -19,8 +58,8 @@ export function RegisterRoutes(app: express.Router) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
-        app.get('/api/users',
-            function UserController_getAll(request: any, response: any, next: any) {
+        app.get('/api/products',
+            function ProductController_getAll(request: any, response: any, next: any) {
             const args = {
             };
 
@@ -33,15 +72,15 @@ export function RegisterRoutes(app: express.Router) {
                 return next(err);
             }
 
-            const controller = new UserController();
+            const controller = new ProductController();
 
 
             const promise = controller.getAll.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, undefined, next);
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/api/users/:id',
-            function UserController_get(request: any, response: any, next: any) {
+        app.get('/api/products/:id',
+            function ProductController_get(request: any, response: any, next: any) {
             const args = {
                     id: {"in":"path","name":"id","required":true,"dataType":"string"},
             };
@@ -55,18 +94,17 @@ export function RegisterRoutes(app: express.Router) {
                 return next(err);
             }
 
-            const controller = new UserController();
+            const controller = new ProductController();
 
 
             const promise = controller.get.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, undefined, next);
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/api/users',
-            function UserController_create(request: any, response: any, next: any) {
+        app.post('/api/products',
+            function ProductController_create(request: any, response: any, next: any) {
             const args = {
-                    name: {"in":"body-prop","name":"name","required":true,"dataType":"string"},
-                    description: {"in":"body-prop","name":"description","dataType":"string"},
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"ProductCreationParams"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -78,18 +116,18 @@ export function RegisterRoutes(app: express.Router) {
                 return next(err);
             }
 
-            const controller = new UserController();
+            const controller = new ProductController();
 
 
             const promise = controller.create.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, undefined, next);
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.put('/api/users/:id',
-            function UserController_update(request: any, response: any, next: any) {
+        app.put('/api/products/:id',
+            function ProductController_update(request: any, response: any, next: any) {
             const args = {
                     id: {"in":"path","name":"id","required":true,"dataType":"string"},
-                    description: {"in":"body-prop","name":"description","required":true,"dataType":"string"},
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"ProductUpdateParams"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -101,15 +139,15 @@ export function RegisterRoutes(app: express.Router) {
                 return next(err);
             }
 
-            const controller = new UserController();
+            const controller = new ProductController();
 
 
             const promise = controller.update.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, undefined, next);
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.delete('/api/users/:id',
-            function UserController_remove(request: any, response: any, next: any) {
+        app.delete('/api/products/:id',
+            function ProductController_remove(request: any, response: any, next: any) {
             const args = {
                     id: {"in":"path","name":"id","required":true,"dataType":"string"},
             };
@@ -123,7 +161,7 @@ export function RegisterRoutes(app: express.Router) {
                 return next(err);
             }
 
-            const controller = new UserController();
+            const controller = new ProductController();
 
 
             const promise = controller.remove.apply(controller, validatedArgs as any);

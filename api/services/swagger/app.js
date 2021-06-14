@@ -6,7 +6,7 @@ const swaggerSpec = require('./configuration/swagger')
 const app = express();
 
 // use swagger-Ui-express for app documentation endpoint
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const server = app.listen(process.env.PORT || 3000, () => {
   // eslint-disable-next-line no-console

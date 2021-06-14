@@ -1,0 +1,308 @@
+{
+	"basePath": "/api",
+	"consumes": [
+		"application/json"
+	],
+	"definitions": {
+		"IProduct": {
+			"description": "Product objects allow merchants to show their available\nmeals/dessert/... for sale",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": "Uniq indentifier"
+				},
+				"name": {
+					"type": "string",
+					"description": "Name which represent the product"
+				},
+				"description": {
+					"type": "string",
+					"description": "Short text describing the product"
+				},
+				"restaurant_id": {
+					"type": "number",
+					"format": "double",
+					"description": "Restaurant uniq indentifier reference"
+				},
+				"price": {
+					"type": "number",
+					"format": "double",
+					"description": "Price in euros (€)"
+				},
+				"available": {
+					"type": "boolean",
+					"description": "Is the product currently available ?"
+				},
+				"ingredients": {
+					"items": {
+						"type": "string"
+					},
+					"type": "array",
+					"description": "Ingredients list composing product"
+				}
+			},
+			"required": [
+				"id",
+				"name",
+				"description",
+				"restaurant_id",
+				"available"
+			],
+			"type": "object",
+			"additionalProperties": true
+		},
+		"Pick_IProduct.Exclude_keyofIProduct.id__": {
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "Name which represent the product"
+				},
+				"description": {
+					"type": "string",
+					"description": "Short text describing the product"
+				},
+				"restaurant_id": {
+					"type": "number",
+					"format": "double",
+					"description": "Restaurant uniq indentifier reference"
+				},
+				"price": {
+					"type": "number",
+					"format": "double",
+					"description": "Price in euros (€)"
+				},
+				"available": {
+					"type": "boolean",
+					"description": "Is the product currently available ?"
+				},
+				"ingredients": {
+					"items": {
+						"type": "string"
+					},
+					"type": "array",
+					"description": "Ingredients list composing product"
+				}
+			},
+			"required": [
+				"name",
+				"description",
+				"restaurant_id",
+				"available"
+			],
+			"type": "object",
+			"description": "From T, pick a set of properties whose keys are in the union K"
+		},
+		"Omit_IProduct.id_": {
+			"$ref": "#/definitions/Pick_IProduct.Exclude_keyofIProduct.id__",
+			"description": "Construct a type with the properties of T except for those in type K."
+		},
+		"ProductCreationParams": {
+			"$ref": "#/definitions/Omit_IProduct.id_"
+		},
+		"Partial_Omit_IProduct.id__": {
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "Name which represent the product"
+				},
+				"description": {
+					"type": "string",
+					"description": "Short text describing the product"
+				},
+				"restaurant_id": {
+					"type": "number",
+					"format": "double",
+					"description": "Restaurant uniq indentifier reference"
+				},
+				"price": {
+					"type": "number",
+					"format": "double",
+					"description": "Price in euros (€)"
+				},
+				"available": {
+					"type": "boolean",
+					"description": "Is the product currently available ?"
+				},
+				"ingredients": {
+					"items": {
+						"type": "string"
+					},
+					"type": "array",
+					"description": "Ingredients list composing product"
+				}
+			},
+			"type": "object",
+			"description": "Make all properties in T optional"
+		},
+		"ProductUpdateParams": {
+			"$ref": "#/definitions/Partial_Omit_IProduct.id__"
+		}
+	},
+	"info": {
+		"title": "todo-server",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "Antoine M"
+		}
+	},
+	"paths": {
+		"/products": {
+			"get": {
+				"operationId": "GetAll",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"items": {
+								"$ref": "#/definitions/IProduct"
+							},
+							"type": "array"
+						}
+					}
+				},
+				"description": "Retrieves all existing products.",
+				"summary": "Retrieves all existing products",
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "Create",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"description": "Create a new product by supplying new product's data",
+				"summary": "Create a new product",
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "The new product's data",
+						"in": "body",
+						"name": "requestBody",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/ProductCreationParams"
+						}
+					}
+				]
+			}
+		},
+		"/products/{id}": {
+			"get": {
+				"operationId": "Get",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"$ref": "#/definitions/IProduct"
+						}
+					}
+				},
+				"description": "Retrieves the details of an existing product.\nSupply the unique product ID from either and receive corresponding product details.",
+				"summary": "Retrieves a specific existing product",
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "The product's identifier",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			},
+			"put": {
+				"operationId": "Update",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"description": "Update specific product from the unique product ID you provide in query, with the new data you provide in body.",
+				"summary": "Update an existing product",
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "The product's identifier",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"description": "The new product's data",
+						"in": "body",
+						"name": "requestBody",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/ProductUpdateParams"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "Remove",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"description": "Delete a specific product from the unique product ID you provide.",
+				"summary": "Delete a product",
+				"tags": [
+					"Products"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "The product's identifier",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
+		}
+	},
+	"produces": [
+		"application/json"
+	],
+	"swagger": "2.0",
+	"securityDefinitions": {},
+	"host": "localhost:8080",
+	"schemes": [
+		"http"
+	]
+}

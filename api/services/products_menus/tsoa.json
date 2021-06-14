@@ -1,6 +1,5 @@
 {
 	"entryFile": "./src/app.ts",
-	"outputDirectory": ".",
 	"spec": {
 		"outputDirectory": ".",
 		"entryFile": "./src/app.ts",

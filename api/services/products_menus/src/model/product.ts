@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import { ObjectID, ObjectId, Double } from 'bson';
 
 /**
  * Product objects allow merchants to show their available
