@@ -10,9 +10,9 @@ import { ProductsService } from "../services/product.service";
 export class ProductController extends Controller {
 
 	/**
-     * Retrieves all existing products.
-	 *  @summary Retrieves all existing products
-     */
+	 * Retrieves all existing products.
+	 * @summary Retrieves all existing products
+	 */
 	@Get()
 	public async getAll(): Promise<IProduct[]> {
 		return new ProductsService().getAll();
