@@ -3,7 +3,9 @@
 	"spec": {
 		"outputDirectory": ".",
 		"entryFile": "./src/app.ts",
-		"basePath": "/api"
+		"basePath": "/api",
+		"host": "localhost:8080",
+		"schemes": ["http"]
 	},
 	"routes": {
 		"basePath": "/api",

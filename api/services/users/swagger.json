@@ -152,5 +152,9 @@
 		"application/json"
 	],
 	"swagger": "2.0",
-	"securityDefinitions": {}
+	"securityDefinitions": {},
+	"host": "localhost:8088",
+	"schemes": [
+		"http"
+	]
 }

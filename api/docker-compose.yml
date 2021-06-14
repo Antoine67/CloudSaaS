@@ -48,12 +48,15 @@ services:
 
   swagger:
     container_name: swagger
-    build: ./services/products/swagger/
+    build: ./services/swagger/
+    stdin_open: true 
     volumes:
-      - './services/products/swagger:/usr/src/app'
+      - './services/swagger:/usr/src/app'
       - '/usr/src/app/node_modules'
     ports:
-      - '3003:3001' # expose ports - HOST:CONTAINER
+      - '4000:4000' # expose ports - HOST:CONTAINER
+    environment:
+      - PORT=4000
     depends_on:
       users-service:
         condition: service_started

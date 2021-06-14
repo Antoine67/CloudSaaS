@@ -1,19 +1,49 @@
 import * as mongoose from 'mongoose';
 
-interface IProduct extends mongoose.Document {
-	_id: string;
-	name: string;
+/**
+ * Product objects allow merchants to show their available
+ * meals/dessert/... for sale
+ */
+interface IProduct {
+   /**
+    * Uniq indentifier
+    */
+    id: string;
+    
+    /**
+     * Name which represent the product
+     */
+    name: string;
+    
+    /**
+     * Short text describing the product
+     */
     description: string;
+
+    /**
+     * Price in euros (€)
+     */
     price?: number;
+
+    /**
+     * Picture URI
+     */
     picture?: string;
+
+    /**
+     * Ingredients list composing product
+     */
     ingredients?: Array<string>;
-    category?: string;
+
+    /**
+     * Is the product currently available ?
+     */
     available: boolean;
 }
 
 const ProductSchema = new mongoose.Schema({
-	description: String,
-	name: String,
+	  description: String,
+	  name: String,
     price: Number,
     picture: String,
     ingredients: Array,
@@ -29,6 +59,6 @@ ProductSchema.method("toJSON", function(this: any) {
   });
   
 
-const ProductModel = mongoose.model<IProduct>('products', ProductSchema);
+const ProductModel = mongoose.model('products', ProductSchema);
 
 export { ProductModel, IProduct }

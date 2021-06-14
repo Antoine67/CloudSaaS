@@ -3,7 +3,53 @@
 	"consumes": [
 		"application/json"
 	],
-	"definitions": {},
+	"definitions": {
+		"IProduct": {
+			"description": "Product objects allow merchants to show their available\nmeals/dessert/... for sale",
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": "Uniq indentifier"
+				},
+				"name": {
+					"type": "string",
+					"description": "Name which represent the product"
+				},
+				"description": {
+					"type": "string",
+					"description": "Short text describing the product"
+				},
+				"price": {
+					"type": "number",
+					"format": "double",
+					"description": "Price in euros (€)"
+				},
+				"picture": {
+					"type": "string",
+					"description": "Picture URI"
+				},
+				"ingredients": {
+					"items": {
+						"type": "string"
+					},
+					"type": "array",
+					"description": "Ingredients list composing product"
+				},
+				"available": {
+					"type": "boolean",
+					"description": "Is the product currently available ?"
+				}
+			},
+			"required": [
+				"id",
+				"name",
+				"description",
+				"available"
+			],
+			"type": "object",
+			"additionalProperties": true
+		}
+	},
 	"info": {
 		"title": "todo-server",
 		"version": "1.0.0",
@@ -25,10 +71,18 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"additionalProperties": true
+							"items": {
+								"$ref": "#/definitions/IProduct"
+							},
+							"type": "array"
 						}
 					}
 				},
+				"description": "Retrieves all existing products.",
+				"summary": "Retrieves all existing products",
+				"tags": [
+					"Products"
+				],
 				"security": [],
 				"parameters": []
 			},
@@ -42,25 +96,20 @@
 						"description": "No content"
 					}
 				},
+				"description": "Create a new product by supplying new product's data",
+				"summary": "Create a new product",
+				"tags": [
+					"Products"
+				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "The new product's data",
 						"in": "body",
-						"name": "body",
+						"name": "requestBody",
+						"required": true,
 						"schema": {
-							"properties": {
-								"name": {
-									"type": "string"
-								},
-								"description": {
-									"type": "string"
-								}
-							},
-							"title": "CreateBody",
-							"type": "object",
-							"required": [
-								"name"
-							]
+							"$ref": "#/definitions/IProduct"
 						}
 					}
 				]
@@ -76,13 +125,19 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"additionalProperties": true
+							"$ref": "#/definitions/IProduct"
 						}
 					}
 				},
+				"description": "Retrieves the details of an existing product.\nSupply the unique product ID from either and receive corresponding product details.",
+				"summary": "Retrieves a specific existing product",
+				"tags": [
+					"Products"
+				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "The product's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -100,28 +155,27 @@
 						"description": "No content"
 					}
 				},
+				"description": "Update specific product from the unique product ID you provide in query, with the new data you provide in body.",
+				"summary": "Update an existing product",
+				"tags": [
+					"Products"
+				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "The product's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
 						"type": "string"
 					},
 					{
+						"description": "The new product's data",
 						"in": "body",
-						"name": "body",
+						"name": "requestBody",
+						"required": true,
 						"schema": {
-							"properties": {
-								"description": {
-									"type": "string"
-								}
-							},
-							"title": "UpdateBody",
-							"type": "object",
-							"required": [
-								"description"
-							]
+							"$ref": "#/definitions/IProduct"
 						}
 					}
 				]
@@ -136,9 +190,15 @@
 						"description": "No content"
 					}
 				},
+				"description": "Delete a specific product from the unique product ID you provide.",
+				"summary": "Delete a product",
+				"tags": [
+					"Products"
+				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "The product's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -152,5 +212,9 @@
 		"application/json"
 	],
 	"swagger": "2.0",
-	"securityDefinitions": {}
+	"securityDefinitions": {},
+	"host": "localhost:8080",
+	"schemes": [
+		"http"
+	]
 }

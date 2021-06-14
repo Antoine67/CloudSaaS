@@ -13,7 +13,13 @@ ENV NODE_PATH "/usr/lib/node_modules/"
 # add `/usr/src/node_modules/.bin` to $PATH
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
+ADD package.json /usr/src/app/package.json
+ADD tsoa.json /usr/src/app/tsoa.json
+ADD tsconfig.json /usr/src/app/tsconfig.json
+ADD swagger.json /usr/src/app/swagger.json
+
 RUN npm install --production
-CMD npm run build
+
+#RUN npm run build
 
 CMD npm start

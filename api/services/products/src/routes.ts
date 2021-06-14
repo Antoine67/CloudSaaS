@@ -9,6 +9,20 @@ import * as express from 'express';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
+    "IProduct": {
+        "dataType": "refObject",
+        "properties": {
+            "id": {"dataType":"string","required":true},
+            "name": {"dataType":"string","required":true},
+            "description": {"dataType":"string","required":true},
+            "price": {"dataType":"double"},
+            "picture": {"dataType":"string"},
+            "ingredients": {"dataType":"array","array":{"dataType":"string"}},
+            "available": {"dataType":"boolean","required":true},
+        },
+        "additionalProperties": true,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const validationService = new ValidationService(models);
 
@@ -65,8 +79,7 @@ export function RegisterRoutes(app: express.Router) {
         app.post('/api/products',
             function ProductController_create(request: any, response: any, next: any) {
             const args = {
-                    name: {"in":"body-prop","name":"name","required":true,"dataType":"string"},
-                    description: {"in":"body-prop","name":"description","dataType":"string"},
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"IProduct"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -89,7 +102,7 @@ export function RegisterRoutes(app: express.Router) {
             function ProductController_update(request: any, response: any, next: any) {
             const args = {
                     id: {"in":"path","name":"id","required":true,"dataType":"string"},
-                    description: {"in":"body-prop","name":"description","required":true,"dataType":"string"},
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"IProduct"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

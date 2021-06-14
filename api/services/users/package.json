@@ -7,7 +7,7 @@
     "dev": "nodemon ./dist/main.js",
     "start": "node  ./dist/main.js",
     "build": "tsoa spec-and-routes && tsc",
-    "generate": "tsoa spec && tsoa routes && tsoa swagger"
+    "generate": "tsoa swagger"
   },
   "author": "Antoine M",
   "license": "ISC",

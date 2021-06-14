@@ -19,4 +19,19 @@ app.use(requestLoggerMiddleware);
 RegisterRoutes(app);
 
 
+try {
+    const swaggerDocument = require('../swagger.json');
+    
+    app.get('/swagger',(req, res) => {
+        res.json(swaggerDocument);
+    });
+
+	app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+} catch (err) {
+	console.error('Unable to read swagger.json', err);
+}
+
+
+
+
 export { app };
