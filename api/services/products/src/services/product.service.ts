@@ -1,8 +1,8 @@
 import { ProductModel, IProduct } from "../model/product";
 
 
-//export type ProductCreationParams = Pick<IProduct, "name" | "description" | "available">;
-//export type ProductUpdateParams = Exclude<IProduct, "id">;
+export type ProductCreationParams = Omit<IProduct, "id">;
+export type ProductUpdateParams = Partial<Omit<IProduct, "id">>;
 
 export class ProductsService {
 
@@ -17,14 +17,20 @@ export class ProductsService {
     }
   }
 
-  public async create(productCreationParams: IProduct): Promise<boolean> {
+  public async create(productCreationParams: ProductCreationParams): Promise<boolean> {
 
-    const item = new ProductModel({ name: productCreationParams.name, email: productCreationParams.description })
-    await item.save()
-    return true;
+    const item = new ProductModel(productCreationParams)
+    console.info(productCreationParams)
+    let success = false;
+    await item.save(function(err, product) {
+        if (err) success = false;
+        else success = true;
+    });
+
+    return success;
   }
 
-  public async update(id: string, productUpdateParams: IProduct): Promise<void> {
+  public async update(id: string, productUpdateParams: ProductUpdateParams): Promise<void> {
     await ProductModel.findByIdAndUpdate({ _id: id }, productUpdateParams)
   }
 

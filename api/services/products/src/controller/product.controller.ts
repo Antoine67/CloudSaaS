@@ -2,8 +2,8 @@
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
 import { IProduct } from "../model/product";
-//import { ProductsService, ProductCreationParams, ProductUpdateParams } from "../services/product.service";
-import { ProductsService } from "../services/product.service";
+import { ProductsService, ProductCreationParams, ProductUpdateParams } from "../services/product.service";
+//import { ProductsService } from "../services/product.service";
 
 @Route('/products')
 @Tags("Products")
@@ -35,7 +35,7 @@ export class ProductController extends Controller {
 	 * @summary Create a new product
 	 */
 	@Post()
-	public async create(@Body() requestBody: IProduct) : Promise<void> {
+	public async create(@Body() requestBody: ProductCreationParams) : Promise<void> {
 		
 		if(new ProductsService().create(requestBody)) {
 			this.setStatus(201); // set return status 201
@@ -52,7 +52,7 @@ export class ProductController extends Controller {
 	 * @summary Update an existing product
 	 */
 	@Put('/{id}')
-	public async update( @Path() id: string, @Body() requestBody: IProduct) : Promise<void> {
+	public async update( @Path() id: string, @Body() requestBody: ProductUpdateParams) : Promise<void> {
 		this.setStatus(201); // set return status 201
 		new ProductsService().update(id, requestBody);
 		return;
