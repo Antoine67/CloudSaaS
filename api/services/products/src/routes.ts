@@ -15,17 +15,17 @@ const models: TsoaRoute.Models = {
             "id": {"dataType":"string","required":true},
             "name": {"dataType":"string","required":true},
             "description": {"dataType":"string","required":true},
+            "restaurant_id": {"dataType":"double","required":true},
             "price": {"dataType":"double"},
-            "picture": {"dataType":"string"},
-            "ingredients": {"dataType":"array","array":{"dataType":"string"}},
             "available": {"dataType":"boolean","required":true},
+            "ingredients": {"dataType":"array","array":{"dataType":"string"}},
         },
         "additionalProperties": true,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Pick_IProduct.Exclude_keyofIProduct.id__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string","required":true},"description":{"dataType":"string","required":true},"price":{"dataType":"double"},"picture":{"dataType":"string"},"ingredients":{"dataType":"array","array":{"dataType":"string"}},"available":{"dataType":"boolean","required":true}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string","required":true},"description":{"dataType":"string","required":true},"restaurant_id":{"dataType":"double","required":true},"price":{"dataType":"double"},"available":{"dataType":"boolean","required":true},"ingredients":{"dataType":"array","array":{"dataType":"string"}}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Omit_IProduct.id_": {
@@ -40,7 +40,7 @@ const models: TsoaRoute.Models = {
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "Partial_Omit_IProduct.id__": {
         "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string"},"description":{"dataType":"string"},"price":{"dataType":"double"},"picture":{"dataType":"string"},"ingredients":{"dataType":"array","array":{"dataType":"string"}},"available":{"dataType":"boolean"}},"validators":{}},
+        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string"},"description":{"dataType":"string"},"restaurant_id":{"dataType":"double"},"price":{"dataType":"double"},"available":{"dataType":"boolean"},"ingredients":{"dataType":"array","array":{"dataType":"string"}}},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "ProductUpdateParams": {

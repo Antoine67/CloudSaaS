@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { ObjectID, ObjectId, Double } from 'bson';
 
 /**
  * Product objects allow merchants to show their available
@@ -21,6 +22,11 @@ interface IProduct {
     description: string;
 
     /**
+     * Restaurant uniq indentifier reference
+     */
+    restaurant_id: number;
+
+    /**
      * Price in euros (€)
      */
     price?: number;
@@ -28,27 +34,31 @@ interface IProduct {
     /**
      * Picture URI
      */
-    picture?: string;
+    //picture?: string;
+
+    /**
+     * Is the product currently available ?
+     */
+    available: boolean;
 
     /**
      * Ingredients list composing product
      */
     ingredients?: Array<string>;
 
-    /**
-     * Is the product currently available ?
-     */
-    available: boolean;
+    
 }
 
 const ProductSchema = new mongoose.Schema({
-	  description: String,
-	  name: String,
-    price: Number,
-    picture: String,
-    ingredients: Array,
-    category: String,
-    available: Boolean
+  name: String,
+  description: String,
+  restaurant_id: Number,
+  price: Number,
+  available: Boolean,
+  //picture: String,
+  ingredients: [{
+      type: String
+  }],
 });
 
 

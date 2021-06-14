@@ -19,14 +19,19 @@
 					"type": "string",
 					"description": "Short text describing the product"
 				},
+				"restaurant_id": {
+					"type": "number",
+					"format": "double",
+					"description": "Restaurant uniq indentifier reference"
+				},
 				"price": {
 					"type": "number",
 					"format": "double",
 					"description": "Price in euros (€)"
 				},
-				"picture": {
-					"type": "string",
-					"description": "Picture URI"
+				"available": {
+					"type": "boolean",
+					"description": "Is the product currently available ?"
 				},
 				"ingredients": {
 					"items": {
@@ -34,16 +39,13 @@
 					},
 					"type": "array",
 					"description": "Ingredients list composing product"
-				},
-				"available": {
-					"type": "boolean",
-					"description": "Is the product currently available ?"
 				}
 			},
 			"required": [
 				"id",
 				"name",
 				"description",
+				"restaurant_id",
 				"available"
 			],
 			"type": "object",
@@ -59,14 +61,19 @@
 					"type": "string",
 					"description": "Short text describing the product"
 				},
+				"restaurant_id": {
+					"type": "number",
+					"format": "double",
+					"description": "Restaurant uniq indentifier reference"
+				},
 				"price": {
 					"type": "number",
 					"format": "double",
 					"description": "Price in euros (€)"
 				},
-				"picture": {
-					"type": "string",
-					"description": "Picture URI"
+				"available": {
+					"type": "boolean",
+					"description": "Is the product currently available ?"
 				},
 				"ingredients": {
 					"items": {
@@ -74,15 +81,12 @@
 					},
 					"type": "array",
 					"description": "Ingredients list composing product"
-				},
-				"available": {
-					"type": "boolean",
-					"description": "Is the product currently available ?"
 				}
 			},
 			"required": [
 				"name",
 				"description",
+				"restaurant_id",
 				"available"
 			],
 			"type": "object",
@@ -105,14 +109,19 @@
 					"type": "string",
 					"description": "Short text describing the product"
 				},
+				"restaurant_id": {
+					"type": "number",
+					"format": "double",
+					"description": "Restaurant uniq indentifier reference"
+				},
 				"price": {
 					"type": "number",
 					"format": "double",
 					"description": "Price in euros (€)"
 				},
-				"picture": {
-					"type": "string",
-					"description": "Picture URI"
+				"available": {
+					"type": "boolean",
+					"description": "Is the product currently available ?"
 				},
 				"ingredients": {
 					"items": {
@@ -120,10 +129,6 @@
 					},
 					"type": "array",
 					"description": "Ingredients list composing product"
-				},
-				"available": {
-					"type": "boolean",
-					"description": "Is the product currently available ?"
 				}
 			},
 			"type": "object",

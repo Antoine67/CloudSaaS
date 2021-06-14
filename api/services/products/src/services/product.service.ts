@@ -1,4 +1,5 @@
 import { ProductModel, IProduct } from "../model/product";
+import {Tags} from 'tsoa';
 
 
 export type ProductCreationParams = Omit<IProduct, "id">;
