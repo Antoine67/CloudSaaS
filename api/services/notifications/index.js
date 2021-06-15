@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 
 //example : https://github.com/firebase/snippets-node/blob/master/messaging/index.js
 
-var serviceAccount = require("./serviceAccountKey.json.js");
+var serviceAccount = require("./serviceAccountKey.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
