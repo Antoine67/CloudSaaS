@@ -1,43 +1,32 @@
-/* eslint-disable */
-//@ts-nocheck
+/* eslint-disable no-console */
 
-import { register } from "register-service-worker";
+import { register } from 'register-service-worker'
 
-self.addEventListener("push", function(event) {
-  console.log("[Service Worker] Push Received.", event.data.text());
-  var options = {
-    body: "This notification was generated from a push!"
-  };
-  event.waitUntil(self.registration.showNotification("Hello world!", options));
-});
-
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {
-    ready() {
+    ready () {
       console.log(
-        "App is being served from cache by a service worker.\n" +
-          "For more details, visit https://goo.gl/AFskqB"
-      );
+        'App is being served from cache by a service worker.\n' +
+        'For more details, visit https://goo.gl/AFskqB'
+      )
     },
-    registered() {
-      console.log("Service worker has been registered.");
+    registered () {
+      console.log('Service worker has been registered.')
     },
-    cached() {
-      console.log("Content has been cached for offline use.");
+    cached () {
+      console.log('Content has been cached for offline use.')
     },
-    updatefound() {
-      console.log("New content is downloading.");
+    updatefound () {
+      console.log('New content is downloading.')
     },
-    updated() {
-      console.log("New content is available; please refresh.");
+    updated () {
+      console.log('New content is available; please refresh.')
     },
-    offline() {
-      console.log(
-        "No internet connection found. App is running in offline mode."
-      );
+    offline () {
+      console.log('No internet connection found. App is running in offline mode.')
     },
-    error(error) {
-      console.error("Error during service worker registration:", error);
-    },
-  });
+    error (error) {
+      console.error('Error during service worker registration:', error)
+    }
+  })
 }

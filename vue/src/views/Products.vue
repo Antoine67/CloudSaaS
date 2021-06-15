@@ -1,29 +1,78 @@
 <template>
   <div class="home">
+  
+  <section v-if="errored">
+    <p>Nous sommes désolés, nous ne sommes pas en mesure de récupérer ces informations pour le moment. Veuillez réessayer ultérieurement.</p>
+  </section>
+
+  <section v-else>
+    <div v-if="loading">Chargement...</div>
     <li v-for="product in products" :key="product.id">
       <ProductItem :product="product" />
     </li>
+
+  </section>
+
+
+
+   
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+//import { Options, Vue } from "vue-class-component";
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import ProductItem from "@/components/ProductItem.vue"; // @ is an alias to /src
-import ProductModel from "../models/ProductModel";
+//import ProductModel from "../models/ProductModel";
+import ProductsService from "../services/ProductsService";
+import Product from "@/types/Product";
 
-@Options({
+@Component({
   components: {
     ProductItem,
   },
 })
 export default class Products extends Vue {
-  products: any = [];
+  @Prop() private products: Product[] = [] ;
 
-  mounted() {
-    new ProductModel().get().then((products) => {
-      this.products = products;
-      //console.log(products);
-    });
+  data() {
+    return {
+      errored : false,
+      error: null,
+      loading: false,
+    }
   }
+
+  created () {
+    // fetch the data when the view is created and the data is
+    // already being observed
+    this.retrieveProducts()
+  }
+
+  retrieveProducts () {
+    //this.error = null
+    //this.loading = true
+
+    ProductsService.getAll()
+      .then((response) => {
+        this.products = response.data;
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    /*
+    getPost(fetchedId, (err, post) => {
+      // make sure this request is the last one we did, discard otherwise
+      if (this.$route.params.id !== fetchedId) return
+      this.loading = false
+      if (err) {
+        this.error = err.toString()
+      } else {
+        this.post = post
+      }
+    })*/
+  }
+  
 }
 </script>

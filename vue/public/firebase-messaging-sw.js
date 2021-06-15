@@ -1,7 +1,10 @@
 
 /// [START initialize_firebase_in_sw]
-importScripts('https://www.gstatic.com/firebasejs/5.5.6/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/5.5.6/firebase-messaging.js');
+//importScripts('https://www.gstatic.com/firebasejs/5.5.6/firebase-app.js');
+//importScripts('https://www.gstatic.com/firebasejs/5.5.6/firebase-messaging.js');
+
+importScripts('https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js')
+importScripts('https://www.gstatic.com/firebasejs/7.8.0/firebase-messaging.js')
 
 firebase.initializeApp({
   'messagingSenderId': '116083255744',
