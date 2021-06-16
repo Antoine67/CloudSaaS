@@ -16,7 +16,7 @@ async function signin({ email, password }) {
     if (!user) throw 'email or password is incorrect';
 
     //create JWT token
-    const token = jwt.sign(
+    const accessToken = jwt.sign(
         { 
             sub: user.id, // uniq identifier
 
@@ -33,7 +33,7 @@ async function signin({ email, password }) {
 
     return {
         ...omitPassword(user),
-        token
+        accessToken
     };
 }
 
