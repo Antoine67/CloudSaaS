@@ -25,16 +25,16 @@ services:
       - PORT=3001
 
 
-  #products_menus_service2:
-  #  container_name: products_menus_service2
-  #  build: ./services/products_menus/
-  #  volumes:
-  #    - './services/products_menus:/usr/src/app'
-  #    - './services/products_menus/package.json:/usr/src/package.json'
-  #  ports:
-  #    - '3002:3002' # expose ports - HOST:CONTAINER
-  #  environment:
-  #    - PORT=3002
+  products_menus_service2:
+    container_name: products_menus_service2
+    build: ./services/products_menus/
+    volumes:
+      - './services/products_menus:/usr/src/app'
+      - './services/products_menus/package.json:/usr/src/package.json'
+    ports:
+      - '3002:3002' # expose ports - HOST:CONTAINER
+    environment:
+      - PORT=3002
 
   orders_deliveries_service:
     container_name: orders_deliveries_service

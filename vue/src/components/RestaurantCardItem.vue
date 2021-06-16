@@ -54,7 +54,6 @@
       <v-btn
         color="deep-purple lighten-2"
         text
-        @click="reserve"
       >
         Commander
       </v-btn>
