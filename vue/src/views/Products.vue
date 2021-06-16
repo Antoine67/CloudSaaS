@@ -61,17 +61,6 @@ export default class Products extends Vue {
       .catch((e) => {
         console.log(e);
       });
-    /*
-    getPost(fetchedId, (err, post) => {
-      // make sure this request is the last one we did, discard otherwise
-      if (this.$route.params.id !== fetchedId) return
-      this.loading = false
-      if (err) {
-        this.error = err.toString()
-      } else {
-        this.post = post
-      }
-    })*/
   }
   
 }
