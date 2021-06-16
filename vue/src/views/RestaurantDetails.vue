@@ -57,7 +57,7 @@ export default class Products extends Vue {
       });
       */
      this.menus = [
-      {id:"test", title: "menu1", products: [
+      {id:"test", title: "menu1", description: "supe", products: [
           {
               id:"1",
               title: "test",
@@ -69,7 +69,7 @@ export default class Products extends Vue {
               description: "supe",
           }
       ]},
-      {id:"test2", title: "menu2"},
+      {id:"test2", title: "menu2", description: "supe", products: [] }
      ];
   }
   
