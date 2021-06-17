@@ -8,18 +8,20 @@ import vuetify from '@/plugins/vuetify'
 
 
 import axios from "axios";
-import { Model } from "vue-api-query";
 
 import firebase from "firebase/app";
 import "firebase/messaging";
 
+import VueCookie from 'vue-cookie'
+
+VueCookie.get('username')
+
+Vue.use(VueCookie)
 Vue.use(VueCompositionApi)
 
 import firebaseMessaging from './firebase'
 
 Vue.prototype.$messaging = firebaseMessaging
-
-Model.$http = axios;
 
 Vue.config.productionTip = false
 

@@ -1,5 +1,7 @@
+import VueCookie from 'vue-cookie'
+
 export default function auth({ next, router }) {
-    if (!localStorage.getItem('user')) {
+    if (!VueCookie.get('jwt')) {
       console.log("redirecitng..")
       return router.push({ name: 'Login' });
     }

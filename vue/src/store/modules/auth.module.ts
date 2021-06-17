@@ -1,7 +1,9 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import AuthService from '@/services/AuthService';
+import VueCookie from 'vue-cookie'
 
-const storedUser = localStorage.getItem('user');
+//const storedUser = localStorage.getItem('user');
+const storedUser = VueCookie.get('jwt');
 
 @Module({ namespaced: true })
 class AuthModule extends VuexModule {

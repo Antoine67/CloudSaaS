@@ -1,4 +1,5 @@
 import axios from 'axios';
+import VueCookie from 'vue-cookie'
 
 const API_URL = 'http://localhost:4000/api/auth/';
 
@@ -11,7 +12,8 @@ class AuthService {
       })
       .then(response => {
         if (response.data.accessToken) {
-          localStorage.setItem('user', JSON.stringify(response.data));
+          //localStorage.setItem('user', JSON.stringify(response.data));
+          VueCookie.set('jwt', JSON.stringify(response.data))
         }
 
         return response.data;
@@ -19,7 +21,8 @@ class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('user');
+    //localStorage.removeItem('user');
+    VueCookie.delete('jwt')
   }
 
   register(username: string, email: string, password: string) {

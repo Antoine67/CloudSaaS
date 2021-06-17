@@ -1,5 +1,5 @@
 export default function authHeader() {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = this._vm.$cookies.get('jwt'); //.getItem('user');
     let user = JSON.parse(storedUser ? storedUser : "");
   
     if (user && user.accessToken) {
