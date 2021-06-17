@@ -24,7 +24,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import ProductItem from "@/components/ProductItem.vue"; // @ is an alias to /src
 //import ProductModel from "../models/ProductModel";
-import ProductsService from "../services/ProductsService";
+import ProductsService from "@/services/ProductsService";
 import Product from "@/types/Product";
 
 @Component({

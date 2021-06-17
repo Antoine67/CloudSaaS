@@ -37,13 +37,22 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn
+      <v-btn v-if="!currentUser"
         to="/login"
         text
       >
         <span class="mr-2">Se connecter</span>
         <v-icon>mdi-login</v-icon>
       </v-btn>
+
+       <v-btn v-if="currentUser"
+        @click.prevent="logOut"
+        text
+      >
+        <span class="mr-2">Déconnexion</span>
+        <v-icon>mdi-login</v-icon>
+      </v-btn>
+
     </v-app-bar>
 
     
@@ -55,14 +64,23 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-//import Header from '@/components/partial/Header'
+import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+const Auth = namespace("Auth");
 
-export default Vue.extend({
-  name: 'App',
+@Component
+export default class App extends Vue{
+  
+  @Auth.State("user")
+  private currentUser!: any;
 
-  data: () => ({
-    //
-  }),
-});
+  @Auth.Action
+  private signOut!: () => void;
+
+  logOut() {
+    this.signOut();
+    this.$router.push("/");
+  }
+
+}
 </script>

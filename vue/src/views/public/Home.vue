@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-  import RestaurantCardItem from '../components/RestaurantCardItem.vue'
+  import RestaurantCardItem from '@/components/RestaurantCardItem.vue'
   import { Component, Vue, Prop } from 'vue-property-decorator';
 @Component({
   components: {

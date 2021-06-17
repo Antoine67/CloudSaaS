@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
-import Products from "../views/Products.vue";
-import RestaurantDetails from "../views/RestaurantDetails.vue"
-import Login from "../views/auth/Login.vue";
+import Home from '@/views/public/Home.vue'
+import Products from "@/views/public/Products.vue";
+import RestaurantDetails from "@/views/public/RestaurantDetails.vue"
+import Login from "@/views/auth/Login.vue";
+import Profile from "@/views/logged/Profile.vue"
 
 Vue.use(VueRouter)
 
@@ -27,7 +28,12 @@ const routes: Array<RouteConfig> = [
     name: 'RestaurantDetails',
     path: '/restaurants/:id',
     component: RestaurantDetails,
-  }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
+  },
 ]
 
 const router = new VueRouter({

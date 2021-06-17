@@ -49,6 +49,9 @@
                                         <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
                                     </v-col>
                                     <v-col cols="12">
+                                        <v-text-field v-model="username" :rules="[rules.required, rules.min]" label="Nom d'utilisateur" required></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
                                         <v-text-field v-model="password" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="showPassword ? 'text' : 'password'" name="input-10-1" label="Mot de passe" hint="Au moins 8 caractères" counter @click:append="showPassword = !showPassword"></v-text-field>
                                     </v-col>
                                     <v-col cols="12">
@@ -143,6 +146,7 @@ export default class Login extends Vue {
     email= ""
     password= ""
     verify= ""
+    username = ""
 
     // Login data
     loginPassword= ""
@@ -208,9 +212,9 @@ export default class Login extends Vue {
         this.loading = true;
 
         if (this.$refs.registerForm.validate()) {
-            if (this.firstName && this.lastName && this.verify && this.email && this.password) {
+            if (this.firstName && this.lastName && this.verify && this.email && this.password && this.username) {
 
-                this.register({email: this.loginEmail, password: this.loginPassword}).then(
+                this.register({email: this.email, password: this.password, username: this.username}).then(
                     (data) => {
                         this.showMessage("Vous pouvez à présent vous connecter", "success", "Profil créé avec succès")
                         this.tab = 0

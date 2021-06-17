@@ -17,7 +17,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import MenuCardItem from "@/components/MenuCardItem.vue"; // @ is an alias to /src
 
-import MenusService from "../services/MenusService";
+import MenusService from "@/services/MenusService";
 import Menu from "@/types/Menu";
 
 @Component({

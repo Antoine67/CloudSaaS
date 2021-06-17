@@ -9,8 +9,8 @@ import config from "../config/config";
 class AuthController {
   static login = async (req: Request, res: Response) => {
     //Check if username and password are set
-    let { username, password, email } = req.body;
-    if (!(username && password)) {
+    let { email, password  } = req.body;
+    if (!(email && password)) {
       res.status(400).send();
     }
 
@@ -20,14 +20,14 @@ class AuthController {
     try {
       user = await userRepository.findOneOrFail({where : { email: email }});
     } catch (error) {
-      res.status(401).send();
+      res.status(401).send({message: "Invalid user"});
       return;
     }
 
 
     //Check if encrypted password match
     if (!user.checkIfUnencryptedPasswordIsValid(password)) {
-      res.status(401).send();
+      res.status(401).send({message: "Invalid password"});
       return;
     }
 
@@ -39,7 +39,7 @@ class AuthController {
     );
 
     //Send the jwt in the response
-    res.send(token);
+    res.send({accessToken: token});
   };
 
   static register = async (req: Request, res: Response) => {
@@ -65,12 +65,12 @@ class AuthController {
     try {
       await userRepository.save(user);
     } catch (e) {
-      res.status(409).send("username already in use");
+      res.status(409).send({message:"Failed to create user"});
       return;
     }
 
     //If all ok, send 201 response
-    res.status(201).send("User created");
+    res.status(201).send({message:"User created"});
   };
 
   static changePassword = async (req: Request, res: Response) => {

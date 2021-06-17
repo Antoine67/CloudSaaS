@@ -81,6 +81,7 @@ class AuthModule extends VuexModule {
   get isLoggedIn(): boolean {
     return this.status.loggedIn;
   }
+
 }
 
 export default AuthModule;
