@@ -4,21 +4,24 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import VueCompositionApi from '@vue/composition-api'
+import vuetify from '@/plugins/vuetify'
 
 
 import axios from "axios";
-import { Model } from "vue-api-query";
 
 import firebase from "firebase/app";
 import "firebase/messaging";
 
+import VueCookie from 'vue-cookie'
+
+VueCookie.get('username')
+
+Vue.use(VueCookie)
 Vue.use(VueCompositionApi)
 
 import firebaseMessaging from './firebase'
 
 Vue.prototype.$messaging = firebaseMessaging
-
-Model.$http = axios;
 
 Vue.config.productionTip = false
 
@@ -74,7 +77,11 @@ messaging.onMessage((payload) => {
     
 
 new Vue({
+  vuetify,
   router,
   store,
+ 
   render: h => h(App)
 }).$mount('#app')
+
+

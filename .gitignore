@@ -4,3 +4,5 @@ dist/
 api_old
 node1
 oauth_node
+jwt_auth_old1
+jwt_auth_old2

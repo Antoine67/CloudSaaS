@@ -1,5 +1,6 @@
 export default interface Product {
-    id: string;
+    id: null;
     title: string;
     description: string;
+    published: boolean;
   }

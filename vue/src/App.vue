@@ -1,33 +1,86 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <router-link to="/products">Products</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <router-link to="/">
+        <div class="d-flex align-center">
+            <!--
+            <v-img
+              alt="Vuetify Logo"
+              class="shrink mr-2"
+              contain
+              src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+              transition="scale-transition"
+              width="40"
+            />
+            -->
+        </div>
+        <v-container>
+          <v-badge
+            bottom
+            color="green"
+            content="ORIGINAL"
+          >
+            <span style="color:white;font-size:25px;"><b>Node Eat</b></span>
+           
+          </v-badge>
+        </v-container>
+
+             
+        
+      </router-link>
+
+      
+
+      <v-spacer></v-spacer>
+
+      <v-btn v-if="!currentUser"
+        to="/login"
+        text
+      >
+        <span class="mr-2">Se connecter</span>
+        <v-icon>mdi-login</v-icon>
+      </v-btn>
+
+       <v-btn v-if="currentUser"
+        @click.prevent="logOut"
+        text
+      >
+        <span class="mr-2">Déconnexion</span>
+        <v-icon>mdi-login</v-icon>
+      </v-btn>
+
+    </v-app-bar>
+
+    
+
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+const Auth = namespace("Auth");
 
-#nav {
-  padding: 30px;
-}
+@Component
+export default class App extends Vue{
+  
+  @Auth.State("user")
+  private currentUser!: any;
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  @Auth.Action
+  private signOut!: () => void;
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+  logOut() {
+    this.signOut();
+    this.$router.push("/");
+  }
+
 }
-</style>
+</script>
