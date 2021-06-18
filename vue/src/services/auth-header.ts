@@ -1,13 +1,17 @@
-import VueCookie from 'vue-cookie'
+import VueCookie from 'vue-cookies'
 
 export default function authHeader() {
-    const jwt_cookie = VueCookie.get('jwt'); //.getItem('user');
-    let jwt = JSON.parse(jwt_cookie ? jwt_cookie : "");
-  
-    if (jwt && jwt.accessToken) {
-       return { Authorization: 'Bearer ' + jwt.accessToken }; 
-      //return { 'x-access-token': user.accessToken };       
-    } else {
-      return {};
+    try {
+      const jwt_cookie = VueCookie.get('jwt'); //.getItem('user');
+      console.log("parsing", jwt_cookie)
+    
+      if (jwt_cookie && jwt_cookie.accessToken) {
+         return 'Bearer ' + jwt_cookie.accessToken ; 
+        //return { 'x-access-token': user.accessToken };       
+      } 
+    }catch(e){
+      console.log("Error while parsing JWT")
     }
+    return null
+    
   }

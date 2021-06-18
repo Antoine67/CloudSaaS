@@ -1,4 +1,4 @@
-import VueCookie from 'vue-cookie'
+import VueCookie from 'vue-cookies'
 
 export default function auth({ next, router }) {
     if (!VueCookie.get('jwt')) {
