@@ -1,7 +1,7 @@
 import axios from 'axios';
 import VueCookie from 'vue-cookie'
 
-const API_URL = 'http://localhost:4000/api/auth/';
+const API_URL = process.env.VUE_APP_AUTH_URL;//'http://localhost:4000/api/auth/';
 
 class AuthService {
   login(email: string, password: string) {
