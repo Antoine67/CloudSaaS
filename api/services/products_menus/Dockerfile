@@ -1,13 +1,16 @@
 FROM node:12
 
 #USER node
-RUN mkdir -p /usr/src/app/node_modules && mkdir -p /usr/src/app/dist && chown -R node:node /usr/src/app
-
-WORKDIR /usr/src/app
+#RUN mkdir /home/node/app
 
 # Install typescript
 RUN npm install -g typescript
 ENV NODE_PATH "/usr/lib/node_modules/"
+
+
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+
 
 # add `/usr/src/node_modules/.bin` to $PATH
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
@@ -15,15 +18,10 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 ADD package.json /usr/src/app/package.json
 ADD tsoa.json /usr/src/app/tsoa.json
 ADD tsconfig.json /usr/src/app/tsconfig.json
-COPY package*.json ./
-
-USER node
 
 RUN npm install --production
-RUN npm build
-
-COPY --chown=node:node . .
-
+#RUN npm run build
+COPY . /
 
 
 CMD npm start
