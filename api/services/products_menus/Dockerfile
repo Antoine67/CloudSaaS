@@ -21,7 +21,7 @@ ADD tsconfig.json /usr/src/app/tsconfig.json
 
 RUN npm install --production
 #RUN npm run build
-COPY . /
+COPY . /usr/src/app
 
 
-CMD npm start
+CMD "npm" "start"
