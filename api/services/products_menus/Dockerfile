@@ -15,13 +15,14 @@ WORKDIR /usr/src/app
 # add `/usr/src/node_modules/.bin` to $PATH
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
+COPY . /usr/src/app
+
 ADD package.json /usr/src/app/package.json
 ADD tsoa.json /usr/src/app/tsoa.json
 ADD tsconfig.json /usr/src/app/tsconfig.json
 
 RUN npm install --production
 RUN npm run build
-COPY . /usr/src/app
 
 
 CMD "npm" "start"
