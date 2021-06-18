@@ -20,7 +20,7 @@ ADD tsoa.json /usr/src/app/tsoa.json
 ADD tsconfig.json /usr/src/app/tsconfig.json
 
 RUN npm install --production
-#RUN npm run build
+RUN npm run build
 COPY . /usr/src/app
 
 
