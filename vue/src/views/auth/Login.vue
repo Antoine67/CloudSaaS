@@ -108,13 +108,13 @@ export default class Login extends Vue {
     private loading = false;
 
     private snackbar = {
-        color: null,
-        icon: null,
-        mode: null,
+        color: "",
+        icon: "",
+        mode: "",
         position: "bottom",
-        text: null,
+        text: "",
         timeout: 3000,
-        title: null,
+        title: "",
         visible: false
       }
 
@@ -154,18 +154,24 @@ export default class Login extends Vue {
     
     // Validation rules
     loginEmailRules = [
+      // @ts-ignore
       v => !!v || "Requis" ,
+      // @ts-ignore
       v => /.+@.+\..+/.test(v) || "E-mail invalide"
     ]
     emailRules= [
+      // @ts-ignore
       v => !!v || "Requis",
+      // @ts-ignore
       v => /.+@.+\..+/.test(v) || "E-mail invalide"
     ]
 
     showPassword= false
     
     rules= {
+      // @ts-ignore
       required: value => !!value || "Requis",
+      // @ts-ignore
       min: v => (v && v.length >= 8) || "Minimum 8 caractères"
     }
 
@@ -189,7 +195,7 @@ export default class Login extends Vue {
   
     loginSubmit() {
         
-
+        // @ts-ignore
         if (this.$refs.loginForm.validate()) {
             if (this.loginEmail && this.loginPassword) {
 
@@ -211,7 +217,7 @@ export default class Login extends Vue {
     }
     registerSubmit() {
         
-
+        // @ts-ignore
         if (this.$refs.registerForm.validate()) {
             if (this.firstName && this.lastName && this.verify && this.email && this.password && this.username) {
                 this.loading = true;
@@ -233,10 +239,12 @@ export default class Login extends Vue {
 
     }
     reset() {
-        this?.$refs?.form?.reset();
+        // @ts-ignore
+        this.$refs.form.reset();
     }
     resetValidation() {
-        this?.$refs?.form?.resetValidation();
+        // @ts-ignore
+        this.$refs.form.resetValidation();
     }
     
 

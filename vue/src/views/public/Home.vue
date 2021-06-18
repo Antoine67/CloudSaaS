@@ -20,7 +20,7 @@
   },
 })
 export default class Home extends Vue {
-  @Prop() private restaurants = [ 
+  restaurants = [ 
     {id: "1", title: "test", rating: 3.5, picture :"https://cdn.vuetifyjs.com/images/cards/cooking.png", description: "descriptionezezae :)"},
     {id: "2", title: "test2", rating: 3.5, picture :"https://cdn.vuetifyjs.com/images/cards/cooking.png", description: "description :)"},
     {id: "3", title: "test3", rating: 3.5, picture :"https://cdn.vuetifyjs.com/images/cards/cooking.png", description: "descriptiozezen :)"},

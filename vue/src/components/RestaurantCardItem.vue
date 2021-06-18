@@ -63,28 +63,23 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
 
-export default Vue.extend({
-  name: 'ResturantCardItem',
-  props: {
-    restaurant: {
-      type: Object,
-    }
-  },
 
-  data: () => ({
-    loading: false,
-  }),
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
-  methods: {
-    reserve () {
+@Component
+export default class RestaurantCardItem extends Vue {
+  @Prop() private restaurant!: any;
+
+  loading = false
+  
+
+  reserve () {
       this.loading = true
 
       setTimeout(() => (this.loading = false), 2000)
-    },
-  },
+    }
+}
 
-});
 
 </script>

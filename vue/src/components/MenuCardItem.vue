@@ -22,28 +22,21 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
 
-export default Vue.extend({
-  name: 'MenuCardItem',
-  props: {
-    menu: {
-      type: Object,
-    }
-  },
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
-  data: () => ({
-    loading: false,
-  }),
+@Component
+export default class MenuCardItem extends Vue {
+  @Prop() private menu!: any;
 
-  methods: {
-    reserve () {
+  loading = false
+  
+
+  reserve () {
       this.loading = true
 
       setTimeout(() => (this.loading = false), 2000)
-    },
-  },
-
-});
+    }
+}
 
 </script>
