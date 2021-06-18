@@ -13,7 +13,7 @@ class AuthService {
       .then(response => {
         if (response.data.accessToken) {
           //localStorage.setItem('user', JSON.stringify(response.data));
-          VueCookie.set('jwt', response.data, {secure: true, http: true} )
+          VueCookie.set('jwt', response.data, '1d', null, null, true )
         }
 
         return response.data;
@@ -22,7 +22,7 @@ class AuthService {
 
   logout() {
     //localStorage.removeItem('user');
-    VueCookie.delete('jwt')
+    VueCookie.remove('jwt')
   }
 
   register(username: string, email: string, password: string) {

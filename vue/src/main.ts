@@ -15,9 +15,6 @@ import "firebase/messaging";
 import VueCookie from 'vue-cookies'
 
 
-VueCookie.get('username')
-VueCookie.config('1d')
-
 Vue.use(VueCookie)
 Vue.use(VueCompositionApi)
 
