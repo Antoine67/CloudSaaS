@@ -1,7 +1,7 @@
 FROM node:12
 
 #USER node
-RUN mkdir -p /usr/src/app/node_modules && chown -R node:node /usr/src/app
+RUN mkdir -p /usr/src/app/node_modules && mkdir -p /usr/src/app/dist && chown -R node:node /usr/src/app
 
 WORKDIR /usr/src/app
 
@@ -20,9 +20,10 @@ COPY package*.json ./
 USER node
 
 RUN npm install --production
+RUN npm build
 
 COPY --chown=node:node . .
 
-RUN npm build
+
 
 CMD npm start
