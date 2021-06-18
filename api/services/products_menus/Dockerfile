@@ -1,28 +1,35 @@
-FROM node:12
+FROM node:lts as builder
 
-#USER node
-#RUN mkdir /home/node/app
+RUN mkdir -p /home/build && chown -R node:node /home/build
 
-# Install typescript
-RUN npm install -g typescript
-ENV NODE_PATH "/usr/lib/node_modules/"
+WORKDIR /home/build
+USER node
 
+COPY package*.json ./
+RUN npm ci --ignore-scripts
 
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
+COPY --chown=node:node . .
 
-
-# add `/usr/src/node_modules/.bin` to $PATH
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-
-COPY . /usr/src/app
-
-ADD package.json /usr/src/app/package.json
-ADD tsoa.json /usr/src/app/tsoa.json
-ADD tsconfig.json /usr/src/app/tsconfig.json
-
-RUN npm install --production
-RUN npm run build
+RUN npm run build:production
+RUN npm prune --production
+# FIX: fixes a requirement of typescript-formatter at typescript which both
+# are dependencies of tsoa
+RUN ln -s node_modules/typescript-formatter node_modules/tsoa/node_modules/typescript-formatter
 
 
-CMD "npm" "start"
+FROM node:lts-alpine
+
+RUN mkdir -p /home/app && chown -R node:node /home/app
+
+WORKDIR /home/app
+USER node
+
+ENV NODE_ENV production
+
+COPY --chown=node:node --from=builder /home/build/package*.json ./
+COPY --chown=node:node --from=builder /home/build/node_modules/ ./node_modules/
+COPY --chown=node:node --from=builder /home/build/dist/ ./dist/
+
+EXPOSE 3000
+
+CMD [ "node", "./dist/index.js" ]

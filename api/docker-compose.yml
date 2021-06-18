@@ -16,9 +16,6 @@ services:
   products_menus_service:
     container_name: products_menus_service
     build: ./services/products_menus/
-    volumes:
-      - './services/products_menus:/usr/src/app'
-      - './services/products_menus/package.json:/usr/src/package.json'
     ports:
       - '3001:3001' # expose ports - HOST:CONTAINER
     environment:
