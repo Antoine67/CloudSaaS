@@ -16,6 +16,7 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 ADD package.json /usr/src/app/package.json
 ADD tsoa.json /usr/src/app/tsoa.json
 ADD tsconfig.json /usr/src/app/tsconfig.json
+COPY package*.json ./
 
 RUN npm install --production
 #RUN npm run build
