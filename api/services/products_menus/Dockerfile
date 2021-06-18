@@ -1,11 +1,11 @@
 FROM node:12.10
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package.json /usr/src/app/
+RUN mkdir -p /usr/src/products
+WORKDIR /usr/src/products
+COPY package.json /usr/src/products/
 RUN npm install
 
-COPY . /usr/src/app
+COPY . /usr/src/products
 RUN npm run build
 
 CMD [ "npm", "run", "start" ]
