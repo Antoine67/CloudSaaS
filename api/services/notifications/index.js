@@ -16,10 +16,8 @@ var serviceAccount = require("./serviceAccountKey.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
+  //  databaseURL: "https://<DATABASE_NAME>.firebaseio.com"
 });
-
-
-
 
 
 app.post('/notifications/suscribe', (req, res)=>{
@@ -101,7 +99,8 @@ app.post('/notifications/send', (req, res)=>{
 app.post('/firebase/message', (req, res)=>{
     const  registrationToken = req.body.registrationToken
     //const message = req.body.message 
-
+    
+     
     const message = {
         data: {
           score: '850',
@@ -116,6 +115,7 @@ app.post('/firebase/message', (req, res)=>{
         .then((res) => {
           // Response is a message ID string.
           console.log('Successfully sent message:', res);
+          console.log(res.results[0].error);
         })
         .catch((error) => {
           console.log('Error sending message:', error);
