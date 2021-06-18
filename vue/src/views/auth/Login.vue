@@ -2,7 +2,7 @@
 <v-container>
     <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
         <div>
-            <v-tabs v-model="tab" show-arrows background-color="deep-purple accent-4" icons-and-text dark grow>
+            <v-tabs v-model="tab" show-arrows background-color="deep-purple accent-4" icons-and-text dark grow >
                 <v-tabs-slider color="purple darken-4"></v-tabs-slider>
                 <v-tab v-for="i in tabs" :key="i.id">
                     <v-icon large>{{ i.icon }}</v-icon>
@@ -11,7 +11,7 @@
                 <v-tab-item>
                     <v-card class="px-4">
                         <v-card-text>
-                            <v-form ref="loginForm" v-model="valid" lazy-validation>
+                            <v-form ref="loginForm" v-model="valid" lazy-validation :disabled="loading">
                                 <v-row>
                                     <v-col cols="12">
                                         <v-text-field v-model="loginEmail" :rules="loginEmailRules" label="E-mail" required></v-text-field>
@@ -23,10 +23,10 @@
                                     </v-col>
                                     <v-spacer></v-spacer>
                                     <v-col class="d-flex" cols="12" sm="4" xsm="12" align-end>
-                                        <v-btn x-large block :disabled="!valid" color="success" @click="loginSubmit"> Connexion </v-btn>
+                                        <v-btn x-large block :disabled="!valid || loading" :loading="loading" color="success" @click="loginSubmit"> Connexion </v-btn>
                                     </v-col>
                                     <v-col class="d-flex" cols="12" sm="6" xsm="12" align-end>
-                                         <v-btn color="primary" text to="/" >  <v-icon>mdi-chevron-left</v-icon> Retour </v-btn>
+                                         <v-btn color="primary" text to="/" :disabled="loading" >  <v-icon>mdi-chevron-left</v-icon> Retour </v-btn>
                                          
                                     </v-col>
                                 </v-row>
@@ -37,7 +37,7 @@
                 <v-tab-item>
                     <v-card class="px-4">
                         <v-card-text>
-                            <v-form ref="registerForm" v-model="valid" lazy-validation>
+                            <v-form ref="registerForm" v-model="valid" lazy-validation :disabled="loading">
                                 <v-row>
                                     <v-col cols="12" sm="6" md="6">
                                         <v-text-field v-model="firstName" :rules="[rules.required]" label="Prénom" maxlength="20" required></v-text-field>
@@ -59,7 +59,7 @@
                                     </v-col>
                                     <v-spacer></v-spacer>
                                     <v-col class="d-flex ml-auto" cols="12" sm="4" xsm="12" align-end>
-                                        <v-btn x-large block :disabled="!valid" color="success" @click="registerSubmit">S'enregistrer</v-btn>
+                                        <v-btn x-large block :disabled="!valid || loading" color="success" @click="registerSubmit" :loading="loading">S'enregistrer</v-btn>
                                     </v-col>
                                 </v-row>
                             </v-form>
@@ -188,11 +188,12 @@ export default class Login extends Vue {
     }
   
     loginSubmit() {
-        this.loading = true;
+        
 
         if (this.$refs.loginForm.validate()) {
             if (this.loginEmail && this.loginPassword) {
 
+                this.loading = true;
                 this.login({email: this.loginEmail, password: this.loginPassword}).then(
                     (data) => {
                         //this.showMessage("Connexion réussie", "success")
@@ -209,11 +210,11 @@ export default class Login extends Vue {
 
     }
     registerSubmit() {
-        this.loading = true;
+        
 
         if (this.$refs.registerForm.validate()) {
             if (this.firstName && this.lastName && this.verify && this.email && this.password && this.username) {
-
+                this.loading = true;
                 this.register({email: this.email, password: this.password, username: this.username}).then(
                     (data) => {
                         this.showMessage("Vous pouvez à présent vous connecter", "success", "Profil créé avec succès")
@@ -228,13 +229,14 @@ export default class Login extends Vue {
                 );
             }
         }
+        
 
     }
     reset() {
-        this.$refs.form.reset();
+        this?.$refs?.form?.reset();
     }
     resetValidation() {
-        this.$refs.form.resetValidation();
+        this?.$refs?.form?.resetValidation();
     }
     
 
