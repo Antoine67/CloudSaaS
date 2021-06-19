@@ -68,7 +68,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
-export default class RestaurantCardItem extends Vue {
+export default class aa extends Vue {
   @Prop() private restaurant!: any;
 
   loading = false
