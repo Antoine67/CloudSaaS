@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-  import RestaurantCardItem from 'ceseat-lib'
+  import {RestaurantCardItem} from 'ceseat-lib'
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import MenusService from '@/services/MenusService'
 @Component({
