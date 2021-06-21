@@ -44,10 +44,15 @@ interface IMenu {
      * Products contained on the menu
      * TODO
      */
-    products?: Array<object>;
+    products?: {
+      step: String;
 
-    
+      product_id: Object;
+
+      quantity: Number;
+    };   
 }
+
 
 const MenuSchema = new mongoose.Schema({
   name: String,
@@ -58,7 +63,7 @@ const MenuSchema = new mongoose.Schema({
   //picture: String,
   products: {
     step: String,
-    product_id:  mongoose.Schema.Types.ObjectId ,
+    product_id:  mongoose.Schema.Types.ObjectId,
     quantity: Number,
   },
 });

@@ -5,7 +5,7 @@ import {Tags} from 'tsoa';
 export type DeliveryCreationParams = Omit<IDelivery, "id">;
 export type DeliveryUpdateParams = Partial<Omit<IDelivery, "id">>;
 
-export class DeliverysService {
+export class DeliveriesService {
 
   public async getAll(): Promise<IDelivery[]> {
     try {
