@@ -23,7 +23,7 @@ export class ProductsService {
     const item = new ProductModel(productCreationParams)
     console.info(productCreationParams)
     let success = false;
-    await item.save(function(err, product) {
+    await item.save(function(err:any, product:any) {
         if (err) success = false;
         else success = true;
     });

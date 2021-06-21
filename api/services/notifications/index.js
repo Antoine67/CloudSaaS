@@ -19,7 +19,6 @@ admin.initializeApp({
   //  databaseURL: "https://<DATABASE_NAME>.firebaseio.com"
 });
 
-
 app.post('/notifications/suscribe', (req, res)=>{
     const  registrationTokens = req.body.registrationTokens;
     const topic = req.body.topic;

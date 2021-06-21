@@ -23,7 +23,7 @@ export class OrdersService {
     const item = new OrderModel(orderCreationParams)
     console.info(orderCreationParams)
     let success = false;
-    await item.save(function(err, order) {
+    await item.save(function(err : any, order: any) {
         if (err) success = false;
         else success = true;
     });

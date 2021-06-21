@@ -26,15 +26,13 @@ import Menu from "@/types/Menu";
   },
 })
 export default class Products extends Vue {
-  @Prop() private menus: Menu[] = [] ;
+  private menus: Menu[] = [] ;
 
-  data() {
-    return {
-      errored : false,
-      error: null,
-      loading: false,
-    }
-  }
+  
+  errored = false
+  error = null
+  loading = false
+  
 
   created () {
     // fetch the data when the view is created and the data is
