@@ -1,11 +1,10 @@
-FROM node:12
+FROM node:12.10
 
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /usr/src/notifications
+WORKDIR /usr/src/notifications
+COPY package.json /usr/src/notifications/
+RUN npm install
 
-ADD package.json /usr/src/app/package.json
-ADD serviceAccountKey.json /usr/src/app/serviceAccountKey.json
+COPY . /usr/src/notifications
 
-RUN npm install --production
-
-CMD npm start
+CMD [ "npm", "run", "start" ]
