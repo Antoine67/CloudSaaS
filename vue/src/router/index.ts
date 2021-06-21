@@ -10,6 +10,8 @@ import auth from "@/middlewares/auth"
 
 Vue.use(VueRouter)
 
+
+
 const routes: Array<RouteConfig> = [
   {
     path: '/',

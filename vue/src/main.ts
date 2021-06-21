@@ -32,10 +32,17 @@ const messaging = firebase.messaging();
 firebase.app();
 
 messaging.requestPermission()
-.then((data)=> {
-  console.log('Notification permission granted.')
-}).catch((error)=> {
-  console.log('Unable to get permission to notify. ' + error)
+  .then(() => {
+    return messaging.getToken()
+  })
+  .then((token) => {
+  })
+  .catch((err) => {
+  })
+
+  messaging.onMessage(function(payload) {
+  alert("Foreground message fired!")
+  console.log(payload)
 });
 
 messaging.usePublicVapidKey(
