@@ -72,14 +72,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 
-import {VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn} from 'vuetify/lib'
-
-
-@Component({
-    components: {
-        VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn
-        }
-})
+@Component
 export default class LoginForm extends Vue {
 
     @Prop() login!:  (data: any) => Promise<any>;

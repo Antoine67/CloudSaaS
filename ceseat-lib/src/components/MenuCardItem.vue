@@ -1,22 +1,40 @@
 <template>
-
   <v-card
     class="mx-auto"
-    max-width="500"
+    max-width="400"
+    tile
+    elevation="2"
   >
-  <p>{{menu.title}}</p>
+    <v-card-title prepend-icon="mdi-map-marker">
+      {{menu.title}}
+    </v-card-title>
+   
+
     <v-list>
-      <v-list-item-group v-model="menu">
-        <v-list-item
-          v-for="product in menu.products"
-          :key="product.id"
-        >
+      <v-list-group
+        v-for="product in menu.products"
+        :key="product.id"
+        :prepend-icon="product.action"
+        no-action
+      >
+        <template v-slot:activator>
           <v-list-item-content>
             <v-list-item-title v-text="product.title"></v-list-item-title>
           </v-list-item-content>
+        </template>
+
+        <v-list-item dense
+          v-for="ingredient in product.ingredients"
+          :key="ingredient + product.id"
+        >
+          <v-list-item-content>
+            <p class="tight-element">{{ingredient}}</p>
+          </v-list-item-content>
         </v-list-item>
-      </v-list-item-group>
+      </v-list-group>
     </v-list>
+
+
   </v-card>
 </template>
 
@@ -25,15 +43,10 @@
 
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-import {VList, VListItemGroup, VListItemContent, VListItemTitle} from 'vuetify/lib'
-
-@Component({
-  components:{
-    VList, VListItemGroup, VListItemContent, VListItemTitle
-  }
-})
+@Component
 export default class MenuCardItem extends Vue {
   @Prop() private menu!: any;
+
 
   loading = false
   
@@ -46,3 +59,10 @@ export default class MenuCardItem extends Vue {
 }
 
 </script>
+
+<style>
+
+.tight-element {
+  margin:0
+}
+</style>

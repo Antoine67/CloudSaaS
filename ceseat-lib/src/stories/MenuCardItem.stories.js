@@ -11,16 +11,32 @@ const Template = (args, { argTypes }) => ({
   template: '<MenuCardItem v-bind="$props" />',
 });
 
+const exampleMenu =  {
+  title: "Menu best-of",
+  products: [
+    {
+      id : 1,
+      title: "Hamburger",
+      ingredients: ["Salade", "Pain", "Cornichon"]
+    },
+    {
+      id : 2,
+      title: "Ice tea",
+      ingredients: []
+    },
+    {
+      id : 3,
+      title: "Frites",
+      ingredients: ["Patates", "Sel"]
+    },
+    
+  ]
+}
+
 export const Default = Template.bind({});
 Default.args = {
-  menu : {
-    title: "test",
-    products: [
-      {
-        id : 1,
-        title: "test"
-      }
-    ]
-  }
+  editable : false,
+  menu :exampleMenu
 };
+
 

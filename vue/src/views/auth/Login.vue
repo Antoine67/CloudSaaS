@@ -29,11 +29,9 @@ import { namespace } from "vuex-class";
 import {LoginForm} from 'ceseat-lib'
 const Auth = namespace("Auth");
 
-import {VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn} from 'vuetify/lib'
-
 @Component({
     components: {
-        LoginForm, VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn
+        LoginForm
     }
 })
 export default class Login extends Vue {
