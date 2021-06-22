@@ -17,8 +17,9 @@
   import MenusService from '@/services/MenusService'
 @Component({
   components: {
-    RestaurantCardItem,
-  },
+     RestaurantCardItem
+  }
+ 
 })
 export default class Home extends Vue {
   restaurants = [ 

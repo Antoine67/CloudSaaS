@@ -25,7 +25,13 @@
 
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component
+import {VList, VListItemGroup, VListItemContent, VListItemTitle} from 'vuetify/lib'
+
+@Component({
+  components:{
+    VList, VListItemGroup, VListItemContent, VListItemTitle
+  }
+})
 export default class MenuCardItem extends Vue {
   @Prop() private menu!: any;
 

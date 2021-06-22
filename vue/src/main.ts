@@ -13,7 +13,7 @@ import firebase from "firebase/app";
 import "firebase/messaging";
 
 import VueCookie from 'vue-cookies'
-
+import '@/plugins/ceseat-lib'
 
 Vue.use(VueCookie)
 Vue.use(VueCompositionApi)
