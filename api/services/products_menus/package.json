@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon ./dist/main.js",
     "start": "node  ./dist/main.js",
-    "build": "tsoa spec-and-routes && tsc",
+    "build": "tsoa routes && tsoa spec-and-routes && tsc",
     "generate": "tsoa swagger",
     "routes": "tsoa routes"
   },

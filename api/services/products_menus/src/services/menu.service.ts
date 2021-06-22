@@ -1,9 +1,6 @@
-import { MenuModel, IMenu } from "../model/menu";
+import { MenuModel, IMenu, MenuCreationParams, MenuUpdateParams } from "../model/menu";
 import {Tags} from 'tsoa';
 
-
-export type MenuCreationParams = Omit<IMenu, "id">;
-export type MenuUpdateParams = Partial<Omit<IMenu, "id">>;
 
 export class MenusService {
 

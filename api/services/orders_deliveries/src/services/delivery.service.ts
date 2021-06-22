@@ -1,9 +1,5 @@
-import { DeliveryModel, IDelivery } from "../model/delivery";
+import { DeliveryModel, IDelivery, DeliveryCreationParams, DeliveryUpdateParams } from "../model/delivery";
 import {Tags} from 'tsoa';
-
-
-export type DeliveryCreationParams = Omit<IDelivery, "id">;
-export type DeliveryUpdateParams = Partial<Omit<IDelivery, "id">>;
 
 export class DeliveriesService {
 

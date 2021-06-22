@@ -1,8 +1,5 @@
-import { RatingModel, IRating } from "../model/rating";
+import { RatingModel, IRating, RatingCreationParams } from "../model/rating";
 import {Tags} from 'tsoa';
-
-
-export type RatingCreationParams = Omit<IRating, "id">;
 
 export class RatingsService {
 

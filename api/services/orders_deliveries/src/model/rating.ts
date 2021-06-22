@@ -37,6 +37,37 @@ interface IRating {
     
 }
 
+/**
+ * Rating object for creation
+ */
+ interface RatingCreationParams {
+   /**
+    * Value of the rate from the user
+    */
+   value: number;
+   
+   /**
+    * Short comment with the rate
+    */
+   comment: string;
+
+   /**
+    * The type of the entity rated
+    */
+   type: string;
+
+   /**
+    * Rated entity uniq indentifier reference 
+    */
+   foreign_id: number;
+
+   /**
+    * Sender uniq indentifier reference
+    */
+   sender_id: number;
+   
+}
+
 const RatingSchema = new mongoose.Schema({
   value: Number,
   comment: String,
@@ -55,4 +86,4 @@ RatingSchema.method("toJSON", function(this: any) {
 
 const RatingModel = mongoose.model('ratings', RatingSchema);
 
-export { RatingModel, IRating }
+export { RatingModel, IRating, RatingCreationParams }

@@ -53,6 +53,102 @@ interface IMenu {
     };   
 }
 
+/**
+ * Menu for creation
+ */
+ interface MenuCreationParams {
+   
+   /**
+    * Name which represent the menu
+    */
+   name: string;
+   
+   /**
+    * Short text describing the menu
+    */
+   description: string;
+
+   /**
+    * Restaurant uniq indentifier reference
+    */
+   restaurant_id: number;
+
+   /**
+    * Price in euros (€)
+    */
+   price?: number;
+
+   /**
+    * Picture URI
+    */
+   //picture?: string;
+
+   /**
+    * Is the menu currently available ?
+    */
+   available: boolean;
+
+   /**
+    * Products contained on the menu
+    * TODO
+    */
+   products?: {
+     step: String;
+
+     product_id: Object;
+
+     quantity: Number;
+   };   
+}
+
+/**
+ * Menu for update
+ */
+ interface MenuUpdateParams {
+   
+   /**
+    * Name which represent the menu
+    */
+   name?: string;
+   
+   /**
+    * Short text describing the menu
+    */
+   description?: string;
+
+   /**
+    * Restaurant uniq indentifier reference
+    */
+   restaurant_id?: number;
+
+   /**
+    * Price in euros (€)
+    */
+   price?: number;
+
+   /**
+    * Picture URI
+    */
+   //picture?: string;
+
+   /**
+    * Is the menu currently available ?
+    */
+   available?: boolean;
+
+   /**
+    * Products contained on the menu
+    * TODO
+    */
+   products?: {
+     step: String;
+
+     product_id: Object;
+
+     quantity: Number;
+   };   
+}
+
 
 const MenuSchema = new mongoose.Schema({
   name: String,
@@ -78,4 +174,4 @@ MenuSchema.method("toJSON", function(this: any) {
 
 const MenuModel = mongoose.model('menus', MenuSchema);
 
-export { MenuModel, IMenu }
+export { MenuModel, IMenu, MenuCreationParams, MenuUpdateParams }

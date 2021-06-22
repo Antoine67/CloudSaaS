@@ -5,20 +5,15 @@ import * as mongoose from 'mongoose';
  * meals/dessert/... for sale
  */
 interface IOrder {
-   /**
+    /**
     * Uniq indentifier
     */
     id: string;
     
     /**
-     * Name which represent the order
-     */
-    name: string;
-    
-    /**
-     * Short text describing the order
-     */
-    description: string;
+    * Uniq indentifier
+    */
+    date: Date;
 
     /**
      * Restaurant uniq indentifier reference
@@ -26,26 +21,178 @@ interface IOrder {
     restaurant_id: number;
 
     /**
-     * Price in euros (€)
-     */
-    price?: number;
+    * Restaurant uniq indentifier reference
+    */
+    customer_id: number;
 
     /**
-     * Picture URI
+    * Restaurant uniq indentifier reference
+    */
+    deliverer_id: number;
+    
+    /**
+     * Name which represent the order
      */
-    //picture?: string;
+    status: string;
+    
+    /**
+    * Pricing contained in order
+    */
+    pricing: {
+      paid: String;
+ 
+      commision_fees: Object;
+ 
+      restaurant_fees: Number;
+ 
+      delivering_fees: Number;
+
+      discount: Number;
+
+      total: Number
+    };
 
     /**
      * Is the order currently available ?
      */
-    available: boolean;
+    delivered: boolean;
 
     /**
-     * Ingredients list composing order
-     */
-    ingredients?: Array<string>;
+    * Products contained in order
+    */
+    products: {
+      step: String;
 
-    
+      product_id: Object;
+
+      quantity: Number;
+    };
+}
+
+/**
+ * Order object for creation
+ */
+interface OrderCreationParams {
+  /**
+  * Uniq indentifier
+  */
+  date: Date;
+
+  /**
+   * Restaurant uniq indentifier reference
+   */
+  restaurant_id: number;
+
+  /**
+  * Restaurant uniq indentifier reference
+  */
+  customer_id: number;
+
+  /**
+  * Restaurant uniq indentifier reference
+  */
+  deliverer_id: number;
+  
+  /**
+   * Name which represent the order
+   */
+  status: string;
+  
+  /**
+  * Pricing contained in order
+  */
+  pricing: {
+    paid: String;
+
+    commision_fees: Object;
+
+    restaurant_fees: Number;
+
+    delivering_fees: Number;
+
+    discount: Number;
+
+    total: Number
+  };
+
+  /**
+   * Is the order currently available ?
+   */
+  delivered: boolean;
+
+  /**
+  * Products contained in order
+  */
+  products: {
+    step: String;
+
+    product_id: Object;
+
+    quantity: Number;
+  };
+}
+
+  /**
+ * Order object for update
+ */
+ interface OrderUpdateParams {
+  /**
+  * Uniq indentifier
+  */
+  date?: Date;
+
+  /**
+   * Restaurant uniq indentifier reference
+   */
+  restaurant_id?: number;
+
+  /**
+  * Restaurant uniq indentifier reference
+  */
+  customer_id?: number;
+
+  /**
+  * Restaurant uniq indentifier reference
+  */
+  deliverer_id?: number;
+  
+  /**
+   * Name which represent the order
+   */
+  status?: string;
+  
+  /**
+  * Pricing contained in order
+  */
+  pricing?: {
+    paid: String;
+
+    commision_fees: Object;
+
+    restaurant_fees: Number;
+
+    delivering_fees: Number;
+
+    discount: Number;
+
+    total: Number
+  };
+
+  /**
+   * Is the order currently available ?
+   */
+  delivered?: boolean;
+
+  /**
+  * Products contained in order
+  */
+  products?: {
+    step: String;
+
+    product_id: Object;
+
+    quantity: Number;
+  };
 }
 
 const OrderSchema = new mongoose.Schema({
@@ -80,4 +227,4 @@ OrderSchema.method("toJSON", function(this: any) {
 
 const OrderModel = mongoose.model('orders', OrderSchema);
 
-export { OrderModel, IOrder }
+export { OrderModel, IOrder, OrderCreationParams, OrderUpdateParams }

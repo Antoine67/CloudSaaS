@@ -1,9 +1,6 @@
-import { ProductModel, IProduct } from "../model/product";
+import { ProductModel, IProduct, ProductCreationParams, ProductUpdateParams } from "../model/product";
 import {Tags} from 'tsoa';
 
-
-export type ProductCreationParams = Omit<IProduct, "id">;
-export type ProductUpdateParams = Partial<Omit<IProduct, "id">>;
 
 export class ProductsService {
 

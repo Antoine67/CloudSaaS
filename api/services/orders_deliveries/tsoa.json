@@ -1,13 +1,22 @@
 {
-	"entryFile": "./src/app.ts",
-	"spec": {
-		"outputDirectory": ".",
-		"entryFile": "./src/app.ts",
-		"basePath": "/api"
-	},
-	"routes": {
-		"basePath": "/api",
-		"entryFile": "./src/app.ts",
-		"routesDir": "./src"
-	}
+    "entryFile": "./src/app.ts",
+    "swagger": {
+        "outputDirectory": ".",
+        "entryFile": "./src/app.ts",
+        "basePath": "/api",
+        "host": "localhost:8080",
+        "schemes": ["http"]
+    },
+    "spec": {
+        "outputDirectory": ".",
+        "entryFile": "./src/app.ts",
+        "basePath": "/api",
+        "host": "localhost:8080",
+        "schemes": ["http"]
+    },
+    "routes": {
+        "basePath": "/api",
+        "entryFile": "./src/app.ts",
+        "routesDir": "./src"
+    }
 }

@@ -1,8 +1,8 @@
 
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
-import { IMenu } from "../model/menu";
-import { MenusService, MenuCreationParams, MenuUpdateParams } from "../services/menu.service";
+import { IMenu, MenuCreationParams, MenuUpdateParams } from "../model/menu";
+import { MenusService } from "../services/menu.service";
 //import { MenusService } from "../services/menu.service";
 
 @Route('/menus')

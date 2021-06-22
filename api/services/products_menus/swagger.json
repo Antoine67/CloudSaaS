@@ -53,11 +53,87 @@
 			"type": "object"
 		},
 		"ProductCreationParams": {
-			"properties": {},
+			"description": "Product data for creation",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "Name which represent the product"
+				},
+				"description": {
+					"type": "string",
+					"description": "Short text describing the product"
+				},
+				"restaurant_id": {
+					"type": "number",
+					"format": "double",
+					"description": "Restaurant uniq indentifier reference"
+				},
+				"price": {
+					"type": "number",
+					"format": "double",
+					"description": "Price in euros (€)",
+					"x-nullable": true
+				},
+				"available": {
+					"type": "boolean",
+					"description": "Is the product currently available ?"
+				},
+				"ingredients": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Ingredients list composing product",
+					"x-nullable": true
+				}
+			},
+			"required": [
+				"name",
+				"description",
+				"restaurant_id",
+				"available"
+			],
 			"type": "object"
 		},
 		"ProductUpdateParams": {
-			"properties": {},
+			"description": "Product data for update",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "Name which represent the product",
+					"x-nullable": true
+				},
+				"description": {
+					"type": "string",
+					"description": "Short text describing the product",
+					"x-nullable": true
+				},
+				"restaurant_id": {
+					"type": "number",
+					"format": "double",
+					"description": "Restaurant uniq indentifier reference",
+					"x-nullable": true
+				},
+				"price": {
+					"type": "number",
+					"format": "double",
+					"description": "Price in euros (€)",
+					"x-nullable": true
+				},
+				"available": {
+					"type": "boolean",
+					"description": "Is the product currently available ?",
+					"x-nullable": true
+				},
+				"ingredients": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					},
+					"description": "Ingredients list composing product",
+					"x-nullable": true
+				}
+			},
 			"type": "object"
 		},
 		"IMenu": {
@@ -106,11 +182,81 @@
 			"type": "object"
 		},
 		"MenuCreationParams": {
-			"properties": {},
+			"description": "Menu for creation",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "Name which represent the menu"
+				},
+				"description": {
+					"type": "string",
+					"description": "Short text describing the menu"
+				},
+				"restaurant_id": {
+					"type": "number",
+					"format": "double",
+					"description": "Restaurant uniq indentifier reference"
+				},
+				"price": {
+					"type": "number",
+					"format": "double",
+					"description": "Price in euros (€)",
+					"x-nullable": true
+				},
+				"available": {
+					"type": "boolean",
+					"description": "Is the menu currently available ?"
+				},
+				"products": {
+					"type": "object",
+					"description": "Products contained on the menu\r\nTODO",
+					"x-nullable": true
+				}
+			},
+			"required": [
+				"name",
+				"description",
+				"restaurant_id",
+				"available"
+			],
 			"type": "object"
 		},
 		"MenuUpdateParams": {
-			"properties": {},
+			"description": "Menu for update",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "Name which represent the menu",
+					"x-nullable": true
+				},
+				"description": {
+					"type": "string",
+					"description": "Short text describing the menu",
+					"x-nullable": true
+				},
+				"restaurant_id": {
+					"type": "number",
+					"format": "double",
+					"description": "Restaurant uniq indentifier reference",
+					"x-nullable": true
+				},
+				"price": {
+					"type": "number",
+					"format": "double",
+					"description": "Price in euros (€)",
+					"x-nullable": true
+				},
+				"available": {
+					"type": "boolean",
+					"description": "Is the menu currently available ?",
+					"x-nullable": true
+				},
+				"products": {
+					"type": "object",
+					"description": "Products contained on the menu\r\nTODO",
+					"x-nullable": true
+				}
+			},
 			"type": "object"
 		}
 	},

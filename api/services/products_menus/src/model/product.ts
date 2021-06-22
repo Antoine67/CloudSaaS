@@ -48,6 +48,91 @@ interface IProduct {
     
 }
 
+
+/**
+ * Product data for creation
+ */
+interface ProductCreationParams {
+
+   /**
+    * Name which represent the product
+    */
+   name: string;
+   
+   /**
+    * Short text describing the product
+    */
+   description: string;
+
+   /**
+    * Restaurant uniq indentifier reference
+    */
+   restaurant_id: number;
+
+   /**
+    * Price in euros (€)
+    */
+   price?: number;
+
+   /**
+    * Picture URI
+    */
+   //picture?: string;
+
+   /**
+    * Is the product currently available ?
+    */
+   available: boolean;
+
+   /**
+    * Ingredients list composing product
+    */
+   ingredients?: Array<string>;
+
+}
+
+/**
+ * Product data for update
+ */
+interface ProductUpdateParams {
+
+  /**
+   * Name which represent the product
+   */
+  name?: string;
+  
+  /**
+   * Short text describing the product
+   */
+  description?: string;
+
+  /**
+   * Restaurant uniq indentifier reference
+   */
+  restaurant_id?: number;
+
+  /**
+   * Price in euros (€)
+   */
+  price?: number;
+
+  /**
+   * Picture URI
+   */
+  //picture?: string;
+
+  /**
+   * Is the product currently available ?
+   */
+  available?: boolean;
+
+  /**
+   * Ingredients list composing product
+   */
+  ingredients?: Array<string>;
+
+}
+
 const ProductSchema = new mongoose.Schema({
   name: String,
   description: String,
@@ -70,4 +155,4 @@ ProductSchema.method("toJSON", function(this: any) {
 
 const ProductModel = mongoose.model('products', ProductSchema);
 
-export { ProductModel, IProduct }
+export { ProductModel, IProduct, ProductCreationParams, ProductUpdateParams}

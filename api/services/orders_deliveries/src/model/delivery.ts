@@ -27,9 +27,55 @@ interface IDelivery {
     /**
      * Is the delivery currently available ?
      */
-    status: String;
+    status: String;    
+}
 
-    
+/**
+ * Delivery object for creation
+ */
+ interface DeliveryCreationParams {
+   /**
+    * Order uniq indentifier reference
+    */
+   order_id: number;
+   
+   /**
+    * The date of creation of the delivery
+    */
+   date: Date;
+
+   /**
+    * TODO geospatial queries
+    */
+
+   /**
+    * Is the delivery currently available ?
+    */
+   status: String;
+}
+
+/**
+ * Delivery object for update
+ */
+ interface DeliveryUpdateParams {
+   /**
+    * Order uniq indentifier reference
+    */
+   order_id?: number;
+   
+   /**
+    * The date of creation of the delivery
+    */
+   date?: Date;
+
+   /**
+    * TODO geospatial queries
+    */
+
+   /**
+    * Is the delivery currently available ?
+    */
+   status?: String;
 }
 
 const DeliverySchema = new mongoose.Schema({
@@ -48,4 +94,4 @@ DeliverySchema.method("toJSON", function(this: any) {
 
 const DeliveryModel = mongoose.model('deliveries', DeliverySchema);
 
-export { DeliveryModel, IDelivery }
+export { DeliveryModel, IDelivery, DeliveryCreationParams, DeliveryUpdateParams }

@@ -1,8 +1,8 @@
 
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
-import { IRating } from "../model/rating";
-import { RatingsService, RatingCreationParams } from "../services/rating.service";
+import { IRating, RatingCreationParams } from "../model/rating";
+import { RatingsService } from "../services/rating.service";
 //import { RatingsService } from "../services/rating.service";
 
 @Route('/ratings')
