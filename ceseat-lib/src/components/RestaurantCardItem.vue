@@ -1,8 +1,8 @@
 <template>
 
   <v-card
-    :to="{ name: 'RestaurantDetails', params: { id: restaurant.id }}"
     :loading="loading"
+    :to=to
     class="mx-auto my-12"
     max-width="374"
   >
@@ -70,15 +70,10 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class RestaurantCardItem extends Vue {
   @Prop() private restaurant!: any;
+  @Prop() to!: any;
 
   loading = false
   
-
-  reserve () {
-      this.loading = true
-
-      setTimeout(() => (this.loading = false), 2000)
-    }
 }
 
 

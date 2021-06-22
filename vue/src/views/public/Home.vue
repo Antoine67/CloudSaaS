@@ -4,8 +4,8 @@
       <v-col
         v-for="rest in restaurants"
         :key="rest.id"
-      >          
-        <RestaurantCardItem :restaurant="rest"/>
+      >    
+          <RestaurantCardItem :restaurant="rest" :to="{ name: 'RestaurantDetails', params: { id: rest.id }}"/>
       </v-col>
     </v-row>
   </v-container>
