@@ -55,18 +55,24 @@ export default class Products extends Vue {
       });
       */
      this.menus = [
-      {id:"test", title: "menu1", description: "supe", products: [
-          {
-              id:"1",
-              title: "test",
-              description: "supe",
-          },
-           {
-              id:"2",
-              title: "test",
-              description: "supe",
-          }
-      ]},
+      {id:"test", title: "Maxi Best of", description: "supe",products: [
+    {
+      id : 1,
+      title: "Hamburger",
+      ingredients: ["Salade", "Pain", "Cornichon"]
+    },
+    {
+      id : 2,
+      title: "Ice tea",
+      ingredients: []
+    },
+    {
+      id : 3,
+      title: "Frites",
+      ingredients: ["Patates", "Sel"]
+    },
+    
+  ]},
       {id:"test2", title: "menu2", description: "supe", products: [] }
      ];
   }

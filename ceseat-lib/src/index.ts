@@ -4,7 +4,6 @@ import RestaurantCardItem from "./components/RestaurantCardItem.vue";
 import LoginForm from "./components/LoginForm.vue";
 import ProductItem from "./components/ProductItem.vue";
 
-import VueRouter from 'vue-router'
 import Vuetify from 'vuetify/lib';
 
 import {VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn} from 'vuetify/lib'
@@ -15,7 +14,6 @@ Vue.use(Vuetify, {
     components:  {VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn},
   })
 
-Vue.use(VueRouter);
 
 const Components = {
     MenuCardItem,
