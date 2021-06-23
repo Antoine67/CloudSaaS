@@ -27,11 +27,11 @@
             </v-container>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="popup = false">
+            <v-btn color="blue darken-1" text @click="goToCheckout">
               Passer au paiement
             </v-btn>
             <v-btn color="blue darken-1" text @click="popup = false">
-              Quitter
+              Annuler
             </v-btn>
           </v-card-actions>
         </v-sheet>
@@ -54,6 +54,12 @@ export default class ShoppingCart extends Vue {
 
     @Cart.Getter
     private getCart : any[]
+
+    goToCheckout() {
+        this.$router.push('/checkout')
+        this.popup = false
+    }
+    
 
 }
 </script>

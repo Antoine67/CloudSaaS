@@ -95,7 +95,8 @@ export default class Products extends Vue {
 
   pay(menu: Menu) {
     if(this.isLoggedIn) {
-      //TODO Redirect to payment
+      this.addToCart(menu);
+      this.$router.push("/checkout")
 
     }else {
       this.$router.push("/login")

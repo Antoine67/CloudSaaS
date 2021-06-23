@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '@/views/public/Home.vue'
-import Products from "@/views/public/Products.vue";
+import CartCheckout from "@/views/logged/CartCheckout.vue";
 import RestaurantDetails from "@/views/public/RestaurantDetails.vue"
 import Login from "@/views/auth/Login.vue";
 import Profile from "@/views/logged/Profile.vue"
@@ -30,6 +30,14 @@ const routes: Array<RouteConfig> = [
     path: '/profile',
     name: 'Profile',
     component: Profile,
+    meta: {
+      middleware: auth 
+    }
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: CartCheckout,
     meta: {
       middleware: auth 
     }

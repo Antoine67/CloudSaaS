@@ -47,8 +47,10 @@
           <v-icon>mdi-login</v-icon>
         </v-btn>
       </span>
+
       <span v-else>
         <ShoppingCart/>
+        
 
         <v-btn
           @click.prevent="logOut"
@@ -73,6 +75,7 @@ import { Component, Vue } from "vue-property-decorator";
 //import {ShoppingCart} from "./components/ShoppingCart.vue"
 import ShoppingCart from "@/components/ShoppingCart";
 import { namespace } from "vuex-class";
+
 const Auth = namespace("Auth");
 
 @Component({
