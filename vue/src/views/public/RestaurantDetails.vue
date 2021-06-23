@@ -5,7 +5,7 @@
             v-for="menu in menus"
             :key="menu.id"
         >          
-            <MenuCardItem :menu="menu"/>
+            <MenuCardItem :menu="menu" :addToCart="addToCart" :pay="pay" />
         </v-col>
         </v-row>
     </v-container>
@@ -13,12 +13,15 @@
 
 
 <script lang="ts">
-//import { Options, Vue } from "vue-class-component";
+
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import {MenuCardItem} from "ceseat-lib"; // @ is an alias to /src
+import {MenuCardItem} from "ceseat-lib";
 
 import MenusService from "@/services/MenusService";
 import Menu from "@/types/Menu";
+import { namespace } from "vuex-class";
+const Auth = namespace("Auth");
+const Cart = namespace("Cart");
 
 @Component({
   components: {
@@ -28,6 +31,11 @@ import Menu from "@/types/Menu";
 export default class Products extends Vue {
   private menus: Menu[] = [] ;
 
+  @Auth.Getter
+  private isLoggedIn!: boolean;
+
+  @Cart.Action
+  private addItemToCart!: (ctx: any, qty: number) => Promise<any>;
   
   errored = false
   error = null
@@ -35,8 +43,6 @@ export default class Products extends Vue {
   
 
   created () {
-    // fetch the data when the view is created and the data is
-    // already being observed
     this.retrieveMenus()
   }
 
@@ -75,6 +81,25 @@ export default class Products extends Vue {
   ]},
       {id:"test2", title: "menu2", description: "supe", products: [] }
      ];
+  }
+
+  addToCart(menu: Menu) {
+    if(this.isLoggedIn) {
+      this.addItemToCart(menu, 1);
+
+    }else {
+      this.$router.push("/login")
+    }
+    
+  }
+
+  pay(menu: Menu) {
+    if(this.isLoggedIn) {
+      //TODO Redirect to payment
+
+    }else {
+      this.$router.push("/login")
+    }
   }
   
 }

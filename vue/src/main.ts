@@ -3,11 +3,7 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import VueCompositionApi from '@vue/composition-api'
 import vuetify from '@/plugins/vuetify'
-
-
-import axios from "axios";
 
 import firebase from "firebase/app";
 import "firebase/messaging";
@@ -16,7 +12,6 @@ import VueCookie from 'vue-cookies'
 import '@/plugins/ceseat-lib'
 
 Vue.use(VueCookie)
-Vue.use(VueCompositionApi)
 
 import firebaseMessaging from './firebase'
 

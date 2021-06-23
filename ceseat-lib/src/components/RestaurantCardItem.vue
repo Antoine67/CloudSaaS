@@ -2,7 +2,6 @@
 
   <v-card
     :loading="loading"
-    :to=to
     class="mx-auto my-12"
     max-width="374"
   >
@@ -55,7 +54,7 @@
         color="deep-purple lighten-2"
         text
       >
-        Commander
+        En savoir plus
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -70,11 +69,19 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class RestaurantCardItem extends Vue {
   @Prop() private restaurant!: any;
-  @Prop() to!: any;
 
   loading = false
+
   
 }
 
 
 </script>
+
+
+<style scoped>
+
+.v-card {
+  cursor: pointer;
+}
+</style>

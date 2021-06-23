@@ -35,8 +35,9 @@ const exampleMenu =  {
 
 export const Default = Template.bind({});
 Default.args = {
-  editable : false,
-  menu :exampleMenu
+  menu :exampleMenu,
+  addToCart: (menu) => {console.log(menu)},
+  addEnabled: true,
 };
 
 

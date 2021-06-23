@@ -5,7 +5,7 @@
         v-for="rest in restaurants"
         :key="rest.id"
       >    
-          <RestaurantCardItem :restaurant="rest" :to="{ name: 'RestaurantDetails', params: { id: rest.id }}"/>
+          <RestaurantCardItem :restaurant="rest" @click.native="toRestaurantDetails(rest.id)"/>
       </v-col>
     </v-row>
   </v-container>
@@ -31,7 +31,11 @@ export default class Home extends Vue {
   ];
 
   created() {
-    MenusService.getAll().catch((e)=>console.log("errrrr:",e));
+    //MenusService.getAll().catch((e)=>console.log("errrrr:",e));
+  }
+
+  toRestaurantDetails(id: any) {
+    this.$router.push({ name: 'RestaurantDetails', params: { id: id }})
   }
 
 }

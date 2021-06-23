@@ -17,11 +17,6 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
-    path: "/products",
-    name: "Products",
-    component: Products,
-  },
-  {
     path: '/login',
     name: 'Login',
     component: Login,

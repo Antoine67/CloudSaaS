@@ -7,6 +7,7 @@ import VueCookie from 'vue-cookies'
 @Module({ namespaced: true })
 class AuthModule extends VuexModule {
   
+  // tslint:disable-next-line
   public user =  VueCookie.get('jwt');
   public status = this.user ? { loggedIn: true } : { loggedIn: false };
 

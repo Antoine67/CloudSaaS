@@ -24,7 +24,7 @@
                                         <v-btn x-large block :disabled="!valid || loading" :loading="loading" color="success" @click="loginSubmit"> Connexion </v-btn>
                                     </v-col>
                                     <v-col class="d-flex" cols="12" sm="6" xsm="12" align-end>
-                                         <v-btn color="primary" text to="/" :disabled="loading" >  <v-icon>mdi-chevron-left</v-icon> Retour </v-btn>
+                                         <v-btn color="primary" text @click="returnClick" :disabled="loading" >  <v-icon>mdi-chevron-left</v-icon> Retour </v-btn>
                                          
                                     </v-col>
                                 </v-row>
@@ -78,7 +78,8 @@ export default class LoginForm extends Vue {
     @Prop() login!:  (data: any) => Promise<any>;
     @Prop() register!: (data: any) => Promise<any>;
     @Prop() showMessage!: (message: string, color?: string, title?: string, ico?: string) => void;
-    @Prop() submitLogin! : () => any;
+    @Prop() returnClick!: () => any;
+    @Prop() submitLogin!: () => any;
 
 
     private loading = false;

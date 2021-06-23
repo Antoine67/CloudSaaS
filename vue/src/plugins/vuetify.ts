@@ -11,12 +11,12 @@ import Vuetify, {
     VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn
 } from 'vuetify/lib'
 
-
+/*
 Vue.use(Vuetify, {
   components: {
     VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn
   },
-})
+})*/
 
 const opts = {}
 

@@ -34,25 +34,30 @@
       </router-link>
 
       
-
+      
       <v-spacer></v-spacer>
 
-      <v-btn v-if="!currentUser"
-        to="/login"
-        text
-      >
-        <span class="mr-2">Se connecter</span>
-        <v-icon>mdi-login</v-icon>
-      </v-btn>
+      
+      <span v-if="!currentUser">
+        <v-btn 
+          to="/login"
+          text
+        >
+          <span class="mr-2">Se connecter</span>
+          <v-icon>mdi-login</v-icon>
+        </v-btn>
+      </span>
+      <span v-else>
+        <ShoppingCart/>
 
-       <v-btn v-if="currentUser"
-        @click.prevent="logOut"
-        text
-      >
-        <span class="mr-2">Déconnexion</span>
-        <v-icon>mdi-login</v-icon>
-      </v-btn>
-
+        <v-btn
+          @click.prevent="logOut"
+          text
+        >
+          <span class="mr-2">Déconnexion</span>
+          <v-icon>mdi-login</v-icon>
+        </v-btn>
+      </span>
     </v-app-bar>
 
     
@@ -65,10 +70,14 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+//import {ShoppingCart} from "./components/ShoppingCart.vue"
+import ShoppingCart from "@/components/ShoppingCart";
 import { namespace } from "vuex-class";
 const Auth = namespace("Auth");
 
-@Component
+@Component({
+  components: { ShoppingCart }
+})
 export default class App extends Vue{
   
   @Auth.State("user")

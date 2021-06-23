@@ -2,7 +2,7 @@
 <v-app>
     <v-container>
         <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
-            <LoginForm :submitLogin=successLogin :showMessage=showMessage />
+            <LoginForm :submitLogin=successLogin :showMessage=showMessage :returnClick=returnClick :login=login :register=register />
 
             <v-snackbar v-model="snackbar.visible" :color="snackbar.color" :multi-line="snackbar.mode === 'multi-line'" :timeout="snackbar.timeout" :top="snackbar.position === 'top'">
                 <v-layout align-center pr-4>
@@ -26,8 +26,9 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { namespace } from "vuex-class";
-import {LoginForm} from 'ceseat-lib'
 const Auth = namespace("Auth");
+import {LoginForm} from 'ceseat-lib'
+
 
 @Component({
     components: {
@@ -53,6 +54,10 @@ export default class Login extends Vue {
     @Auth.Action
     private register!: (data: any) => Promise<any>;
 
+
+    returnClick() {
+        this.$router.push("/");
+    }
 
     successLogin() {
         this.$router.push("/profile");

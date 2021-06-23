@@ -17,5 +17,6 @@ Default.args = {
   register : (data) => {return Promise.resolve(data)},
   showMessage: (message, color, title, ico) => {console.log(message, color, title, ico)},
   submitLogin : (data) => {return Promise.resolve(data)},
+  returnClick: () => { console.log("Return cliked")}
 };
 
