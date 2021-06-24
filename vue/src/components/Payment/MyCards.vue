@@ -107,7 +107,7 @@
 
 <v-btn @click="popup=true">Gérer mes cartes</v-btn>
     <span v-if="selected && selected[0]">
-        Carte séléctionnée : {{selected && selected[0] ? selected[0].number : ""}}
+        Carte séléctionnée : {{selected && selected[0] ? selected[0].card_number : ""}}
     </span>
     <span v-else>
         Aucune carte séléctionée
@@ -122,7 +122,9 @@
 <script lang="ts">
 import { Component, Vue, Prop} from "vue-property-decorator";
 
-import CardCheckoutItem from '@/components/Payment/CardCheckoutItem';
+import CardCheckoutItem from '@/components/Payment/CardCheckoutItem.vue';
+
+import Card from '@/types/Card'
 
 @Component({
     components: {
@@ -132,9 +134,11 @@ import CardCheckoutItem from '@/components/Payment/CardCheckoutItem';
 export default class MyCards extends Vue{
 
 
-    popup=false
-    dialog= false
+    popup = false
+    dialog = false
     dialogDelete= false
+
+    cards : Card[] = [] 
 
     editedIndex= -1
       editedItem= {
@@ -155,7 +159,7 @@ export default class MyCards extends Vue{
             sortable: false,
             value: 'name',
           },
-          { text: 'N°', value: 'number' },
+          { text: 'N°', value: 'card_number' },
           { text: 'Mois expiration', value: 'expiration_month' },
           { text: 'Année expiration', value: 'expiration_year' },
           { text: 'CVV', value: 'cvv' },
@@ -163,7 +167,7 @@ export default class MyCards extends Vue{
     ]
 
     onNewCardReturn() {
-        this.close()
+        this.dialog = false
     }
 
     onNewCardCreate() {
@@ -176,10 +180,10 @@ export default class MyCards extends Vue{
         else return 'green'
     }
 
-    deleteItem (item) {
-        this.editedIndex = this.cards.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
+    deleteItem (item: any) {
+        //this.editedIndex = this.cards.indexOf(item)
+        //this.editedItem = Object.assign({}, item)
+        //this.dialogDelete = true
     }
 
     deleteItemConfirm () {
@@ -191,8 +195,8 @@ export default class MyCards extends Vue{
     closeDelete () {
         this.dialogDelete = false
         this.$nextTick(() => {
-            this.editedItem = Object.assign({}, this.defaultItem)
-            this.editedIndex = -1
+            //this.editedItem = Object.assign({}, this.defaultItem)
+            //this.editedIndex = -1
         })
     }
 
@@ -203,8 +207,8 @@ export default class MyCards extends Vue{
 
     retrieveCards () {
         this.cards = [
-        {id:1, name: "Lucas Faninger", number: "XXXX XXXX XXXX XXXX", expiration_date: "07", expiration_year: 2023, cvv:"784"},
-        {id:2, name: "Nicolas Ekobe", number: "XXXX XXXX XXXX XXXX", expiration_month: "07", expiration_year: 2023, cvv:"784"}
+        {id:1, name: "Lucas Faninger", card_number: "XXXX XXXX XXXX XXXX", expiration_month: "07", expiration_year: '2023', cvv:"784"},
+        {id:2, name: "Nicolas Ekobe", card_number: "XXXX XXXX XXXX XXXX", expiration_month: "07", expiration_year: '2023', cvv:"784"}
         ]
     }
      

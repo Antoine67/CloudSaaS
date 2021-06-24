@@ -43,7 +43,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
 
-import MyCards from '@/components/Payment/MyCards';
+import MyCards from '@/components/Payment/MyCards.vue';
 const Cart = namespace("Cart");
 
 @Component({
