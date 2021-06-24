@@ -24,7 +24,8 @@
       "esnext",
       "dom",
       "dom.iterable",
-      "scripthost"
+      "scripthost",
+      "webworker"
     ]
   },
   "include": [
@@ -34,6 +35,7 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
 , "src/firebase.js"  ],
+
   "exclude": [
     "node_modules"
   ]
