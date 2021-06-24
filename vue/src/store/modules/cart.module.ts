@@ -9,11 +9,14 @@ export interface MenuItem {
     quantity: number;
 }
 
+//let lsCart = localStorage.getItem('cart');
+
 @Module({ namespaced: true })
 class CartModule extends VuexModule {
 
 
-  public cart: MenuItem[] = [] 
+  
+  public cart: MenuItem[] = []
 
 
   @Mutation
@@ -25,17 +28,20 @@ class CartModule extends VuexModule {
     } else {
       item.quantity = item.quantity + 1
     }
+    localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
   @Mutation
   public REMOVE_ONE_FROM_COUNT (oldMenu: Menu) {
     const item = this.cart.find((m: any) => m.menu.id === oldMenu.id)
     item!.quantity -= 1
+    localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
   @Mutation
   public REMOVE_FROM_CART (menu: Menu) {
     this.cart = this.cart.filter(m => m.menu.id != menu.id)
+    localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
   @Action({ rawError: true })

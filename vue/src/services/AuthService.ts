@@ -13,6 +13,7 @@ class AuthService {
       .then(response => {
         if (response.data.accessToken) {
           //localStorage.setItem('user', JSON.stringify(response.data));
+          // tslint:disable-next-line
           VueCookie.set('jwt', response.data, '1d', null, null, true )
         }
 
@@ -22,6 +23,7 @@ class AuthService {
 
   logout() {
     //localStorage.removeItem('user');
+    // tslint:disable-next-line
     VueCookie.remove('jwt')
   }
 

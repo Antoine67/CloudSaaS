@@ -50,10 +50,10 @@ export default class ShoppingCart extends Vue {
     popup = false
 
     @Cart.Getter
-    private getNumberInCart : number
+    private getNumberInCart! : number
 
     @Cart.Getter
-    private getCart : any[]
+    private getCart! : any[]
 
     goToCheckout() {
         this.$router.push('/checkout')

@@ -15,7 +15,7 @@
 
     <CardCheckoutItem/>
 
-    <!-- TODO  move into own component -->
+    <!-- TODO  move into own component and finish it up -->
     <v-container>
         <v-radio-group>
             <v-list>

@@ -37,6 +37,7 @@ export const Default = Template.bind({});
 Default.args = {
   menu :exampleMenu,
   addToCart: (menu) => {console.log(menu)},
+  pay: (menu) => {console.log(menu)},
   addEnabled: true,
 };
 

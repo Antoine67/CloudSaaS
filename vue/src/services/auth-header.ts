@@ -2,6 +2,7 @@ import VueCookie from 'vue-cookies'
 
 export default function authHeader() {
     try {
+      // tslint:disable-next-line
       const jwt_cookie = VueCookie.get('jwt'); //.getItem('user');
       console.log("parsing", jwt_cookie)
     
