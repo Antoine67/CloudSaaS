@@ -12,24 +12,7 @@
     </v-list>  
 
 
-
-    <CardCheckoutItem/>
-
-    <!-- TODO  move into own component and finish it up -->
-    <v-container>
-        <v-radio-group>
-            <v-list>
-                <v-list-item v-for="card in cards" :key="card.id">
-                    <v-radio 
-                        v-model="model" :label="card.name"  
-                        :value="card" 
-                        :value-comparator="comparator"
-                    ></v-radio>
-                </v-list-item>
-            </v-list>
-        </v-radio-group>
-        <v-btn>Gérer mes cartes</v-btn>
-    </v-container>
+    <MyCards />
 
     <v-btn @click="submit" :disabled="!getNumberInCart">Procéder au paiement</v-btn>
 </v-container>
@@ -59,11 +42,12 @@
 import { Component, Vue } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
-import CardCheckoutItem from '@/components/CardCheckoutItem';
+
+import MyCards from '@/components/Payment/MyCards';
 const Cart = namespace("Cart");
 
 @Component({
-  components: {  CardCheckoutItem }
+  components: { MyCards }
 })
 export default class CartCheckout extends Vue{
   //publishableKey = process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY;
@@ -80,33 +64,12 @@ export default class CartCheckout extends Vue{
 
   dialog = true
 
-  created() {
-      this.retrieveCards()
-  }
 
   submit () {
       console.log("todo");
   }
 
-  retrieveCards () {
-    //this.error = null
-    //this.loading = true
-
-    /*
-    MenusService.getAll()
-      .then((response) => {
-        this.menus = response.data;
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-      */
-     this.cards = [
-      {id:1, name: "Lucas Faninger", number: "XXXX XXXX XXXX XXXX", expiration_date: "07/06/2022", cvv:"784"},
-      {id:2, name: "Nicolas Ekobe", number: "XXXX XXXX XXXX XXXX", expiration_date: "07/06/2022", cvv:"784"}
-     ]
-  }
+  
 
 }
 </script>

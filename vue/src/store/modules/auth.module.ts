@@ -2,14 +2,16 @@ import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import AuthService from '@/services/AuthService';
 import VueCookie from 'vue-cookies'
 
-//const storedUser = localStorage.getItem('user');
+const storedUser = localStorage.getItem('user');
 
 @Module({ namespaced: true })
 class AuthModule extends VuexModule {
   
-  // tslint:disable-next-line
-  public user =  VueCookie.get('jwt');
-  public status = this.user ? { loggedIn: true } : { loggedIn: false };
+  //public user =  VueCookie.get('jwt');
+  //public status = this.user ? { loggedIn: true } : { loggedIn: false };
+
+  public status = storedUser ? { loggedIn: true } : { loggedIn: false };
+  public user = storedUser ? JSON.parse(storedUser) : null;
 
   @Mutation
   public loginSuccess(user: any): void {

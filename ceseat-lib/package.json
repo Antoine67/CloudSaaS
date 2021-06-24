@@ -1,11 +1,14 @@
 {
   "name": "ceseat-lib",
-  "version": "0.2.1",
+  "version": "0.2.25",
   "private": false,
   "main": "dist/ceseat-lib.common.js",
   "files": [
-    "dist"
+    "dist/*",
+    "src/components/",
+    "types/*"
   ],
+  "types": "./types/index.d.ts",
   "scripts": {
     "serve": "vue-cli-service serve ./dev/main.js",
     "lint": "vue-cli-service lint",
@@ -13,9 +16,12 @@
     "publish:public": "npm run build && npm publish --access public",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build-bundle": "vue-cli-service build --target lib ./src/index.js"
+    "build-bundle": "vue-cli-service build --target lib ./src/index.ts && rm ./dist/demo.html",
+    "dts" : "dts-generator --project . --out ceseat-lib.d.ts"
   },
   "dependencies": {
+    "@types/node": "^15.12.4",
+    "dts-generator": "^3.0.0",
     "material-design-icons-iconfont": "^6.1.0"
   },
   "peerDependencies": {
@@ -25,10 +31,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
+    "@socheatsok78/storybook-addon-vuetify": "^0.1.8",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
     "@storybook/vue": "^6.2.9",
+    "@types/webpack-env": "^1.16.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -41,17 +49,15 @@
     "core-js": "^3.6.5",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "typescript": "~4.1.5",
-    "vue-template-compiler": "^2.6.14",
-    "vuetify-loader": "^1.7.2",
-    "@socheatsok78/storybook-addon-vuetify": "^0.1.8",
-    "vue-class-component": "^7.2.3",
-    "vue-property-decorator": "^9.1.2",
-    "vue-router": "^3.2.0",
-    "vuetify": "^2.4.0",
     "sass": "~1.32.0",
     "sass-loader": "^10.0.0",
+    "typescript": "~4.1.5",
     "vue": "^2.6.12",
-    "vue-cli-plugin-vuetify": "^2.0.7"
+    "vue-class-component": "^7.2.3",
+    "vue-cli-plugin-vuetify": "^2.0.7",
+    "vue-property-decorator": "^9.1.2",
+    "vue-template-compiler": "^2.6.14",
+    "vuetify": "^2.4.0",
+    "vuetify-loader": "^1.7.2"
   }
 }

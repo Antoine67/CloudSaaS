@@ -8,7 +8,7 @@
 
 import Vue from 'vue'
 import Vuetify, {
-    VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn
+    VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn, VDataTable, VChip
 } from 'vuetify/lib'
 
 /*

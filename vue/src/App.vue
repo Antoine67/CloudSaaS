@@ -73,7 +73,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 //import {ShoppingCart} from "./components/ShoppingCart.vue"
-import ShoppingCart from "@/components/ShoppingCart";
+import ShoppingCart from "@/components/Payment/ShoppingCart";
 import { namespace } from "vuex-class";
 
 const Auth = namespace("Auth");

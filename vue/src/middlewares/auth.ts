@@ -1,9 +1,13 @@
-import VueCookie from 'vue-cookies'
+//import VueCookie from 'vue-cookies'
 
 export default function auth({ next, router } : any) {
-    // tslint:disable-next-line
-    if (!VueCookie.get('jwt')) {
-      return router.push({ name: 'Login' });
-    }
-    return next();
+
+  const storedUser = localStorage.getItem('user');
+  const jwt_cookie = JSON.parse(storedUser ? storedUser : "");
+
+    
+  if (!jwt_cookie) {
+    return router.push({ name: 'Login' });
   }
+  return next();
+}

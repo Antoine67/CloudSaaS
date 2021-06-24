@@ -8,10 +8,8 @@ import vuetify from '@/plugins/vuetify'
 import firebase from "firebase/app";
 import "firebase/messaging";
 
-import VueCookie from 'vue-cookies'
 import '@/plugins/ceseat-lib'
 
-Vue.use(VueCookie)
 
 import firebaseMessaging from './firebase'
 
@@ -68,7 +66,6 @@ messaging.onMessage((payload) => {
 });*/
 
 
-    
 
 new Vue({
   vuetify,

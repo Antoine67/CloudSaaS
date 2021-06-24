@@ -12,9 +12,10 @@ class AuthService {
       })
       .then(response => {
         if (response.data.accessToken) {
-          //localStorage.setItem('user', JSON.stringify(response.data));
-          // tslint:disable-next-line
-          VueCookie.set('jwt', response.data, '1d', null, null, true )
+          localStorage.setItem('user', JSON.stringify(response.data));
+          // eslint-disable-next-line
+          //VueCookie.set('jwt', response.data, '1d', null, null, true )
+          localStorage.setItem('user', JSON.stringify(response.data));
         }
 
         return response.data;
@@ -22,9 +23,9 @@ class AuthService {
   }
 
   logout() {
-    //localStorage.removeItem('user');
-    // tslint:disable-next-line
-    VueCookie.remove('jwt')
+    localStorage.removeItem('user');
+    // eslint-disable-next-line
+    //VueCookie.remove('jwt')
   }
 
   register(username: string, email: string, password: string) {

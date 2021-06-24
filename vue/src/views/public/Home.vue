@@ -5,7 +5,7 @@
         v-for="rest in restaurants"
         :key="rest.id"
       >    
-          <RestaurantCardItem :restaurant="rest" @click.native="toRestaurantDetails(rest.id)"/>
+          <RestaurantCardItem :restaurant="rest" @click.native="toRestaurantDetails(rest.id)" :style="{cursor:'pointer'}" />
       </v-col>
     </v-row>
   </v-container>

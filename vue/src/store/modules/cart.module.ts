@@ -2,7 +2,7 @@ export const namespaced = true
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import Menu from '@/types/Menu';
 
-//const storedUser = localStorage.getItem('user');
+const storedCard = localStorage.getItem('cart');
 
 export interface MenuItem {
     menu : Menu;
@@ -16,7 +16,8 @@ class CartModule extends VuexModule {
 
 
   
-  public cart: MenuItem[] = []
+  //public cart: MenuItem[] = []
+  public cart = storedCard ? JSON.parse(storedCard) : [];
 
 
   @Mutation
@@ -40,7 +41,7 @@ class CartModule extends VuexModule {
 
   @Mutation
   public REMOVE_FROM_CART (menu: Menu) {
-    this.cart = this.cart.filter(m => m.menu.id != menu.id)
+    this.cart = this.cart.filter((m: MenuItem) => m.menu.id != menu.id)
     localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
@@ -68,7 +69,7 @@ class CartModule extends VuexModule {
   }
 
   get getNumberInCart() {
-    return this.cart.reduce((a, b) => a + (b['quantity'] || 0), 0);
+    return this.cart.reduce((a: any, b:any) => a + (b['quantity'] || 0), 0);
   }
 
   

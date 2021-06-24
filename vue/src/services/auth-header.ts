@@ -1,9 +1,11 @@
-import VueCookie from 'vue-cookies'
+//import VueCookie from 'vue-cookies'
 
 export default function authHeader() {
     try {
-      // tslint:disable-next-line
-      const jwt_cookie = VueCookie.get('jwt'); //.getItem('user');
+
+      const storedUser = localStorage.getItem('user');
+      const jwt_cookie = JSON.parse(storedUser ? storedUser : "");
+      
       console.log("parsing", jwt_cookie)
     
       if (jwt_cookie && jwt_cookie.accessToken) {
