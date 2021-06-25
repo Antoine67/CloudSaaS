@@ -65,6 +65,7 @@ export default class App extends Vue{
     appTitle: "CesEat",
     menuItems:  [
       { text: 'Mon profil', icon: 'mdi-account', onClick: () => {this.$router.push('/profile')} },
+      { text: 'Dashboard', icon: 'mdi-view-dashboard', onClick: () => {this.$router.push('/dashboard')} },
       { text: 'Déconnexion', icon: 'mdi-account-remove', onClick: () => {this.logOut();} },
     ],
   }

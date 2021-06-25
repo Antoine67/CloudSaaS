@@ -3,6 +3,8 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '@/views/public/Home.vue'
 import Login from "@/views/auth/Login.vue";
 import Profile from "@/views/logged/Profile.vue"
+import Dashboard from "@/views/logged/Dashboard.vue"
+import Deliveries from "@/views/logged/Deliveries.vue"
 
 import auth from "@/middlewares/auth"
 
@@ -23,6 +25,22 @@ const routes: Array<RouteConfig> = [
     path: '/profile',
     name: 'Profile',
     component: Profile,
+    meta: {
+      middleware: auth 
+    }
+  },
+  {
+    path: '/deliveries',
+    name :'Deliveries',
+    component: Deliveries,
+    meta: {
+      middleware: auth 
+    }
+  },
+  {
+    path: '/Dashboard',
+    name :'Dashboard',
+    component: Dashboard,
     meta: {
       middleware: auth 
     }

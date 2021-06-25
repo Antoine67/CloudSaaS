@@ -7,7 +7,7 @@ export default function auth({ next, router } : any) {
 
     
   if (!jwt_cookie) {
-    return router.push({ name: 'Login' });
+    return router.push({ name: 'Deliveries' });
   }
   return next();
 }

@@ -1,6 +1,13 @@
 <template>
   <v-container fluid>
-    
+    //TODO qqchose comme :
+    Bienvenue sur l'application dédiée aux livreurs CesEat
+
+    Commencez par vous identifier <router-link to="/login" >ici</router-link>
+
+    Vous souhaitez uniquement commander un repas ? Alors rendez-vous <a href="http://ceseat.fr"> ici </a>
+
+    Vous êtes restaurateur et souhaitez partager vos plats ? Alors rendez-vous <a href="http://ceseat-.fr"> ici </a>
     
   </v-container>
 </template>
@@ -9,28 +16,25 @@
 
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import MenusService from '@/services/MenusService'
-@Component({
-  components: {
-     
-  }
- 
-})
-export default class Home extends Vue {
-  restaurants = [ 
-    {id: "1", title: "test", rating: 3.5, picture :"https://cdn.vuetifyjs.com/images/cards/cooking.png", description: "descriptionezezae :)"},
-    {id: "2", title: "test2", rating: 1, picture :"https://cdn.vuetifyjs.com/images/cards/cooking.png", description: "description :)"},
-    {id: "3", title: "test3", rating: 5, picture :"https://cdn.vuetifyjs.com/images/cards/cooking.png", description: "descriptiozezen :)"},
-    {id: "4", title: "test4", rating: 1.5, picture :"https://cdn.vuetifyjs.com/images/cards/cooking.png", description: "description :)"},
-    {id: "5", title: "test5", rating: 2.5, picture :"https://cdn.vuetifyjs.com/images/cards/cooking.png", description: "description :)"},
-  ];
+  import { namespace } from "vuex-class";
 
-  created() {
-    //MenusService.getAll().catch((e)=>console.log("errrrr:",e));
-  }
+  const Auth = namespace("Auth");
+  @Component({
+    components: {
+      
+    }
+  })
+  export default class Home extends Vue {
 
-  toRestaurantDetails(id: any) {
-    this.$router.push({ name: 'RestaurantDetails', params: { id: id }})
-  }
+    @Auth.State("user")
+    private currentUser!: any;
+
+    beforeMount() {
+      if(this.currentUser) {
+        this.$router.push('/deliveries')
+      }
+    }
+
 
 }
 </script>
