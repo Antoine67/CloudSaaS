@@ -4,6 +4,7 @@ import * as bodyparser from 'body-parser';
 
 import './controller/user.controller';
 import './controller/role.controller';
+import './controller/address.controller';
 
 
 import { requestLoggerMiddleware } from './request.logger.middleware';
