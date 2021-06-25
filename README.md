@@ -5,7 +5,7 @@
 - `ceseat-lib` : Bibliothèque de composants réutilisables Vue (publié sur npm : https://www.npmjs.com/package/ceseat-lib)
 - `haproxy` : Configuration des serveurs proxy Haproxy
 - `jwt_auth` : Serveur d'authentification basé sur JWT
-- `vue` : 3 Application Vue 2 destinées aux utilisateurs finaux, restaurateurs et livreurs
+- `vue` : 3 applications Vue 2 destinées aux utilisateurs finaux, restaurateurs et livreurs
 
 
 ## Architecture
