@@ -37,10 +37,8 @@ export class AddressController extends Controller {
 	@Post()
 	public async create(@Body() req: AddressCreationParams) : Promise<void> {
 
-		var returnId;
-		if(returnId = new AddressesService().create(req)) {
+		if(new AddressesService().create(req)) {
 			this.setStatus(201); // set return status 201
-            return returnId;
 		}else {
 			this.setStatus(500); // set return status 500
 		}

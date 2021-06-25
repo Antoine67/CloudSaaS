@@ -35,10 +35,9 @@ export class AddressesService {
       return;
     }
     
-    var returnObject;
     const addressRepository = getRepository(Address);
     try {
-        returnObject = await addressRepository.save(address);
+        await addressRepository.save(address);
     } catch (e) {
         console.log(e);
         return;
@@ -46,7 +45,6 @@ export class AddressesService {
   
     //If all ok, send 201 response
     console.log("Address created");
-    return returnObject.id;
   }
 
   public async update(id: string, requestBody: AddressUpdateParams): Promise<void> {

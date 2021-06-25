@@ -37,10 +37,8 @@ export class RoleController extends Controller {
 	@Post()
 	public async create(@Body() req: RoleCreationParams) : Promise<void> {
         
-		var returnId;
-		if(returnId = new RolesService().create(req)) {
+		if(new RolesService().create(req)) {
 			this.setStatus(201); // set return status 201
-            return returnId;
 		}else {
 			this.setStatus(500); // set return status 500
 		}
