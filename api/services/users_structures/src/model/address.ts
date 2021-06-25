@@ -52,4 +52,39 @@ export class Address {
     @UpdateDateColumn()
     updatedAt: Date;
 }
-  
+
+export class AddressCreationParams {
+
+    country: string;
+    
+    town: string;
+    
+    postalCode: string;
+    
+    address1: string;
+    
+    address2: string;
+    
+    longitude: string;
+    
+    latitude: string;
+
+}
+
+export class AddressUpdateParams {
+
+    country?: string;
+    
+    town?: string;
+    
+    postalCode?: string;
+    
+    address1?: string;
+    
+    address2?: string;
+    
+    longitude?: string;
+    
+    latitude?: string;
+    
+}
