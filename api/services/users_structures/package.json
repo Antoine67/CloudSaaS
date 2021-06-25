@@ -5,24 +5,31 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./dist/main.js",
+    "dev2": "set debug=* && ts-node-dev --respawn --transpile-only ./src/main.ts",
     "start": "node  ./dist/main.js",
-    "build": "tsoa spec-and-routes && tsc",
+    "build": "tsoa routes && tsoa spec-and-routes && tsc",
     "generate": "tsoa swagger"
   },
   "author": "Antoine M",
   "license": "ISC",
   "dependencies": {
     "@tsoa/runtime": "^3.8.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.10",
     "@types/swagger-ui-express": "^4.1.2",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "class-validator": "^0.9.1",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "mongodb": "^3.1.10",
     "mongoose": "^5.4.4",
+    "mysql": "^2.18.1",
     "swagger-ui-express": "^4.0.2",
     "ts-node": "^7.0.1",
+    "ts-node-dev": "^1.1.6",
     "tsoa": "^2.3.8",
+    "typeorm": "^0.2.34",
     "typescript": "^3.2.2"
   },
   "devDependencies": {

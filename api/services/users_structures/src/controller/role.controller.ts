@@ -1,21 +1,21 @@
 
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
-import { User, UserUpdateParams } from "../model/user";
-import { UsersService } from "../services/user.service";
+import { Role, RoleCreationParams, RoleUpdateParams } from "../model/role";
+import { RolesService } from "../services/role.service";
 import { Request, Response } from "express";
 
-@Route('/users')
-@Tags("Users")
-export class UserController extends Controller {
+@Route('/roles')
+@Tags("Roles")
+export class RoleController extends Controller {
 
 	/**
 	 * Retrieves all existing users.
 	 * @summary Retrieves all existing users
 	 */
 	@Get()
-	public async getAll(): Promise<User[]> {
-		return new UsersService().getAll();
+	public async getAll(): Promise<Role[]> {
+		return new RolesService().getAll();
 	}
 
 	/**
@@ -25,8 +25,24 @@ export class UserController extends Controller {
 	 * @summary Retrieves a specific existing user
 	 */
 	@Get('/{id}')
-	public async get(@Path() id: string): Promise<User> {
-		return new UsersService().get(id);
+	public async get(@Path() id: string): Promise<Role> {
+		return new RolesService().get(id);
+	}
+	
+	/**
+	 * Create a new product by supplying new product's data
+	 * @param requestBody The new product's data
+	 * @summary Create a new product
+	 */
+	@Post()
+	public async create(@Body() req: RoleCreationParams) : Promise<void> {
+		
+		if(new RolesService().create(req)) {
+			this.setStatus(201); // set return status 201
+		}else {
+			this.setStatus(500); // set return status 500
+		}
+		return;
 	}
 
 	/**
@@ -36,9 +52,9 @@ export class UserController extends Controller {
 	 * @summary Update an existing user
 	 */
 	@Put('/{id}')
-	public async update( @Path() id: string, @Body() req: UserUpdateParams) : Promise<void> {
+	public async update( @Path() id: string, @Body() req: RoleUpdateParams) : Promise<void> {
 		this.setStatus(201); // set return status 201
-		new UsersService().update(id, req);
+		new RolesService().update(id, req);
 		return;
 	}
 
@@ -49,7 +65,7 @@ export class UserController extends Controller {
 	 */
 	@Delete('/{id}')
 	public async remove(@Path() id: string) : Promise<void> {
-		return new UsersService().delete(id);
+		return new RolesService().delete(id);
 	}
 }
 

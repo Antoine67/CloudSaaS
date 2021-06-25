@@ -1,5 +1,6 @@
 import { app } from './app';
 import * as http from 'http';
+import { createConnection } from "typeorm";
 
 import * as mongoose from 'mongoose';
 
@@ -17,4 +18,9 @@ server.on('listening', async () => {
 	mongoose.connection.on('error', (err: any) => {
 		console.error(err);
 	});
+	try {
+		await createConnection();
+	} catch (error) {
+		console.error(error);
+	}
 });

@@ -17,8 +17,24 @@ const models: TsoaRoute.Models = {
         },
     },
     "ProductCreationParams": {
+        "properties": {
+            "name": { "dataType": "string", "required": true },
+            "description": { "dataType": "string", "required": true },
+            "restaurant_id": { "dataType": "double", "required": true },
+            "price": { "dataType": "double" },
+            "available": { "dataType": "boolean", "required": true },
+            "ingredients": { "dataType": "array", "array": { "dataType": "string" } },
+        },
     },
     "ProductUpdateParams": {
+        "properties": {
+            "name": { "dataType": "string" },
+            "description": { "dataType": "string" },
+            "restaurant_id": { "dataType": "double" },
+            "price": { "dataType": "double" },
+            "available": { "dataType": "boolean" },
+            "ingredients": { "dataType": "array", "array": { "dataType": "string" } },
+        },
     },
     "IMenu": {
         "properties": {
@@ -28,11 +44,28 @@ const models: TsoaRoute.Models = {
             "restaurant_id": { "dataType": "double", "required": true },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean", "required": true },
+            "products": { "dataType": "any" },
         },
     },
     "MenuCreationParams": {
+        "properties": {
+            "name": { "dataType": "string", "required": true },
+            "description": { "dataType": "string", "required": true },
+            "restaurant_id": { "dataType": "double", "required": true },
+            "price": { "dataType": "double" },
+            "available": { "dataType": "boolean", "required": true },
+            "products": { "dataType": "any" },
+        },
     },
     "MenuUpdateParams": {
+        "properties": {
+            "name": { "dataType": "string" },
+            "description": { "dataType": "string" },
+            "restaurant_id": { "dataType": "double" },
+            "price": { "dataType": "double" },
+            "available": { "dataType": "boolean" },
+            "products": { "dataType": "any" },
+        },
     },
 };
 const validationService = new ValidationService(models);
