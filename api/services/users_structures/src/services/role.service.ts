@@ -36,16 +36,18 @@ export class RolesService {
       return;
     }
   
+    var returnObject;
     const roleRepository = getRepository(Role);
     try {
-      await roleRepository.save(role);
+        returnObject = await roleRepository.save(role);
     } catch (e) {
-      console.log(e);
-      return;
+        console.log(e);
+        return;
     }
   
     //If all ok, send 201 response
     console.log("Role created");
+    return returnObject.id;
   }
 
   public async update(id: string, requestBody: RoleUpdateParams): Promise<void> {

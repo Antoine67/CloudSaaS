@@ -10,8 +10,8 @@ import { Request, Response } from "express";
 export class RoleController extends Controller {
 
 	/**
-	 * Retrieves all existing users.
-	 * @summary Retrieves all existing users
+	 * Retrieves all existing roles.
+	 * @summary Retrieves all existing roles
 	 */
 	@Get()
 	public async getAll(): Promise<Role[]> {
@@ -19,10 +19,10 @@ export class RoleController extends Controller {
 	}
 
 	/**
-	 * Retrieves the details of an existing user.
-	 * Supply the unique user ID from either and receive corresponding user details.
-	 * @param id The user's identifier
-	 * @summary Retrieves a specific existing user
+	 * Retrieves the details of an existing role.
+	 * Supply the unique role ID from either and receive corresponding role details.
+	 * @param id The role's identifier
+	 * @summary Retrieves a specific existing role
 	 */
 	@Get('/{id}')
 	public async get(@Path() id: string): Promise<Role> {
@@ -30,15 +30,17 @@ export class RoleController extends Controller {
 	}
 	
 	/**
-	 * Create a new product by supplying new product's data
-	 * @param requestBody The new product's data
-	 * @summary Create a new product
+	 * Create a new role by supplying new role's data
+	 * @param requestBody The new role's data
+	 * @summary Create a new role
 	 */
 	@Post()
 	public async create(@Body() req: RoleCreationParams) : Promise<void> {
-		
-		if(new RolesService().create(req)) {
+        
+		var returnId;
+		if(returnId = new RolesService().create(req)) {
 			this.setStatus(201); // set return status 201
+            return returnId;
 		}else {
 			this.setStatus(500); // set return status 500
 		}
@@ -46,10 +48,10 @@ export class RoleController extends Controller {
 	}
 
 	/**
-	 * Update specific user from the unique user ID you provide in query, with the new data you provide in body.
-	 * @param id The user's identifier
-	 * @param requestBody The new user's data
-	 * @summary Update an existing user
+	 * Update specific role from the unique role ID you provide in query, with the new data you provide in body.
+	 * @param id The role's identifier
+	 * @param requestBody The new role's data
+	 * @summary Update an existing role
 	 */
 	@Put('/{id}')
 	public async update( @Path() id: string, @Body() req: RoleUpdateParams) : Promise<void> {
@@ -59,9 +61,9 @@ export class RoleController extends Controller {
 	}
 
 	/**
-	 * Delete a specific user from the unique user ID you provide.
-	 * @param id The user's identifier
-	 * @summary Delete a user
+	 * Delete a specific role from the unique role ID you provide.
+	 * @param id The role's identifier
+	 * @summary Delete a role
 	 */
 	@Delete('/{id}')
 	public async remove(@Path() id: string) : Promise<void> {

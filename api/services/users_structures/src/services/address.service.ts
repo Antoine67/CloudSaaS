@@ -34,17 +34,19 @@ export class AddressesService {
       console.log(errors);
       return;
     }
-  
+    
+    var returnObject;
     const addressRepository = getRepository(Address);
     try {
-      await addressRepository.save(address);
+        returnObject = await addressRepository.save(address);
     } catch (e) {
-      console.log(e);
-      return;
+        console.log(e);
+        return;
     }
   
     //If all ok, send 201 response
     console.log("Address created");
+    return returnObject.id;
   }
 
   public async update(id: string, requestBody: AddressUpdateParams): Promise<void> {
