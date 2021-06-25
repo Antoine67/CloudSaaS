@@ -1,67 +1,16 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
+    <AppHeader
+      :onLogoClick="onLogoClick"
+      :onLoginClick="onLoginClick"
+      :logoColor="headerParams.logoColor"
+      :logoText="headerParams.logoText"
+      :appTitle="headerParams.appTitle"
+      :menuItems="headerParams.menuItems"
+      :loggedIn="currentUser"
+      username="Bienvenue //TODO AJOUTER USER" 
     >
-      <router-link to="/">
-        <div class="d-flex align-center">
-            <!--
-            <v-img
-              alt="Vuetify Logo"
-              class="shrink mr-2"
-              contain
-              src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-              transition="scale-transition"
-              width="40"
-            />
-            -->
-        </div>
-        <v-container>
-          <v-badge
-            bottom
-            color="blue"
-            content="RESTAURANT"
-          >
-            <span style="color:white;font-size:25px;"><b>Node Eat</b></span>
-           
-          </v-badge>
-        </v-container>
-
-             
-        
-      </router-link>
-
-      
-      
-      <v-spacer></v-spacer>
-
-      
-      <span v-if="!currentUser">
-        <v-btn 
-          to="/login"
-          text
-        >
-          <span class="mr-2">Se connecter</span>
-          <v-icon>mdi-login</v-icon>
-        </v-btn>
-      </span>
-
-      <span v-else>
-        
-        
-        
-
-        <v-btn
-          @click.prevent="logOut"
-          text
-        >
-          <span class="mr-2">Déconnexion</span>
-          <v-icon>mdi-login</v-icon>
-        </v-btn>
-      </span>
-    </v-app-bar>
+    </AppHeader>
 
     
 
@@ -74,12 +23,17 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
+import {AppHeader} from 'ceseat-lib'
+
 import { namespace } from "vuex-class";
 
 const Auth = namespace("Auth");
 
+
 @Component({
-  components: {  }
+  components: {
+    AppHeader
+  },
 })
 export default class App extends Vue{
   
@@ -92,6 +46,24 @@ export default class App extends Vue{
   logOut() {
     this.signOut();
     this.$router.push("/");
+  }
+
+  onLogoClick() {
+    this.$router.push("/")
+  }
+
+  onLoginClick() {
+    this.$router.push("/login")
+  }
+
+  headerParams = {
+    logoColor : "blue",
+    logoText: "RESTAURANT",
+    appTitle: "CesEat",
+    menuItems:  [
+      { text: 'Mon profil', icon: 'mdi-account', onClick: () => {this.$router.push('/profile')} },
+      { text: 'Déconnexion', icon: 'mdi-account-remove', onClick: () => {this.logOut();} },
+    ],
   }
 
 }

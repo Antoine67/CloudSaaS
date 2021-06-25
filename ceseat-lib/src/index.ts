@@ -3,6 +3,7 @@ import MenuCardItem from "./components/MenuCardItem.vue";
 import RestaurantCardItem from "./components/RestaurantCardItem.vue";
 import LoginForm from "./components/LoginForm.vue";
 import ProductItem from "./components/ProductItem.vue";
+import AppHeader from "./components/AppHeader.vue";
 
 import Vuetify from 'vuetify/lib';
 
@@ -19,7 +20,8 @@ const Components = {
     MenuCardItem,
     LoginForm,
     ProductItem,
-    RestaurantCardItem
+    RestaurantCardItem,
+    AppHeader
   }
 
 /*
@@ -40,11 +42,13 @@ function install(Vue: any) {
   Vue.component("LoginForm", LoginForm);
   Vue.component("ProductItem", ProductItem);
   Vue.component("RestaurantCardItem", RestaurantCardItem);
+  Vue.component("AppHeader", AppHeader);
   
   export { MenuCardItem };
   export { LoginForm };
   export { ProductItem };
   export { RestaurantCardItem };
+  export { AppHeader };
 
 
   export default Components;
