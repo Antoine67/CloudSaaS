@@ -1,0 +1,75 @@
+<template>
+
+<v-container v-if="getNumberInCart" >
+
+    <v-list>
+        <v-list-item v-for="menuItem in getCart" :key="menuItem.menu.id">
+            <v-list-item-content> 
+                {{menuItem.menu.title}} x{{menuItem.quantity}}
+            </v-list-item-content>
+
+        </v-list-item>
+    </v-list>  
+
+
+    <MyCards />
+
+    <v-btn @click="submit" :disabled="!getNumberInCart">Procéder au paiement</v-btn>
+</v-container>
+
+<v-dialog v-else v-model="dialog" persistent max-width="500px" min-width="360px">
+ 
+    <v-card
+    
+    elevation="12"
+    >
+        <v-card-title>Panier vide !</v-card-title>
+        <v-card-text>
+            <div class="text--primary">
+                Vous n'avez encore séléctionné aucun produit/menus
+            </div>
+        </v-card-text>
+        
+        <v-card-actions class="pt-0">
+            <v-btn to="/"> Retour</v-btn>
+        </v-card-actions>
+    </v-card>
+</v-dialog>
+
+</template>
+
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+import { namespace } from "vuex-class";
+
+import MyCards from '@/components/Payment/MyCards.vue';
+const Cart = namespace("Cart");
+
+@Component({
+  components: { MyCards }
+})
+export default class CartCheckout extends Vue{
+  //publishableKey = process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY;
+  //successURL=`http://${location.host}/${this.$route.path}?state=success`
+  //cancelURL=`http://${location.host}/${this.$route.path}?state=cancel`
+  
+  @Cart.Getter
+  private getCart : any[]
+
+  @Cart.Getter
+  private getNumberInCart : number
+
+  cards : any[]
+
+  dialog = true
+
+
+  submit () {
+      console.log("todo");
+  }
+
+  
+
+}
+</script>
