@@ -9,6 +9,7 @@ import firebase from "firebase/app";
 import "firebase/messaging";
 
 import '@/plugins/ceseat-lib'
+import VueApexCharts from 'vue-apexcharts'
 
 
 import firebaseMessaging from './firebase'
@@ -18,6 +19,11 @@ Vue.prototype.$messaging = firebaseMessaging
 Vue.config.productionTip = false
 
 const messaging = firebase.messaging();
+
+
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
 
 
 

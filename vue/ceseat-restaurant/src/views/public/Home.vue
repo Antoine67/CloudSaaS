@@ -1,13 +1,13 @@
 <template>
   <v-container fluid>
     //TODO qqchose comme :
-    Bienvenue sur l'application dédiée aux livreurs CesEat
+    Bienvenue sur l'application dédiée aux restaurants CesEat
 
     Commencez par vous identifier <router-link to="/login" >ici</router-link>
 
     Vous souhaitez uniquement commander un repas ? Alors rendez-vous <a href="http://ceseat.fr"> ici </a>
 
-    Vous êtes restaurateur et souhaitez partager vos plats ? Alors rendez-vous <a href="http://ceseat-.fr"> ici </a>
+    Vous êtes livreur et souhaitez délivrer de délicieux plats ? Alors rendez-vous <a href="http://ceseat-delivery.fr"> ici </a>
     
   </v-container>
 </template>
@@ -31,7 +31,7 @@
 
     beforeMount() {
       if(this.currentUser) {
-        this.$router.push('/deliveries')
+        this.$router.push('/dashboard')
       }
     }
 
