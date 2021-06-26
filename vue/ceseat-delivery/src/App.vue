@@ -8,7 +8,7 @@
       :appTitle="headerParams.appTitle"
       :menuItems="headerParams.menuItems"
       :loggedIn="currentUser"
-      :username="`Bonjour ${userData.username} !`"
+      :username="`Bonjour ${userData ? userData.username : ''} !`" 
     >
     </AppHeader>
 

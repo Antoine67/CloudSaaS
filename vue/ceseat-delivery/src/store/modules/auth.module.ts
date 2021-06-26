@@ -19,18 +19,21 @@ class AuthModule extends VuexModule {
   public loginSuccess(user: any): void {
     this.status.loggedIn = true;
     this.user = user;
+    this.userData = jwt_decode(this.user.accessToken);
   }
 
   @Mutation
   public loginFailure(): void {
     this.status.loggedIn = false;
     this.user = null;
+    this.userData = null;
   }
 
   @Mutation
   public logout(): void {
     this.status.loggedIn = false;
     this.user = null;
+    this.userData = null;
   }
 
   @Mutation

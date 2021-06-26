@@ -141,7 +141,8 @@ export default class LoginForm extends Vue {
                 this.login({email: this.loginEmail, password: this.loginPassword}).then(
                     (data: any) => {
                         //this.showMessage("Connexion réussie", "success")
-                       this.submitLogin()
+                       this.submitLogin();
+                       this.loading = false;
                     },
                     (error: any) => {
                         this.loading = false;
@@ -162,7 +163,8 @@ export default class LoginForm extends Vue {
                 this.register({email: this.email, password: this.password, username: this.username}).then(
                     (data: any) => {
                         this.showMessage("Vous pouvez à présent vous connecter", "success", "Profil créé avec succès")
-                        this.tab = 0
+                        this.tab = 0;
+                        this.loading = false;
                         //this.$router.push("/profile");
                     },
                     (error: any) => {
