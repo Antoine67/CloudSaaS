@@ -8,7 +8,7 @@
       :appTitle="headerParams.appTitle"
       :menuItems="headerParams.menuItems"
       :loggedIn="currentUser"
-      username="Bienvenue //TODO AJOUTER USER" 
+      :username="`Bonjour ${userData.username} !`"
     >
     </AppHeader>
 
@@ -42,6 +42,9 @@ export default class App extends Vue{
 
   @Auth.Action
   private signOut!: () => void;
+
+  @Auth.State("userData")
+  private userData! : any;
 
   logOut() {
     this.signOut();

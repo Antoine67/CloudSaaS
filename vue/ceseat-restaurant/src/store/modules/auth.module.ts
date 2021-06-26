@@ -1,6 +1,7 @@
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import AuthService from '@/services/AuthService';
 import VueCookie from 'vue-cookies'
+import jwt_decode from "jwt-decode";
 
 const storedUser = localStorage.getItem('user');
 
@@ -12,6 +13,7 @@ class AuthModule extends VuexModule {
 
   public status = storedUser ? { loggedIn: true } : { loggedIn: false };
   public user = storedUser ? JSON.parse(storedUser) : null;
+  public userData = this.user ? jwt_decode(this.user.accessToken) : null;
 
   @Mutation
   public loginSuccess(user: any): void {
@@ -87,6 +89,7 @@ class AuthModule extends VuexModule {
     return this.status.loggedIn;
   }
 
+ 
 }
 
 export default AuthModule;
