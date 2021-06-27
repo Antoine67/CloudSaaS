@@ -2,7 +2,7 @@ export const namespaced = true
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import Menu from '@/types/Menu';
 
-const storedCard = localStorage.getItem('cart');
+const storedCard = localStorage.getItem('ceseat_cart');
 
 export interface MenuItem {
     menu : Menu;
@@ -29,20 +29,20 @@ class CartModule extends VuexModule {
     } else {
       item.quantity = item.quantity + 1
     }
-    localStorage.setItem('cart', JSON.stringify(this.cart));
+    localStorage.setItem('ceseat_cart', JSON.stringify(this.cart));
   }
 
   @Mutation
   public REMOVE_ONE_FROM_COUNT (oldMenu: Menu) {
     const item = this.cart.find((m: any) => m.menu.id === oldMenu.id)
     item!.quantity -= 1
-    localStorage.setItem('cart', JSON.stringify(this.cart));
+    localStorage.setItem('ceseat_cart', JSON.stringify(this.cart));
   }
 
   @Mutation
   public REMOVE_FROM_CART (menu: Menu) {
     this.cart = this.cart.filter((m: MenuItem) => m.menu.id != menu.id)
-    localStorage.setItem('cart', JSON.stringify(this.cart));
+    localStorage.setItem('ceseat_cart', JSON.stringify(this.cart));
   }
 
   @Action({ rawError: true })

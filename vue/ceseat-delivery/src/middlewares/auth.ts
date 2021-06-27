@@ -2,7 +2,7 @@
 
 export default function auth({ next, router } : any) {
 
-  const storedUser = localStorage.getItem('user');
+  const storedUser = localStorage.getItem('ceseat_delivery_user');
   const jwt_cookie = JSON.parse(storedUser ? storedUser : "");
 
     

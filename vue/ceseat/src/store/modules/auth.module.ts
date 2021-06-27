@@ -3,7 +3,7 @@ import AuthService from '@/services/AuthService';
 import VueCookie from 'vue-cookies'
 import jwt_decode from "jwt-decode";
 
-const storedUser = localStorage.getItem('user');
+const storedUser = localStorage.getItem('ceseat_user');
 
 @Module({ namespaced: true })
 class AuthModule extends VuexModule {
@@ -48,7 +48,7 @@ class AuthModule extends VuexModule {
 
   @Action({ rawError: true })
   login(data: any): Promise<any> {
-    return AuthService.login(data.email, data.password).then(
+    return AuthService.login(data.email, data.password, data.roleIdentifier).then(
       (user: any) => {
         this.context.commit('loginSuccess', user);
         return Promise.resolve(user);
@@ -72,7 +72,7 @@ class AuthModule extends VuexModule {
 
   @Action({ rawError: true })
   register(data: any): Promise<any> {
-    return AuthService.register(data.username, data.email, data.password).then(
+    return AuthService.register(data.username, data.email, data.password, data.firstName, data.lastName, data.roleIdentifier).then(
       response => {
         this.context.commit('registerSuccess');
         return Promise.resolve(response.data);

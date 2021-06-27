@@ -2,7 +2,7 @@
 <v-app>
     <v-container>
         <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
-            <LoginForm :submitLogin=successLogin :showMessage=showMessage :returnClick=returnClick :login=login :register=register />
+            <LoginForm :submitLogin=successLogin :showMessage=showMessage :returnClick=returnClick :login=login :register=register :roleIdentifier="roleIdentifier"  />
 
             <v-snackbar v-model="snackbar.visible" :color="snackbar.color" :multi-line="snackbar.mode === 'multi-line'" :timeout="snackbar.timeout" :top="snackbar.position === 'top'">
                 <v-layout align-center pr-4>
@@ -44,6 +44,8 @@ export default class Login extends Vue {
     }
 
     dialog = true
+
+    roleIdentifier = "ceseat-restaurant"
     
     @Auth.Getter
     private isLoggedIn!: boolean;

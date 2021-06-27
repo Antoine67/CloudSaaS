@@ -81,6 +81,8 @@ export default class LoginForm extends Vue {
     @Prop() returnClick!: () => any;
     @Prop() submitLogin!: () => any;
 
+    @Prop() roleIdentifier!: string;
+
 
     private loading = false;
 
@@ -138,7 +140,7 @@ export default class LoginForm extends Vue {
             if (this.loginEmail && this.loginPassword) {
 
                 this.loading = true;
-                this.login({email: this.loginEmail, password: this.loginPassword}).then(
+                this.login({email: this.loginEmail, password: this.loginPassword, roleIdentifier: this.roleIdentifier}).then(
                     (data: any) => {
                         //this.showMessage("Connexion réussie", "success")
                        this.submitLogin();
@@ -160,7 +162,7 @@ export default class LoginForm extends Vue {
         if (this.$refs.registerForm.validate()) {
             if (this.firstName && this.lastName && this.verify && this.email && this.password && this.username) {
                 this.loading = true;
-                this.register({email: this.email, password: this.password, username: this.username}).then(
+                this.register({email: this.email, password: this.password, username: this.username, firstName: this.firstName, lastName: this.lastName, roleIdentifier: this.roleIdentifier}).then(
                     (data: any) => {
                         this.showMessage("Vous pouvez à présent vous connecter", "success", "Profil créé avec succès")
                         this.tab = 0;

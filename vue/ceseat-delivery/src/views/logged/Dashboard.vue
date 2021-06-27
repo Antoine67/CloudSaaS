@@ -40,7 +40,7 @@ export default class Dashboard extends Vue{
           categories: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin"]
         },
         title: {
-          text: "Nombre de commandes par mois"
+          text: "Nombre de livraisons par mois"
         }
     }
 

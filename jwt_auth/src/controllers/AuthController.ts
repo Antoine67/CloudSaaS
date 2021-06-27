@@ -5,13 +5,15 @@ import { validate } from "class-validator";
 
 import { User } from "../entity/User";
 import config from "../config/config";
+import { Role } from "../entity/Role";
 
 class AuthController {
   static login = async (req: Request, res: Response) => {
     //Check if username and password are set
-    let { email, password  } = req.body;
-    if (!(email && password)) {
+    let { email, password, roleIdentifier  } = req.body;
+    if (!(email && password && roleIdentifier)) {
       res.status(400).send();
+      return;
     }
 
     //Get user from database
@@ -31,9 +33,18 @@ class AuthController {
       return;
     }
 
-    //Sing JWT, valid for 1 hour
+    //Check if role match
+    if (user.role && user.role.identifier != roleIdentifier) {
+      //console.log(`error role: '${user.role.identifier}' '${roleIdentifier}'`)
+      res.status(401).send({message: "Invalid role"});
+      return;
+    }
+
+
+
+    //Sign JWT, valid for 1 hour
     const token = jwt.sign(
-      { userId: user.id, username: user.username },
+      { userId: user.id, username: user.username, roleIdentifier: user.role.identifier },
       config.jwtSecret,
       { expiresIn: "1h" }
     );
@@ -44,11 +55,29 @@ class AuthController {
 
   static register = async (req: Request, res: Response) => {
     //Get parameters from the body
-    let { email, password, username } = req.body;
+    let { email, password, username, roleIdentifier } = req.body;
     let user = new User();
     user.email = email;
     user.password = password;
     user.username = username;
+    
+    let roleObj;
+    const roleRepository = getRepository(Role);
+    try {
+      roleObj = await roleRepository.findOneOrFail({where : { identifier: roleIdentifier }});
+    } catch (e) {
+      console.log("error role: ", roleIdentifier )
+      res.status(401).send({message:"Failed to find associated role"});
+      return;
+    }
+    
+    user.role = roleObj;
+
+    user.suspended = false;
+    user.notification = true;
+
+    console.log("ROLE", roleObj);
+    console.log("USER", user);
 
     //Validade if the parameters are ok
     const errors = await validate(user);
@@ -65,6 +94,7 @@ class AuthController {
     try {
       await userRepository.save(user);
     } catch (e) {
+      //console.log(e)
       res.status(409).send({message:"Failed to create user"});
       return;
     }
