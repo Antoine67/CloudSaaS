@@ -5,23 +5,25 @@ import router from './router'
 import store from './store'
 import vuetify from '@/plugins/vuetify'
 
+/*
 import firebase from "firebase/app";
 import "firebase/messaging";
 
-import '@/plugins/ceseat-lib'
+//import '@/plugins/ceseat-lib'
 
 
-import firebaseMessaging from './firebase'
+//import firebaseMessaging from './firebase'
 
-Vue.prototype.$messaging = firebaseMessaging
+//Vue.prototype.$messaging = firebaseMessaging
 
-Vue.config.productionTip = false
+//Vue.config.productionTip = false
+
+
+
+
+//firebase.app();
 
 const messaging = firebase.messaging();
-
-
-
-firebase.app();
 
 messaging.requestPermission()
 .then((data)=> {
@@ -46,7 +48,6 @@ messaging.getToken().then((currentToken)=> {
 
 //TODO Store and use fcmToken
 
-/*
 messaging.onTokenRefresh(async () => {
   try {
     const refreshedToken = await messaging.getToken();

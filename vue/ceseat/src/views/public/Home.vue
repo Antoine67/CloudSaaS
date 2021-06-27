@@ -8,6 +8,7 @@
           <RestaurantCardItem :restaurant="rest" @click.native="toRestaurantDetails(rest.id)" :style="{cursor:'pointer'}" />
       </v-col>
     </v-row>
+    <FirebaseItem/>
   </v-container>
 </template>
 
@@ -15,9 +16,10 @@
   import {RestaurantCardItem} from 'ceseat-lib'
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import MenusService from '@/services/MenusService'
+  import FirebaseItem from '@/components/FirebaseItem.vue'
 @Component({
   components: {
-     RestaurantCardItem
+     RestaurantCardItem, FirebaseItem
   }
  
 })

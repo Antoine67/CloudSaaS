@@ -21,8 +21,10 @@ admin.initializeApp({
 
 
 app.post('/notifications/suscribe', (req, res)=>{
+  
     const  registrationTokens = req.body.registrationTokens;
     const topic = req.body.topic;
+    console.log("body", req.body, "tokens :", registrationTokens)
 
 
     admin.messaging().subscribeToTopic(registrationTokens, topic)
