@@ -34,7 +34,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
-export default class DeliveryItemRealtime extends Vue {
+export default class DeliveryStateItem extends Vue {
   @Prop() private restaurantText! : string
   @Prop() private stateText! : string
   @Prop() private dateText! : string
