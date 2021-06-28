@@ -12,7 +12,7 @@ export class RolesService {
     //Get roles from database
 		const roleRepository = getRepository(Role);
 		const roles = await roleRepository.find({
-			select: ["id", "identifier", "title"] //We dont want to send the passwords on response
+			select: ["id", "identifier", "title"] 
 		});
 
 		//Send the roles object

@@ -16,8 +16,8 @@ import { EmployeesService } from '../services/employee.service';
 export class RestaurantController extends Controller {
 
 	/**
-	 * Retrieves all existing users.
-	 * @summary Retrieves all existing users
+	 * Retrieves all existing restaurants.
+	 * @summary Retrieves all existing restaurants
 	 */
 	@Get()
 	public async getAll(): Promise<Restaurant[]> {
@@ -25,10 +25,10 @@ export class RestaurantController extends Controller {
 	}
 
 	/**
-	 * Retrieves the details of an existing user.
-	 * Supply the unique user ID from either and receive corresponding user details.
-	 * @param id The user's identifier
-	 * @summary Retrieves a specific existing user
+	 * Retrieves the details of an existing restaurant.
+	 * Supply the unique restaurant ID from either and receive corresponding restaurant details.
+	 * @param id The restaurant's identifier
+	 * @summary Retrieves a specific existing restaurant
 	 */
 	@Get('/{id}')
 	public async get(@Path() id: string): Promise<Restaurant> {
@@ -36,10 +36,10 @@ export class RestaurantController extends Controller {
 	}
 
 	/**
-	 * Update specific user from the unique user ID you provide in query, with the new data you provide in body.
-	 * @param id The user's identifier
-	 * @param requestBody The new user's data
-	 * @summary Update an existing user
+	 * Update specific restaurant from the unique restaurant ID you provide in query, with the new data you provide in body.
+	 * @param id The restaurant's identifier
+	 * @param requestBody The new restaurant's data
+	 * @summary Update an existing restaurant
 	 */
 	@Put('/{id}')
 	public async update( @Path() id: string, @Body() req: RestaurantUpdateParams) : Promise<void> {
@@ -49,9 +49,9 @@ export class RestaurantController extends Controller {
 	}
 
 	/**
-	 * Delete a specific user from the unique user ID you provide.
-	 * @param id The user's identifier
-	 * @summary Delete a user
+	 * Delete a specific restaurant from the unique restaurant ID you provide.
+	 * @param id The restaurant's identifier
+	 * @summary Delete a restaurant
 	 */
 	@Delete('/{id}')
 	public async remove(@Path() id: string) : Promise<void> {
@@ -59,9 +59,9 @@ export class RestaurantController extends Controller {
 	}
 	 
     /**
-     * Create a new card by supplying new card's data
-     * @param requestBody The new card's data
-     * @summary Create a new card
+     * Create a new restaurant by supplying new restaurant's data
+     * @param requestBody The new restaurant's data
+     * @summary Create a new restaurant
      */
     @Post()
     public async create(@Body() req: RestaurantCreationParams) : Promise<void> {
@@ -76,8 +76,9 @@ export class RestaurantController extends Controller {
 
 	/**
 	 * Retrieves the details of an existing address.
-	 * Supply the unique address ID from either and receive corresponding address details.
-	 * @param id The address's identifier
+	 * Supply the unique address ID with the restaurant ID and receive corresponding address details.
+	 * @param id The restaurant's identifier
+	 * @param id_2 The address's identifier
 	 * @summary Retrieves a specific existing address
 	 */
 	@Get('/{id}/addresses/{id_2}')
@@ -86,7 +87,8 @@ export class RestaurantController extends Controller {
 	}
 	
 	/**
-	 * Create a new address by supplying new address's data
+	 * Create a new address by supplying new address's data with a specicic restaurant ID
+	 * @param id The user's identifier
 	 * @param requestBody The new address's data
 	 * @summary Create a new address
 	 */
@@ -102,8 +104,9 @@ export class RestaurantController extends Controller {
 	}
 
 	/**
-	 * Update specific address from the unique address ID you provide in query, with the new data you provide in body.
-	 * @param id The address's identifier
+	 * Update specific address from the unique address ID and restaurant ID, with the new data you provide in body.
+	 * @param id The restaurant's identifier
+	 * @param id_2 The address's identifier
 	 * @param requestBody The new address's data
 	 * @summary Update an existing address
 	 */
@@ -117,9 +120,9 @@ export class RestaurantController extends Controller {
 	 ///////////////////////////////////
 
 	 /**
-	  * Retrieves the details of all existing card.
-	  * @param id The user's identifier
-	  * @summary Retrieves all cards of a specific existing user
+	  * Retrieves the details of all existing employees.
+	  * @param id The restaurant's identifier
+	  * @summary Retrieves all employees of a specific existing restaurant
 	  */
 	 @Get('/{id}/users')
 	 public async getAllEmployees(@Path() id: string): Promise<Card> {
@@ -127,10 +130,11 @@ export class RestaurantController extends Controller {
 	 }
 
 	 /**
-	  * Retrieves the details of an existing card.
-	  * Supply the unique card ID from either and receive corresponding card details.
-	  * @param id The card's identifier
-	  * @summary Retrieves a specific existing card
+	  * Retrieves the details of an existing employee.
+	  * Supply the unique restaurant ID and user ID from either and receive corresponding employee details.
+	  * @param id The restaurant's identifier
+	  * @param id_2 The user's identifier
+	  * @summary Retrieves a specific existing employee
 	  */
 	  @Get('/{id}/users/{id_2}')
 	  public async getEmployee(@Path() id: string, id_2: string): Promise<Card> {
@@ -138,9 +142,11 @@ export class RestaurantController extends Controller {
 	  }
 	 
 	 /**
-	  * Create a new card by supplying new card's data
-	  * @param requestBody The new card's data
-	  * @summary Create a new card
+	  * Create a new employee by supplying new employee's data
+	  * @param id The restaurant's identifier
+	  * @param id_2 The user's identifier
+	  * @param requestBody The new employee's data
+	  * @summary Create a new employee
 	  */
 	 @Post('/{id}/users/{id_2}')
 	 public async createEmployee( @Path() id: string, id_2: string, @Body() req: EmployeeCreationParams) : Promise<void> {
@@ -154,9 +160,10 @@ export class RestaurantController extends Controller {
 	 }
 
 	 /**
-	  * Delete a specific user from the unique user ID you provide.
-	  * @param id The user's identifier
-	  * @summary Delete a user
+	  * Delete a specific employee from the unique restaurant ID and users ID you provide.
+	  * @param id The restaurant's identifier
+	  * @param id_2 The user's identifier
+	  * @summary Delete an employee
 	  */
 	 @Delete('/{id}/users/{id_2}')
 	 public async removeEmployee(@Path() id: string, id_2: string) : Promise<void> {
@@ -164,10 +171,11 @@ export class RestaurantController extends Controller {
 	 }
 
 	 /**
-	  * Update specific address from the unique address ID you provide in query, with the new data you provide in body.
-	  * @param id The address's identifier
-	  * @param requestBody The new address's data
-	  * @summary Update an existing address
+	  * Update specific employee from the unique restaurant ID and user ID, with the new data you provide in body.
+	  * @param id The restaurant's identifier
+	  * @param id_2 The user's identifier
+	  * @param requestBody The new employee's data
+	  * @summary Update an existing employee
 	  */
 	  @Put('/{id}/users/{id_2}')
 	  public async updateEmployee( @Path() id: string, id_2: string, @Body() req: EmployeeUpdateParams) : Promise<void> {
