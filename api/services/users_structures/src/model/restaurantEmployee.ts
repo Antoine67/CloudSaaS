@@ -10,7 +10,6 @@ import {
     OneToMany 
 } from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
-import * as bcrypt from "bcryptjs";
 import { Restaurant } from "./restaurant";
 import { User } from "./user";
 
@@ -27,8 +26,7 @@ export class RestaurantEmployee {
     @JoinColumn()
     restaurant: Restaurant;
 
-    @Column()
-    @Length(4, 100)
+    @Column({length: 100})
     role: number;
 
     @Column()

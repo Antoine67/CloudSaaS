@@ -15,9 +15,8 @@ export class Role {
     @OneToMany(type => User, user => user.role)
     user: User[];
 
-    @Column()
+    @Column({length: 100})
     @IsNotEmpty()
-    @Length(3, 100)
     role: string;
 }
 

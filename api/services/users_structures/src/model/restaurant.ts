@@ -21,16 +21,13 @@ export class Restaurant {
     @JoinColumn()
     address: Address;
 
-    @Column()
-    @Length(4, 50)
+    @Column({length: 100, nullable: true})
     rib: string;
 
-    @Column()
-    @Length(4, 50)
+    @Column({length: 100})
     title: string;
 
-    @Column()
-    @Length(4, 50)
+    @Column({length: 100, nullable: true})
     description: string;
 }
 

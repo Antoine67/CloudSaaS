@@ -24,28 +24,22 @@ export class Card {
     @ManyToOne(type => User, user => user.id)
     user: User;
 
-    @Column()
-    @Length(4, 12)
+    @Column({length: 100})
     type: string;
 
-    @Column()
-    @Length(4, 30)
+    @Column({length: 100})
     title: string;
 
-    @Column()
-    @Length(4, 30)
+    @Column({length: 100})
     wording: string;
 
-    @Column()
-    @Length(4, 20)
+    @Column({length: 100})
     number: string;
 
-    @Column()
-    @Length(4)
+    @Column({length: 100})
     expirationDate: string;
 
-    @Column()
-    @Length(4)
+    @Column({length: 100})
     cvv: string;
 
     @Column()
