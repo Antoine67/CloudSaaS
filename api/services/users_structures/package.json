@@ -8,7 +8,8 @@
     "dev2": "set debug=* && ts-node-dev --respawn --transpile-only ./src/main.ts",
     "start": "node  ./dist/main.js",
     "build": "tsoa routes && tsoa spec-and-routes && tsc",
-    "generate": "tsoa swagger"
+    "generate": "tsoa swagger",
+    "clean": "tsc --build --clean"
   },
   "author": "Antoine M",
   "license": "ISC",

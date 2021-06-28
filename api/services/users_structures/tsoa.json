@@ -18,5 +18,8 @@
         "basePath": "/api",
         "entryFile": "./src/app.ts",
         "routesDir": "./src"
-    }
+    },
+    "ignore": [
+        "**/node_modules/**"
+    ]
 }
