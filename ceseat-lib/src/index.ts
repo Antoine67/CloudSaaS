@@ -4,6 +4,7 @@ import RestaurantCardItem from "./components/RestaurantCardItem.vue";
 import LoginForm from "./components/LoginForm.vue";
 import ProductItem from "./components/ProductItem.vue";
 import OrderItem from "./components/OrderItem.vue";
+import OrderList from "./components/OrderList.vue";
 
 import Vuetify from 'vuetify/lib';
 
@@ -21,7 +22,8 @@ const Components = {
     LoginForm,
     ProductItem,
     RestaurantCardItem,
-    OrderItem
+    OrderItem,
+    OrderList
   }
 
 /*
@@ -43,12 +45,14 @@ function install(Vue: any) {
   Vue.component("ProductItem", ProductItem);
   Vue.component("RestaurantCardItem", RestaurantCardItem);
   Vue.component("OrderItem", OrderItem);
+  Vue.component("OrderList", OrderList);
   
   export { MenuCardItem };
   export { LoginForm };
   export { ProductItem };
   export { RestaurantCardItem };
   export { OrderItem };
+  export { OrderList };
 
 
   export default Components;

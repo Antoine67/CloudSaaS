@@ -6,7 +6,13 @@
     elevation="2"
   >
     <v-card-title prepend-icon="mdi-map-marker">
-      {{"Ma Commande"}}
+      {{"Ma Commande"}}: <v-chip
+            class="ma-2"
+            :color="status.color"
+            text-color="white"
+            >
+            {{status.name}}
+            </v-chip>
     </v-card-title>
    
 
@@ -98,16 +104,24 @@ export default class OrderItem extends Vue {
   @Prop() private order!: any;
   @Prop({default: true}) enableDeleteButton! : boolean;
   @Prop() deleteFromOrder! : (order: any) => void; 
+  dialog = false;
+  status : any = null ;
 
-  
   onDeleteClick(){
     this.deleteFromOrder(this.order)
   }
-  data () {
-      return {
-        dialog: false,
-      }
-    }
+  beforeMount(){  
+    this.status = this.status_tabs.find(x => x.id === this.order.status);
+  }
+   
+  status_tabs = [
+    {id:"WAITING_VALIDATION", name:"en attente de validation", color:"orange"},
+    {id:"WAITING_DELIVERER", name:"en attente du livreur", color:"orange"},
+    {id:"DELIVERY_IN_PROGRESS", name:"livraison en cours", color:"orange"},
+    {id:"ORDER_DELIVERED", name:"livraison terminée", color:"green"},
+    {id:"ORDER_CANCELLED_CLIENT", name:"commande annulée", color:"red"},
+    {id:"ORDER_CANCELLED_RESTAURANT", name:"commande annulée", color:"red"}
+  ]
 }
 
 

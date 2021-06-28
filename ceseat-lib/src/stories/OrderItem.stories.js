@@ -1,7 +1,7 @@
 import OrderItem from '../components/OrderItem.vue';
 
 export default {
-  title: 'Home/OrderItem',
+  title: 'Order/OrderItem',
   component: OrderItem,
 };
 
