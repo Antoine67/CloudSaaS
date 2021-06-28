@@ -10,10 +10,9 @@
 ### Accessibility :
 
 API available on `http://ceseat-api.fr`
+
 Api documentation available on `http://ceseat-api.fr/docs`
 
-Restaurant application available on `http://ceseat-restaurant.fr`
-User application available on `http://ceseat.fr`
 
 ### Versions used :
 `node v14.17.0`
