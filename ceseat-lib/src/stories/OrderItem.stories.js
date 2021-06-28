@@ -31,8 +31,7 @@ const exampleOrder =  {
         {
         id: 1,
         name: "Menu best-of",
-        description: "voici le menu",
-        restaurant: "la fourchette", 
+        description: "voici le menu",      
         price: 27,
  
         products : [
@@ -67,8 +66,7 @@ const exampleOrder =  {
             id: 2,
             name: "Menu maxi",
             description: "voici le gros menu",
-            restaurant: "le pamplemousse", 
-            price: 27,
+            price: 34,
      
             products : [
                 {
@@ -105,5 +103,6 @@ const exampleOrder =  {
 export const Default = Template.bind({});
 Default.args = {
   order :exampleOrder,
+  restaurant : "LaFourchette",
   deleteFromOrder: (order) => {console.log(order)}
 };
