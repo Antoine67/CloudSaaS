@@ -1,0 +1,1168 @@
+---
+definitions:
+  User:
+    properties:
+      id:
+        type: number
+        format: double
+      role:
+        "$ref": "#/definitions/Role"
+      address:
+        "$ref": "#/definitions/Address"
+      card:
+        "$ref": "#/definitions/Card"
+      employee:
+        "$ref": "#/definitions/Employee"
+      username:
+        type: string
+      password:
+        type: string
+      name:
+        type: string
+      surname:
+        type: string
+      age:
+        type: number
+        format: double
+      email:
+        type: string
+      siret:
+        type: string
+      rib:
+        type: string
+      sponsorshipCode:
+        type: string
+      suspended:
+        type: boolean
+      notification:
+        type: boolean
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    required:
+    - id
+    - role
+    - address
+    - card
+    - employee
+    - username
+    - password
+    - name
+    - surname
+    - age
+    - email
+    - siret
+    - rib
+    - sponsorshipCode
+    - suspended
+    - notification
+    - createdAt
+    - updatedAt
+    type: object
+  Role:
+    properties:
+      id:
+        type: number
+        format: double
+      user:
+        type: array
+        items:
+          "$ref": "#/definitions/User"
+      identifier:
+        type: string
+      title:
+        type: string
+    required:
+    - id
+    - user
+    - identifier
+    - title
+    type: object
+  Address:
+    properties:
+      id:
+        type: number
+        format: double
+      country:
+        type: string
+      town:
+        type: string
+      postalCode:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      longitude:
+        type: string
+      latitude:
+        type: string
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    required:
+    - id
+    - country
+    - town
+    - postalCode
+    - address1
+    - address2
+    - longitude
+    - latitude
+    - createdAt
+    - updatedAt
+    type: object
+  Card:
+    properties:
+      id:
+        type: number
+        format: double
+      user:
+        "$ref": "#/definitions/User"
+      type:
+        type: string
+      title:
+        type: string
+      wording:
+        type: string
+      number:
+        type: string
+      expirationDate:
+        type: string
+      cvv:
+        type: string
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    required:
+    - id
+    - user
+    - type
+    - title
+    - wording
+    - number
+    - expirationDate
+    - cvv
+    - createdAt
+    - updatedAt
+    type: object
+  Employee:
+    properties:
+      user:
+        "$ref": "#/definitions/User"
+      restaurant:
+        "$ref": "#/definitions/Restaurant"
+      role:
+        "$ref": "#/definitions/RoleEmployee"
+    required:
+    - user
+    - restaurant
+    - role
+    type: object
+  Restaurant:
+    properties:
+      id:
+        type: number
+        format: double
+      address:
+        "$ref": "#/definitions/Address"
+      employee:
+        "$ref": "#/definitions/Employee"
+      rib:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+    required:
+    - id
+    - address
+    - employee
+    - rib
+    - title
+    - description
+    type: object
+  RoleEmployee:
+    properties:
+      id:
+        type: number
+        format: double
+      employee:
+        type: array
+        items:
+          "$ref": "#/definitions/Employee"
+      identifier:
+        type: string
+      title:
+        type: string
+    required:
+    - id
+    - employee
+    - identifier
+    - title
+    type: object
+  UserUpdateParams:
+    properties:
+      role:
+        "$ref": "#/definitions/Role"
+        x-nullable: true
+      address:
+        "$ref": "#/definitions/Address"
+        x-nullable: true
+      username:
+        type: string
+        x-nullable: true
+      name:
+        type: string
+        x-nullable: true
+      surname:
+        type: string
+        x-nullable: true
+      age:
+        type: number
+        format: double
+        x-nullable: true
+      email:
+        type: string
+        x-nullable: true
+      siret:
+        type: string
+        x-nullable: true
+      rib:
+        type: string
+        x-nullable: true
+      sponsorshipCode:
+        type: string
+        x-nullable: true
+      suspended:
+        type: boolean
+        x-nullable: true
+      notification:
+        type: boolean
+        x-nullable: true
+    type: object
+  AddressCreationParams:
+    properties:
+      country:
+        type: string
+      town:
+        type: string
+      postalCode:
+        type: string
+      address1:
+        type: string
+      address2:
+        type: string
+      longitude:
+        type: string
+      latitude:
+        type: string
+    required:
+    - country
+    - town
+    - postalCode
+    - address1
+    - address2
+    - longitude
+    - latitude
+    type: object
+  AddressUpdateParams:
+    properties:
+      country:
+        type: string
+        x-nullable: true
+      town:
+        type: string
+        x-nullable: true
+      postalCode:
+        type: string
+        x-nullable: true
+      address1:
+        type: string
+        x-nullable: true
+      address2:
+        type: string
+        x-nullable: true
+      longitude:
+        type: string
+        x-nullable: true
+      latitude:
+        type: string
+        x-nullable: true
+    type: object
+  CardCreationParams:
+    properties:
+      type:
+        type: string
+      title:
+        type: string
+      wording:
+        type: string
+      number:
+        type: string
+      expirationDate:
+        type: string
+      cvv:
+        type: string
+    required:
+    - type
+    - title
+    - wording
+    - number
+    - expirationDate
+    - cvv
+    type: object
+  RestaurantUpdateParams:
+    properties:
+      address:
+        "$ref": "#/definitions/Address"
+        x-nullable: true
+      rib:
+        type: string
+        x-nullable: true
+      title:
+        type: string
+        x-nullable: true
+      description:
+        type: string
+        x-nullable: true
+    type: object
+  RestaurantCreationParams:
+    properties:
+      rib:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+    required:
+    - rib
+    - title
+    - description
+    type: object
+  EmployeeCreationParams:
+    properties:
+      role:
+        type: number
+        format: double
+    required:
+    - role
+    type: object
+  EmployeeUpdateParams:
+    properties:
+      role:
+        type: number
+        format: double
+        x-nullable: true
+    type: object
+  RoleCreationParams:
+    properties:
+      identifier:
+        type: string
+      title:
+        type: string
+    required:
+    - identifier
+    - title
+    type: object
+  RoleUpdateParams:
+    properties:
+      identifier:
+        type: string
+        x-nullable: true
+      title:
+        type: string
+        x-nullable: true
+    type: object
+  RoleEmployeeCreationParams:
+    properties:
+      identifier:
+        type: string
+      title:
+        type: string
+    required:
+    - identifier
+    - title
+    type: object
+  RoleEmployeeUpdateParams:
+    properties:
+      identifier:
+        type: string
+        x-nullable: true
+      title:
+        type: string
+        x-nullable: true
+    type: object
+info:
+  title: users_structures_service
+  version: 1.0.0
+  license:
+    name: ISC
+paths:
+  "/users":
+    get:
+      operationId: GetAll
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/User"
+      description: Retrieves all existing users.
+      summary: Retrieves all existing users
+      tags:
+      - Users
+      security: []
+      parameters: []
+  "/users/{id}":
+    get:
+      operationId: Get
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/User"
+      description: |-
+        Retrieves the details of an existing user.
+        Supply the unique user ID from either and receive corresponding user details.
+      summary: Retrieves a specific existing user
+      tags:
+      - Users
+      security: []
+      parameters:
+      - description: The user's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+    put:
+      operationId: Update
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Update specific user from the unique user ID you provide in query,
+        with the new data you provide in body.
+      summary: Update an existing user
+      tags:
+      - Users
+      security: []
+      parameters:
+      - description: The user's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/UserUpdateParams"
+    delete:
+      operationId: Remove
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Delete a specific user from the unique user ID you provide.
+      summary: Delete a user
+      tags:
+      - Users
+      security: []
+      parameters:
+      - description: The user's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+  "/users/{id}/addresses/{id_2}":
+    get:
+      operationId: GetAddress
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/Address"
+      description: |-
+        Retrieves the details of an existing address.
+        Supply the unique address ID from either and receive corresponding address details.
+      summary: Retrieves a specific existing address
+      tags:
+      - Users
+      security: []
+      parameters:
+      - description: The address's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: path
+        name: id_2
+        required: true
+        type: string
+    put:
+      operationId: UpdateAddress
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Update specific address from the unique address ID you provide
+        in query, with the new data you provide in body.
+      summary: Update an existing address
+      tags:
+      - Users
+      security: []
+      parameters:
+      - description: The address's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: path
+        name: id_2
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/AddressUpdateParams"
+  "/users/{id}/addresses":
+    post:
+      operationId: CreateAddress
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Create a new address by supplying new address's data
+      summary: Create a new address
+      tags:
+      - Users
+      security: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/AddressCreationParams"
+  "/users/{id}/cards":
+    get:
+      operationId: GetAllCards
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/Card"
+      description: Retrieves the details of all existing card.
+      summary: Retrieves all cards of a specific existing user
+      tags:
+      - Users
+      security: []
+      parameters:
+      - description: The user's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+    post:
+      operationId: CreateCard
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Create a new card by supplying new card's data
+      summary: Create a new card
+      tags:
+      - Users
+      security: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/CardCreationParams"
+  "/users/{id}/cards/{id_2}":
+    get:
+      operationId: GetCard
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/Card"
+      description: |-
+        Retrieves the details of an existing card.
+        Supply the unique card ID from either and receive corresponding card details.
+      summary: Retrieves a specific existing card
+      tags:
+      - Users
+      security: []
+      parameters:
+      - description: The card's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: path
+        name: id_2
+        required: true
+        type: string
+    delete:
+      operationId: RemoveCard
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Delete a specific user from the unique user ID you provide.
+      summary: Delete a user
+      tags:
+      - Users
+      security: []
+      parameters:
+      - description: The user's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: path
+        name: id_2
+        required: true
+        type: string
+  "/restaurants":
+    get:
+      operationId: GetAll
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Restaurant"
+      description: Retrieves all existing users.
+      summary: Retrieves all existing users
+      tags:
+      - Restaurants
+      security: []
+      parameters: []
+    post:
+      operationId: Create
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Create a new card by supplying new card's data
+      summary: Create a new card
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/RestaurantCreationParams"
+  "/restaurants/{id}":
+    get:
+      operationId: Get
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/Restaurant"
+      description: |-
+        Retrieves the details of an existing user.
+        Supply the unique user ID from either and receive corresponding user details.
+      summary: Retrieves a specific existing user
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - description: The user's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+    put:
+      operationId: Update
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Update specific user from the unique user ID you provide in query,
+        with the new data you provide in body.
+      summary: Update an existing user
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - description: The user's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/RestaurantUpdateParams"
+    delete:
+      operationId: Remove
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Delete a specific user from the unique user ID you provide.
+      summary: Delete a user
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - description: The user's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+  "/restaurants/{id}/addresses/{id_2}":
+    get:
+      operationId: GetAddress
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/Address"
+      description: |-
+        Retrieves the details of an existing address.
+        Supply the unique address ID from either and receive corresponding address details.
+      summary: Retrieves a specific existing address
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - description: The address's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: path
+        name: id_2
+        required: true
+        type: string
+    put:
+      operationId: UpdateAddress
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Update specific address from the unique address ID you provide
+        in query, with the new data you provide in body.
+      summary: Update an existing address
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - description: The address's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: path
+        name: id_2
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/AddressUpdateParams"
+  "/restaurants/{id}/addresses":
+    post:
+      operationId: CreateAddress
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Create a new address by supplying new address's data
+      summary: Create a new address
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/AddressCreationParams"
+  "/restaurants/{id}/users":
+    get:
+      operationId: GetAllEmployees
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/Card"
+      description: Retrieves the details of all existing card.
+      summary: Retrieves all cards of a specific existing user
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - description: The user's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+  "/restaurants/{id}/users/{id_2}":
+    get:
+      operationId: GetEmployee
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/Card"
+      description: |-
+        Retrieves the details of an existing card.
+        Supply the unique card ID from either and receive corresponding card details.
+      summary: Retrieves a specific existing card
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - description: The card's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: path
+        name: id_2
+        required: true
+        type: string
+    post:
+      operationId: CreateEmployee
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Create a new card by supplying new card's data
+      summary: Create a new card
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - in: path
+        name: id
+        required: true
+        type: string
+      - in: path
+        name: id_2
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/EmployeeCreationParams"
+    delete:
+      operationId: RemoveEmployee
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Delete a specific user from the unique user ID you provide.
+      summary: Delete a user
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - description: The user's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: path
+        name: id_2
+        required: true
+        type: string
+    put:
+      operationId: UpdateEmployee
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Update specific address from the unique address ID you provide
+        in query, with the new data you provide in body.
+      summary: Update an existing address
+      tags:
+      - Restaurants
+      security: []
+      parameters:
+      - description: The address's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: path
+        name: id_2
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/EmployeeUpdateParams"
+  "/roles":
+    get:
+      operationId: GetAll
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Role"
+      description: Retrieves all existing roles.
+      summary: Retrieves all existing roles
+      tags:
+      - Roles
+      security: []
+      parameters: []
+    post:
+      operationId: Create
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Create a new role by supplying new role's data
+      summary: Create a new role
+      tags:
+      - Roles
+      security: []
+      parameters:
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/RoleCreationParams"
+  "/roles/{id}":
+    get:
+      operationId: Get
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/Role"
+      description: |-
+        Retrieves the details of an existing role.
+        Supply the unique role ID from either and receive corresponding role details.
+      summary: Retrieves a specific existing role
+      tags:
+      - Roles
+      security: []
+      parameters:
+      - description: The role's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+    put:
+      operationId: Update
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Update specific role from the unique role ID you provide in query,
+        with the new data you provide in body.
+      summary: Update an existing role
+      tags:
+      - Roles
+      security: []
+      parameters:
+      - description: The role's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/RoleUpdateParams"
+    delete:
+      operationId: Remove
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Delete a specific role from the unique role ID you provide.
+      summary: Delete a role
+      tags:
+      - Roles
+      security: []
+      parameters:
+      - description: The role's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+  "/roleEmployees":
+    get:
+      operationId: GetAll
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/RoleEmployee"
+      description: Retrieves all existing roles.
+      summary: Retrieves all existing roles
+      tags:
+      - RoleEmployees
+      security: []
+      parameters: []
+    post:
+      operationId: Create
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Create a new role by supplying new role's data
+      summary: Create a new role
+      tags:
+      - RoleEmployees
+      security: []
+      parameters:
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/RoleEmployeeCreationParams"
+  "/roleEmployees/{id}":
+    get:
+      operationId: Get
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/RoleEmployee"
+      description: |-
+        Retrieves the details of an existing role.
+        Supply the unique role ID from either and receive corresponding role details.
+      summary: Retrieves a specific existing role
+      tags:
+      - RoleEmployees
+      security: []
+      parameters:
+      - description: The role's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+    put:
+      operationId: Update
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Update specific role from the unique role ID you provide in query,
+        with the new data you provide in body.
+      summary: Update an existing role
+      tags:
+      - RoleEmployees
+      security: []
+      parameters:
+      - description: The role's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/RoleEmployeeUpdateParams"
+    delete:
+      operationId: Remove
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Delete a specific role from the unique role ID you provide.
+      summary: Delete a role
+      tags:
+      - RoleEmployees
+      security: []
+      parameters:
+      - description: The role's identifier
+        in: path
+        name: id
+        required: true
+        type: string

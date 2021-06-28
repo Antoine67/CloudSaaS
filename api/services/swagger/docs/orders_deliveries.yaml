@@ -1,0 +1,544 @@
+---
+definitions:
+  IOrder:
+    description: |-
+      Order objects allow merchants to show their available
+      meals/dessert/... for sale
+    properties:
+      id:
+        type: string
+        description: Uniq indentifier
+      date:
+        type: string
+        format: date-time
+        description: Uniq indentifier
+      restaurant_id:
+        type: number
+        format: double
+        description: Restaurant uniq indentifier reference
+      customer_id:
+        type: number
+        format: double
+        description: Restaurant uniq indentifier reference
+      deliverer_id:
+        type: number
+        format: double
+        description: Restaurant uniq indentifier reference
+      status:
+        type: string
+        description: Name which represent the order
+      pricing:
+        type: object
+        description: Pricing contained in order
+      delivered:
+        type: boolean
+        description: Is the order currently available ?
+      products:
+        type: object
+        description: Products contained in order
+    required:
+    - id
+    - date
+    - restaurant_id
+    - customer_id
+    - deliverer_id
+    - status
+    - pricing
+    - delivered
+    - products
+    type: object
+  OrderCreationParams:
+    description: Order object for creation
+    properties:
+      date:
+        type: string
+        format: date-time
+        description: Uniq indentifier
+      restaurant_id:
+        type: number
+        format: double
+        description: Restaurant uniq indentifier reference
+      customer_id:
+        type: number
+        format: double
+        description: Restaurant uniq indentifier reference
+      deliverer_id:
+        type: number
+        format: double
+        description: Restaurant uniq indentifier reference
+      status:
+        type: string
+        description: Name which represent the order
+      pricing:
+        type: object
+        description: Pricing contained in order
+      delivered:
+        type: boolean
+        description: Is the order currently available ?
+      products:
+        type: object
+        description: Products contained in order
+    required:
+    - date
+    - restaurant_id
+    - customer_id
+    - deliverer_id
+    - status
+    - pricing
+    - delivered
+    - products
+    type: object
+  OrderUpdateParams:
+    description: Order object for update
+    properties:
+      date:
+        type: string
+        format: date-time
+        description: Uniq indentifier
+        x-nullable: true
+      restaurant_id:
+        type: number
+        format: double
+        description: Restaurant uniq indentifier reference
+        x-nullable: true
+      customer_id:
+        type: number
+        format: double
+        description: Restaurant uniq indentifier reference
+        x-nullable: true
+      deliverer_id:
+        type: number
+        format: double
+        description: Restaurant uniq indentifier reference
+        x-nullable: true
+      status:
+        type: string
+        description: Name which represent the order
+        x-nullable: true
+      pricing:
+        type: object
+        description: Pricing contained in order
+        x-nullable: true
+      delivered:
+        type: boolean
+        description: Is the order currently available ?
+        x-nullable: true
+      products:
+        type: object
+        description: Products contained in order
+        x-nullable: true
+    type: object
+  IDelivery:
+    description: |-
+      Delivery objects allow merchants and consumer to know
+      the state the state of the delivery
+    properties:
+      id:
+        type: string
+        description: Uniq indentifier
+      order_id:
+        type: number
+        format: double
+        description: Order uniq indentifier reference
+      date:
+        type: string
+        format: date-time
+        description: The date of creation of the delivery
+      status:
+        type: string
+        description: Is the delivery currently available ?
+    required:
+    - id
+    - order_id
+    - date
+    - status
+    type: object
+  DeliveryCreationParams:
+    description: Delivery object for creation
+    properties:
+      order_id:
+        type: number
+        format: double
+        description: Order uniq indentifier reference
+      date:
+        type: string
+        format: date-time
+        description: The date of creation of the delivery
+      status:
+        type: string
+        description: Is the delivery currently available ?
+    required:
+    - order_id
+    - date
+    - status
+    type: object
+  DeliveryUpdateParams:
+    description: Delivery object for update
+    properties:
+      order_id:
+        type: number
+        format: double
+        description: Order uniq indentifier reference
+        x-nullable: true
+      date:
+        type: string
+        format: date-time
+        description: The date of creation of the delivery
+        x-nullable: true
+      status:
+        type: string
+        description: Is the delivery currently available ?
+        x-nullable: true
+    type: object
+  IRating:
+    description: |-
+      Rating allow user to rate a restaurant or a deliverer
+      after an order completed
+    properties:
+      id:
+        type: string
+        description: Uniq indentifier
+      value:
+        type: number
+        format: double
+        description: Value of the rate from the user
+      comment:
+        type: string
+        description: Short comment with the rate
+      type:
+        type: string
+        description: The type of the entity rated
+      foreign_id:
+        type: number
+        format: double
+        description: Rated entity uniq indentifier reference
+      sender_id:
+        type: number
+        format: double
+        description: Sender uniq indentifier reference
+    required:
+    - id
+    - value
+    - comment
+    - type
+    - foreign_id
+    - sender_id
+    type: object
+  RatingCreationParams:
+    description: Rating object for creation
+    properties:
+      value:
+        type: number
+        format: double
+        description: Value of the rate from the user
+      comment:
+        type: string
+        description: Short comment with the rate
+      type:
+        type: string
+        description: The type of the entity rated
+      foreign_id:
+        type: number
+        format: double
+        description: Rated entity uniq indentifier reference
+      sender_id:
+        type: number
+        format: double
+        description: Sender uniq indentifier reference
+    required:
+    - value
+    - comment
+    - type
+    - foreign_id
+    - sender_id
+    type: object
+info:
+  title: orders_deliveries_service
+  version: 1.0.0
+  license:
+    name: ISC
+paths:
+  "/orders":
+    get:
+      operationId: GetAll
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/IOrder"
+      description: Retrieves all existing orders.
+      summary: Retrieves all existing orders
+      tags:
+      - Orders
+      security: []
+      parameters: []
+    post:
+      operationId: Create
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Create a new order by supplying new order's data
+      summary: Create a new order
+      tags:
+      - Orders
+      security: []
+      parameters:
+      - description: The new order's data
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          "$ref": "#/definitions/OrderCreationParams"
+  "/orders/{id}":
+    get:
+      operationId: Get
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/IOrder"
+      description: |-
+        Retrieves the details of an existing order.
+        Supply the unique order ID from either and receive corresponding order details.
+      summary: Retrieves a specific existing order
+      tags:
+      - Orders
+      security: []
+      parameters:
+      - description: The order's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+    put:
+      operationId: Update
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Update specific order from the unique order ID you provide in query,
+        with the new data you provide in body.
+      summary: Update an existing order
+      tags:
+      - Orders
+      security: []
+      parameters:
+      - description: The order's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The new order's data
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          "$ref": "#/definitions/OrderUpdateParams"
+    delete:
+      operationId: Remove
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Delete a specific order from the unique order ID you provide.
+      summary: Delete a order
+      tags:
+      - Orders
+      security: []
+      parameters:
+      - description: The order's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+  "/deliveries":
+    get:
+      operationId: GetAll
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/IDelivery"
+      description: Retrieves all existing deliveries.
+      summary: Retrieves all existing deliveries
+      tags:
+      - Deliveries
+      security: []
+      parameters: []
+    post:
+      operationId: Create
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Create a new delivery by supplying new delivery's data
+      summary: Create a new delivery
+      tags:
+      - Deliveries
+      security: []
+      parameters:
+      - description: The new delivery's data
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          "$ref": "#/definitions/DeliveryCreationParams"
+  "/deliveries/{id}":
+    get:
+      operationId: Get
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/IDelivery"
+      description: |-
+        Retrieves the details of an existing delivery.
+        Supply the unique delivery ID from either and receive corresponding delivery details.
+      summary: Retrieves a specific existing delivery
+      tags:
+      - Deliveries
+      security: []
+      parameters:
+      - description: The delivery's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+    put:
+      operationId: Update
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Update specific delivery from the unique delivery ID you provide
+        in query, with the new data you provide in body.
+      summary: Update an existing delivery
+      tags:
+      - Deliveries
+      security: []
+      parameters:
+      - description: The delivery's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: The new delivery's data
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          "$ref": "#/definitions/DeliveryUpdateParams"
+    delete:
+      operationId: Remove
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Delete a specific delivery from the unique delivery ID you provide.
+      summary: Delete a delivery
+      tags:
+      - Deliveries
+      security: []
+      parameters:
+      - description: The delivery's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+  "/ratings":
+    get:
+      operationId: GetAll
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/IRating"
+      description: Retrieves all existing ratings.
+      summary: Retrieves all existing ratings
+      tags:
+      - Ratings
+      security: []
+      parameters: []
+    post:
+      operationId: Create
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Create a new rating by supplying new rating's data
+      summary: Create a new rating
+      tags:
+      - Ratings
+      security: []
+      parameters:
+      - description: The new rating's data
+        in: body
+        name: requestBody
+        required: true
+        schema:
+          "$ref": "#/definitions/RatingCreationParams"
+  "/ratings/{id}":
+    get:
+      operationId: Get
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/IRating"
+      description: |-
+        Retrieves the details of an existing rating.
+        Supply the unique rating ID from either and receive corresponding rating details.
+      summary: Retrieves a specific existing rating
+      tags:
+      - Ratings
+      security: []
+      parameters:
+      - description: The rating's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+    delete:
+      operationId: Remove
+      produces:
+      - application/json
+      responses:
+        '204':
+          description: No content
+      description: Delete a specific rating from the unique rating ID you provide.
+      summary: Delete a rating
+      tags:
+      - Ratings
+      security: []
+      parameters:
+      - description: The rating's identifier
+        in: path
+        name: id
+        required: true
+        type: string
