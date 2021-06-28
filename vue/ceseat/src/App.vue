@@ -27,6 +27,7 @@ import { Component, Vue } from "vue-property-decorator";
 import {AppHeader} from 'ceseat-lib'
 
 import ShoppingCart from "@/components/Payment/ShoppingCart.vue";
+
 import { namespace } from "vuex-class";
 
 const Auth = namespace("Auth");

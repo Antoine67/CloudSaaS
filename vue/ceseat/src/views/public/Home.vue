@@ -8,16 +8,19 @@
           <RestaurantCardItem :restaurant="rest" @click.native="toRestaurantDetails(rest.id)" :style="{cursor:'pointer'}" />
       </v-col>
     </v-row>
+    <GeolocationItem/>
   </v-container>
 </template>
 
 <script lang="ts">
   import {RestaurantCardItem} from 'ceseat-lib'
+  import GeolocationItem from "@/components/GeolocationItem.vue";
   import { Component, Vue, Prop } from 'vue-property-decorator';
   import MenusService from '@/services/MenusService'
 @Component({
   components: {
-     RestaurantCardItem
+     RestaurantCardItem,
+     GeolocationItem
   }
  
 })
