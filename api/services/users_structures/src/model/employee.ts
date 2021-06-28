@@ -7,34 +7,37 @@ import {
     UpdateDateColumn,
     OneToOne, 
     JoinColumn,
-    OneToMany 
+    OneToMany,
+    ManyToOne 
 } from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
 import { Restaurant } from "./restaurant";
 import { User } from "./user";
 
 @Entity()
-export class RestaurantEmployee {
+export class Employee {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToMany(type => User, user => user.id)
-    @JoinColumn()
+    @ManyToOne(type => User, user => user.id)
     user: User;
 
-    @OneToMany(type => Restaurant, restaurant => restaurant.id)
-    @JoinColumn()
+    @ManyToOne(type => Restaurant, restaurant => restaurant.id)
     restaurant: Restaurant;
 
-    @Column({length: 100})
+    @Column()
+    role: number;
+}
+
+export class EmployeeCreationParams {
+    
     role: number;
 
-    @Column()
-    @CreateDateColumn()
-    createdAt: Date;
+}
 
-    @Column()
-    @UpdateDateColumn()
-    updatedAt: Date;
+export class EmployeeUpdateParams {
+    
+    role?: number;
+
 }
   

@@ -3,11 +3,13 @@ import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Exampl
 
 import { User, UserUpdateParams } from "../model/user";
 import { Address, AddressCreationParams, AddressUpdateParams } from "../model/address";
+import { Employee, EmployeeCreationParams, EmployeeUpdateParams } from "../model/employee";
 import { Card, CardCreationParams } from "../model/card";
 import { AddressesService } from "../services/address.service";
 import { CardsService } from "../services/card.service";
 import { UsersService } from "../services/user.service";
 import { Request, Response } from "express";
+import { EmployeesService } from '../services/employee.service';
 
 @Route('/users')
 @Tags("Users")
@@ -144,6 +146,68 @@ export class UserController extends Controller {
 	 public async removeCard(@Path() id: string, id_2: string) : Promise<void> {
 		 return new CardsService().deleteCard(id, id_2);
 	 }
+
+	 ///////////////////////////////////
+
+	 /**
+	  * Retrieves the details of all existing card.
+	  * @param id The user's identifier
+	  * @summary Retrieves all cards of a specific existing user
+	  */
+	 @Get('/{id}/restaurants/{id_2}/employees')
+	 public async getAllEmployees(@Path() id: string, id_2: string): Promise<Card> {
+		 return new EmployeesService().getAll(id, id_2);
+	 }
+
+	 /**
+	  * Retrieves the details of an existing card.
+	  * Supply the unique card ID from either and receive corresponding card details.
+	  * @param id The card's identifier
+	  * @summary Retrieves a specific existing card
+	  */
+	  @Get('/{id}/restaurants/{id_2}/employees/{id_3}')
+	  public async getEmployee(@Path() id: string, id_2: string, id_3: string): Promise<Card> {
+		  return new EmployeesService().get(id, id_2, id_3);
+	  }
+	 
+	 /**
+	  * Create a new card by supplying new card's data
+	  * @param requestBody The new card's data
+	  * @summary Create a new card
+	  */
+	 @Post('/{id}/restaurants/{id_2}/employees')
+	 public async createEmployee( @Path() id: string, id_2: string, @Body() req: EmployeeCreationParams) : Promise<void> {
+ 
+		 if(new EmployeesService().create(id, id_2, req)) {
+			 this.setStatus(201); // set return status 201
+		 }else {
+			 this.setStatus(500); // set return status 500
+		 }
+		 return;
+	 }
+
+	 /**
+	  * Delete a specific user from the unique user ID you provide.
+	  * @param id The user's identifier
+	  * @summary Delete a user
+	  */
+	 @Delete('/{id}/restaurants/{id_2}/employees/{id_3}')
+	 public async removeEmployee(@Path() id: string, id_2: string, id_3: string) : Promise<void> {
+		 return new EmployeesService().delete(id, id_2, id_3);
+	 }
+
+	 /**
+	  * Update specific address from the unique address ID you provide in query, with the new data you provide in body.
+	  * @param id The address's identifier
+	  * @param requestBody The new address's data
+	  * @summary Update an existing address
+	  */
+	  @Put('/{id}/restaurants/{id_2}/employees/{id_3}')
+	  public async updateEmployee( @Path() id: string, id_2: string, id_3: string, @Body() req: EmployeeUpdateParams) : Promise<void> {
+		  this.setStatus(201); // set return status 201
+		  new EmployeesService().update(id, id_2, id_3, req);
+		  return;
+	  }
 }
 
 

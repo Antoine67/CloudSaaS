@@ -11,6 +11,7 @@ import {
 } from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
 import { Address } from "./address";
+import { Employee } from "./employee";
 
 @Entity()
 export class Restaurant {
@@ -20,6 +21,9 @@ export class Restaurant {
     @OneToOne(type => Address)
     @JoinColumn()
     address: Address;
+
+    @OneToMany(type => Employee, employee => employee.id)
+    employee: Employee;
 
     @Column({length: 100, nullable: true})
     rib: string;

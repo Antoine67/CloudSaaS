@@ -15,6 +15,7 @@ import * as bcrypt from "bcryptjs";
 import { Address } from "./address";
 import { Role } from "./role";
 import { Card } from "./card";
+import { Employee } from "./employee";
 
 @Entity()
 @Unique(["username", "email", "siret", "sponsorshipCode"])
@@ -32,6 +33,9 @@ export class User {
 
     @OneToMany(type => Card, card => card.id)
     card: Card;
+
+    @OneToMany(type => Employee, employee => employee.id)
+    employee: Employee;
 
     @Column({length: 100})
     username: string;
