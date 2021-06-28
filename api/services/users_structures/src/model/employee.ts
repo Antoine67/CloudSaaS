@@ -13,6 +13,7 @@ import {
 import { Length, IsNotEmpty } from "class-validator";
 import { Restaurant } from "./restaurant";
 import { User } from "./user";
+import { RoleEmployee } from "./roleEmployee";
 
 @Entity()
 export class Employee {
@@ -23,8 +24,9 @@ export class Employee {
     @ManyToOne(type => Restaurant, restaurant => restaurant.id, { primary: true, })
     restaurant: Restaurant;
 
-    @Column()
-    role: number;
+    @ManyToOne(type => RoleEmployee, roleEmployee => roleEmployee.employee, {eager: true})
+    @JoinColumn()
+    role: RoleEmployee;
 }
 
 export class EmployeeCreationParams {

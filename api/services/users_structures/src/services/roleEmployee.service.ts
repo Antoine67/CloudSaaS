@@ -2,16 +2,16 @@ import { Request, Response } from "express";
 import { getRepository} from "typeorm";
 import { validate } from "class-validator";
 
-import { Role, RoleCreationParams, RoleUpdateParams } from "../model/role";
+import { RoleEmployee, RoleEmployeeCreationParams, RoleEmployeeUpdateParams } from "../model/roleEmployee";
 import {Tags} from 'tsoa';
 
 
-export class RolesService {
+export class RoleEmployeesService {
 
-  public async getAll(): Promise<Role[]> {
+  public async getAll(): Promise<RoleEmployee[]> {
     //Get roles from database
-		const roleRepository = getRepository(Role);
-		const roles = await roleRepository.find({
+		const roleEmployeeRepository = getRepository(RoleEmployee);
+		const roles = await roleEmployeeRepository.find({
 			select: ["id", "identifier", "title"] //We dont want to send the passwords on response
 		});
 
@@ -19,9 +19,9 @@ export class RolesService {
 		return roles;
   }
 
-  public async create(requestBody: RoleCreationParams): Promise<boolean> {
+  public async create(requestBody: RoleEmployeeCreationParams): Promise<boolean> {
 
-    const role = new Role()
+    const role = new RoleEmployee()
     for (const [key, value] of Object.entries(requestBody)) {
         if(value != undefined){
             role[key] = value;
@@ -36,7 +36,7 @@ export class RolesService {
       return;
     }
   
-    const roleRepository = getRepository(Role);
+    const roleRepository = getRepository(RoleEmployee);
     try {
         await roleRepository.save(role);
     } catch (e) {
@@ -48,10 +48,10 @@ export class RolesService {
     console.log("Role created");
   }
 
-  public async update(id: string, requestBody: RoleUpdateParams): Promise<void> {
+  public async update(id: string, requestBody: RoleEmployeeUpdateParams): Promise<void> {
   
     //Try to find role on database
-    const roleRepository = getRepository(Role);
+    const roleRepository = getRepository(RoleEmployee);
     let role;
     try {
       role = await roleRepository.findOneOrFail(id);
@@ -81,8 +81,8 @@ export class RolesService {
   }
 
   public async delete(id: string): Promise<void> {
-    const roleRepository = getRepository(Role);
-    let role: Role;
+    const roleRepository = getRepository(RoleEmployee);
+    let role: RoleEmployee;
     try {
       role = await roleRepository.findOneOrFail(id);
     } catch (error) {
@@ -93,7 +93,7 @@ export class RolesService {
 
   public async get(id: string): Promise<any> {
     //Get the role from database
-    const roleRepository = getRepository(Role);
+    const roleRepository = getRepository(RoleEmployee);
     try {
       const role = await roleRepository.findOneOrFail(id, {
         select: ["id", "identifier", "title"]

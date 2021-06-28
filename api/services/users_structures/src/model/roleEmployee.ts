@@ -6,14 +6,15 @@ import {
 } from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
 import { User } from "./user";
+import { Employee } from "./employee";
 
 @Entity()
-export class Role {
+export class RoleEmployee {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToMany(type => User, user => user.role)
-    user: User[];
+    @OneToMany(type => Employee, employee => employee.role)
+    employee: Employee[];
 
     @Column({length: 100})
     @IsNotEmpty()
@@ -24,7 +25,7 @@ export class Role {
     title: string;
 }
 
-export class RoleCreationParams {
+export class RoleEmployeeCreationParams {
 
     identifier: string;
 
@@ -32,7 +33,7 @@ export class RoleCreationParams {
 
 }
 
-export class RoleUpdateParams {
+export class RoleEmployeeUpdateParams {
 
     identifier?: string;
     

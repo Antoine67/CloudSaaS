@@ -5,6 +5,7 @@ import * as bodyparser from 'body-parser';
 import './controller/user.controller';
 import './controller/restaurant.controller';
 import './controller/role.controller';
+import './controller/roleEmployee.controller';
 
 
 import { requestLoggerMiddleware } from './request.logger.middleware';
