@@ -6,6 +6,5 @@ COPY package.json /usr/src/orders/
 RUN npm install
 
 COPY . /usr/src/orders
-RUN npm run build
 
 CMD [ "npm", "run", "start" ]

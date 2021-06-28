@@ -7,6 +7,8 @@ import DeliveryItemRealtime from "./components/DeliveryItemRealtime.vue";
 import DeliveryStateItem from "./components/DeliveryStateItem.vue";
 import DeliveryPickableItem from "./components/DeliveryPickableItem.vue";
 import AppHeader from "./components/AppHeader.vue";
+import OrderItem from "./components/OrderItem.vue";
+import OrderList from "./components/OrderList.vue";
 
 import Vuetify from 'vuetify/lib';
 
@@ -27,7 +29,9 @@ const Components = {
     AppHeader,
     DeliveryItemRealtime,
     DeliveryPickableItem,
-    DeliveryStateItem
+    DeliveryStateItem,
+    OrderItem,
+    OrderList
   }
 
 /*
@@ -52,6 +56,8 @@ function install(Vue: any) {
   Vue.component("DeliveryItemRealtime", DeliveryItemRealtime);
   Vue.component("DeliveryPickableItem", DeliveryPickableItem);
   Vue.component("DeliveryStateItem", AppHeader);
+  Vue.component("OrderItem", OrderItem);
+  Vue.component("OrderList", OrderList);
   
   export { MenuCardItem };
   export { LoginForm };
@@ -61,6 +67,8 @@ function install(Vue: any) {
   export { DeliveryPickableItem };
   export { DeliveryStateItem };
   export { AppHeader };
+  export { OrderItem };
+  export { OrderList };
 
 
   export default Components;

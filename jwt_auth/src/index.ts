@@ -6,7 +6,7 @@ import * as helmet from "helmet";
 import * as cors from "cors";
 import routes from "./routes";
 
-const PORT = 4000;
+const PORT = 5000;
 //Connects to the Database -> then starts the express
 createConnection()
   .then(async connection => {

@@ -65,8 +65,7 @@
                     </v-card>
                 </v-tab-item>
             </v-tabs>
-        </div>
-        
+        </div>  
 </template>
 
 <script lang="ts">

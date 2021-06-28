@@ -79,7 +79,7 @@ export default class DeliveryPickableItem extends Vue {
   @Prop() private order! : any
   @Prop({default: true}) private showButtons! : boolean
 
-  @Prop() onTakeOrderClick : (order: any) => any
+  @Prop() onTakeOrderClick! : (order: any) => any
 
 
   reveal = false

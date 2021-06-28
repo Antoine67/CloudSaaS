@@ -1,265 +1,909 @@
 /* tslint:disable */
-/* eslint-disable */
-// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute, HttpStatusCodeLiteral, TsoaResponse } from '@tsoa/runtime';
-// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { ProductController } from './controller/product.controller';
+import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute } from 'tsoa';
+import { UserController } from './controller/user.controller';
+import { RestaurantController } from './controller/restaurant.controller';
+import { RoleController } from './controller/role.controller';
+import { RoleEmployeeController } from './controller/roleEmployee.controller';
 import * as express from 'express';
 
-// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
 const models: TsoaRoute.Models = {
-    "IProduct": {
-        "dataType": "refObject",
+    "User": {
         "properties": {
-            "id": {"dataType":"string","required":true},
-            "name": {"dataType":"string","required":true},
-            "description": {"dataType":"string","required":true},
-            "restaurant_id": {"dataType":"double","required":true},
-            "price": {"dataType":"double"},
-            "available": {"dataType":"boolean","required":true},
-            "ingredients": {"dataType":"array","array":{"dataType":"string"}},
+            "id": { "dataType": "double", "required": true },
+            "role": { "ref": "Role", "required": true },
+            "address": { "ref": "Address", "required": true },
+            "card": { "ref": "Card", "required": true },
+            "employee": { "ref": "Employee", "required": true },
+            "username": { "dataType": "string", "required": true },
+            "password": { "dataType": "string", "required": true },
+            "name": { "dataType": "string", "required": true },
+            "surname": { "dataType": "string", "required": true },
+            "age": { "dataType": "double", "required": true },
+            "email": { "dataType": "string", "required": true },
+            "siret": { "dataType": "string", "required": true },
+            "rib": { "dataType": "string", "required": true },
+            "sponsorshipCode": { "dataType": "string", "required": true },
+            "suspended": { "dataType": "boolean", "required": true },
+            "notification": { "dataType": "boolean", "required": true },
+            "createdAt": { "dataType": "datetime", "required": true },
+            "updatedAt": { "dataType": "datetime", "required": true },
         },
-        "additionalProperties": true,
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Pick_IProduct.Exclude_keyofIProduct.id__": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string","required":true},"description":{"dataType":"string","required":true},"restaurant_id":{"dataType":"double","required":true},"price":{"dataType":"double"},"available":{"dataType":"boolean","required":true},"ingredients":{"dataType":"array","array":{"dataType":"string"}}},"validators":{}},
+    "Role": {
+        "properties": {
+            "id": { "dataType": "double", "required": true },
+            "user": { "dataType": "array", "array": { "ref": "User" }, "required": true },
+            "identifier": { "dataType": "string", "required": true },
+            "title": { "dataType": "string", "required": true },
+        },
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Omit_IProduct.id_": {
-        "dataType": "refAlias",
-        "type": {"ref":"Pick_IProduct.Exclude_keyofIProduct.id__","validators":{}},
+    "Address": {
+        "properties": {
+            "id": { "dataType": "double", "required": true },
+            "country": { "dataType": "string", "required": true },
+            "town": { "dataType": "string", "required": true },
+            "postalCode": { "dataType": "string", "required": true },
+            "address1": { "dataType": "string", "required": true },
+            "address2": { "dataType": "string", "required": true },
+            "longitude": { "dataType": "string", "required": true },
+            "latitude": { "dataType": "string", "required": true },
+            "createdAt": { "dataType": "datetime", "required": true },
+            "updatedAt": { "dataType": "datetime", "required": true },
+        },
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ProductCreationParams": {
-        "dataType": "refAlias",
-        "type": {"ref":"Omit_IProduct.id_","validators":{}},
+    "Card": {
+        "properties": {
+            "id": { "dataType": "double", "required": true },
+            "user": { "ref": "User", "required": true },
+            "type": { "dataType": "string", "required": true },
+            "title": { "dataType": "string", "required": true },
+            "wording": { "dataType": "string", "required": true },
+            "number": { "dataType": "string", "required": true },
+            "expirationDate": { "dataType": "string", "required": true },
+            "cvv": { "dataType": "string", "required": true },
+            "createdAt": { "dataType": "datetime", "required": true },
+            "updatedAt": { "dataType": "datetime", "required": true },
+        },
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Partial_Omit_IProduct.id__": {
-        "dataType": "refAlias",
-        "type": {"dataType":"nestedObjectLiteral","nestedProperties":{"name":{"dataType":"string"},"description":{"dataType":"string"},"restaurant_id":{"dataType":"double"},"price":{"dataType":"double"},"available":{"dataType":"boolean"},"ingredients":{"dataType":"array","array":{"dataType":"string"}}},"validators":{}},
+    "Employee": {
+        "properties": {
+            "user": { "ref": "User", "required": true },
+            "restaurant": { "ref": "Restaurant", "required": true },
+            "role": { "ref": "RoleEmployee", "required": true },
+        },
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ProductUpdateParams": {
-        "dataType": "refAlias",
-        "type": {"ref":"Partial_Omit_IProduct.id__","validators":{}},
+    "Restaurant": {
+        "properties": {
+            "id": { "dataType": "double", "required": true },
+            "address": { "ref": "Address", "required": true },
+            "employee": { "ref": "Employee", "required": true },
+            "rib": { "dataType": "string", "required": true },
+            "title": { "dataType": "string", "required": true },
+            "description": { "dataType": "string", "required": true },
+        },
     },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "RoleEmployee": {
+        "properties": {
+            "id": { "dataType": "double", "required": true },
+            "employee": { "dataType": "array", "array": { "ref": "Employee" }, "required": true },
+            "identifier": { "dataType": "string", "required": true },
+            "title": { "dataType": "string", "required": true },
+        },
+    },
+    "UserUpdateParams": {
+        "properties": {
+            "role": { "ref": "Role" },
+            "address": { "ref": "Address" },
+            "username": { "dataType": "string" },
+            "name": { "dataType": "string" },
+            "surname": { "dataType": "string" },
+            "age": { "dataType": "double" },
+            "email": { "dataType": "string" },
+            "siret": { "dataType": "string" },
+            "rib": { "dataType": "string" },
+            "sponsorshipCode": { "dataType": "string" },
+            "suspended": { "dataType": "boolean" },
+            "notification": { "dataType": "boolean" },
+        },
+    },
+    "AddressCreationParams": {
+        "properties": {
+            "country": { "dataType": "string", "required": true },
+            "town": { "dataType": "string", "required": true },
+            "postalCode": { "dataType": "string", "required": true },
+            "address1": { "dataType": "string", "required": true },
+            "address2": { "dataType": "string", "required": true },
+            "longitude": { "dataType": "string", "required": true },
+            "latitude": { "dataType": "string", "required": true },
+        },
+    },
+    "AddressUpdateParams": {
+        "properties": {
+            "country": { "dataType": "string" },
+            "town": { "dataType": "string" },
+            "postalCode": { "dataType": "string" },
+            "address1": { "dataType": "string" },
+            "address2": { "dataType": "string" },
+            "longitude": { "dataType": "string" },
+            "latitude": { "dataType": "string" },
+        },
+    },
+    "CardCreationParams": {
+        "properties": {
+            "type": { "dataType": "string", "required": true },
+            "title": { "dataType": "string", "required": true },
+            "wording": { "dataType": "string", "required": true },
+            "number": { "dataType": "string", "required": true },
+            "expirationDate": { "dataType": "string", "required": true },
+            "cvv": { "dataType": "string", "required": true },
+        },
+    },
+    "RestaurantUpdateParams": {
+        "properties": {
+            "address": { "ref": "Address" },
+            "rib": { "dataType": "string" },
+            "title": { "dataType": "string" },
+            "description": { "dataType": "string" },
+        },
+    },
+    "RestaurantCreationParams": {
+        "properties": {
+            "rib": { "dataType": "string", "required": true },
+            "title": { "dataType": "string", "required": true },
+            "description": { "dataType": "string", "required": true },
+        },
+    },
+    "EmployeeCreationParams": {
+        "properties": {
+            "role": { "dataType": "double", "required": true },
+        },
+    },
+    "EmployeeUpdateParams": {
+        "properties": {
+            "role": { "dataType": "double" },
+        },
+    },
+    "RoleCreationParams": {
+        "properties": {
+            "identifier": { "dataType": "string", "required": true },
+            "title": { "dataType": "string", "required": true },
+        },
+    },
+    "RoleUpdateParams": {
+        "properties": {
+            "identifier": { "dataType": "string" },
+            "title": { "dataType": "string" },
+        },
+    },
+    "RoleEmployeeCreationParams": {
+        "properties": {
+            "identifier": { "dataType": "string", "required": true },
+            "title": { "dataType": "string", "required": true },
+        },
+    },
+    "RoleEmployeeUpdateParams": {
+        "properties": {
+            "identifier": { "dataType": "string" },
+            "title": { "dataType": "string" },
+        },
+    },
 };
 const validationService = new ValidationService(models);
 
-// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-export function RegisterRoutes(app: express.Router) {
-    // ###########################################################################################################
-    //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
-    //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
-    // ###########################################################################################################
-        app.get('/api/products',
-            function ProductController_getAll(request: any, response: any, next: any) {
+export function RegisterRoutes(app: express.Express) {
+    app.get('/api/users',
+        function(request: any, response: any, next: any) {
             const args = {
             };
 
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
             let validatedArgs: any[] = [];
             try {
-                validatedArgs = getValidatedArgs(args, request, response);
+                validatedArgs = getValidatedArgs(args, request);
             } catch (err) {
                 return next(err);
             }
 
-            const controller = new ProductController();
+            const controller = new UserController();
 
 
             const promise = controller.getAll.apply(controller, validatedArgs as any);
-            promiseHandler(controller, promise, response, undefined, next);
+            promiseHandler(controller, promise, response, next);
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/api/products/:id',
-            function ProductController_get(request: any, response: any, next: any) {
+    app.get('/api/users/:id',
+        function(request: any, response: any, next: any) {
             const args = {
-                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
             };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
             let validatedArgs: any[] = [];
             try {
-                validatedArgs = getValidatedArgs(args, request, response);
+                validatedArgs = getValidatedArgs(args, request);
             } catch (err) {
                 return next(err);
             }
 
-            const controller = new ProductController();
+            const controller = new UserController();
 
 
             const promise = controller.get.apply(controller, validatedArgs as any);
-            promiseHandler(controller, promise, response, undefined, next);
+            promiseHandler(controller, promise, response, next);
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/api/products',
-            function ProductController_create(request: any, response: any, next: any) {
+    app.put('/api/users/:id',
+        function(request: any, response: any, next: any) {
             const args = {
-                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"ProductCreationParams"},
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "UserUpdateParams" },
             };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
             let validatedArgs: any[] = [];
             try {
-                validatedArgs = getValidatedArgs(args, request, response);
+                validatedArgs = getValidatedArgs(args, request);
             } catch (err) {
                 return next(err);
             }
 
-            const controller = new ProductController();
-
-
-            const promise = controller.create.apply(controller, validatedArgs as any);
-            promiseHandler(controller, promise, response, undefined, next);
-        });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.put('/api/products/:id',
-            function ProductController_update(request: any, response: any, next: any) {
-            const args = {
-                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
-                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"ProductUpdateParams"},
-            };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-            let validatedArgs: any[] = [];
-            try {
-                validatedArgs = getValidatedArgs(args, request, response);
-            } catch (err) {
-                return next(err);
-            }
-
-            const controller = new ProductController();
+            const controller = new UserController();
 
 
             const promise = controller.update.apply(controller, validatedArgs as any);
-            promiseHandler(controller, promise, response, undefined, next);
+            promiseHandler(controller, promise, response, next);
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.delete('/api/products/:id',
-            function ProductController_remove(request: any, response: any, next: any) {
+    app.delete('/api/users/:id',
+        function(request: any, response: any, next: any) {
             const args = {
-                    id: {"in":"path","name":"id","required":true,"dataType":"string"},
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
             };
-
-            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
             let validatedArgs: any[] = [];
             try {
-                validatedArgs = getValidatedArgs(args, request, response);
+                validatedArgs = getValidatedArgs(args, request);
             } catch (err) {
                 return next(err);
             }
 
-            const controller = new ProductController();
+            const controller = new UserController();
 
 
             const promise = controller.remove.apply(controller, validatedArgs as any);
-            promiseHandler(controller, promise, response, undefined, next);
+            promiseHandler(controller, promise, response, next);
         });
-        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    app.get('/api/users/:id/addresses/:id_2',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+            };
 
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserController();
 
 
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+            const promise = controller.getAddress.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/users/:id/addresses',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "AddressCreationParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserController();
+
+
+            const promise = controller.createAddress.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.put('/api/users/:id/addresses/:id_2',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "AddressUpdateParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserController();
+
+
+            const promise = controller.updateAddress.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/users/:id/cards',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserController();
+
+
+            const promise = controller.getAllCards.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/users/:id/cards/:id_2',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserController();
+
+
+            const promise = controller.getCard.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/users/:id/cards',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "CardCreationParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserController();
+
+
+            const promise = controller.createCard.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.delete('/api/users/:id/cards/:id_2',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserController();
+
+
+            const promise = controller.removeCard.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/restaurants',
+        function(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.getAll.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/restaurants/:id',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.get.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.put('/api/restaurants/:id',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "RestaurantUpdateParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.update.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.delete('/api/restaurants/:id',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.remove.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/restaurants',
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "body", "name": "req", "required": true, "ref": "RestaurantCreationParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.create.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/restaurants/:id/addresses/:id_2',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.getAddress.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/restaurants/:id/addresses',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "AddressCreationParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.createAddress.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.put('/api/restaurants/:id/addresses/:id_2',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "AddressUpdateParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.updateAddress.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/restaurants/:id/users',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.getAllEmployees.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/restaurants/:id/users/:id_2',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.getEmployee.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/restaurants/:id/users/:id_2',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "EmployeeCreationParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.createEmployee.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.delete('/api/restaurants/:id/users/:id_2',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.removeEmployee.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.put('/api/restaurants/:id/users/:id_2',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "EmployeeUpdateParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RestaurantController();
+
+
+            const promise = controller.updateEmployee.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/roles',
+        function(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RoleController();
+
+
+            const promise = controller.getAll.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/roles/:id',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RoleController();
+
+
+            const promise = controller.get.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/roles',
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "body", "name": "req", "required": true, "ref": "RoleCreationParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RoleController();
+
+
+            const promise = controller.create.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.put('/api/roles/:id',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "RoleUpdateParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RoleController();
+
+
+            const promise = controller.update.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.delete('/api/roles/:id',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RoleController();
+
+
+            const promise = controller.remove.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/roleEmployees',
+        function(request: any, response: any, next: any) {
+            const args = {
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RoleEmployeeController();
+
+
+            const promise = controller.getAll.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/roleEmployees/:id',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RoleEmployeeController();
+
+
+            const promise = controller.get.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/roleEmployees',
+        function(request: any, response: any, next: any) {
+            const args = {
+                req: { "in": "body", "name": "req", "required": true, "ref": "RoleEmployeeCreationParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RoleEmployeeController();
+
+
+            const promise = controller.create.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.put('/api/roleEmployees/:id',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "RoleEmployeeUpdateParams" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RoleEmployeeController();
+
+
+            const promise = controller.update.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.delete('/api/roleEmployees/:id',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new RoleEmployeeController();
+
+
+            const promise = controller.remove.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+
 
     function isController(object: any): object is Controller {
         return 'getHeaders' in object && 'getStatus' in object && 'setStatus' in object;
     }
 
-    function promiseHandler(controllerObj: any, promise: any, response: any, successStatus: any, next: any) {
+    function promiseHandler(controllerObj: any, promise: any, response: any, next: any) {
         return Promise.resolve(promise)
             .then((data: any) => {
-                let statusCode = successStatus;
-                let headers;
+                let statusCode;
                 if (isController(controllerObj)) {
-                    headers = controllerObj.getHeaders();
-                    statusCode = controllerObj.getStatus() || statusCode;
+                    const headers = controllerObj.getHeaders();
+                    Object.keys(headers).forEach((name: string) => {
+                        response.set(name, headers[name]);
+                    });
+
+                    statusCode = controllerObj.getStatus();
                 }
 
-                // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-                returnHandler(response, statusCode, data, headers)
+                if (data || data === false) { // === false allows boolean result
+                    response.status(statusCode || 200).json(data);
+                } else {
+                    response.status(statusCode || 204).end();
+                }
             })
             .catch((error: any) => next(error));
     }
 
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-    function returnHandler(response: any, statusCode?: number, data?: any, headers: any = {}) {
-        if (response.headersSent) {
-            return;
-        }
-        Object.keys(headers).forEach((name: string) => {
-            response.set(name, headers[name]);
-        });
-        if (data && typeof data.pipe === 'function' && data.readable && typeof data._read === 'function') {
-            data.pipe(response);
-        } else if (data !== null && data !== undefined) {
-            response.status(statusCode || 200).json(data);
-        } else {
-            response.status(statusCode || 204).end();
-        }
-    }
-
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-    function responder(response: any): TsoaResponse<HttpStatusCodeLiteral, unknown>  {
-        return function(status, data, headers) {
-            returnHandler(response, status, data, headers);
-        };
-    };
-
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-
-    function getValidatedArgs(args: any, request: any, response: any): any[] {
-        const fieldErrors: FieldErrors  = {};
+    function getValidatedArgs(args: any, request: any): any[] {
+        const fieldErrors: FieldErrors = {};
         const values = Object.keys(args).map((key) => {
             const name = args[key].name;
             switch (args[key].in) {
                 case 'request':
                     return request;
                 case 'query':
-                    return validationService.ValidateParam(args[key], request.query[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"ignore"});
+                    return validationService.ValidateParam(args[key], request.query[name], name, fieldErrors);
                 case 'path':
-                    return validationService.ValidateParam(args[key], request.params[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"ignore"});
+                    return validationService.ValidateParam(args[key], request.params[name], name, fieldErrors);
                 case 'header':
-                    return validationService.ValidateParam(args[key], request.header(name), name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"ignore"});
+                    return validationService.ValidateParam(args[key], request.header(name), name, fieldErrors);
                 case 'body':
-                    return validationService.ValidateParam(args[key], request.body, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"ignore"});
+                    return validationService.ValidateParam(args[key], request.body, name, fieldErrors, name + '.');
                 case 'body-prop':
-                    return validationService.ValidateParam(args[key], request.body[name], name, fieldErrors, 'body.', {"noImplicitAdditionalProperties":"ignore"});
-                case 'formData':
-                    if (args[key].dataType === 'file') {
-                        return validationService.ValidateParam(args[key], request.file, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"ignore"});
-                    } else if (args[key].dataType === 'array' && args[key].array.dataType === 'file') {
-                        return validationService.ValidateParam(args[key], request.files, name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"ignore"});
-                    } else {
-                        return validationService.ValidateParam(args[key], request.body[name], name, fieldErrors, undefined, {"noImplicitAdditionalProperties":"ignore"});
-                    }
-                case 'res':
-                    return responder(response);
+                    return validationService.ValidateParam(args[key], request.body[name], name, fieldErrors, 'body.');
             }
         });
-
         if (Object.keys(fieldErrors).length > 0) {
             throw new ValidateError(fieldErrors, '');
         }
         return values;
     }
-
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 }
-
-// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

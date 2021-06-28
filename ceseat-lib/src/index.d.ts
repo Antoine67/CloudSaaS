@@ -6,6 +6,8 @@ import DeliveryItemRealtime from "./components/DeliveryItemRealtime.vue";
 import DeliveryStateItem from "./components/DeliveryStateItem.vue";
 import DeliveryPickableItem from "./components/DeliveryPickableItem.vue";
 import AppHeader from "./components/AppHeader.vue";
+import OrderItem from "./components/OrderItem.vue";
+import OrderList from "./components/OrderList.vue";
 declare const Components: {
     MenuCardItem: any;
     LoginForm: any;
@@ -15,6 +17,8 @@ declare const Components: {
     DeliveryItemRealtime: any;
     DeliveryPickableItem: any;
     DeliveryStateItem: any;
+    OrderItem: any;
+    OrderList: any;
 };
 export { MenuCardItem };
 export { LoginForm };
@@ -24,4 +28,6 @@ export { DeliveryItemRealtime };
 export { DeliveryPickableItem };
 export { DeliveryStateItem };
 export { AppHeader };
+export { OrderItem };
+export { OrderList };
 export default Components;

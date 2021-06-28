@@ -6,6 +6,5 @@ COPY package.json /usr/src/products/
 RUN npm install
 
 COPY . /usr/src/products
-RUN npm run build
 
 CMD [ "npm", "run", "start" ]
