@@ -87,7 +87,6 @@ export class RestaurantsService {
       return;
     }
   
-    //Try to safe, if fails, that means username already in use
     try {
       await restaurantRepository.save(restaurant);
     } catch (e) {

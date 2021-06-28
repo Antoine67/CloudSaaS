@@ -10,8 +10,8 @@ import { Request, Response } from "express";
 export class RoleEmployeeController extends Controller {
 
 	/**
-	 * Retrieves all existing roles.
-	 * @summary Retrieves all existing roles
+	 * Retrieves all existing employee's roles.
+	 * @summary Retrieves all existing employee's roles
 	 */
 	@Get()
 	public async getAll(): Promise<RoleEmployee[]> {
@@ -19,10 +19,10 @@ export class RoleEmployeeController extends Controller {
 	}
 
 	/**
-	 * Retrieves the details of an existing role.
-	 * Supply the unique role ID from either and receive corresponding role details.
-	 * @param id The role's identifier
-	 * @summary Retrieves a specific existing role
+	 * Retrieves the details of an existing employee's role.
+	 * Supply the unique employee's role ID from either and receive corresponding employee's role details.
+	 * @param id The employee's role's identifier
+	 * @summary Retrieves a specific existing employee's role
 	 */
 	@Get('/{id}')
 	public async get(@Path() id: string): Promise<RoleEmployee> {
@@ -30,9 +30,9 @@ export class RoleEmployeeController extends Controller {
 	}
 	
 	/**
-	 * Create a new role by supplying new role's data
-	 * @param requestBody The new role's data
-	 * @summary Create a new role
+	 * Create a new employee's role by supplying new employee's role's data
+	 * @param requestBody The new employee's role's data
+	 * @summary Create a new employee's role
 	 */
 	@Post()
 	public async create(@Body() req: RoleEmployeeCreationParams) : Promise<void> {
@@ -46,10 +46,10 @@ export class RoleEmployeeController extends Controller {
 	}
 
 	/**
-	 * Update specific role from the unique role ID you provide in query, with the new data you provide in body.
-	 * @param id The role's identifier
-	 * @param requestBody The new role's data
-	 * @summary Update an existing role
+	 * Update specific employee's role from the unique employee's role ID you provide in query, with the new data you provide in body.
+	 * @param id The employee's role's identifier
+	 * @param requestBody The new employee's role's data
+	 * @summary Update an existing employee's role
 	 */
 	@Put('/{id}')
 	public async update( @Path() id: string, @Body() req: RoleEmployeeUpdateParams) : Promise<void> {
@@ -59,9 +59,9 @@ export class RoleEmployeeController extends Controller {
 	}
 
 	/**
-	 * Delete a specific role from the unique role ID you provide.
-	 * @param id The role's identifier
-	 * @summary Delete a role
+	 * Delete a specific employee's role from the unique employee's role ID you provide.
+	 * @param id The employee's role's identifier
+	 * @summary Delete a employee's role
 	 */
 	@Delete('/{id}')
 	public async remove(@Path() id: string) : Promise<void> {
