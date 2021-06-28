@@ -27,8 +27,8 @@ export class EmployeesService {
     }
     
     const employeeRepository = getRepository(Employee);
-    var returnUser = await new UsersService().get(id);
-    var returnRestaurant = await new RestaurantsService().get(id_2);
+    var returnRestaurant = await new RestaurantsService().get(id);
+    var returnUser = await new UsersService().get(id_2);
     if(returnUser != null && returnRestaurant){
         try {
             employee.user = returnUser;
@@ -44,7 +44,7 @@ export class EmployeesService {
     console.log("Employee created");
   }
 
-  public async getAll(id: string, id_2: string): Promise<any> {
+  public async getAll(id: string): Promise<any> {
     //Get the employee from database
     const employeeRepository = getRepository(Employee);
     
@@ -53,8 +53,7 @@ export class EmployeesService {
             .createQueryBuilder("employee")
             .leftJoinAndSelect("employee.user", "user")
             .leftJoinAndSelect("employee.restaurant", "restaurant")
-            .where("user.id = :id", { id: id })
-            .where("restaurant.id = :id", { id: id_2 })
+            .where("restaurant.id = :id", { id: id })
             .getMany();
         
         return employees
@@ -63,7 +62,7 @@ export class EmployeesService {
     }
   }
 
-  public async get(id: string, id_2: string, id_3: string): Promise<any> {
+  public async get(id: string, id_2: string): Promise<any> {
     //Get the employee from database
     const employeeRepository = getRepository(Employee);
     
@@ -72,9 +71,8 @@ export class EmployeesService {
             .createQueryBuilder("employee")
             .leftJoinAndSelect("employee.user", "user")
             .leftJoinAndSelect("employee.restaurant", "restaurant")
-            .where("user.id = :id", { id: id })
-            .where("restaurant.id = :id", { id: id_2 })
-            .where("employee.id = :id", { id: id_3 })
+            .where("restaurant.id = :id", { id: id })
+            .where("user.id = :id", { id: id_2 })
             .getOne();
         if(employee != null){
             return employee;
@@ -88,19 +86,18 @@ export class EmployeesService {
     }
   }
 
-  public async delete(id: string, id_2: string, id_3: string): Promise<void> {
+  public async delete(id: string, id_2: string): Promise<void> {
     const employeeRepository = getRepository(Employee);
     try {
         const employee = await employeeRepository
             .createQueryBuilder("employee")
             .leftJoinAndSelect("employee.user", "user")
             .leftJoinAndSelect("employee.restaurant", "restaurant")
-            .where("user.id = :id", { id: id })
-            .where("restaurant.id = :id", { id: id_2 })
-            .where("employee.id = :id", { id: id_3 })
+            .where("restaurant.id = :id", { id: id })
+            .where("user.id = :id", { id: id_2 })
             .getOne();
         if(employee != null){
-            employeeRepository.delete(id_2);
+            employeeRepository.delete({"user":{"id":parseInt(id_2)},"restaurant":{"id":parseInt(id)}});
         }
         else{
             console.log("Wrong employee id or wrond user id");
@@ -110,19 +107,13 @@ export class EmployeesService {
     }
   }
 
-  public async update(id: string, id_2: string, id_3: string, requestBody: EmployeeUpdateParams): Promise<void> {
+  public async update(id: string, id_2: string, requestBody: EmployeeUpdateParams): Promise<void> {
   
     //Try to find employee on database
     const employeeRepository = getRepository(Employee);
-    var returnEmployee = await new EmployeesService().get(id, id_2, id_3);
+    var returnEmployee = await new EmployeesService().get(id, id_2);
     if(returnEmployee != null){
-      let employee;
-      try {
-        employee = await employeeRepository.findOneOrFail(id_3);
-      } catch (error) {
-        console.log("Error not found");
-        return;
-      }
+      let employee = returnEmployee;
 
       for (const [key, value] of Object.entries(requestBody)) {
         if(value != undefined){

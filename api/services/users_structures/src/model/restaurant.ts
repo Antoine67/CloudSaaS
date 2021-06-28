@@ -22,7 +22,7 @@ export class Restaurant {
     @JoinColumn()
     address: Address;
 
-    @OneToMany(type => Employee, employee => employee.id)
+    @OneToMany(type => Employee, employee => employee.user)
     employee: Employee;
 
     @Column({length: 100, nullable: true})

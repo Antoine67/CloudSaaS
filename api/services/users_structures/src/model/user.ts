@@ -34,7 +34,7 @@ export class User {
     @OneToMany(type => Card, card => card.id)
     card: Card;
 
-    @OneToMany(type => Employee, employee => employee.id)
+    @OneToMany(type => Employee, employee => employee.restaurant)
     employee: Employee;
 
     @Column({length: 100})

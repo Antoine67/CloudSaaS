@@ -16,13 +16,11 @@ import { User } from "./user";
 
 @Entity()
 export class Employee {
-    @PrimaryGeneratedColumn()
-    id: number;
 
-    @ManyToOne(type => User, user => user.id)
+    @ManyToOne(type => User, user => user.id, { primary: true, })
     user: User;
 
-    @ManyToOne(type => Restaurant, restaurant => restaurant.id)
+    @ManyToOne(type => Restaurant, restaurant => restaurant.id, { primary: true, })
     restaurant: Restaurant;
 
     @Column()
