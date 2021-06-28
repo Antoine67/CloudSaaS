@@ -5,18 +5,28 @@
     tile
     elevation="2"
   >
-    <v-card-title prepend-icon="mdi-map-marker">
-      {{"Ma Commande"}}: <v-chip
-      class="ma-2"
-      :color="status.color"
-      text-color="white"
-      >
-      {{status.name}}
+    <div class="d-flex align-center justify-space-between">
+      <v-card-title prepend-icon="mdi-map-marker">
+      {{"Ma Commande"}}: 
+      </v-card-title>
+      <v-chip
+        class="ma-2"
+        :color="status.color"
+        text-color="white"
+        >
+        {{status.name}}
       </v-chip>
-    </v-card-title>
-    <v-card-subtitle prepend-icon="mdi-map-marker">
-      {{"Date: "}} {{order.date}} {{ " - Restaurant: "}}{{restaurant}}     
-    </v-card-subtitle> 
+    </div>
+    
+
+    <div class="d-flex align-center justify-space-between">
+      <v-card-subtitle prepend-icon="mdi-map-marker" v-if="order.date">
+      {{"Date: "}} {{order.date}}  
+      </v-card-subtitle>
+      <v-card-subtitle prepend-icon="mdi-map-marker" v-if="restaurant">
+      {{ "Restaurant: "}}{{restaurant}}     
+      </v-card-subtitle>
+    </div>
     <v-list>
         
       <v-list-group

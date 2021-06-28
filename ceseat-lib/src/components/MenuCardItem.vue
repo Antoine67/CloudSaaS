@@ -5,10 +5,14 @@
     tile
     elevation="2"
   >
-    <v-card-title prepend-icon="mdi-map-marker">
+  <div class="d-flex align-center justify-space-between">
+    <v-card-title prepend-icon="mdi-map-marker" >
       {{menu.name}}
     </v-card-title>
-   
+    <v-card-title prepend-icon="mdi-map-marker" >
+      {{menu.price}}€
+    </v-card-title>
+  </div>
 
     <v-list>
       <v-list-group
@@ -19,7 +23,7 @@
       >
         <template v-slot:activator>
           <v-list-item-content>
-            <v-list-item-title >{{product[menuProduct.product_id].name}}</v-list-item-title>
+              <v-list-item-title >{{product[menuProduct.product_id].name}}</v-list-item-title>    
           </v-list-item-content>
         </template>
 

@@ -33,14 +33,12 @@ const exampleOrder =  {
         name: "Menu best-of",
         description: "voici le menu",      
         price: 27,
- 
         products : [
             {
             id: 1,
             step: "entry",  
             name: "Super produit",
             description: "Voici mon produit",
-            price: 13.5,
             quantity: 1,
             ingredients : [
                    "salt",
@@ -53,7 +51,6 @@ const exampleOrder =  {
             step: "main",
             name: "Super produit",
             description: "Voici mon produit",
-            price: 13.5,
             quantity: 1,
             ingredients : [
                    "salt",
@@ -67,14 +64,12 @@ const exampleOrder =  {
             name: "Menu maxi",
             description: "voici le gros menu",
             price: 34,
-     
             products : [
                 {
                 id:1,
                 step: "entry",  
                 name: "la dingz",
                 description: "Voici le produit",
-                price: 13.5,
                 quantity: 1,
                 ingredients : [
                        "salt",
@@ -87,7 +82,6 @@ const exampleOrder =  {
                 step: "main",
                 name: "Pizza",
                 description: "Voici mon produit",
-                price: 13.5,
                 quantity: 1,
                 ingredients : [
                        "salt",

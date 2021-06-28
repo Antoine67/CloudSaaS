@@ -38,7 +38,6 @@ const exampleProduct = [{
   name: "Super produit",
   description: "Voici mon produit",
   restaurant_id: 16,
-  price: 13.5,
   available: true,
   ingredients : [
        "salt",
@@ -51,7 +50,6 @@ const exampleProduct = [{
   name: "fajitas",
   description: "Voici mon produit",
   restaurant_id: 16,
-  price: 13.5,
   available: true,
   ingredients : [
        "tomate",
