@@ -7,18 +7,22 @@ import {
     UpdateDateColumn,
     OneToOne, 
     JoinColumn,
-    OneToMany 
+    OneToMany, 
+    ManyToOne
 } from "typeorm";
 import { Length, IsNotEmpty } from "class-validator";
 import { User } from "./user";
 
 @Entity()
-export class paymentCard {
+/**
+ * @tsoaModel
+ */
+export class Card {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToMany(type => User, user => user.id)
-    idUserSponsor: User;
+    @ManyToOne(type => User, user => user.id)
+    user: User;
 
     @Column()
     @Length(4, 12)
@@ -38,7 +42,7 @@ export class paymentCard {
 
     @Column()
     @Length(4)
-    expirationDate: Date;
+    expirationDate: string;
 
     @Column()
     @Length(4)
@@ -51,5 +55,21 @@ export class paymentCard {
     @Column()
     @UpdateDateColumn()
     updatedAt: Date;
+}
+
+export class CardCreationParams {
+    
+    type: string;
+    
+    title: string;
+    
+    wording: string;
+    
+    number: string;
+    
+    expirationDate: string;
+    
+    cvv: string;
+
 }
   

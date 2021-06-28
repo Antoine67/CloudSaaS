@@ -14,6 +14,7 @@ import { Length, IsNotEmpty } from "class-validator";
 import * as bcrypt from "bcryptjs";
 import { Address } from "./address";
 import { Role } from "./role";
+import { Card } from "./card";
 
 @Entity()
 @Unique(["username", "email", "siret", "sponsorshipCode"])
@@ -21,7 +22,7 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => Role, role => role.user)
+    @ManyToOne(type => Role, role => role.user, {eager: true})
     @JoinColumn()
     role: Role;
 
@@ -29,39 +30,35 @@ export class User {
     @JoinColumn()
     address: Address;
 
-    @Column()
-    @Length(4, 100)
+    @OneToMany(type => Card, card => card.id)
+    card: Card;
+
+    @Column({length: 100})
     username: string;
 
-    @Column()
-    @Length(4, 100)
+    @Column({ length: 100, select: false })
     password: string;
 
-    @Column()
-    @Length(4, 100)
+    @Column({length: 100, nullable: true})
     name: string;
 
-    @Column()
-    @Length(4, 100)
+    @Column({length: 100, nullable: true})
     surname: string;
 
-    @Column()
+    @Column({default: 0})
     age: number;
 
     @Column()
     @IsNotEmpty()
     email: string;
 
-    @Column()
-    @Length(4)
+    @Column({length: 100, nullable: true})
     siret: string;
 
-    @Column()
-    @Length(4)
+    @Column({length: 100, nullable: true})
     rib: string;
 
-    @Column()
-    @IsNotEmpty()
+    @Column({length: 100, nullable: true})
     sponsorshipCode: string;
 
     //Todo
@@ -95,9 +92,9 @@ export class User {
 
 export class UserUpdateParams {
 
-    roleId?: number;
+    role?: Role;
 
-    addressId?: number;
+    address?: Address;
 
     username?: string;
     

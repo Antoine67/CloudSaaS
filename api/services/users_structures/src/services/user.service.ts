@@ -11,11 +11,11 @@ export class UsersService {
   public async getAll(): Promise<User[]> {
     //Get users from database
 		const userRepository = getRepository(User);
-		const users = await userRepository.find({
-			select: ["id", "role", "address", "username", "name", "surname", "age",
-        "email", "siret", "rib", "sponsorshipCode", "suspended",
-        "notification", "createdAt", "updatedAt"] //We dont want to send the passwords on response
-		});
+		const users = await userRepository
+      .createQueryBuilder("user")
+      .leftJoinAndSelect("user.address", "address")
+      .leftJoinAndSelect("user.role", "role")
+      .getMany();
 
 		//Send the users object
 		return users;
@@ -65,15 +65,16 @@ export class UsersService {
     userRepository.delete(id);
   }
 
-  public async get(id: string): Promise<any> {
+  public async get(id: string): Promise<User> {
     //Get the user from database
     const userRepository = getRepository(User);
     try {
-      const user = await userRepository.findOneOrFail(id, {
-        select: ["id", "role", "address", "username", "name", "surname", "age",
-        "email", "siret", "rib", "sponsorshipCode", "suspended",
-        "notification", "createdAt", "updatedAt"] //We dont want to send the password on response
-      });
+      const user = await userRepository
+        .createQueryBuilder("user")
+        .leftJoinAndSelect("user.address", "address")
+        .leftJoinAndSelect("user.role", "role")
+        .where("user.id = :id", { id: id })
+        .getOne();
       return user;
     } catch (error) {
         console.log(error);

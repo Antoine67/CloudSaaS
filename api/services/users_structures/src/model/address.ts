@@ -16,32 +16,25 @@ export class Address {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    @Length(4, 100)
+    @Column({length: 100, nullable: true})
     country: string;
 
-    @Column()
-    @Length(4, 100)
+    @Column({length: 100, nullable: true})
     town: string;
 
-    @Column()
-    @Length(4, 100)
+    @Column({length: 100, nullable: true})
     postalCode: string;
 
-    @Column()
-    @Length(4, 100)
+    @Column({length: 100, nullable: true})
     address1: string;
 
-    @Column()
-    @Length(4, 100)
+    @Column({length: 100, nullable: true})
     address2: string;
 
-    @Column()
-    @Length(4)
+    @Column({length: 100, nullable: true})
     longitude: string;
 
-    @Column()
-    @Length(4)
+    @Column({length: 100, nullable: true})
     latitude: string;
 
     @Column()

@@ -33,4 +33,26 @@ export class Restaurant {
     @Length(4, 50)
     description: string;
 }
+
+export class RestaurantCreationParams {
+    
+    rib: string;
+    
+    title: string;
+    
+    description: string;
+
+}
+
+export class RestaurantUpdateParams {
+    
+    address?: Address;
+    
+    rib?: string;
+    
+    title?: string;
+    
+    description?: string;
+
+}
   
