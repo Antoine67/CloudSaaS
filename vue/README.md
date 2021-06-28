@@ -1,4 +1,4 @@
-# README
+# VueJs
 ## Installation
 Use the following command in each directory (ceseat | ceseat-delivery | ceseat-restaurant) to install and prepare the npm server.
 
