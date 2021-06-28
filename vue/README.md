@@ -16,6 +16,8 @@ serve -s dist -l 8080
 
 ## Accessibility
 Delivery application available on : `http://ceseat-delivery.fr`
+
 Restaurant application available on : `http://ceseat-restaurant.fr`
+
 User application available on : `http://ceseat.fr`
 
