@@ -1,5 +1,5 @@
 # REST Api
-### Réalisé avec NodeJS/Typescript et conteneurisation via Docker/Nginx
+### Made with NodeJS/Typescript and containerization with Docker/Nginx
 
 ### Installation :
 
@@ -7,13 +7,15 @@
 
 `docker-compose up` 
 
-### Accesibilité :
+### Accessibility :
 
-API accessible sur `http://{ip_machine}:8080`
+API available on `http://ceseat-api.fr`
+Api documentation available on `http://ceseat-api.fr/docs`
 
-Documentation API accessible sur `http://{ip_machine}:8080/docs`
+Restaurant application available on `http://ceseat-restaurant.fr`
+User application available on `http://ceseat.fr`
 
-### Versions utilisées :
+### Versions used :
 `node v14.17.0`
 `npm v6.14.13`
 `docker v20.10.2`
