@@ -51,7 +51,6 @@ export default class GeolocationItem extends Vue {
     try {
       this.gettingLocation = false;
       this.geolocationData = await this.getLocation();
-      console.log(this.location)
     } catch(e) {
       this.gettingLocation = false;
       this.errorStr = e.message;
@@ -59,8 +58,9 @@ export default class GeolocationItem extends Vue {
     
   }
 
-  mounted() {
-    this.getLocation().then(this.locateMe())
+  async mounted() {
+    await this.getLocation()
+    await this.locateMe()
   }
    
 }

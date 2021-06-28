@@ -7,18 +7,12 @@ import DeliveryItemRealtime from "./components/DeliveryItemRealtime.vue";
 import DeliveryStateItem from "./components/DeliveryStateItem.vue";
 import DeliveryPickableItem from "./components/DeliveryPickableItem.vue";
 import AppHeader from "./components/AppHeader.vue";
-
 import Vuetify from 'vuetify/lib';
-
-import {VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn} from 'vuetify/lib'
-
+import { VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn } from 'vuetify/lib';
 //Vue.use(Vuetify);
-
 Vue.use(Vuetify, {
-    components:  {VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn},
-  })
-
-
+    components: { VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn },
+});
 const Components = {
     MenuCardItem,
     LoginForm,
@@ -28,8 +22,7 @@ const Components = {
     DeliveryItemRealtime,
     DeliveryPickableItem,
     DeliveryStateItem
-  }
-
+};
 /*
 function install(Vue: any) {
     // tslint:disable-next-line: forin
@@ -41,26 +34,22 @@ function install(Vue: any) {
     //Vue.config.globalProperties.$Notification = Notification
     //Vue.config.globalProperties.$Loading = Loadingbar
   }*/
-  
-  //export default { install }
-
-  Vue.component("MenuCardItem", MenuCardItem);
-  Vue.component("LoginForm", LoginForm);
-  Vue.component("ProductItem", GeolocationItem);
-  Vue.component("RestaurantCardItem", RestaurantCardItem);
-  Vue.component("AppHeader", AppHeader);
-  Vue.component("DeliveryItemRealtime", DeliveryItemRealtime);
-  Vue.component("DeliveryPickableItem", DeliveryPickableItem);
-  Vue.component("DeliveryStateItem", AppHeader);
-  
-  export { MenuCardItem };
-  export { LoginForm };
-  export { GeolocationItem };
-  export { RestaurantCardItem };
-  export { DeliveryItemRealtime };
-  export { DeliveryPickableItem };
-  export { DeliveryStateItem };
-  export { AppHeader };
-
-
-  export default Components;
+//export default { install }
+Vue.component("MenuCardItem", MenuCardItem);
+Vue.component("LoginForm", LoginForm);
+Vue.component("ProductItem", GeolocationItem);
+Vue.component("RestaurantCardItem", RestaurantCardItem);
+Vue.component("AppHeader", AppHeader);
+Vue.component("DeliveryItemRealtime", DeliveryItemRealtime);
+Vue.component("DeliveryPickableItem", DeliveryPickableItem);
+Vue.component("DeliveryStateItem", AppHeader);
+export { MenuCardItem };
+export { LoginForm };
+export { GeolocationItem };
+export { RestaurantCardItem };
+export { DeliveryItemRealtime };
+export { DeliveryPickableItem };
+export { DeliveryStateItem };
+export { AppHeader };
+export default Components;
+//# sourceMappingURL=index.js.map

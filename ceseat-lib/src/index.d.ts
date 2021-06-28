@@ -1,0 +1,27 @@
+import MenuCardItem from "./components/MenuCardItem.vue";
+import RestaurantCardItem from "./components/RestaurantCardItem.vue";
+import LoginForm from "./components/LoginForm.vue";
+import GeolocationItem from "./components/GeolocationItem.vue";
+import DeliveryItemRealtime from "./components/DeliveryItemRealtime.vue";
+import DeliveryStateItem from "./components/DeliveryStateItem.vue";
+import DeliveryPickableItem from "./components/DeliveryPickableItem.vue";
+import AppHeader from "./components/AppHeader.vue";
+declare const Components: {
+    MenuCardItem: any;
+    LoginForm: any;
+    GeolocationItem: any;
+    RestaurantCardItem: any;
+    AppHeader: any;
+    DeliveryItemRealtime: any;
+    DeliveryPickableItem: any;
+    DeliveryStateItem: any;
+};
+export { MenuCardItem };
+export { LoginForm };
+export { GeolocationItem };
+export { RestaurantCardItem };
+export { DeliveryItemRealtime };
+export { DeliveryPickableItem };
+export { DeliveryStateItem };
+export { AppHeader };
+export default Components;
