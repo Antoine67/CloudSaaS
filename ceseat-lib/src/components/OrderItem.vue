@@ -22,13 +22,43 @@
           <v-list-item-content>
             <v-list-item-title v-text="menu.name"></v-list-item-title>
           </v-list-item-content>
+
           <v-btn icon
           v-if="enableDeleteButton"
-          @click="onDeleteClick">
+          @click.native.stop="dialog=true"
+          >  
             <v-icon color="red lighten-1">mdi-delete</v-icon>
           </v-btn>
         </template>
-        
+
+        <v-dialog
+            v-model="dialog"
+            persistent
+            max-width="300"
+          >
+            <v-card>
+              <v-card-title class="text-h5">
+                Voulez vous supprimer cet Article ? 
+              </v-card-title>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="black darken-1"
+                  text
+                  @click="dialog = false"
+                >
+                  Annuler
+                </v-btn>
+                <v-btn
+                  color="red darken-1"
+                  text
+                  @click="onDeleteClick();dialog = false;"
+                >
+                  Supprimer
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         <v-list-group
         v-for="product in menu.products"
         :key="product.id"
@@ -55,6 +85,7 @@
         </v-list-group>
       </v-list-group>
     </v-list>
+  
   </v-card>
 </template>
 
@@ -72,7 +103,11 @@ export default class OrderItem extends Vue {
   onDeleteClick(){
     this.deleteFromOrder(this.order)
   }
-
+  data () {
+      return {
+        dialog: false,
+      }
+    }
 }
 
 

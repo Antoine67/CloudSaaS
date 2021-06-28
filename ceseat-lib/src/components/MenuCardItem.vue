@@ -6,31 +6,32 @@
     elevation="2"
   >
     <v-card-title prepend-icon="mdi-map-marker">
-      {{menu.title}}
+      {{menu.name}}
     </v-card-title>
    
 
     <v-list>
       <v-list-group
-        v-for="product in menu.products"
-        :key="product.id"
-        :prepend-icon="product.action"
+        v-for="menuProduct in menu.products"
+        :key="menuProduct.id"
+        :prepend-icon="menuProduct.action"
         no-action
       >
         <template v-slot:activator>
           <v-list-item-content>
-            <v-list-item-title v-text="product.title"></v-list-item-title>
+            <v-list-item-title >{{product[menuProduct.product_id].name}}</v-list-item-title>
           </v-list-item-content>
         </template>
 
         <v-list-item dense
-          v-for="ingredient in product.ingredients"
-          :key="ingredient + product.id"
+          v-for="ingredient in product[menuProduct.product_id].ingredients"
+          :key="ingredient + product[menuProduct.product_id].id"
         >
           <v-list-item-content>
             <p class="tight-element">{{ingredient}}</p>
           </v-list-item-content>
         </v-list-item>
+        
       </v-list-group>
     </v-list>
 
@@ -65,6 +66,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class MenuCardItem extends Vue {
   @Prop() private menu!: any;
+  @Prop() private product!: any;
   @Prop() addToCart! : (menu: any) => void; 
   @Prop() pay! : (menu: any) => void; 
   @Prop({default: true}) enableAddButton! : boolean;
@@ -77,8 +79,6 @@ export default class MenuCardItem extends Vue {
   onPayClick() {
     this.pay(this.menu);
   }
-  
-
 }
 
 </script>
