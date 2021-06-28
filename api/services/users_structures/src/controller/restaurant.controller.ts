@@ -1,25 +1,27 @@
 
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
-import { User, UserUpdateParams } from "../model/user";
+import { Restaurant, RestaurantUpdateParams, RestaurantCreationParams } from "../model/restaurant";
 import { Address, AddressCreationParams, AddressUpdateParams } from "../model/address";
 import { Card, CardCreationParams } from "../model/card";
 import { AddressesService } from "../services/address.service";
 import { CardsService } from "../services/card.service";
-import { UsersService } from "../services/user.service";
+import { RestaurantsService } from "../services/restaurant.service";
 import { Request, Response } from "express";
+import { Employee, EmployeeCreationParams, EmployeeUpdateParams } from "../model/employee";
+import { EmployeesService } from '../services/employee.service';
 
-@Route('/users')
-@Tags("Users")
-export class UserController extends Controller {
+@Route('/restaurants')
+@Tags("Restaurants")
+export class RestaurantController extends Controller {
 
 	/**
 	 * Retrieves all existing users.
 	 * @summary Retrieves all existing users
 	 */
 	@Get()
-	public async getAll(): Promise<User[]> {
-		return new UsersService().getAll();
+	public async getAll(): Promise<Restaurant[]> {
+		return new RestaurantsService().getAll();
 	}
 
 	/**
@@ -29,8 +31,8 @@ export class UserController extends Controller {
 	 * @summary Retrieves a specific existing user
 	 */
 	@Get('/{id}')
-	public async get(@Path() id: string): Promise<User> {
-		return new UsersService().get(id);
+	public async get(@Path() id: string): Promise<Restaurant> {
+		return new RestaurantsService().get(id);
 	}
 
 	/**
@@ -40,9 +42,9 @@ export class UserController extends Controller {
 	 * @summary Update an existing user
 	 */
 	@Put('/{id}')
-	public async update( @Path() id: string, @Body() req: UserUpdateParams) : Promise<void> {
+	public async update( @Path() id: string, @Body() req: RestaurantUpdateParams) : Promise<void> {
 		this.setStatus(201); // set return status 201
-		new UsersService().update(id, req);
+		new RestaurantsService().update(id, req);
 		return;
 	}
 
@@ -53,8 +55,24 @@ export class UserController extends Controller {
 	 */
 	@Delete('/{id}')
 	public async remove(@Path() id: string) : Promise<void> {
-		return new UsersService().delete(id);
+		return new RestaurantsService().delete(id);
 	}
+	 
+    /**
+     * Create a new card by supplying new card's data
+     * @param requestBody The new card's data
+     * @summary Create a new card
+     */
+    @Post()
+    public async create(@Body() req: RestaurantCreationParams) : Promise<void> {
+
+        if(new RestaurantsService().create(req)) {
+            this.setStatus(201); // set return status 201
+        }else {
+            this.setStatus(500); // set return status 500
+        }
+        return;
+    }
 
 	/**
 	 * Retrieves the details of an existing address.
@@ -64,7 +82,7 @@ export class UserController extends Controller {
 	 */
 	@Get('/{id}/addresses/{id_2}')
 	public async getAddress(@Path() id: string, id_2: string): Promise<Address> {
-		return new AddressesService().getAddress(id, id_2);
+		return new AddressesService().getRestaurantAddress(id, id_2);
 	}
 	
 	/**
@@ -75,7 +93,7 @@ export class UserController extends Controller {
 	@Post('/{id}/addresses')
 	public async createAddress( @Path() id: string, @Body() req: AddressCreationParams) : Promise<void> {
 
-		if(new AddressesService().createAddress(id,req)) {
+		if(new AddressesService().createRestaurantAddress(id,req)) {
 			this.setStatus(201); // set return status 201
 		}else {
 			this.setStatus(500); // set return status 500
@@ -92,7 +110,7 @@ export class UserController extends Controller {
 	 @Put('/{id}/addresses/{id_2}')
 	 public async updateAddress( @Path() id: string, id_2: string, @Body() req: AddressUpdateParams) : Promise<void> {
 		 this.setStatus(201); // set return status 201
-		 new AddressesService().updateAddress(id, id_2, req);
+		 new AddressesService().updateRestaurantAddress(id, id_2, req);
 		 return;
 	 }
 
@@ -103,9 +121,9 @@ export class UserController extends Controller {
 	  * @param id The user's identifier
 	  * @summary Retrieves all cards of a specific existing user
 	  */
-	 @Get('/{id}/cards')
-	 public async getAllCards(@Path() id: string): Promise<Card> {
-		 return new CardsService().getAllCards(id);
+	 @Get('/{id}/users')
+	 public async getAllEmployees(@Path() id: string): Promise<Card> {
+		 return new EmployeesService().getAll(id);
 	 }
 
 	 /**
@@ -114,9 +132,9 @@ export class UserController extends Controller {
 	  * @param id The card's identifier
 	  * @summary Retrieves a specific existing card
 	  */
-	  @Get('/{id}/cards/{id_2}')
-	  public async getCard(@Path() id: string, id_2: string): Promise<Card> {
-		  return new CardsService().getCard(id, id_2);
+	  @Get('/{id}/users/{id_2}')
+	  public async getEmployee(@Path() id: string, id_2: string): Promise<Card> {
+		  return new EmployeesService().get(id, id_2);
 	  }
 	 
 	 /**
@@ -124,10 +142,10 @@ export class UserController extends Controller {
 	  * @param requestBody The new card's data
 	  * @summary Create a new card
 	  */
-	 @Post('/{id}/cards')
-	 public async createCard( @Path() id: string, @Body() req: CardCreationParams) : Promise<void> {
+	 @Post('/{id}/users/{id_2}')
+	 public async createEmployee( @Path() id: string, id_2: string, @Body() req: EmployeeCreationParams) : Promise<void> {
  
-		 if(new CardsService().createCard(id,req)) {
+		 if(new EmployeesService().create(id, id_2, req)) {
 			 this.setStatus(201); // set return status 201
 		 }else {
 			 this.setStatus(500); // set return status 500
@@ -140,10 +158,23 @@ export class UserController extends Controller {
 	  * @param id The user's identifier
 	  * @summary Delete a user
 	  */
-	 @Delete('/{id}/cards/{id_2}')
-	 public async removeCard(@Path() id: string, id_2: string) : Promise<void> {
-		 return new CardsService().deleteCard(id, id_2);
+	 @Delete('/{id}/users/{id_2}')
+	 public async removeEmployee(@Path() id: string, id_2: string) : Promise<void> {
+		 return new EmployeesService().delete(id, id_2);
 	 }
+
+	 /**
+	  * Update specific address from the unique address ID you provide in query, with the new data you provide in body.
+	  * @param id The address's identifier
+	  * @param requestBody The new address's data
+	  * @summary Update an existing address
+	  */
+	  @Put('/{id}/users/{id_2}')
+	  public async updateEmployee( @Path() id: string, id_2: string, @Body() req: EmployeeUpdateParams) : Promise<void> {
+		  this.setStatus(201); // set return status 201
+		  new EmployeesService().update(id, id_2, req);
+		  return;
+	  }
 }
 
 

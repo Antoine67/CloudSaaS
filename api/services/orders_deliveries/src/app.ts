@@ -3,6 +3,8 @@ import * as cors from 'cors';
 import * as bodyparser from 'body-parser';
 
 import './controller/order.controller';
+import './controller/delivery.controller';
+import './controller/rating.controller';
 
 
 import { requestLoggerMiddleware } from './request.logger.middleware';

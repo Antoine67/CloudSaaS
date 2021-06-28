@@ -1,8 +1,8 @@
 
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
-import { IOrder } from "../model/order";
-import { OrdersService, OrderCreationParams, OrderUpdateParams } from "../services/order.service";
+import { IOrder, OrderCreationParams, OrderUpdateParams } from "../model/order";
+import { OrdersService } from "../services/order.service";
 //import { OrdersService } from "../services/order.service";
 
 @Route('/orders')

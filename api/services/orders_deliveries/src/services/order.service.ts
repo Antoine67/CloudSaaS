@@ -1,9 +1,5 @@
-import { OrderModel, IOrder } from "../model/order";
+import { OrderModel, IOrder, OrderCreationParams, OrderUpdateParams } from "../model/order";
 import {Tags} from 'tsoa';
-
-
-export type OrderCreationParams = Omit<IOrder, "id">;
-export type OrderUpdateParams = Partial<Omit<IOrder, "id">>;
 
 export class OrdersService {
 

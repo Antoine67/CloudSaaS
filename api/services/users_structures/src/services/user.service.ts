@@ -1,46 +1,84 @@
-import { UserModel, IUser } from "../model/user";
+import { Request, Response } from "express";
+import { getRepository} from "typeorm";
+import { validate } from "class-validator";
+
+import { User, UserUpdateParams } from "../model/user";
 import {Tags} from 'tsoa';
 
 
-export type UserCreationParams = Omit<IUser, "id">;
-export type UserUpdateParams = Partial<Omit<IUser, "id">>;
-
 export class UsersService {
 
-  public async getAll(): Promise<IUser[]> {
+  public async getAll(): Promise<User[]> {
+    //Get users from database
+		const userRepository = getRepository(User);
+		const users = await userRepository
+      .createQueryBuilder("user")
+      .leftJoinAndSelect("user.address", "address")
+      .leftJoinAndSelect("user.role", "role")
+      .getMany();
+
+		//Send the users object
+		return users;
+  }
+
+  public async update(id: string, requestBody: UserUpdateParams): Promise<void> {
+  
+    //Try to find user on database
+    const userRepository = getRepository(User);
+    let user;
     try {
-      let items: any = await UserModel.find({})
-      //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })
-      return items;
-    } catch (err) {
-      console.error('Caught error', err)
-      return [];
+      user = await userRepository.findOneOrFail(id);
+    } catch (error) {
+      console.log("Error not found");
+      return;
+    }
+
+    for (const [key, value] of Object.entries(requestBody)) {
+      if(value != undefined){
+        user[key] = value;
+      }
+    }
+
+    const errors = await validate(user);
+    if (errors.length > 0) {
+      console.log(errors);
+      return;
+    }
+  
+    //Try to safe, if fails, that means username already in use
+    try {
+      await userRepository.save(user);
+    } catch (e) {
+      console.log("username already in use");
+      return;
     }
   }
 
-  public async create(userCreationParams: UserCreationParams): Promise<boolean> {
-
-    const item = new UserModel(userCreationParams)
-    console.info(userCreationParams)
-    let success = false;
-    await item.save(function(err, user) {
-        if (err) success = false;
-        else success = true;
-    });
-
-    return success;
-  }
-
-  public async update(id: string, userUpdateParams: UserUpdateParams): Promise<void> {
-    await UserModel.findByIdAndUpdate({ _id: id }, userUpdateParams)
-  }
-
   public async delete(id: string): Promise<void> {
-    await UserModel.findByIdAndRemove(id)
+    const userRepository = getRepository(User);
+    let user: User;
+    try {
+      user = await userRepository.findOneOrFail(id);
+    } catch (error) {
+      console.log(error);
+    }
+    userRepository.delete(id);
   }
 
-  public async get(id: string): Promise<any> {
-    return await UserModel.findById(id)
+  public async get(id: string): Promise<User> {
+    //Get the user from database
+    const userRepository = getRepository(User);
+    try {
+      const user = await userRepository
+        .createQueryBuilder("user")
+        .leftJoinAndSelect("user.address", "address")
+        .leftJoinAndSelect("user.role", "role")
+        .where("user.id = :id", { id: id })
+        .getOne();
+      return user;
+    } catch (error) {
+        console.log(error);
+    }
   }
 
 }

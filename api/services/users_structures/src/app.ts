@@ -2,7 +2,10 @@ import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyparser from 'body-parser';
 
-import './controller/product.controller';
+import './controller/user.controller';
+import './controller/restaurant.controller';
+import './controller/role.controller';
+import './controller/roleEmployee.controller';
 
 
 import { requestLoggerMiddleware } from './request.logger.middleware';

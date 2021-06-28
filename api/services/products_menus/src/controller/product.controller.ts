@@ -1,8 +1,8 @@
 
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
-import { IProduct } from "../model/product";
-import { ProductsService, ProductCreationParams, ProductUpdateParams } from "../services/product.service";
+import { IProduct, ProductCreationParams, ProductUpdateParams  } from "../model/product";
+import { ProductsService } from "../services/product.service";
 //import { ProductsService } from "../services/product.service";
 
 @Route('/products')
