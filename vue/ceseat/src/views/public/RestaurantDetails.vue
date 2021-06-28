@@ -60,27 +60,7 @@ export default class Products extends Vue {
         console.log(e);
       });
       */
-     this.menus = [
-      {id:"test", title: "Maxi Best of", description: "supe",products: [
-    {
-      id : 1,
-      title: "Hamburger",
-      ingredients: ["Salade", "Pain", "Cornichon"]
-    },
-    {
-      id : 2,
-      title: "Ice tea",
-      ingredients: []
-    },
-    {
-      id : 3,
-      title: "Frites",
-      ingredients: ["Patates", "Sel"]
-    },
-    
-  ]},
-      {id:"test2", title: "menu2", description: "supe", products: [] }
-     ];
+     this.menus = [];
   }
 
   addToCart(menu: Menu) {
