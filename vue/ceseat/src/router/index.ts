@@ -42,10 +42,17 @@ const routes: Array<RouteConfig> = [
       middleware: auth 
     }
   },
+  {
+    path: '*',
+    name: 'catchAll',
+    component: Home
+ }
 ]
 
 const router = new VueRouter({
-  routes
+  mode: 'hash',
+  base: '/',
+  routes : routes
 })
 
 
