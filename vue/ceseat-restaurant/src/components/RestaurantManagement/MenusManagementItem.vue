@@ -162,6 +162,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import Menu from '@/types/Menu'
 import { namespace } from "vuex-class";
+import MenusService from "@/services/MenusService"
 @Component({
   components: {  }
 })
@@ -185,8 +186,8 @@ export default class MenusManagementItem extends Vue{
 
   //default data
   editedIndex = -1
-  editedItem : Menu = {ingredients: []} as Menu;
-  defaultItem : Menu = {ingredients: []} as Menu;
+  editedItem : Menu = {products: []} as Menu;
+  defaultItem : Menu = {products: []} as Menu;
 
   editItem (item: Menu) {
     this.editedIndex = this.menus.indexOf(item)
@@ -201,7 +202,13 @@ export default class MenusManagementItem extends Vue{
   }
 
   deleteItemConfirm () {
-    this.menus.splice(this.editedIndex, 1)
+    MenusService.delete(this.menus[this.editedIndex].id)
+      .then((response) => {
+        this.menus.splice(this.editedIndex, 1)
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     this.closeDelete()
   }
 
@@ -221,13 +228,35 @@ export default class MenusManagementItem extends Vue{
     })
   }
 
+
   save () {
     if (this.editedIndex > -1) {
-      Object.assign(this.menus[this.editedIndex], this.editedItem)
+      MenusService.update(this.editedItem.id, this.editedItem)
+        .then((response) => {
+          Object.assign(this.menus[this.editedIndex], this.editedItem)
+          console.log(response)
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+        .finally(() => {
+          this.close()
+        });
+
     } else {
-      this.menus.push(this.editedItem)
+      
+      MenusService.create(this.editedItem)
+        .then((response) => {
+          this.menus.push(this.editedItem)
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+        .finally(() => {
+          this.close()
+        });
     }
-    this.close()
   }
 
   getAvailibilityColor (availability : boolean) {
@@ -235,28 +264,18 @@ export default class MenusManagementItem extends Vue{
   }
 
 
-  menus : Menu[] = [
-    {
-     id: 5, 
-     name: "Super menu",
-     description: "Voici mon menu",
-     restaurant_id: 16,
-     price: 13.5,
-     available: true,
-     products : [
-          {
-           step: "entry",  
-           product_id: "2oiuqsj",
-           quantity: 1
-          },
-          {
-           step: "main",
-           product_id: "8iauidjks",
-           quantity: 1
-          }
-     ]
+beforeMount() {
+    MenusService.getAll()
+      .then((response) => {
+        this.menus = response.data;
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
-] 
+
+  menus : Menu[] = [] 
 
   get formTitle () {
         return this.editedIndex === -1 ? 'Nouveau menu' : 'Edition menu'

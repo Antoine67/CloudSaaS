@@ -235,7 +235,6 @@ export default class ProductsManagementItem extends Vue{
     if (this.editedIndex > -1) {
       ProductsService.update(this.editedItem.id, this.editedItem)
         .then((response) => {
-          console.log(this.products, this.editedIndex)
           Object.assign(this.products[this.editedIndex], this.editedItem)
           console.log(response)
         })
