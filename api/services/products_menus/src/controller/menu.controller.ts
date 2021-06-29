@@ -1,7 +1,7 @@
 
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
-import { IMenu, MenuCreationParams, MenuUpdateParams } from "../model/menu";
+import { Menu, MenuCreationParams, MenuUpdateParams } from "../model/menu";
 import { MenusService } from "../services/menu.service";
 //import { MenusService } from "../services/menu.service";
 
@@ -14,7 +14,7 @@ export class MenuController extends Controller {
 	 * @summary Retrieves all existing menus
 	 */
 	@Get()
-	public async getAll(): Promise<IMenu[]> {
+	public async getAll(): Promise<Menu[]> {
 		return new MenusService().getAll();
 	}
 
@@ -25,7 +25,7 @@ export class MenuController extends Controller {
 	 * @summary Retrieves a specific existing menu
 	 */
 	@Get('/{id}')
-	public async get(@Path() id: string): Promise<IMenu> {
+	public async get(@Path() id: string): Promise<Menu> {
 		return new MenusService().get(id);
 	}
 	
@@ -73,7 +73,7 @@ export class MenuController extends Controller {
 	 * @summary Retrieves all existing menus from a given restaurant
 	 */
 	@Get('/restaurants/{id}')
-	public async getAllFromRestaurantId(@Path() id: string): Promise<IMenu[]> {
+	public async getAllFromRestaurantId(@Path() id: string): Promise<Menu[]> {
 		return new MenusService().getAllFromRestaurantId(id);
 	}
 }

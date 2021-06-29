@@ -13,7 +13,7 @@ interface ProductMenu {
  * Menu objects allow merchants to show their available
  * menus for sale
  */
-interface IMenu {
+class Menu {
    /**
     * Uniq indentifier
     */
@@ -59,7 +59,7 @@ interface IMenu {
 /**
  * Menu for creation
  */
- interface MenuCreationParams {
+ class MenuCreationParams {
    
    /**
     * Name which represent the menu
@@ -101,7 +101,7 @@ interface IMenu {
 /**
  * Menu for update
  */
- interface MenuUpdateParams {
+ class MenuUpdateParams {
    
    /**
     * Name which represent the menu
@@ -161,4 +161,4 @@ MenuSchema.method("toJSON", function(this: any) {
 
 const MenuModel = mongoose.model('menus', MenuSchema);
 
-export { MenuModel, IMenu, MenuCreationParams, MenuUpdateParams, ProductMenu }
+export { MenuModel, Menu, MenuCreationParams, MenuUpdateParams, ProductMenu }
