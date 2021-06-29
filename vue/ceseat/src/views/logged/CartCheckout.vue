@@ -2,14 +2,9 @@
 
 <v-container v-if="getNumberInCart" >
 
-    <v-list>
-        <v-list-item v-for="menuItem in getOrder" :key="menuItem.menu.id">
-            <v-list-item-content> 
-                {{menuItem.menu.title}} x{{menuItem.quantity}}
-            </v-list-item-content>
 
-        </v-list-item>
-    </v-list>  
+
+    <OrderItem v-if="getOrder" :order="getOrder" :deleteFromOrder="deleteFromOrder" />
 
 
     <MyCards />
@@ -43,11 +38,14 @@ import { Component, Vue } from "vue-property-decorator";
 
 import { namespace } from "vuex-class";
 
+import {OrderItem} from "ceseat-lib";
+
 import MyCards from '@/components/Payment/MyCards.vue';
+import Menu from "@/types/Menu";
 const Cart = namespace("Cart");
 
 @Component({
-  components: { MyCards }
+  components: { MyCards, OrderItem }
 })
 export default class CartCheckout extends Vue{
   //publishableKey = process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY;
@@ -60,6 +58,9 @@ export default class CartCheckout extends Vue{
   @Cart.Getter
   private getNumberInCart : number
 
+  @Cart.Action
+  private removeFromCart!: (menu: Menu) => any
+
   cards : any[]
 
   dialog = true
@@ -68,6 +69,10 @@ export default class CartCheckout extends Vue{
   submit () {
       console.log("todo");
   }
+
+  deleteFromOrder(menu: any) {
+      this.removeFromCart(menu)
+    }
 
   
 

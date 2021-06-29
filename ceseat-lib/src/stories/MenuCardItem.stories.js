@@ -12,56 +12,11 @@ const Template = (args, { argTypes }) => ({
   template: '<MenuCardItem v-bind="$props" />',
 });
 
-const exampleMenu =  {
-  id:1, 
-  name: "Super menu",
-  description: "Voici mon menu",
-  restaurant_id: 16,
-  price: 13.5,
-  available: true,
-  products : [
-       {
-        step: "entry",  
-        product_id: 0,
-        quantity: 1
-       },
-       {
-        step: "main",
-        product_id: 1,
-        quantity: 1
-       }
-  ]
-}
-
-const exampleProduct = [{ 
-  id:0,
-  name: "Super produit",
-  description: "Voici mon produit",
-  restaurant_id: 16,
-  available: true,
-  ingredients : [
-       "salt",
-       "bread",
-       "salad"
-  ]
-},
-{
-  id:1,
-  name: "fajitas",
-  description: "Voici mon produit",
-  restaurant_id: 16,
-  available: true,
-  ingredients : [
-       "tomate",
-       "pain pita",
-       "salad"
-  ]
-}]
+const exampleMenu =  {"products":[{"id":"test","name":"Super produit","description":"Voici mon produit","restaurant_id":16,"available":true,"price":13.5,"ingredients":["test","test2","test3"]}],"name":"dwdwdaaa","description":"string","restaurant_id":1,"price":40,"available":true,"id":"60db9c4edffd030013726545"}
 
 export const Default = Template.bind({});
 Default.args = {
   menu :exampleMenu,
-  product : exampleProduct,
   addToCart: (menu) => {console.log(menu)},
   pay: (menu) => {console.log(menu)},
   addEnabled: true,
