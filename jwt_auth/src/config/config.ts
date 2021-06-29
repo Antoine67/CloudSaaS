@@ -1,3 +1,3 @@
 export default {
-  jwtSecret: "@QEGTUI"
+  jwtSecret: "@ceseat-auth"
 };
