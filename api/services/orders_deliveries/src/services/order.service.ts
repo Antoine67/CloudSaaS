@@ -1,9 +1,9 @@
-import { OrderModel, IOrder, OrderCreationParams, OrderUpdateParams } from "../model/order";
+import { OrderModel, Order, OrderCreationParams, OrderUpdateParams } from "../model/order";
 import {Tags} from 'tsoa';
 
 export class OrdersService {
 
-  public async getAll(): Promise<IOrder[]> {
+  public async getAll(): Promise<Order[]> {
     try {
       let items: any = await OrderModel.find({})
       //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })
