@@ -65,9 +65,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class OrderItem extends Vue {
   @Prop() private orders!: any;
   @Prop() private restaurant!: string;
-  //beforeMount(){  
-    //this.status = this.status_tabs.find(x => x.id === this.order.status);
-  //}
 }
 
 
