@@ -10,6 +10,7 @@
       {{"Ma Commande"}}: 
       </v-card-title>
       <v-chip
+        v-if="status"
         class="ma-2"
         :color="status.color"
         text-color="white"

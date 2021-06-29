@@ -18,6 +18,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import {MenuCardItem} from "ceseat-lib";
 
 import MenusService from "@/services/MenusService";
+import ProductsService from "@/services/ProductsService";
 import Menu from "@/types/Menu";
 import { namespace } from "vuex-class";
 const Auth = namespace("Auth");
@@ -57,7 +58,16 @@ export default class Products extends Vue {
     MenusService.getFromRestaurant(resId)
       .then((response) => {
         this.menus = response.data;
-        console.log(response.data);
+        //console.log(response.data);
+        
+        if(this.menus.products) {
+          this.menus.products.forEach(p => {
+            this.products.push(ProductsService.get(p.product_id))
+          });
+        }
+        
+        
+
       })
       .catch((e) => {
         console.log(e);

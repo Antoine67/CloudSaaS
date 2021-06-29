@@ -50,11 +50,18 @@ const Cart = namespace("Cart");
 export default class ShoppingCart extends Vue {
     popup = false
 
+    order : any;
+
     @Cart.Getter
     private getNumberInCart! : number
 
     @Cart.Getter
     private getCart! : any[]
+
+    beforeMount() {
+      console.log(this.getCart)
+      this.order = this.getCart[0]; //todo change
+    }
 
     goToCheckout() {
         this.$router.push('/checkout')

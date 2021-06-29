@@ -1,12 +1,14 @@
 export const namespaced = true
 import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
 import Menu from '@/types/Menu';
+import EOrderState from '@/types/EOrderState';
 
 const storedCard = localStorage.getItem('ceseat_cart');
 
 export interface MenuItem {
     menu : Menu;
     quantity: number;
+    status: EOrderState;
 }
 
 //let lsCart = localStorage.getItem('cart');
@@ -22,10 +24,12 @@ class CartModule extends VuexModule {
 
   @Mutation
   public ADD_TO_CART (newMenu: Menu) {
+    
     // identify the pre-availability of the currently selected item and its quantity
     const item : MenuItem | undefined = this.cart.find((m: any) => m.menu.id === newMenu.id)
+    console.log("item", item)
     if (item == undefined) {
-      this.cart.push({menu: newMenu, quantity: 1})
+      this.cart.push({menu: newMenu, quantity: 1, status: EOrderState.WAITING_PAYMENT})
     } else {
       item.quantity = item.quantity + 1
     }

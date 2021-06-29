@@ -26,12 +26,15 @@ class AuthController {
       return;
     }
 
+     
 
     //Check if encrypted password match
     if (!user.checkIfUnencryptedPasswordIsValid(password)) {
       res.status(401).send({message: "Invalid password"});
       return;
     }
+
+    console.log(user);
 
     //Check if role match
     if (user.role && user.role.identifier != roleIdentifier) {

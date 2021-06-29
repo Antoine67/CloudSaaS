@@ -2,6 +2,7 @@ export default interface ProductMenu {
   step?: string;
   product_id?: any;
   quantity?: number;
+  
 }
 
 export default interface Menu {

@@ -40,7 +40,7 @@ export class User {
     @Column({length: 100})
     username: string;
 
-    @Column({ length: 100, select: false })
+    @Column({ length: 100 })
     password: string;
 
     @Column({length: 100, nullable: true})
@@ -90,6 +90,7 @@ export class User {
     }
 
     checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
-    return bcrypt.compareSync(unencryptedPassword, this.password);
+        console.log("ici", unencryptedPassword)
+        return bcrypt.compareSync(unencryptedPassword, this.password);
     }
 }
