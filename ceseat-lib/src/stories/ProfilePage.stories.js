@@ -54,7 +54,11 @@ const exampleUser =  {
 export const Default = Template.bind({});
 Default.args = {
     user : exampleUser,
-    ModifyUser:(user) => {console.log(user)},
-    ModifyAddress:(user) => {console.log(user)},
-    ModifyNotifications:(user) => {console.log(user)}
+    ModifyUser:(data) => {console.log(data);return Promise.resolve(data)},
+    ModifyAddress:(data) => {console.log(data);return Promise.resolve(data)},
+    ModifyNotifications:(data) => {console.log(data);return Promise.resolve(data)},
+    showMessage: (message, color, title, ico) => {console.log(message, color, title, ico)},
+    submitUser: (data) => {return Promise.resolve(data)},
+    submitAddress: (data) => {return Promise.resolve(data)},
+    submitNotification: (data) => {return Promise.resolve(data)},
 };

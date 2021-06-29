@@ -40,6 +40,7 @@
             persistent
             max-width="600px"
           >
+          <v-form ref="UserForm">
             <v-card>
             <v-card-title>
             <span class="text-h5">Profil Utilisateur</span>
@@ -53,6 +54,7 @@
                     md="4"
                 >
                     <v-text-field
+                    v-model="pseudo"
                     label="Pseudo*"
                     required
                     ></v-text-field>
@@ -63,6 +65,7 @@
                     md="4"
                 >
                     <v-text-field
+                    v-model="surname"
                     label="Prénom*"
                     required
                     ></v-text-field>
@@ -73,18 +76,22 @@
                     md="4"
                 >
                     <v-text-field
+                    v-model="name"
                     label="Nom*"
                     required
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field
+                    v-model="email"
+                    :rules="emailRules"
                     label="Email*"
                     required
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field
+                    v-model="password"
                     label="Mot de Passe*"
                     type="password"
                     required
@@ -95,6 +102,7 @@
                     sm="6"
                 >
                     <v-text-field
+                    v-model="age"
                     label="Age*"
                     required
                     ></v-text-field>
@@ -115,12 +123,13 @@
                 <v-btn
                   color="orange darken-1"
                   text
-                  @click="onModifyUserClick();dialogUser = false;"
+                  @click="onModifyUserClick()"
                 >
                   Modifier
                 </v-btn>
               </v-card-actions>
             </v-card>
+          </v-form>
           </v-dialog>
           <v-list-item color="rgba(0, 0, 0, .4)">
             <v-list-item-content>
@@ -165,6 +174,7 @@
             persistent
             max-width="600px"
           >
+          <v-form ref="AddressForm">
             <v-card>
             <v-card-title>
             <span class="text-h5">Adresse</span>
@@ -178,6 +188,7 @@
                     md="4"
                 >
                     <v-text-field
+                    v-model="country"
                     label="Pays*"
                     required
                     ></v-text-field>
@@ -188,7 +199,9 @@
                     md="4"
                 >
                     <v-text-field
+                    v-model="postalCode"
                     label="Code Postal*"
+                    required
                     ></v-text-field>
                 </v-col>
                 <v-col
@@ -197,19 +210,22 @@
                     md="4"
                 >
                     <v-text-field
+                    v-model="town"
                     label="Ville*"
                     required
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field
+                    v-model="address1"
                     label="Adresse 1*"
                     required
                     ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                     <v-text-field
-                    label="Adresse 2"
+                    v-model="address2"
+                    label ="Adresse 2"
                     ></v-text-field>
                 </v-col>
                 <v-col
@@ -233,12 +249,13 @@
                 <v-btn
                   color="orange darken-1"
                   text
-                  @click="onModifyAddressClick();dialogAddress = false;"
+                  @click="onModifyAddressClick();"
                 >
                   Modifier
                 </v-btn>
               </v-card-actions>
             </v-card>
+          </v-form>
           </v-dialog>
           <v-list-item color="rgba(0, 0, 0, .4)">
             <v-list-item-content>
@@ -274,23 +291,102 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class ProductItem extends Vue {
   @Prop() private user!: any;
-  @Prop() ModifyUser! : (user: any) => void; 
-  @Prop() ModifyAddress! : (user: any) => void; 
-  @Prop() ModifyNotifications! : (user: any) => boolean;
+  @Prop() ModifyUser! : (data: any) => Promise<any>;
+  @Prop() ModifyAddress! : (data: any) => Promise<any>;
+  @Prop() ModifyNotifications! : (data: any) => Promise<boolean>;
+  @Prop() showMessage!: (message: string, color?: string, title?: string, ico?: string) => void;
+  @Prop() submitUser!: () => any;
+  @Prop() submitAddress!: () => any;
+  @Prop() submitNotification!: () => any;
+
   switch1 : boolean = true ;
   dialogUser = false;
   dialogAddress= false;
+
+  // Modify User data
+  pseudo= ""
+  password= ""
+  name= ""
+  surname=""                   
+  age=""                         
+  email=""
+
+  // Modify User data
+  country = ""
+  postalCode= ""
+  town= ""
+  address1= ""
+  address2= ""
+
+  
+  emailRules= [
+    // @ts-ignore
+    v => !!v || "Requis",
+    // @ts-ignore
+    v => /.+@.+\..+/.test(v) || "E-mail invalide"
+  ]
+
+
   beforeMount() {
     this.switch1 = this.user.notifications;
   }
   onModifyUserClick(){
-      this.ModifyUser(this.user)
+  // @ts-ignore
+  if (this.$refs.UserForm.validate()) {    
+    if(this.pseudo && this.password && this.name && this.surname &&  this.age && this.email)    
+    {
+         this.ModifyUser({pseudo: this.pseudo, password: this.password, name: this.name,surname:this.surname, age: this.age, email:this.email}).then(
+          (data: any) => {
+              //this.showMessage("Connexion réussie", "success")
+            this.submitUser();
+            this.dialogUser = false;
+          },
+          (error: any) => {
+              console.log(error);
+              this.showMessage("Champ(s) entrée(s) incorrect", "error", "modification échouée")
+          }
+      );
+    }  
   }
+}
   onModifyAddressClick(){
-      this.ModifyAddress(this.user)
+  // @ts-ignore
+  if (this.$refs.AddressForm.validate()) {
+    if(this.country && this.postalCode && this.town && this.address1)    
+    {
+         this.ModifyAddress({country: this.country, postalCode: this.postalCode, town: this.town, address1: this.address1, address2:this.address2}).then(
+          (data: any) => {
+              //this.showMessage("Connexion réussie", "success")
+            this.submitAddress();
+            this.dialogAddress = false;
+          },
+          (error: any) => {
+              console.log(error);
+              this.showMessage("Champ(s) entrée(s) incorrect", "error", "modification échouée")
+          }
+      );
+    }  
   }
+}
   onModifyNotificationsClick(){
-      this.ModifyNotifications(this.user)
+      this.ModifyUser({notifications: this.switch1}).then(
+          (data: any) => {
+              //this.showMessage("Connexion réussie", "success")
+            this.submitNotification();
+          },
+          (error: any) => {
+              console.log(error);
+              this.showMessage("Champ(s) entrée(s) incorrect", "error", "modification échouée")
+          }
+      );
+  }
+  reset() {
+      // @ts-ignore
+      this.$refs.form.reset();
+  }
+  resetValidation() {
+      // @ts-ignore
+      this.$refs.form.resetValidation();
   }
 }
 </script>
