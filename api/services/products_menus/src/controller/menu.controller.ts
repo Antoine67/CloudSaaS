@@ -67,4 +67,13 @@ export class MenuController extends Controller {
 	public async remove(@Path() id: string) : Promise<void> {
 		return new MenusService().delete(id);
 	}
+
+	/**
+	 * Retrieves all existing menus from a given restaurant.
+	 * @summary Retrieves all existing menus from a given restaurant
+	 */
+	@Get('/restaurants/{id}')
+	public async getAllFromRestaurantId(@Path() id: string): Promise<IMenu[]> {
+		return new MenusService().getAllFromRestaurantId(id);
+	}
 }

@@ -10,6 +10,10 @@ class MenusServices {
     return http.get(`/menus/${id}`);
   }
 
+  getFromRestaurant(restaurantId: string) {
+    return http.get(`/menus/restaurants/${restaurantId}`);
+  }
+
   create(data: any) {
     return http.post("/menus", data);
   }

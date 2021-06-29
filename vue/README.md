@@ -15,6 +15,8 @@ serve -s dist -l 8080
 ```
 
 ## Accessibility
+Add following entries in /etc/hosts files in order to have :
+
 Delivery application available on : `http://ceseat-delivery.fr`
 
 Restaurant application available on : `http://ceseat-restaurant.fr`

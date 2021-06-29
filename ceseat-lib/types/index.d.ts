@@ -1,4 +1,4 @@
-declare module 'src/index' {
+declare module 'ceseat-lib' {
 	import MenuCardItem from 'src/components/MenuCardItem.vue';
 	import RestaurantCardItem from 'src/components/RestaurantCardItem.vue';
 	import LoginForm from 'src/components/LoginForm.vue';

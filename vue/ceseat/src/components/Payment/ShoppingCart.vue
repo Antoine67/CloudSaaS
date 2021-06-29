@@ -21,7 +21,7 @@
             <v-container >             
               <v-row >
                 <v-col cols="12" >
-                    <p> {{getCart}} </p>
+                   <OrderItem :order="order" :deleteFromOrder="deleteFromOrder" />
                 </v-col>
               </v-row>
             </v-container>
@@ -42,6 +42,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { namespace } from "vuex-class";
+import {OrderItem} from "ceseat-lib";
 const Cart = namespace("Cart");
 
 
@@ -58,6 +59,10 @@ export default class ShoppingCart extends Vue {
     goToCheckout() {
         this.$router.push('/checkout')
         this.popup = false
+    }
+
+    deleteFromOrder(order: any) {
+      console.log(order);
     }
     
 

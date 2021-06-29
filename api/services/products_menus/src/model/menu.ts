@@ -1,5 +1,14 @@
 import * as mongoose from 'mongoose';
 
+
+interface ProductMenu {
+  step: String;
+
+  product_id: number;
+
+  quantity: number;
+}
+
 /**
  * Menu objects allow merchants to show their available
  * menus for sale
@@ -44,13 +53,7 @@ interface IMenu {
      * Products contained on the menu
      * TODO
      */
-    products?: {
-      step: String;
-
-      product_id: Object;
-
-      quantity: Number;
-    };   
+    products?: ProductMenu[] 
 }
 
 /**
@@ -92,13 +95,7 @@ interface IMenu {
     * Products contained on the menu
     * TODO
     */
-   products?: {
-     step: String;
-
-     product_id: Object;
-
-     quantity: Number;
-   };   
+   products?: ProductMenu[] 
 }
 
 /**
@@ -140,13 +137,7 @@ interface IMenu {
     * Products contained on the menu
     * TODO
     */
-   products?: {
-     step: String;
-
-     product_id: Object;
-
-     quantity: Number;
-   };   
+   products?: ProductMenu[]
 }
 
 
@@ -157,11 +148,7 @@ const MenuSchema = new mongoose.Schema({
   price: Number,
   available: Boolean,
   //picture: String,
-  products: {
-    step: String,
-    product_id:  mongoose.Schema.Types.ObjectId,
-    quantity: Number,
-  },
+  products: Array
 });
 
 
@@ -174,4 +161,4 @@ MenuSchema.method("toJSON", function(this: any) {
 
 const MenuModel = mongoose.model('menus', MenuSchema);
 
-export { MenuModel, IMenu, MenuCreationParams, MenuUpdateParams }
+export { MenuModel, IMenu, MenuCreationParams, MenuUpdateParams, ProductMenu }

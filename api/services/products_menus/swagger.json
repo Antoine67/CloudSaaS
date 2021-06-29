@@ -559,6 +559,39 @@
 					}
 				]
 			}
+		},
+		"/menus/restaurants/{id}": {
+			"get": {
+				"operationId": "GetAllFromRestaurantId",
+				"produces": [
+					"application/json"
+				],
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/definitions/IMenu"
+							}
+						}
+					}
+				},
+				"description": "Retrieves all existing menus from a given restaurant.",
+				"summary": "Retrieves all existing menus from a given restaurant",
+				"tags": [
+					"Menus"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"type": "string"
+					}
+				]
+			}
 		}
 	},
 	"produces": [
@@ -566,7 +599,7 @@
 	],
 	"swagger": "2.0",
 	"securityDefinitions": {},
-	"host": "localhost:8080",
+	"host": "localhost:7000",
 	"schemes": [
 		"http"
 	]

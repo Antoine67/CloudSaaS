@@ -36,6 +36,13 @@ const models: TsoaRoute.Models = {
             "ingredients": { "dataType": "array", "array": { "dataType": "string" } },
         },
     },
+    "ProductMenu": {
+        "properties": {
+            "step": { "dataType": "string", "required": true },
+            "product_id": { "dataType": "double", "required": true },
+            "quantity": { "dataType": "double", "required": true },
+        },
+    },
     "IMenu": {
         "properties": {
             "id": { "dataType": "string", "required": true },
@@ -44,7 +51,7 @@ const models: TsoaRoute.Models = {
             "restaurant_id": { "dataType": "double", "required": true },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean", "required": true },
-            "products": { "dataType": "any" },
+            "products": { "dataType": "array", "array": { "ref": "ProductMenu" } },
         },
     },
     "MenuCreationParams": {
@@ -54,7 +61,7 @@ const models: TsoaRoute.Models = {
             "restaurant_id": { "dataType": "double", "required": true },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean", "required": true },
-            "products": { "dataType": "any" },
+            "products": { "dataType": "array", "array": { "ref": "ProductMenu" } },
         },
     },
     "MenuUpdateParams": {
@@ -64,7 +71,7 @@ const models: TsoaRoute.Models = {
             "restaurant_id": { "dataType": "double" },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean" },
-            "products": { "dataType": "any" },
+            "products": { "dataType": "array", "array": { "ref": "ProductMenu" } },
         },
     },
 };
@@ -259,6 +266,25 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.remove.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.get('/api/menus/restaurants/:id',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new MenuController();
+
+
+            const promise = controller.getAllFromRestaurantId.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
 
