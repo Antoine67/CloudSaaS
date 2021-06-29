@@ -5,7 +5,13 @@
         "entryFile": "./src/app.ts",
         "basePath": "/api",
         "host": "localhost:7000",
-        "schemes": ["http"]
+        "schemes": ["http"],
+        "securityDefinitions": {
+            "jwt": {
+                "type": "jwt",
+                "name": "jwt"
+            }
+        }
     },
     "spec": {
         "outputDirectory": ".",
@@ -17,6 +23,7 @@
     "routes": {
         "basePath": "/api",
         "entryFile": "./src/app.ts",
-        "routesDir": "./src"
+        "routesDir": "./src",
+        "authenticationModule": "./src/authentication.ts"
     }
 }

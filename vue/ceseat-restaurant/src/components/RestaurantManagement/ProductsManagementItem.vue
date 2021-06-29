@@ -165,6 +165,7 @@ import { Component, Vue } from "vue-property-decorator";
 import Product from '@/types/Product'
 import { namespace } from "vuex-class";
 import ListEditing from "@/components/RestaurantManagement/ListEditing.vue"
+import ProductsService from "@/services/ProductsService"
 @Component({
   components: { ListEditing }
 })
@@ -200,11 +201,17 @@ export default class ProductsManagementItem extends Vue{
   deleteItem (item: Product) {
     this.editedIndex = this.products.indexOf(item)
     this.editedItem = Object.assign({}, item)
-    this.dialogDelete = true
+    this.dialogDelete = true    
   }
 
   deleteItemConfirm () {
-    this.products.splice(this.editedIndex, 1)
+    ProductsService.delete(this.products[this.editedIndex].id)
+      .then((response) => {
+        this.products.splice(this.editedIndex, 1)
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     this.closeDelete()
   }
 
@@ -226,11 +233,33 @@ export default class ProductsManagementItem extends Vue{
 
   save () {
     if (this.editedIndex > -1) {
-      Object.assign(this.products[this.editedIndex], this.editedItem)
+      ProductsService.update(this.editedItem.id, this.editedItem)
+        .then((response) => {
+          console.log(this.products, this.editedIndex)
+          Object.assign(this.products[this.editedIndex], this.editedItem)
+          console.log(response)
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+        .finally(() => {
+          this.close()
+        });
+
     } else {
-      this.products.push(this.editedItem)
+      
+      ProductsService.create(this.editedItem)
+        .then((response) => {
+          this.products.push(this.editedItem)
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+        .finally(() => {
+          this.close()
+        });
     }
-    this.close()
   }
 
   getAvailibilityColor (availability : boolean) {
@@ -238,21 +267,18 @@ export default class ProductsManagementItem extends Vue{
   }
 
 
-  products : Product[] = [
-    {
-      id: 5, 
-      name: "Super produit",
-      description: "Voici mon produit",
-      restaurant_id: 16,
-      price: 13.5,
-      available: true,
-      ingredients : [
-          "salt",
-          "bread",
-          "salad"
-      ]
-    },
-] 
+  beforeMount() {
+    ProductsService.getAll()
+      .then((response) => {
+        this.products = response.data;
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  products : Product[] = [] 
 
   get formTitle () {
         return this.editedIndex === -1 ? 'Nouveau produit' : 'Edition produit'

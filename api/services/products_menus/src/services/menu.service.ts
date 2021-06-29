@@ -1,10 +1,10 @@
-import { MenuModel, IMenu, MenuCreationParams, MenuUpdateParams } from "../model/menu";
+import { MenuModel, Menu, MenuCreationParams, MenuUpdateParams } from "../model/menu";
 import {Tags} from 'tsoa';
 
 
 export class MenusService {
 
-  public async getAll(): Promise<IMenu[]> {
+  public async getAll(): Promise<Menu[]> {
     try {
       let items: any = await MenuModel.find({})
       //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })
@@ -15,7 +15,7 @@ export class MenusService {
     }
   }
 
-  public async getAllFromRestaurantId(restaurantId : string): Promise<IMenu[]> {
+  public async getAllFromRestaurantId(restaurantId : string): Promise<Menu[]> {
     try {
       let items: any = await MenuModel.find({ restaurant_id:  restaurantId})
       //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })

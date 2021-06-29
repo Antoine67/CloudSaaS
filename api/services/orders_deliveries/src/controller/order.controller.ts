@@ -1,7 +1,7 @@
 
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
-import { IOrder, OrderCreationParams, OrderUpdateParams } from "../model/order";
+import { Order, OrderCreationParams, OrderUpdateParams } from "../model/order";
 import { OrdersService } from "../services/order.service";
 //import { OrdersService } from "../services/order.service";
 
@@ -14,7 +14,7 @@ export class OrderController extends Controller {
 	 * @summary Retrieves all existing orders
 	 */
 	@Get()
-	public async getAll(): Promise<IOrder[]> {
+	public async getAll(): Promise<Order[]> {
 		return new OrdersService().getAll();
 	}
 
@@ -25,7 +25,7 @@ export class OrderController extends Controller {
 	 * @summary Retrieves a specific existing order
 	 */
 	@Get('/{id}')
-	public async get(@Path() id: string): Promise<IOrder> {
+	public async get(@Path() id: string): Promise<Order> {
 		return new OrdersService().get(id);
 	}
 	

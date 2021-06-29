@@ -4,7 +4,7 @@ import * as mongoose from 'mongoose';
  * Product objects allow merchants to show their available
  * meals/dessert/... for sale
  */
-interface IProduct {
+class Product {
    /**
     * Uniq indentifier
     */
@@ -52,7 +52,7 @@ interface IProduct {
 /**
  * Product data for creation
  */
-interface ProductCreationParams {
+class ProductCreationParams {
 
    /**
     * Name which represent the product
@@ -94,7 +94,7 @@ interface ProductCreationParams {
 /**
  * Product data for update
  */
-interface ProductUpdateParams {
+class ProductUpdateParams {
 
   /**
    * Name which represent the product
@@ -155,4 +155,4 @@ ProductSchema.method("toJSON", function(this: any) {
 
 const ProductModel = mongoose.model('products', ProductSchema);
 
-export { ProductModel, IProduct, ProductCreationParams, ProductUpdateParams}
+export { ProductModel, Product, ProductCreationParams, ProductUpdateParams}

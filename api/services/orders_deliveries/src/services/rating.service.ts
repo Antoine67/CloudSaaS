@@ -1,9 +1,9 @@
-import { RatingModel, IRating, RatingCreationParams } from "../model/rating";
+import { RatingModel, Rating, RatingCreationParams } from "../model/rating";
 import {Tags} from 'tsoa';
 
 export class RatingsService {
 
-  public async getAll(): Promise<IRating[]> {
+  public async getAll(): Promise<Rating[]> {
     try {
       let items: any = await RatingModel.find({})
       //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })

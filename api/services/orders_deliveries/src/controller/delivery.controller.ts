@@ -1,7 +1,7 @@
 
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
-import { IDelivery, DeliveryCreationParams, DeliveryUpdateParams } from "../model/delivery";
+import { Delivery, DeliveryCreationParams, DeliveryUpdateParams } from "../model/delivery";
 import { DeliveriesService } from "../services/delivery.service";
 //import { DeliveriesService } from "../services/delivery.service";
 
@@ -14,7 +14,7 @@ export class DeliveryController extends Controller {
 	 * @summary Retrieves all existing deliveries
 	 */
 	@Get()
-	public async getAll(): Promise<IDelivery[]> {
+	public async getAll(): Promise<Delivery[]> {
 		return new DeliveriesService().getAll();
 	}
 
@@ -25,7 +25,7 @@ export class DeliveryController extends Controller {
 	 * @summary Retrieves a specific existing delivery
 	 */
 	@Get('/{id}')
-	public async get(@Path() id: string): Promise<IDelivery> {
+	public async get(@Path() id: string): Promise<Delivery> {
 		return new DeliveriesService().get(id);
 	}
 	

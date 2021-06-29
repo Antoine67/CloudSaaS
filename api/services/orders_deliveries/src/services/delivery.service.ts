@@ -1,9 +1,9 @@
-import { DeliveryModel, IDelivery, DeliveryCreationParams, DeliveryUpdateParams } from "../model/delivery";
+import { DeliveryModel, Delivery, DeliveryCreationParams, DeliveryUpdateParams } from "../model/delivery";
 import {Tags} from 'tsoa';
 
 export class DeliveriesService {
 
-  public async getAll(): Promise<IDelivery[]> {
+  public async getAll(): Promise<Delivery[]> {
     try {
       let items: any = await DeliveryModel.find({})
       //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })

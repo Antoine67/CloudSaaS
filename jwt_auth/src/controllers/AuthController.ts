@@ -2,10 +2,12 @@ import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import { getRepository } from "typeorm";
 import { validate } from "class-validator";
+import {getConnection,getManager} from "typeorm";
 
 import { User } from "../entity/user";
 import config from "../config/config";
 import { Role } from "../entity/role";
+import { Employee } from "../entity/employee";
 
 class AuthController {
   static login = async (req: Request, res: Response) => {
@@ -44,10 +46,17 @@ class AuthController {
     }
 
 
+    const rawData = await getManager().query(`SELECT * FROM Employee WHERE userId = $1`, [user.id]);
+    const rawData2 = await getManager().query(`SELECT * FROM Employee`);
 
+    console.log("raw", user.id);
+    console.log("raw", rawData);
+    console.log("raw", rawData2);
     //Sign JWT, valid for 1 hour
+    let restaurantId = null;
+
     const token = jwt.sign(
-      { userId: user.id, username: user.username, roleIdentifier: user.role.identifier },
+      { userId: user.id, username: user.username, roleIdentifier: user.role.identifier, restaurantId:  restaurantId},
       config.jwtSecret,
       { expiresIn: "1h" }
     );

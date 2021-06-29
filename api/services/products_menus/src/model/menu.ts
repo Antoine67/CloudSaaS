@@ -1,11 +1,11 @@
 import * as mongoose from 'mongoose';
-import {IProduct} from "./product"
+import {Product} from "./product"
 
 /**
  * Menu objects allow merchants to show their available
  * menus for sale
  */
-interface IMenu {
+class Menu {
    /**
     * Uniq indentifier
     */
@@ -45,13 +45,13 @@ interface IMenu {
      * Products contained on the menu
      * TODO
      */
-    products?: IProduct[] 
+    products?: Product[] 
 }
 
 /**
  * Menu for creation
  */
- interface MenuCreationParams {
+ class MenuCreationParams {
    
    /**
     * Name which represent the menu
@@ -86,13 +86,13 @@ interface IMenu {
    /**
     * Products contained on the menu
     */
-   products?: IProduct[] 
+   products?: Product[] 
 }
 
 /**
  * Menu for update
  */
- interface MenuUpdateParams {
+ class MenuUpdateParams {
    
    /**
     * Name which represent the menu
@@ -127,7 +127,7 @@ interface IMenu {
    /**
     * Products contained on the menu
     */
-   products?: IProduct[]
+   products?: Product[]
 }
 
 
@@ -151,4 +151,4 @@ MenuSchema.method("toJSON", function(this: any) {
 
 const MenuModel = mongoose.model('menus', MenuSchema);
 
-export { MenuModel, IMenu, MenuCreationParams, MenuUpdateParams }
+export { MenuModel, Menu, MenuCreationParams, MenuUpdateParams }

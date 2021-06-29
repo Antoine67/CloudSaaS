@@ -4,7 +4,7 @@ import * as mongoose from 'mongoose';
  * Order objects allow merchants to show their available
  * meals/dessert/... for sale
  */
-interface IOrder {
+class Order {
     /**
     * Uniq indentifier
     */
@@ -72,7 +72,7 @@ interface IOrder {
 /**
  * Order object for creation
  */
-interface OrderCreationParams {
+class OrderCreationParams {
   /**
   * Uniq indentifier
   */
@@ -135,7 +135,7 @@ interface OrderCreationParams {
   /**
  * Order object for update
  */
- interface OrderUpdateParams {
+ class OrderUpdateParams {
   /**
   * Uniq indentifier
   */
@@ -227,4 +227,4 @@ OrderSchema.method("toJSON", function(this: any) {
 
 const OrderModel = mongoose.model('orders', OrderSchema);
 
-export { OrderModel, IOrder, OrderCreationParams, OrderUpdateParams }
+export { OrderModel, Order, OrderCreationParams, OrderUpdateParams }

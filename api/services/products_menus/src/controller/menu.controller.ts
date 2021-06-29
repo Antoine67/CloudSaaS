@@ -1,7 +1,9 @@
 
-import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
+import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body, Security, Request } from 'tsoa';
+import * as express from 'express';
 
-import { IMenu, MenuCreationParams, MenuUpdateParams } from "../model/menu";
+import { Menu, MenuCreationParams, MenuUpdateParams } from "../model/menu";
+import jwtDecrypt from "../middleware/jwt"
 import { MenusService } from "../services/menu.service";
 //import { MenusService } from "../services/menu.service";
 
@@ -13,8 +15,9 @@ export class MenuController extends Controller {
 	 * Retrieves all existing menus.
 	 * @summary Retrieves all existing menus
 	 */
+	@Security("jwt")
 	@Get()
-	public async getAll(): Promise<IMenu[]> {
+	public async getAll(): Promise<Menu[]> {
 		return new MenusService().getAll();
 	}
 
@@ -24,8 +27,9 @@ export class MenuController extends Controller {
 	 * @param id The menu's identifier
 	 * @summary Retrieves a specific existing menu
 	 */
+	@Security("jwt")
 	@Get('/{id}')
-	public async get(@Path() id: string): Promise<IMenu> {
+	public async get(@Path() id: string): Promise<Menu> {
 		return new MenusService().get(id);
 	}
 	
@@ -34,6 +38,7 @@ export class MenuController extends Controller {
 	 * @param requestBody The new menu's data
 	 * @summary Create a new menu
 	 */
+	@Security("jwt")
 	@Post()
 	public async create(@Body() requestBody: MenuCreationParams) : Promise<void> {
 		
@@ -51,6 +56,7 @@ export class MenuController extends Controller {
 	 * @param requestBody The new menu's data
 	 * @summary Update an existing menu
 	 */
+	@Security("jwt")
 	@Put('/{id}')
 	public async update( @Path() id: string, @Body() requestBody: MenuUpdateParams) : Promise<void> {
 		this.setStatus(201); // set return status 201
@@ -63,6 +69,7 @@ export class MenuController extends Controller {
 	 * @param id The menu's identifier
 	 * @summary Delete a menu
 	 */
+	@Security("jwt")
 	@Delete('/{id}')
 	public async remove(@Path() id: string) : Promise<void> {
 		return new MenusService().delete(id);
@@ -73,7 +80,7 @@ export class MenuController extends Controller {
 	 * @summary Retrieves all existing menus from a given restaurant
 	 */
 	@Get('/restaurants/{id}')
-	public async getAllFromRestaurantId(@Path() id: string): Promise<IMenu[]> {
+	public async getAllFromRestaurantId(@Path() id: string): Promise<Menu[]> {
 		return new MenusService().getAllFromRestaurantId(id);
 	}
 }

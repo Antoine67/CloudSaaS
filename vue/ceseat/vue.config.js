@@ -4,7 +4,11 @@ module.exports = {
     'vuetify'
   ],
   publicPath: '',
-  
- 
-  
+  devServer: {
+    compress: true,
+    disableHostCheck: true,   // That solved it
+
+ }   
 }
+
+

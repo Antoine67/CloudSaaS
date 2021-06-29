@@ -4,7 +4,7 @@ import * as mongoose from 'mongoose';
  * Delivery objects allow merchants and consumer to know
  * the state the state of the delivery
  */
-interface IDelivery {
+class Delivery {
    /**
     * Uniq indentifier
     */
@@ -33,7 +33,7 @@ interface IDelivery {
 /**
  * Delivery object for creation
  */
- interface DeliveryCreationParams {
+ class DeliveryCreationParams {
    /**
     * Order uniq indentifier reference
     */
@@ -57,7 +57,7 @@ interface IDelivery {
 /**
  * Delivery object for update
  */
- interface DeliveryUpdateParams {
+ class DeliveryUpdateParams {
    /**
     * Order uniq indentifier reference
     */
@@ -94,4 +94,4 @@ DeliverySchema.method("toJSON", function(this: any) {
 
 const DeliveryModel = mongoose.model('deliveries', DeliverySchema);
 
-export { DeliveryModel, IDelivery, DeliveryCreationParams, DeliveryUpdateParams }
+export { DeliveryModel, Delivery, DeliveryCreationParams, DeliveryUpdateParams }
