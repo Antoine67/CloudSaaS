@@ -3,7 +3,7 @@
 <v-container v-if="getNumberInCart" >
 
     <v-list>
-        <v-list-item v-for="menuItem in getCart" :key="menuItem.menu.id">
+        <v-list-item v-for="menuItem in getOrder" :key="menuItem.menu.id">
             <v-list-item-content> 
                 {{menuItem.menu.title}} x{{menuItem.quantity}}
             </v-list-item-content>
@@ -55,7 +55,7 @@ export default class CartCheckout extends Vue{
   //cancelURL=`http://${location.host}/${this.$route.path}?state=cancel`
   
   @Cart.Getter
-  private getCart : any[]
+  private getOrder : any[]
 
   @Cart.Getter
   private getNumberInCart : number

@@ -36,13 +36,6 @@ const models: TsoaRoute.Models = {
             "ingredients": { "dataType": "array", "array": { "dataType": "string" } },
         },
     },
-    "ProductMenu": {
-        "properties": {
-            "step": { "dataType": "string", "required": true },
-            "product_id": { "dataType": "double", "required": true },
-            "quantity": { "dataType": "double", "required": true },
-        },
-    },
     "IMenu": {
         "properties": {
             "id": { "dataType": "string", "required": true },
@@ -51,7 +44,7 @@ const models: TsoaRoute.Models = {
             "restaurant_id": { "dataType": "double", "required": true },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean", "required": true },
-            "products": { "dataType": "array", "array": { "ref": "ProductMenu" } },
+            "products": { "dataType": "array", "array": { "ref": "IProduct" } },
         },
     },
     "MenuCreationParams": {
@@ -61,7 +54,7 @@ const models: TsoaRoute.Models = {
             "restaurant_id": { "dataType": "double", "required": true },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean", "required": true },
-            "products": { "dataType": "array", "array": { "ref": "ProductMenu" } },
+            "products": { "dataType": "array", "array": { "ref": "IProduct" } },
         },
     },
     "MenuUpdateParams": {
@@ -71,7 +64,7 @@ const models: TsoaRoute.Models = {
             "restaurant_id": { "dataType": "double" },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean" },
-            "products": { "dataType": "array", "array": { "ref": "ProductMenu" } },
+            "products": { "dataType": "array", "array": { "ref": "IProduct" } },
         },
     },
 };

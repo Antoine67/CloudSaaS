@@ -1,13 +1,5 @@
 import * as mongoose from 'mongoose';
-
-
-interface ProductMenu {
-  step: String;
-
-  product_id: number;
-
-  quantity: number;
-}
+import {IProduct} from "./product"
 
 /**
  * Menu objects allow merchants to show their available
@@ -53,7 +45,7 @@ interface IMenu {
      * Products contained on the menu
      * TODO
      */
-    products?: ProductMenu[] 
+    products?: IProduct[] 
 }
 
 /**
@@ -93,9 +85,8 @@ interface IMenu {
 
    /**
     * Products contained on the menu
-    * TODO
     */
-   products?: ProductMenu[] 
+   products?: IProduct[] 
 }
 
 /**
@@ -135,9 +126,8 @@ interface IMenu {
 
    /**
     * Products contained on the menu
-    * TODO
     */
-   products?: ProductMenu[]
+   products?: IProduct[]
 }
 
 
@@ -161,4 +151,4 @@ MenuSchema.method("toJSON", function(this: any) {
 
 const MenuModel = mongoose.model('menus', MenuSchema);
 
-export { MenuModel, IMenu, MenuCreationParams, MenuUpdateParams, ProductMenu }
+export { MenuModel, IMenu, MenuCreationParams, MenuUpdateParams }
