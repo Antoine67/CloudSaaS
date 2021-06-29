@@ -4,13 +4,14 @@ import { createConnection } from "typeorm";
 
 
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 7000;
 const server = http.createServer(app);
 server.listen(PORT);
 server.on('listening', async () => {
 	console.info(`Listening on port ${PORT}`);
 	try {
-		await createConnection();
+		const connection = await createConnection();
+		await connection.synchronize();
 	} catch (error) {
 		console.error(error);
 	}

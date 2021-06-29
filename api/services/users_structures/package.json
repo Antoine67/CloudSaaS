@@ -9,7 +9,8 @@
     "start": "node  ./dist/main.js",
     "build": "tsoa routes && tsoa spec-and-routes && tsc",
     "generate": "tsoa swagger",
-    "clean": "tsc --build --clean"
+    "clean": "tsc --build --clean",
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run"
   },
   "author": "Antoine M",
   "license": "ISC",

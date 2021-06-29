@@ -29,10 +29,6 @@ class MenusServices {
   deleteAll() {
     return http.delete(`/menus`);
   }
-
-  findByTitle(title: string) {
-    return http.get(`/menus?title=${title}`);
-  }
 }
 
 export default new MenusServices();

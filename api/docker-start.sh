@@ -8,6 +8,6 @@ cd ./services/orders_deliveries
 npm run build 
 cd $SCRIPT_DIR
 cd ./services/users_structures
-npm run build 
+npm run build
 cd $SCRIPT_DIR
 docker-compose up

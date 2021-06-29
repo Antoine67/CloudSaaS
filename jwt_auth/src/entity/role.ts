@@ -23,20 +23,3 @@ export class Role {
     @IsNotEmpty()
     title: string;
 }
-
-export class RoleCreationParams {
-
-    identifier: string;
-
-    title: string;
-
-}
-
-export class RoleUpdateParams {
-
-    identifier?: string;
-    
-    title?: string;
-    
-}
-  

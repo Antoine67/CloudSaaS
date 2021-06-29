@@ -19,7 +19,8 @@ server.on('listening', async () => {
 		console.error(err);
 	});
 	try {
-		await createConnection();
+		const connection = await createConnection();
+		await connection.synchronize();
 	} catch (error) {
 		console.error(error);
 	}
