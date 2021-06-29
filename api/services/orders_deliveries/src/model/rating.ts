@@ -4,7 +4,7 @@ import * as mongoose from 'mongoose';
  * Rating allow user to rate a restaurant or a deliverer
  * after an order completed
  */
-interface IRating {
+class Rating {
    /**
     * Uniq indentifier
     */
@@ -40,7 +40,7 @@ interface IRating {
 /**
  * Rating object for creation
  */
- interface RatingCreationParams {
+ class RatingCreationParams {
    /**
     * Value of the rate from the user
     */
@@ -86,4 +86,4 @@ RatingSchema.method("toJSON", function(this: any) {
 
 const RatingModel = mongoose.model('ratings', RatingSchema);
 
-export { RatingModel, IRating, RatingCreationParams }
+export { RatingModel, Rating, RatingCreationParams }

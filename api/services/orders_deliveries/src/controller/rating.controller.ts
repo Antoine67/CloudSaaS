@@ -1,7 +1,7 @@
 
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
-import { IRating, RatingCreationParams } from "../model/rating";
+import { Rating, RatingCreationParams } from "../model/rating";
 import { RatingsService } from "../services/rating.service";
 //import { RatingsService } from "../services/rating.service";
 
@@ -14,7 +14,7 @@ export class RatingController extends Controller {
 	 * @summary Retrieves all existing ratings
 	 */
 	@Get()
-	public async getAll(): Promise<IRating[]> {
+	public async getAll(): Promise<Rating[]> {
 		return new RatingsService().getAll();
 	}
 
@@ -25,7 +25,7 @@ export class RatingController extends Controller {
 	 * @summary Retrieves a specific existing rating
 	 */
 	@Get('/{id}')
-	public async get(@Path() id: string): Promise<IRating> {
+	public async get(@Path() id: string): Promise<Rating> {
 		return new RatingsService().get(id);
 	}
 	
