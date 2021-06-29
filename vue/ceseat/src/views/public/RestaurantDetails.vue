@@ -5,7 +5,7 @@
             v-for="menu in menus"
             :key="menu.id"
         >          
-            <MenuCardItem :menu="menu" :addToCart="addToCart" :pay="pay" :product="products" :addEnabled="true" />
+            <MenuCardItem :menu="menu" :addToCart="addToCart" :pay="pay" :product="menu.products" :addEnabled="true" />
         </v-col>
         </v-row>
     </v-container>
@@ -20,6 +20,7 @@ import {MenuCardItem} from "ceseat-lib";
 import MenusService from "@/services/MenusService";
 import ProductsService from "@/services/ProductsService";
 import Menu from "@/types/Menu";
+import Product from "@/types/Product";
 import { namespace } from "vuex-class";
 const Auth = namespace("Auth");
 const Cart = namespace("Cart");
@@ -29,16 +30,14 @@ const Cart = namespace("Cart");
     MenuCardItem,
   },
 })
-export default class Products extends Vue {
+export default class RestaurantDetails extends Vue {
   private menus: Menu[] = [] ;
-
-  private products: Products[] = [];
 
   @Auth.Getter
   private isLoggedIn!: boolean;
 
   @Cart.Action
-  private addItemToCart!: (ctx: any, qty: number) => Promise<any>;
+  private addItemToCart!: (menu: Menu) => Promise<any>;
   
   errored = false
   error = null
@@ -57,71 +56,15 @@ export default class Products extends Vue {
     if(!resId) return;
     MenusService.getFromRestaurant(resId)
       .then((response) => {
-        this.menus = response.data;
-        //console.log(response.data);
-        
-        if(this.menus.products) {
-          this.menus.products.forEach(p => {
-            this.products.push(ProductsService.get(p.product_id))
-          });
-        }
-        
-        
-
+        this.menus = response.data as Menu[];
+        console.log(this.menus)
+        console.log(this.menus[0].products[0])
       })
       .catch((e) => {
         console.log(e);
       });
-      /*
       
-     this.menus = [
-       {
-        id:1, 
-        name: "Super menu",
-        description: "Voici mon menu",
-        restaurant_id: 16,
-        price: 13.5,
-        available: true,
-        products : [
-            {
-              step: "entry",  
-              product_id: 0,
-              quantity: 1
-            },
-            {
-              step: "main",
-              product_id: 1,
-              quantity: 1
-            }
-        ]
-      }
-     ];
-    */
-
-     this.products = [{ 
-        id:0,
-        name: "Super produit",
-        description: "Voici mon produit",
-        restaurant_id: 16,
-        available: true,
-        ingredients : [
-            "salt",
-            "bread",
-            "salad"
-        ]
-      },
-      {
-        id:1,
-        name: "fajitas",
-        description: "Voici mon produit",
-        restaurant_id: 16,
-        available: true,
-        ingredients : [
-            "tomate",
-            "pain pita",
-            "salad"
-        ]
-      }]
+     this.products = []
   }
 
   addToCart(menu: Menu) {

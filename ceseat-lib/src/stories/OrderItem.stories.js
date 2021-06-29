@@ -98,5 +98,5 @@ export const Default = Template.bind({});
 Default.args = {
   order :exampleOrder,
   restaurant : "LaFourchette",
-  deleteFromOrder: (order) => {console.log(order)}
+  deleteFromOrder: (menu) => {console.log(menu)}
 };

@@ -21,7 +21,7 @@
             <v-container >             
               <v-row >
                 <v-col cols="12" >
-                   <OrderItem :order="order" :deleteFromOrder="deleteFromOrder" />
+                   <OrderItem v-if="getOrder" :order="getOrder" :deleteFromOrder="deleteFromOrder" />
                 </v-col>
               </v-row>
             </v-container>
@@ -43,33 +43,37 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import {OrderItem} from "ceseat-lib";
+import Order from "@/types/Order";
+import Menu from "@/types/Menu";
 const Cart = namespace("Cart");
+
 
 
 @Component
 export default class ShoppingCart extends Vue {
     popup = false
 
-    order : any;
+    order : Order;
 
     @Cart.Getter
     private getNumberInCart! : number
 
     @Cart.Getter
-    private getCart! : any[]
+    private getOrder! : any[]
 
-    beforeMount() {
-      console.log(this.getCart)
-      this.order = this.getCart[0]; //todo change
-    }
+    @Cart.Action
+    private removeFromCart!: (menu: Menu) => any
+
+
 
     goToCheckout() {
         this.$router.push('/checkout')
         this.popup = false
     }
 
-    deleteFromOrder(order: any) {
-      console.log(order);
+    deleteFromOrder(menu: any) {
+      console.log(this.getOrder)
+      this.removeFromCart(menu)
     }
     
 

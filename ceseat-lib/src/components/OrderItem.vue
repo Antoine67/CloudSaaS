@@ -31,8 +31,8 @@
     <v-list>
         
       <v-list-group
-        v-for="menu in order.menus"
-        :key="menu.id"
+        v-for="(menu, idx) in order.menus"
+        :key="idx"
         :prepend-icon="menu.action"
         no-action
       >
@@ -71,7 +71,7 @@
                 <v-btn
                   color="red darken-1"
                   text
-                  @click="onDeleteClick();dialog = false;"
+                  @click="deleteFromOrder(menu, idx);dialog = false;"
                 >
                   Supprimer
                 </v-btn>
@@ -118,19 +118,17 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class OrderItem extends Vue {
   @Prop() private order!: any;
   @Prop({default: true}) enableDeleteButton! : boolean;
-  @Prop() deleteFromOrder! : (order: any) => void; 
+  @Prop() deleteFromOrder! : (menu: any, index : any) => void; 
   @Prop() private restaurant!: string;
   dialog = false;
   status : any = null ;
 
-  onDeleteClick(){
-    this.deleteFromOrder(this.order)
-  }
   beforeMount(){  
     this.status = this.status_tabs.find(x => x.id === this.order.status);
   }
    
   status_tabs = [
+    {id:"WAITING_PAYMENT", name:"en attente de paiement", color:"blue"},
     {id:"WAITING_VALIDATION", name:"en attente de validation", color:"orange"},
     {id:"WAITING_DELIVERER", name:"en attente du livreur", color:"orange"},
     {id:"DELIVERY_IN_PROGRESS", name:"livraison en cours", color:"orange"},

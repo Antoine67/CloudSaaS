@@ -20,6 +20,11 @@ export class CreateRoles1624806062801 implements MigrationInterface {
         role_ceseat_restaurant.identifier = "ceseat-restaurant";
         role_ceseat_restaurant.title = "Restaurateur";
         await userRepository.save(role_ceseat_restaurant);
+
+        let role_ceseat_technicommercial = new Role();
+        role_ceseat_technicommercial.identifier = "ceseat-technicommercial";
+        role_ceseat_technicommercial.title = "Technicommercial";
+        await userRepository.save(role_ceseat_technicommercial);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
