@@ -67,4 +67,13 @@ export class ProductController extends Controller {
 	public async remove(@Path() id: string) : Promise<void> {
 		return new ProductsService().delete(id);
 	}
+
+	/**
+	 * Retrieves all existing products from a given restaurant.
+	 * @summary Retrieves all existing products from a given restaurant
+	 */
+	@Get('/restaurants/{id}')
+	public async getAllFromRestaurantId(@Path() id: string): Promise<IProduct[]> {
+		return new ProductsService().getAllFromRestaurantId(id);
+	}
 }

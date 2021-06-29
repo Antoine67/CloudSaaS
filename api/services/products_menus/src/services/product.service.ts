@@ -15,6 +15,19 @@ export class ProductsService {
     }
   }
 
+  
+
+  public async getAllFromRestaurantId(restaurantId : string): Promise<IProduct[]> {
+    try {
+      let items: any = await ProductModel.find({ restaurant_id:  restaurantId})
+      //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })
+      return items;
+    } catch (err) {
+      console.error('Caught error', err)
+      return [];
+    }
+  }
+
   public async create(productCreationParams: ProductCreationParams): Promise<boolean> {
 
     const item = new ProductModel(productCreationParams)
