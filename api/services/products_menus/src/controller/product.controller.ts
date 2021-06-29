@@ -1,7 +1,7 @@
 
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
 
-import { IProduct, ProductCreationParams, ProductUpdateParams  } from "../model/product";
+import { Product, ProductCreationParams, ProductUpdateParams  } from "../model/product";
 import { ProductsService } from "../services/product.service";
 //import { ProductsService } from "../services/product.service";
 
@@ -14,7 +14,7 @@ export class ProductController extends Controller {
 	 * @summary Retrieves all existing products
 	 */
 	@Get()
-	public async getAll(): Promise<IProduct[]> {
+	public async getAll(): Promise<Product[]> {
 		return new ProductsService().getAll();
 	}
 
@@ -25,7 +25,7 @@ export class ProductController extends Controller {
 	 * @summary Retrieves a specific existing product
 	 */
 	@Get('/{id}')
-	public async get(@Path() id: string): Promise<IProduct> {
+	public async get(@Path() id: string): Promise<Product> {
 		return new ProductsService().get(id);
 	}
 	
@@ -73,7 +73,7 @@ export class ProductController extends Controller {
 	 * @summary Retrieves all existing products from a given restaurant
 	 */
 	@Get('/restaurants/{id}')
-	public async getAllFromRestaurantId(@Path() id: string): Promise<IProduct[]> {
+	public async getAllFromRestaurantId(@Path() id: string): Promise<Product[]> {
 		return new ProductsService().getAllFromRestaurantId(id);
 	}
 }
