@@ -6,52 +6,55 @@
                 Commande à valider
             </p>
         </v-container>
-        <v-container>  
+        <v-container v-if="orders && orders.length > 0">  
             <OrdersManagementItem v-for="order in orders" :key="order.id"
             :restaurantText="order.restaurant_id"
             :stateText="order.status"
             :dateText="order.date"
             :onValidationOrderClick=onValidationOrderClick
             :onEndPreparationOrderClick=onEndPreparationOrderClick
-            description="TODO 16 rue des peupliers 67637 STRASBOURG"
+            :description="`${order.pricing.total}€ - ${order.menus.length} menus`"
             stateColor="blue"
             :order="order"
         />
         </v-container>
+        <v-container v-else  class="grey--text">Aucune commande</v-container>
         <v-container>
             <p class="text-h5 text--primary">
                 Commande en cours de préparation
             </p>
         </v-container>
-        <v-container>  
+        <v-container v-if="orders_validate && orders_validate.length > 0">   
             <OrdersManagementItem v-for="order in orders_validate" :key="order.id"
             :restaurantText="order.restaurant_id"
             :stateText="order.status"
             :dateText="order.date"
             :onValidationOrderClick=onValidationOrderClick
             :onEndPreparationOrderClick=onEndPreparationOrderClick
-            description="TODO 16 rue des peupliers 67637 STRASBOURG"
+            :description="`${order.pricing.total}€ - ${order.menus.length} menus`"
             stateColor="blue"
             :order="order"
             />
         </v-container>
+        <v-container v-else  class="grey--text">Aucune commande</v-container>
         <v-container>
             <p class="text-h5 text--primary">
                 Commande en attente de livreur
             </p>
         </v-container>
-        <v-container>
+        <v-container v-if="orders_waiting && orders_waiting.length > 0"> 
             <OrdersManagementItem v-for="order in orders_waiting" :key="order.id"
             :restaurantText="order.restaurant_id"
             :stateText="order.status"
             :dateText="order.date"
             :onValidationOrderClick=onValidationOrderClick
             :onEndPreparationOrderClick=onEndPreparationOrderClick
-            description="TODO 16 rue des peupliers 67637 STRASBOURG"
+            :description="`${order.pricing.total}€ - ${order.menus.length} menus`"
             stateColor="blue"
             :order="order"
             />
         </v-container>
+        <v-container v-else  class="grey--text">Aucune commande</v-container>
         </v-col>
     </v-container>
 </template>

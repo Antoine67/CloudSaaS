@@ -7,3 +7,7 @@ dist/**/*
 .env
 
 ormconfig.json
+
+swagger.json
+package-lock.json
+src/route.ts

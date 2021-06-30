@@ -58,7 +58,7 @@
         style="height: 100%;"
       >
         <v-card-text class="pb-0">
-          <p>TODO import order component </p>
+          <OrderItem :order=order :enableDeleteButton="false"/>
         </v-card-text>
         <v-card-actions class="pt-0">
           <v-btn
@@ -78,6 +78,8 @@
 //import { Options, Vue } from "vue-class-component";
 //import ProductModel from "../models/ProductModel";
 import { Component, Prop, Vue } from 'vue-property-decorator';
+
+import {OrderItem} from 'ceseat-lib'
 
 @Component
 export default class OrdersManagementItem extends Vue {

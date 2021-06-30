@@ -150,12 +150,7 @@
       </v-icon>
     </template>
     <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
-      </v-btn>
+      Aucun produit
     </template>
   </v-data-table>
 </template>

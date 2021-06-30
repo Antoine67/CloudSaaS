@@ -13,7 +13,7 @@
   "dependencies": {
     "apexcharts": "^3.27.1",
     "axios": "^0.21.1",
-    "ceseat-lib": "^0.2.34",
+    "ceseat-lib": "^0.2.39",
     "core-js": "^3.6.5",
     "firebase": "^8.6.7",
     "jwt-decode": "^3.1.2",
