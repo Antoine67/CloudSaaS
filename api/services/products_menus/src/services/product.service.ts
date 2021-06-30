@@ -4,9 +4,9 @@ import {Tags} from 'tsoa';
 
 export class ProductsService {
 
-  public async getAll(): Promise<Product[]> {
+  public async getAll(restaurantId : number): Promise<Product[]> {
     try {
-      let items: any = await ProductModel.find({})
+      let items: any = await ProductModel.find({restaurant_id: restaurantId})
       //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })
       return items;
     } catch (err) {
@@ -15,23 +15,13 @@ export class ProductsService {
     }
   }
 
-  
 
-  public async getAllFromRestaurantId(restaurantId : string): Promise<Product[]> {
-    try {
-      let items: any = await ProductModel.find({ restaurant_id:  restaurantId})
-      //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })
-      return items;
-    } catch (err) {
-      console.error('Caught error', err)
-      return [];
-    }
-  }
+  public async create(productCreationParams: ProductCreationParams, restaurantId : number): Promise<boolean> {
 
-  public async create(productCreationParams: ProductCreationParams): Promise<boolean> {
-
+    productCreationParams.restaurant_id = restaurantId
     const item = new ProductModel(productCreationParams)
-    console.info(productCreationParams)
+    
+    
     let success = false;
     await item.save(function(err:any, product:any) {
         if (err) success = false;
@@ -41,16 +31,16 @@ export class ProductsService {
     return success;
   }
 
-  public async update(id: string, productUpdateParams: ProductUpdateParams): Promise<void> {
-    await ProductModel.findByIdAndUpdate({ _id: id }, productUpdateParams)
+  public async update(id: string, productUpdateParams: ProductUpdateParams, restaurantId : number): Promise<void> {
+    await ProductModel.findOneAndUpdate({ _id: id, restaurant_id: restaurantId }, productUpdateParams)
   }
 
-  public async delete(id: string): Promise<void> {
-    await ProductModel.findByIdAndRemove(id)
+  public async delete(id: string, restaurantId : number): Promise<void> {
+    await ProductModel.findOneAndRemove({ _id: id, restaurant_id: restaurantId })
   }
 
-  public async get(id: string): Promise<any> {
-    return await ProductModel.findById(id)
+  public async get(id: string, restaurantId : number): Promise<any> {
+    return await ProductModel.findOne( {_id: id, restaurant_id: restaurantId })
   }
 
 }

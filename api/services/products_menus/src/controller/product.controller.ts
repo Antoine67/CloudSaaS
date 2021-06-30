@@ -18,8 +18,8 @@ export class ProductController extends Controller {
 	@Security("jwt")
 	@Get()
 	public async getAll(@Request() expReq: express.Request): Promise<Product[]> {
-		const returnJwt = jwtDecrypt(expReq);
-		return new ProductsService().getAll();
+		const jwt = jwtDecrypt(expReq); 
+		return new ProductsService().getAll(jwt.restaurantId);
 	}
 
 	/**
@@ -30,8 +30,9 @@ export class ProductController extends Controller {
 	 */
 	@Security("jwt")
 	@Get('/{id}')
-	public async get(@Path() id: string): Promise<Product> {
-		return new ProductsService().get(id);
+	public async get(@Path() id: string, @Request() expReq: express.Request): Promise<Product> {
+		const jwt = jwtDecrypt(expReq); 
+		return new ProductsService().get(id, jwt.restaurantId);
 	}
 	
 	/**
@@ -41,9 +42,9 @@ export class ProductController extends Controller {
 	 */
 	@Security("jwt")
 	@Post()
-	public async create(@Body() requestBody: ProductCreationParams) : Promise<void> {
-		
-		if(new ProductsService().create(requestBody)) {
+	public async create(@Body() requestBody: ProductCreationParams, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
+		if(new ProductsService().create(requestBody, jwt.restaurantId)) {
 			this.setStatus(201); // set return status 201
 		}else {
 			this.setStatus(500); // set return status 500
@@ -59,9 +60,10 @@ export class ProductController extends Controller {
 	 */
 	@Security("jwt")
 	@Put('/{id}')
-	public async update( @Path() id: string, @Body() requestBody: ProductUpdateParams) : Promise<void> {
+	public async update( @Path() id: string, @Body() requestBody: ProductUpdateParams, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
 		this.setStatus(201); // set return status 201
-		new ProductsService().update(id, requestBody);
+		new ProductsService().update(id, requestBody, jwt.restaurantId);
 		return;
 	}
 
@@ -72,17 +74,9 @@ export class ProductController extends Controller {
 	 */
 	@Security("jwt")
 	@Delete('/{id}')
-	public async remove(@Path() id: string) : Promise<void> {
-		return new ProductsService().delete(id);
+	public async remove(@Path() id: string, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
+		return new ProductsService().delete(id,jwt.restaurantId);
 	}
-
-	/**
-	 * Retrieves all existing products from a given restaurant.
-	 * @summary Retrieves all existing products from a given restaurant
-	 */
-	@Security("jwt")
-	@Get('/restaurants/{id}')
-	public async getAllFromRestaurantId(@Path() id: string): Promise<Product[]> {
-		return new ProductsService().getAllFromRestaurantId(id);
-	}
+	
 }
