@@ -44,7 +44,7 @@ export default class OrdersDashboard extends Vue {
         break;
       }
       else if (key == this.order.status){
-        this.messages.push({ message: this.enumOrdersStatePending[key], loading: true})
+        this.messages.push({ message: this.enumOrdersStatePending[key], loading: true, color:"orange"})
         break;
       }
       this.messages.push({ message: value});

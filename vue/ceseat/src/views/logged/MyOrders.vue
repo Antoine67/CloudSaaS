@@ -16,6 +16,16 @@
                 Commande passée
             </p>
         </v-container>
+        <v-container v-if="orders_passed && orders_passed.length > 0">  
+            <OrdersDashboardArchive v-for="order in orders_passed" :key="order.id"
+            :restaurantText="order.restaurant_id"
+            :stateText="order.status"
+            :dateText="order.date"
+            :description="`${order.pricing.total}€ - ${order.menus.length} menus`"
+            stateColor="blue"
+            :order="order"
+            />
+        </v-container>
         </v-col>
     </v-container>
 </template>
@@ -26,11 +36,12 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import OrdersDashboard from "@/components/OrdersDashboard.vue"
+import OrdersDashboardArchive from "@/components/OrdersDashboardArchive.vue"
 import OrdersService from "@/services/OrdersService"
 const Auth = namespace("Auth");
 
 @Component({
-  components: { OrdersDashboard }
+  components: { OrdersDashboard, OrdersDashboardArchive }
 })
 
 export default class MyOrders extends Vue {
@@ -57,6 +68,8 @@ export default class MyOrders extends Vue {
         .catch((e: any) => {
             console.log(e);
         });
+
+        console.log(this.orders_passed);
     }
 
     beforeMount() {
