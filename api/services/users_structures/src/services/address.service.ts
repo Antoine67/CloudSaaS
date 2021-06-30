@@ -76,7 +76,12 @@ export class AddressesService {
     }
   }
 
-  public async getAddress(id: string, id_2: string): Promise<any> {
+  public async getAddress(id: string, id_2: string, userId: number): Promise<any> {
+
+    if(id != userId.toString()){
+      console.log('Cannot update an another user address')
+      return ;
+    }
     //Get the address from database
     const addressRepository = getRepository(Address);
     

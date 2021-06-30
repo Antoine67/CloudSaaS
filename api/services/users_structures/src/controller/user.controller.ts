@@ -1,5 +1,5 @@
 
-import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
+import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body, Security, Request } from 'tsoa';
 
 import { User, UserUpdateParams } from "../model/user";
 import { Address, AddressCreationParams, AddressUpdateParams } from "../model/address";
@@ -7,7 +7,8 @@ import { Card, CardCreationParams } from "../model/card";
 import { AddressesService } from "../services/address.service";
 import { CardsService } from "../services/card.service";
 import { UsersService } from "../services/user.service";
-import { Request, Response } from "express";
+import * as express from 'express';
+import jwtDecrypt from "../middleware/jwt"
 
 @Route('/users')
 @Tags("Users")
@@ -17,8 +18,10 @@ export class UserController extends Controller {
 	 * Retrieves all existing users.
 	 * @summary Retrieves all existing users
 	 */
+	@Security("jwt")
 	@Get()
-	public async getAll(): Promise<User[]> {
+	public async getAll(@Request() expReq: express.Request): Promise<User[]> {
+		const jwt = jwtDecrypt(expReq); 
 		return new UsersService().getAll();
 	}
 
@@ -28,8 +31,10 @@ export class UserController extends Controller {
 	 * @param id The user's identifier
 	 * @summary Retrieves a specific existing user
 	 */
+	@Security("jwt")
 	@Get('/{id}')
-	public async get(@Path() id: string): Promise<User> {
+	public async get(@Path() id: string, @Request() expReq: express.Request): Promise<User> {
+		const jwt = jwtDecrypt(expReq); 
 		return new UsersService().get(id);
 	}
 
@@ -39,8 +44,10 @@ export class UserController extends Controller {
 	 * @param requestBody The new user's data
 	 * @summary Update an existing user
 	 */
+	@Security("jwt")
 	@Put('/{id}')
-	public async update( @Path() id: string, @Body() req: UserUpdateParams) : Promise<void> {
+	public async update( @Path() id: string, @Body() req: UserUpdateParams, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
 		this.setStatus(201); // set return status 201
 		new UsersService().update(id, req);
 		return;
@@ -51,8 +58,10 @@ export class UserController extends Controller {
 	 * @param id The user's identifier
 	 * @summary Delete a user
 	 */
+	@Security("jwt")
 	@Delete('/{id}')
-	public async remove(@Path() id: string) : Promise<void> {
+	public async remove(@Path() id: string, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
 		return new UsersService().delete(id);
 	}
 
@@ -63,9 +72,11 @@ export class UserController extends Controller {
 	 * @param id_2 The address's identifier
 	 * @summary Retrieves a specific existing address
 	 */
+	@Security("jwt")
 	@Get('/{id}/addresses/{id_2}')
-	public async getAddress(@Path() id: string, id_2: string): Promise<Address> {
-		return new AddressesService().getAddress(id, id_2);
+	public async getAddress(@Path() id: string, @Path() id_2: string, @Request() expReq: express.Request): Promise<Address> {
+		const jwt = jwtDecrypt(expReq); 
+		return new AddressesService().getAddress(id, id_2, jwt.userId);
 	}
 	
 	/**
@@ -74,8 +85,10 @@ export class UserController extends Controller {
 	 * @param requestBody The new address's data
 	 * @summary Create a new address
 	 */
+	@Security("jwt")
 	@Post('/{id}/addresses')
-	public async createAddress( @Path() id: string, @Body() req: AddressCreationParams) : Promise<void> {
+	public async createAddress( @Path() id: string, @Body() req: AddressCreationParams, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
 
 		if(new AddressesService().createAddress(id,req)) {
 			this.setStatus(201); // set return status 201
@@ -92,8 +105,10 @@ export class UserController extends Controller {
 	 * @param requestBody The new address's data
 	 * @summary Update an existing address
 	 */
-	 @Put('/{id}/addresses/{id_2}')
-	 public async updateAddress( @Path() id: string, id_2: string, @Body() req: AddressUpdateParams) : Promise<void> {
+	@Security("jwt")
+	@Put('/{id}/addresses/{id_2}')
+	public async updateAddress( @Path() id: string, id_2: string, @Body() req: AddressUpdateParams, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
 		 this.setStatus(201); // set return status 201
 		 new AddressesService().updateAddress(id, id_2, req);
 		 return;
@@ -106,10 +121,12 @@ export class UserController extends Controller {
 	  * @param id The user's identifier
 	  * @summary Retrieves all cards of a specific existing user
 	  */
-	 @Get('/{id}/cards')
-	 public async getAllCards(@Path() id: string): Promise<Card> {
-		 return new CardsService().getAllCards(id);
-	 }
+	@Security("jwt")
+	@Get('/{id}/cards')
+	public async getAllCards(@Path() id: string, @Request() expReq: express.Request): Promise<Card> {
+		const jwt = jwtDecrypt(expReq); 
+		return new CardsService().getAllCards(id, jwt.userId);
+	}
 
 	 /**
 	  * Retrieves the details of an existing card.
@@ -118,10 +135,12 @@ export class UserController extends Controller {
 	  * @param id_2 The card's identifier
 	  * @summary Retrieves a specific existing card
 	  */
-	  @Get('/{id}/cards/{id_2}')
-	  public async getCard(@Path() id: string, id_2: string): Promise<Card> {
-		  return new CardsService().getCard(id, id_2);
-	  }
+	@Security("jwt")
+	@Get('/{id}/cards/{id_2}')
+	public async getCard(@Path() id: string, @Path() id_2: string, @Request() expReq: express.Request): Promise<Card> {
+		const jwt = jwtDecrypt(expReq); 
+		return new CardsService().getCard(id, id_2, jwt.userId);
+	}
 	 
 	 /**
 	  * Create a new card by supplying new card's data and the user ID associated
@@ -129,8 +148,10 @@ export class UserController extends Controller {
 	  * @param requestBody The new card's data
 	  * @summary Create a new card
 	  */
+	 @Security("jwt")
 	 @Post('/{id}/cards')
-	 public async createCard( @Path() id: string, @Body() req: CardCreationParams) : Promise<void> {
+	 public async createCard( @Path() id: string, @Body() req: CardCreationParams, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
  
 		 if(new CardsService().createCard(id,req)) {
 			 this.setStatus(201); // set return status 201
@@ -146,9 +167,11 @@ export class UserController extends Controller {
 	  * @param id_2 The card's identifier
 	  * @summary Delete a user
 	  */
+	 @Security("jwt")
 	 @Delete('/{id}/cards/{id_2}')
-	 public async removeCard(@Path() id: string, id_2: string) : Promise<void> {
-		 return new CardsService().deleteCard(id, id_2);
+	 public async removeCard(@Path() id: string, @Path() id_2: string, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
+		 return new CardsService().deleteCard(id, id_2, jwt.userId);
 	 }
 }
 

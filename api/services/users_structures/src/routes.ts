@@ -4,6 +4,7 @@ import { UserController } from './controller/user.controller';
 import { RestaurantController } from './controller/restaurant.controller';
 import { RoleController } from './controller/role.controller';
 import { RoleEmployeeController } from './controller/roleEmployee.controller';
+import { expressAuthentication } from './authentication';
 import * as express from 'express';
 
 const models: TsoaRoute.Models = {
@@ -192,8 +193,10 @@ const validationService = new ValidationService(models);
 
 export function RegisterRoutes(app: express.Express) {
     app.get('/api/users',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -210,9 +213,11 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/users/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -229,10 +234,12 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.put('/api/users/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
                 req: { "in": "body", "name": "req", "required": true, "ref": "UserUpdateParams" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -249,9 +256,11 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.delete('/api/users/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -268,10 +277,12 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/users/:id/addresses/:id_2',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
                 id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -288,10 +299,12 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/users/:id/addresses',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
                 req: { "in": "body", "name": "req", "required": true, "ref": "AddressCreationParams" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -308,11 +321,13 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.put('/api/users/:id/addresses/:id_2',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
                 id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
                 req: { "in": "body", "name": "req", "required": true, "ref": "AddressUpdateParams" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -329,9 +344,11 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/users/:id/cards',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -348,10 +365,12 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/users/:id/cards/:id_2',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
                 id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -368,10 +387,12 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/users/:id/cards',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
                 req: { "in": "body", "name": "req", "required": true, "ref": "CardCreationParams" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -388,10 +409,12 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.delete('/api/users/:id/cards/:id_2',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
                 id_2: { "in": "path", "name": "id_2", "required": true, "dataType": "string" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -855,6 +878,49 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
 
+    function authenticateMiddleware(security: TsoaRoute.Security[] = []) {
+        return (request: any, _response: any, next: any) => {
+            let responded = 0;
+            let success = false;
+
+            const succeed = function(user: any) {
+                if (!success) {
+                    success = true;
+                    responded++;
+                    request['user'] = user;
+                    next();
+                }
+            }
+
+            const fail = function(error: any) {
+                responded++;
+                if (responded == security.length && !success) {
+                    error.status = 401;
+                    next(error)
+                }
+            }
+
+            for (const secMethod of security) {
+                if (Object.keys(secMethod).length > 1) {
+                    let promises: Promise<any>[] = [];
+
+                    for (const name in secMethod) {
+                        promises.push(expressAuthentication(request, name, secMethod[name]));
+                    }
+
+                    Promise.all(promises)
+                        .then((users) => { succeed(users[0]); })
+                        .catch(fail);
+                } else {
+                    for (const name in secMethod) {
+                        expressAuthentication(request, name, secMethod[name])
+                            .then(succeed)
+                            .catch(fail);
+                    }
+                }
+            }
+        }
+    }
 
     function isController(object: any): object is Controller {
         return 'getHeaders' in object && 'getStatus' in object && 'setStatus' in object;

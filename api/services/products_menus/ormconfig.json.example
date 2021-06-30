@@ -1,7 +1,7 @@
 {
    "name": "default",
    "type": "mssql",
-   "host": "192.168.1.10",
+   "host": "172.29.91.225",
    "port": 1433,
    "username": "MyLogin",
    "password": "123eieiaUAUU",
