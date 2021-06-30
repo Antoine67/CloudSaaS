@@ -46,14 +46,13 @@ class AuthController {
     }
 
 
-    const rawData = await getManager().query(`SELECT * FROM Employee WHERE userId = $1`, [user.id]);
-    const rawData2 = await getManager().query(`SELECT * FROM Employee`);
-
-    console.log("raw", user.id);
-    console.log("raw", rawData);
-    console.log("raw", rawData2);
-    //Sign JWT, valid for 1 hour
     let restaurantId = null;
+    try {
+      const rawData = await getManager().query(`SELECT * FROM Employee WHERE userId = ${user.id}`);
+      restaurantId = rawData[0].restaurantId;
+    }catch(e) {
+      console.log("Not restaurant ID found : ", e)
+    }
 
     const token = jwt.sign(
       { userId: user.id, username: user.username, roleIdentifier: user.role.identifier, restaurantId:  restaurantId},

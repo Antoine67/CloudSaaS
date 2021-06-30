@@ -5,7 +5,7 @@
             v-for="menu in menus"
             :key="menu.id"
         >          
-            <MenuCardItem :menu="menu" :addToCart="addToCart" :pay="pay" :product="menu.products" :addEnabled="true" />
+            <MenuCardItem :menu="menu" :addToCart="addToCart" :pay="pay"  :addEnabled="true" />
         </v-col>
         </v-row>
     </v-container>
@@ -44,32 +44,22 @@ export default class RestaurantDetails extends Vue {
   loading = false
   
 
-  created () {
-    this.retrieveMenus()
-  }
-
-  retrieveMenus () {
-    //this.error = null
-    //this.loading = true
-
+  beforeCreate () {
     let resId = this.$route.params.id
     if(!resId) return;
     MenusService.getFromRestaurant(resId)
       .then((response) => {
         this.menus = response.data as Menu[];
-        console.log(this.menus)
-        console.log(this.menus[0].products[0])
       })
       .catch((e) => {
         console.log(e);
       });
-      
-     this.products = []
   }
+
 
   addToCart(menu: Menu) {
     if(this.isLoggedIn) {
-      this.addItemToCart(menu, 1);
+      this.addItemToCart(menu);
 
     }else {
       this.$router.push("/login")
@@ -79,7 +69,7 @@ export default class RestaurantDetails extends Vue {
 
   pay(menu: Menu) {
     if(this.isLoggedIn) {
-      this.addToCart(menu);
+      this.addToCart(menu)
       this.$router.push("/checkout")
 
     }else {

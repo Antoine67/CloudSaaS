@@ -2,10 +2,11 @@
 import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute } from 'tsoa';
 import { ProductController } from './controller/product.controller';
 import { MenuController } from './controller/menu.controller';
+import { expressAuthentication } from './authentication';
 import * as express from 'express';
 
 const models: TsoaRoute.Models = {
-    "IProduct": {
+    "Product": {
         "properties": {
             "id": { "dataType": "string", "required": true },
             "name": { "dataType": "string", "required": true },
@@ -36,7 +37,7 @@ const models: TsoaRoute.Models = {
             "ingredients": { "dataType": "array", "array": { "dataType": "string" } },
         },
     },
-    "IMenu": {
+    "Menu": {
         "properties": {
             "id": { "dataType": "string", "required": true },
             "name": { "dataType": "string", "required": true },
@@ -44,7 +45,7 @@ const models: TsoaRoute.Models = {
             "restaurant_id": { "dataType": "double", "required": true },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean", "required": true },
-            "products": { "dataType": "array", "array": { "ref": "IProduct" } },
+            "products": { "dataType": "array", "array": { "ref": "Product" } },
         },
     },
     "MenuCreationParams": {
@@ -54,7 +55,7 @@ const models: TsoaRoute.Models = {
             "restaurant_id": { "dataType": "double", "required": true },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean", "required": true },
-            "products": { "dataType": "array", "array": { "ref": "IProduct" } },
+            "products": { "dataType": "array", "array": { "ref": "Product" } },
         },
     },
     "MenuUpdateParams": {
@@ -64,7 +65,7 @@ const models: TsoaRoute.Models = {
             "restaurant_id": { "dataType": "double" },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean" },
-            "products": { "dataType": "array", "array": { "ref": "IProduct" } },
+            "products": { "dataType": "array", "array": { "ref": "Product" } },
         },
     },
 };
@@ -72,8 +73,10 @@ const validationService = new ValidationService(models);
 
 export function RegisterRoutes(app: express.Express) {
     app.get('/api/products',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -90,9 +93,11 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/products/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -109,9 +114,11 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/products',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "ProductCreationParams" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -128,10 +135,12 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.put('/api/products/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
                 requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "ProductUpdateParams" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -148,9 +157,11 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.delete('/api/products/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -167,6 +178,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/menus',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
             };
@@ -185,6 +197,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/menus/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -204,6 +217,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/menus',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "MenuCreationParams" },
@@ -223,6 +237,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.put('/api/menus/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -243,6 +258,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.delete('/api/menus/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -281,6 +297,49 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
 
+    function authenticateMiddleware(security: TsoaRoute.Security[] = []) {
+        return (request: any, _response: any, next: any) => {
+            let responded = 0;
+            let success = false;
+
+            const succeed = function(user: any) {
+                if (!success) {
+                    success = true;
+                    responded++;
+                    request['user'] = user;
+                    next();
+                }
+            }
+
+            const fail = function(error: any) {
+                responded++;
+                if (responded == security.length && !success) {
+                    error.status = 401;
+                    next(error)
+                }
+            }
+
+            for (const secMethod of security) {
+                if (Object.keys(secMethod).length > 1) {
+                    let promises: Promise<any>[] = [];
+
+                    for (const name in secMethod) {
+                        promises.push(expressAuthentication(request, name, secMethod[name]));
+                    }
+
+                    Promise.all(promises)
+                        .then((users) => { succeed(users[0]); })
+                        .catch(fail);
+                } else {
+                    for (const name in secMethod) {
+                        expressAuthentication(request, name, secMethod[name])
+                            .then(succeed)
+                            .catch(fail);
+                    }
+                }
+            }
+        }
+    }
 
     function isController(object: any): object is Controller {
         return 'getHeaders' in object && 'getStatus' in object && 'setStatus' in object;

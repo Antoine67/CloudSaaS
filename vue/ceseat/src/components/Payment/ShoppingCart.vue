@@ -72,7 +72,6 @@ export default class ShoppingCart extends Vue {
     }
 
     deleteFromOrder(menu: any) {
-      console.log(this.getOrder)
       this.removeFromCart(menu)
     }
     
