@@ -7,7 +7,7 @@
     <OrderItem v-if="getOrder" :order="getOrder" :deleteFromOrder="deleteFromOrder" />
 
 
-    <MyCards />
+    <MyCards v-model="selected"/>
 
     <v-btn @click="submit" :disabled="!getNumberInCart">Procéder au paiement</v-btn>
 </v-container>
@@ -15,13 +15,12 @@
 <v-dialog v-else v-model="dialog" persistent max-width="500px" min-width="360px">
  
     <v-card
-    
-    elevation="12"
+        elevation="12"
     >
         <v-card-title>Panier vide !</v-card-title>
         <v-card-text>
             <div class="text--primary">
-                Vous n'avez encore séléctionné aucun produit/menus
+                Vous n'avez encore séléctionné aucun produit/menu
             </div>
         </v-card-text>
         
@@ -42,7 +41,11 @@ import {OrderItem} from "ceseat-lib";
 
 import MyCards from '@/components/Payment/MyCards.vue';
 import Menu from "@/types/Menu";
+import {EOrderState} from "@/types/EOrderState";
 const Cart = namespace("Cart");
+const Auth = namespace("Auth");
+
+import OrdersService from "@/services/OrdersService"
 
 @Component({
   components: { MyCards, OrderItem }
@@ -53,7 +56,7 @@ export default class CartCheckout extends Vue{
   //cancelURL=`http://${location.host}/${this.$route.path}?state=cancel`
   
   @Cart.Getter
-  private getOrder : any[]
+  private getOrder : any
 
   @Cart.Getter
   private getNumberInCart : number
@@ -61,13 +64,28 @@ export default class CartCheckout extends Vue{
   @Cart.Action
   private removeFromCart!: (menu: Menu) => any
 
-  cards : any[]
+  @Auth.State("userData")
+  private userData! : any;
 
   dialog = true
 
+  selected = []
+
 
   submit () {
-      console.log("todo");
+      //TODO Handle payment ?
+      let order = this.getOrder
+      order.status = EOrderState.WAITING_VALIDATION
+      console.log("card ? ",this.selected)
+
+      console.log("POSTING", order)
+      OrdersService.create(this.userData.userId, order)
+        .then((response) => {
+            console.log("todo")
+        })
+        .catch((e) => {
+            console.log(e);
+        });
   }
 
   deleteFromOrder(menu: any) {

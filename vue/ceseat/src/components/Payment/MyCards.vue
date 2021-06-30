@@ -29,7 +29,7 @@
             sort-by="id"
             class="elevation-1"
             :single-select="true"
-            item-key="name"
+            item-key="number"
             show-select
             v-model="selected"
         >
@@ -54,7 +54,7 @@
                     Ajouter une carte
                     </v-btn>
                 </template>
-                 <CardCheckoutItem :onReturn=onNewCardReturn :onCreate=onNewCardCreate />
+                 <CardCheckoutItem :onReturn=onNewCardReturn :onCreate=onNewCardCreate :card=editedItem />
                 </v-dialog>
 
                 
@@ -79,12 +79,7 @@
             </v-icon>
             </template>
             <template v-slot:no-data>
-            <v-btn
-                color="primary"
-                @click="initialize"
-            >
-                Reset
-            </v-btn>
+            <p>Aucune carte</p>
             </template>
             <template v-slot:item.expiration_year="{ item }">
                 <v-chip
@@ -107,7 +102,7 @@
 
 <v-btn @click="popup=true">Gérer mes cartes</v-btn>
     <span v-if="selected && selected[0]">
-        Carte séléctionnée : {{selected && selected[0] ? selected[0].card_number : ""}}
+        Carte séléctionnée : {{selected && selected[0] ? `${selected[0].title} (${selected[0].expirationDate})` : ""}}
     </span>
     <span v-else>
         Aucune carte séléctionée
@@ -124,7 +119,11 @@ import { Component, Vue, Prop} from "vue-property-decorator";
 
 import CardCheckoutItem from '@/components/Payment/CardCheckoutItem.vue';
 
+import UsersService from '@/services/UsersService'
+
 import Card from '@/types/Card'
+import { namespace } from "vuex-class";
+const Auth = namespace("Auth");
 
 @Component({
     components: {
@@ -132,7 +131,9 @@ import Card from '@/types/Card'
     }
 })
 export default class MyCards extends Vue{
-
+    
+    @Auth.State("userData")
+    private userData! : any;
 
     popup = false
     dialog = false
@@ -141,27 +142,21 @@ export default class MyCards extends Vue{
     cards : Card[] = [] 
 
     editedIndex= -1
-      editedItem= {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
-      }
+    editedItem= {  } as Card
       
 
-    selected= []
+    selected = []
 
     headers= [
           {
             text: 'Nom',
             align: 'start',
             sortable: false,
-            value: 'name',
+            value: 'title',
           },
-          { text: 'N°', value: 'card_number' },
-          { text: 'Mois expiration', value: 'expiration_month' },
-          { text: 'Année expiration', value: 'expiration_year' },
+          { text: 'Libellé', value: 'wording' },
+          { text: 'N°', value: 'number' },
+          { text: 'Date d\'expiration', value: 'expirationDate' },
           { text: 'CVV', value: 'cvv' },
           { text: 'Actions', value: 'actions', sortable: false },
     ]
@@ -170,8 +165,20 @@ export default class MyCards extends Vue{
         this.dialog = false
     }
 
-    onNewCardCreate() {
-        this.dialog = false
+    onNewCardCreate(card : any) {
+        card.type = "credit_card"
+        console.log("POSTING :", this.userData.userId, card)
+        UsersService.createCard(this.userData.userId, card)
+        .then((response) => {
+            this.fetchCards()
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+        
+       this.editedIndex = -1
+       this.editedItem = {}
+       this.dialog = false
     }
 
     getColor (expiration_year: number) {
@@ -181,36 +188,46 @@ export default class MyCards extends Vue{
     }
 
     deleteItem (item: any) {
-        //this.editedIndex = this.cards.indexOf(item)
-        //this.editedItem = Object.assign({}, item)
-        //this.dialogDelete = true
+        this.editedIndex = this.cards.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialogDelete = true
     }
 
     deleteItemConfirm () {
-        //TODO Delete card there
-        console.log(this.editedItem," deleted")
+        UsersService.deleteCard(this.userData.userId, this.editedItem.id)
+        .then((response) => {
+            this.fetchCards()
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+
         this.closeDelete()
     }
 
     closeDelete () {
         this.dialogDelete = false
         this.$nextTick(() => {
-            //this.editedItem = Object.assign({}, this.defaultItem)
-            //this.editedIndex = -1
+            this.editedItem = Object.assign({}, this.defaultItem)
+            this.editedIndex = -1
         })
     }
 
 
-    beforeMount() {
-        this.retrieveCards()
+    created() {
+        this.fetchCards()
     }
 
-    retrieveCards () {
-        this.cards = [
-        {id:1, name: "Lucas Faninger", card_number: "XXXX XXXX XXXX XXXX", expiration_month: "07", expiration_year: '2023', cvv:"784"},
-        {id:2, name: "Nicolas Ekobe", card_number: "XXXX XXXX XXXX XXXX", expiration_month: "07", expiration_year: '2023', cvv:"784"}
-        ]
+    fetchCards() {
+        UsersService.getAllCards(this.userData.userId)
+        .then((response) => {
+            this.cards = response.data as Card[];
+        })
+        .catch((e) => {
+            console.log(e);
+        });
     }
+
      
   
 }

@@ -6,7 +6,7 @@ import { RatingController } from './controller/rating.controller';
 import * as express from 'express';
 
 const models: TsoaRoute.Models = {
-    "IOrder": {
+    "Order": {
         "properties": {
             "id": { "dataType": "string", "required": true },
             "date": { "dataType": "datetime", "required": true },
@@ -43,7 +43,7 @@ const models: TsoaRoute.Models = {
             "products": { "dataType": "any" },
         },
     },
-    "IDelivery": {
+    "Delivery": {
         "properties": {
             "id": { "dataType": "string", "required": true },
             "order_id": { "dataType": "double", "required": true },
@@ -65,7 +65,7 @@ const models: TsoaRoute.Models = {
             "status": { "dataType": "string" },
         },
     },
-    "IRating": {
+    "Rating": {
         "properties": {
             "id": { "dataType": "string", "required": true },
             "value": { "dataType": "double", "required": true },

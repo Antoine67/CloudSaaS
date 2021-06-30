@@ -45,6 +45,12 @@ class CartModule extends VuexModule {
     localStorage.setItem('ceseat_cart', JSON.stringify(this.cart));
   }
 
+  @Mutation
+  public CLEAR_CART () {
+    this.cart = defaultCart
+    localStorage.setItem('ceseat_cart', JSON.stringify(this.cart));
+  }
+
   @Action({ rawError: true })
   // add item to selected items list
   addItemToCart (item: Menu) {
@@ -55,6 +61,11 @@ class CartModule extends VuexModule {
   @Action({rawError: true})
   removeFromCart (item: Menu) {
     this.context.commit('REMOVE_FROM_CART', item)
+  }
+
+  @Action({rawError: true})
+  clearCart () {
+    this.context.commit('CLEAR_CART')
   }
 
 

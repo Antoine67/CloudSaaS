@@ -9,7 +9,7 @@ export default function authHeader() {
       console.log("parsing", jwt_cookie)
     
       if (jwt_cookie && jwt_cookie.accessToken) {
-         return 'Bearer ' + jwt_cookie.accessToken ; 
+         return jwt_cookie.accessToken ; 
         //return { 'x-access-token': user.accessToken };       
       } 
     }catch(e){

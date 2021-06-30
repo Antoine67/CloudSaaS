@@ -391,8 +391,7 @@ export function RegisterRoutes(app: express.Express) {
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
-                req: { "in": "body", "name": "req", "required": true, "ref": "CardCreationParams" },
-                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
+                requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "CardCreationParams" },
             };
 
             let validatedArgs: any[] = [];
