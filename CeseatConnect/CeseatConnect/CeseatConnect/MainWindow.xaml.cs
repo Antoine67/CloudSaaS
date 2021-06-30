@@ -26,7 +26,7 @@ namespace CeseatConnect
         public MainWindow()
         {
             InitializeComponent();
-
+          //  RunAsync().GetAwaiter().GetResult();
         }
         static HttpClient client = new HttpClient();
 
@@ -35,20 +35,28 @@ namespace CeseatConnect
             Console.WriteLine(users.Name);
         }
 
-        /*static async Task<Uri> CreateProductAsync(Product product)
+        static async Task<Uri> CreateProductAsync(Object user)
         {
-            HttpResponseMessage response = await client.PostAsJsonAsync(
-                "api/products", product);
+            HttpClient authclient = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:4000/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+            
+
+            HttpResponseMessage response = await authclient.PostAsJsonAsync(
+                "api/auth/register", user);
             response.EnsureSuccessStatusCode();
 
             // return URI of the created resource.
             return response.Headers.Location;
-        }*/
+        }
 
-        static async Task<Users> GetUsersAsync(string path)
+        static async Task<Users> GetUsersAsync()
         {
             Users users = null;
-            HttpResponseMessage response = await client.GetAsync(path);
+            HttpResponseMessage response = await client.GetAsync(
+                $"api/users");
             if (response.IsSuccessStatusCode)
             {
                 users = await response.Content.ReadAsAsync<Users>();
@@ -59,25 +67,25 @@ namespace CeseatConnect
         static async Task<Users> UpdateProductAsync(Users users)
         {
             HttpResponseMessage response = await client.PutAsJsonAsync(
-                $"api/products/{product.Id}", product);
+                $"api/users/{users.Id}", users);
             response.EnsureSuccessStatusCode();
 
             // Deserialize the updated product from the response body.
-            users = await response.Content.ReadAsAsync<Product>();
+            users = await response.Content.ReadAsAsync<Users>();
             return users;
         }
 
         static async Task<HttpStatusCode> DeleteProductAsync(string id)
         {
             HttpResponseMessage response = await client.DeleteAsync(
-                $"api/products/{id}");
+                $"api/users/{id}");
             return response.StatusCode;
         }
 
         static async Task RunAsync()
         {
             // Update port # in the following line.
-            client.BaseAddress = new Uri("http://localhost:64195/");
+            client.BaseAddress = new Uri("http://ceseat-api.fr/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
@@ -87,11 +95,13 @@ namespace CeseatConnect
                 // Create a new product
                 Users users;
 
-                var url = await CreateProductAsync(product);
-                Console.WriteLine($"Created at {url}");
+                Object user = new object();
+                var url = await CreateProductAsync(user);
+            
+        
 
                 // Get the product
-                users = await GetUsersAsync(url.PathAndQuery);
+                users = await GetUsersAsync();
                 ShowUsers(users);
 
                 // Update the product
@@ -100,11 +110,11 @@ namespace CeseatConnect
                 await UpdateProductAsync(users);
 
                 // Get the updated product
-                product = await GetProductAsync(url.PathAndQuery);
-                ShowProduct(product);
+                users = await GetUsersAsync();
+                ShowUsers(users);
 
                 // Delete the product
-                var statusCode = await DeleteProductAsync(product.Id);
+                var statusCode = await DeleteProductAsync("1");
                 Console.WriteLine($"Deleted (HTTP Status = {(int)statusCode})");
 
             }
@@ -115,7 +125,16 @@ namespace CeseatConnect
 
             Console.ReadLine();
         }
-    }
-}
+
+
+        private void loginButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void registerButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -44,9 +44,9 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "System.Net.Http": {
+            "Microsoft.AspNet.WebApi.Client": {
               "target": "Package",
-              "version": "[4.3.4, )"
+              "version": "[5.2.7, )"
             }
           },
           "imports": [

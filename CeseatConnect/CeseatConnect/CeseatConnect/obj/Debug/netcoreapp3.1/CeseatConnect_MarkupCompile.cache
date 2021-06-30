@@ -1,5 +1,5 @@
 ﻿CeseatConnect
-1.0.0.0
+
 
 winexe
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\Lucas\source\repos\CloudSaaS\CeseatConnect\CeseatConnect\CeseatConnect\App.xaml
 2-874545204
 
-71125368751
+5212085612
 1951090469569
 LoginForm.xaml;MainWindow.xaml;
 
-False
+True
 
