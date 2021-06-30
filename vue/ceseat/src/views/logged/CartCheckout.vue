@@ -8,6 +8,8 @@
 
 
     <MyCards v-model="selected"/>
+    
+    
 
     <v-btn @click="submit" :disabled="!getNumberInCart">Procéder au paiement</v-btn>
 </v-container>
@@ -69,14 +71,19 @@ export default class CartCheckout extends Vue{
 
   dialog = true
 
-  selected = []
+  selected : any[]
 
 
   submit () {
+      if(!this.selected) {
+          console.log("Aucune CB séléctionnée !") //TODO popup?
+          return;
+      }
+      
       //TODO Handle payment ?
       let order = this.getOrder
       order.status = EOrderState.WAITING_VALIDATION
-      console.log("card ? ",this.selected)
+      order.pricing.payment_card_id = this.selected[0].id
 
       console.log("POSTING", order)
       OrdersService.create(this.userData.userId, order)

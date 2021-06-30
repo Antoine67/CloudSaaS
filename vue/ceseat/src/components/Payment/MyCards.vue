@@ -101,12 +101,6 @@
 </v-dialog>
 
 <v-btn @click="popup=true">Gérer mes cartes</v-btn>
-    <span v-if="selected && selected[0]">
-        Carte séléctionnée : {{selected && selected[0] ? `${selected[0].title} (${selected[0].expirationDate})` : ""}}
-    </span>
-    <span v-else>
-        Aucune carte séléctionée
-    </span>
 </v-container>
 
       
@@ -115,7 +109,7 @@
 
 </template>
 <script lang="ts">
-import { Component, Vue, Prop} from "vue-property-decorator";
+import { Component, Vue, VModel} from "vue-property-decorator";
 
 import CardCheckoutItem from '@/components/Payment/CardCheckoutItem.vue';
 
@@ -145,7 +139,7 @@ export default class MyCards extends Vue{
     editedItem= {  } as Card
       
 
-    selected = []
+    @VModel() selected : any[]
 
     headers= [
           {
