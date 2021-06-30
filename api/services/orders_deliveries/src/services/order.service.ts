@@ -10,12 +10,12 @@ export class OrdersService {
 
       //Get all orders to take for deliverer
       if (jwt.roleIdentifier == 'ceseat-delivery' && status){
-        const returnGet = OrderModel.find({
+        const returnGet = await OrderModel.findOne({
           deliverer_id: jwt.userId,
           status: "DELIVERY_IN_PROGRESS"
         })
-        if(returnGet == null){
-          items = returnGet; 
+        if(returnGet){
+          items = [returnGet]; 
         }
         else {
           items = await OrderModel.find({
