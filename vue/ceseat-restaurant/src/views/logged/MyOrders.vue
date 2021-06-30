@@ -55,6 +55,7 @@
             />
         </v-container>
         <v-container v-else  class="grey--text">Aucune commande</v-container>
+        <v-btn @click="$router.push('/history')"> Vers l'historique </v-btn>
         </v-col>
     </v-container>
 </template>

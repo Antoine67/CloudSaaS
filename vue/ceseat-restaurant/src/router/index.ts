@@ -4,6 +4,7 @@ import Home from '@/views/public/Home.vue'
 import Login from "@/views/auth/Login.vue";
 import Profile from "@/views/logged/Profile.vue"
 import MyOrders from "@/views/logged/MyOrders.vue"
+import History from "@/views/logged/History.vue"
 import RestaurantManagement from "@/views/logged/RestaurantManagement.vue"
 import Dashboard from "@/views/logged/Dashboard.vue"
 
@@ -34,6 +35,14 @@ const routes: Array<RouteConfig> = [
     path: '/my-orders',
     name: 'MyOrders',
     component: MyOrders,
+    meta: {
+      middleware: auth 
+    }
+  },
+  {
+    path: '/history',
+    name: 'History',
+    component: History,
     meta: {
       middleware: auth 
     }

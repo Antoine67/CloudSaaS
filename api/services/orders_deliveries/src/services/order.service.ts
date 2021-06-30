@@ -46,7 +46,11 @@ export class OrdersService {
             status: "WAITING_DELIVERER"
           });
         }
-        else {
+        else if(status && status == "passed"){
+          items = await OrderModel.find({
+            restaurant_id: jwt.restaurantId,
+            status: ["DELIVERY_IN_PROGRESS", "ORDER_DELIVERED", "ORDER_CANCELLED_CLIENT", "ORDER_CANCELLED_RESTAURANT"]
+          });
         }
       }
       //Get all order for user client
