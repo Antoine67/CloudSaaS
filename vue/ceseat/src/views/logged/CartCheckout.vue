@@ -4,7 +4,7 @@
 
 
 
-    <OrderItem v-if="getOrder" :order="getOrder" :deleteFromOrder="deleteFromOrder" />
+    <OrderItem v-if="getOrder" :order="getOrder" :deleteFromOrder="removeFromCart" />
 
 
     <MyCards v-model="selected"/>
@@ -66,6 +66,9 @@ export default class CartCheckout extends Vue{
   @Cart.Action
   private removeFromCart!: (menu: Menu) => any
 
+  @Cart.Action
+  private clearCart!: () => any
+
   @Auth.State("userData")
   private userData! : any;
 
@@ -84,20 +87,22 @@ export default class CartCheckout extends Vue{
       let order = this.getOrder
       order.status = EOrderState.WAITING_VALIDATION
       order.pricing.payment_card_id = this.selected[0].id
+      order.pricing.paid = true
+      order.customer_id = this.userData.userId
+      
 
-      console.log("POSTING", order)
-      OrdersService.create(this.userData.userId, order)
+      console.log("POSTING", order, JSON.stringify(order))
+      OrdersService.create(order)
         .then((response) => {
-            console.log("todo")
+            console.log("Commande passée !") //TODO popup?
+            this.clearCart()
         })
         .catch((e) => {
+            console.log("Une erreur est survenue") //TODO popup?
             console.log(e);
         });
   }
 
-  deleteFromOrder(menu: any) {
-      this.removeFromCart(menu)
-    }
 
   
 
