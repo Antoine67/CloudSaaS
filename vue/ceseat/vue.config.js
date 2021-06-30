@@ -6,9 +6,12 @@ module.exports = {
   publicPath: '',
   devServer: {
     compress: true,
-    disableHostCheck: true,   // That solved it
-
- }   
+    disableHostCheck: true,
+    
+  watchOptions: {
+    ignored: /node_modules/,
+    aggregateTimeout: 300,
+    poll: 1000,
+  },
+ } 
 }
-
-

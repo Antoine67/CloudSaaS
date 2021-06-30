@@ -1,9 +1,13 @@
 import http from "@/http-common";
 import Order from "@/types/Order";
 
-class MenusServices {
-  getAll()  {
-    return http.get("/orders");
+class OrdersService {
+  getAllInProgress()  {
+    return http.get("/orders?status=in-progress");
+  }
+
+  getAllPassed()  {
+    return http.get("/orders?status=passed");
   }
 
   get(id: string) {
@@ -28,4 +32,4 @@ class MenusServices {
 
 }
 
-export default new MenusServices();
+export default new OrdersService();

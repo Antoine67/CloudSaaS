@@ -68,8 +68,9 @@ export default class App extends Vue{
     logoText: "ORIGINAL",
     appTitle: "CesEat",
     menuItems:  [
+      { text: 'Accueil', icon: 'mdi-clipboard-list', onClick: () => {this.$router.push('/')} },
       { text: 'Mon profil', icon: 'mdi-account', onClick: () => {this.$router.push('/profile')} },
-      { text: 'Dashboard', icon: 'mdi-view-dashboard', onClick: () => {this.$router.push('/dashboard')} },
+      { text: 'Dashboard', icon: 'mdi-view-dashboard', onClick: () => {this.$router.push('/my-orders')} },
       { text: 'Déconnexion', icon: 'mdi-account-remove', onClick: () => {this.logOut();} },
     ],
   }

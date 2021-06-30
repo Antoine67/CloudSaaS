@@ -17,7 +17,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build-bundle": "vue-cli-service build --target lib ./src/index.ts && rm ./dist/demo.html",
-    "dts" : "dts-generator --project . --out ceseat-lib.d.ts"
+    "dts": "dts-generator --project . --out ceseat-lib.d.ts"
   },
   "dependencies": {
     "@types/node": "^15.12.4",
