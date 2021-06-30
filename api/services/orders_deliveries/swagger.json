@@ -43,9 +43,12 @@
 					"type": "boolean",
 					"description": "Is the order currently available ?"
 				},
-				"products": {
-					"type": "object",
-					"description": "Products contained in order"
+				"menus": {
+					"type": "array",
+					"items": {
+						"type": "object"
+					},
+					"description": "Menus contained in order"
 				}
 			},
 			"required": [
@@ -57,7 +60,7 @@
 				"status",
 				"pricing",
 				"delivered",
-				"products"
+				"menus"
 			],
 			"type": "object"
 		},
@@ -82,7 +85,8 @@
 				"deliverer_id": {
 					"type": "number",
 					"format": "double",
-					"description": "Restaurant uniq indentifier reference"
+					"description": "Restaurant uniq indentifier reference",
+					"x-nullable": true
 				},
 				"status": {
 					"type": "string",
@@ -96,20 +100,22 @@
 					"type": "boolean",
 					"description": "Is the order currently available ?"
 				},
-				"products": {
-					"type": "object",
-					"description": "Products contained in order"
+				"menus": {
+					"type": "array",
+					"items": {
+						"type": "object"
+					},
+					"description": "Menus contained in order"
 				}
 			},
 			"required": [
 				"date",
 				"restaurant_id",
 				"customer_id",
-				"deliverer_id",
 				"status",
 				"pricing",
 				"delivered",
-				"products"
+				"menus"
 			],
 			"type": "object"
 		},
@@ -155,9 +161,12 @@
 					"description": "Is the order currently available ?",
 					"x-nullable": true
 				},
-				"products": {
-					"type": "object",
-					"description": "Products contained in order",
+				"menus": {
+					"type": "array",
+					"items": {
+						"type": "object"
+					},
+					"description": "Menus contained in order",
 					"x-nullable": true
 				}
 			},
@@ -349,8 +358,19 @@
 				"tags": [
 					"Orders"
 				],
-				"security": [],
-				"parameters": []
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "status",
+						"required": false,
+						"type": "string"
+					}
+				]
 			},
 			"post": {
 				"operationId": "Create",
@@ -735,7 +755,12 @@
 		"application/json"
 	],
 	"swagger": "2.0",
-	"securityDefinitions": {},
+	"securityDefinitions": {
+		"jwt": {
+			"type": "jwt",
+			"name": "jwt"
+		}
+	},
 	"host": "localhost:9000",
 	"schemes": [
 		"http"

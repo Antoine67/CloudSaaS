@@ -9,26 +9,45 @@ export class OrdersService {
       let items: any;
 
       //Get all orders to take for deliverer
-      if (jwt.roleIdentifier == 'ceseat-delivery' && status && status == "deliveries-open"){
-        const returnGet = await OrderModel.findOne({
-          deliverer_id: jwt.userId,
-          status: "DELIVERY_IN_PROGRESS"
-        })
-        if(returnGet){
-          items = [returnGet]; 
-        }
-        else {
-          items = await OrderModel.find({
-            deliver_id: null,
-            status: "WAITING_DELIVERER"
+      if (jwt.roleIdentifier == 'ceseat-delivery'){
+        if(status && status == "deliveries-open"){
+          const returnGet = await OrderModel.findOne({
+            deliverer_id: jwt.userId,
+            status: "DELIVERY_IN_PROGRESS"
           })
+          if(returnGet){
+            items = [returnGet]; 
+          }
+          else {
+            items = await OrderModel.find({
+              deliver_id: null,
+              status: "WAITING_DELIVERER"
+            })
+          }
         }
       }
       //Get all order for user client
       else if(jwt.roleIdentifier == 'ceseat-restaurant'){
+        if(status && status == "validation-open"){
           items = await OrderModel.find({
-            restaurant_id: jwt.restaurantId
-          })
+            restaurant_id: jwt.restaurantId,
+            status: "WAITING_VALIDATION"
+          });
+        }
+        else if(status && status == "validation-closed"){
+          items = await OrderModel.find({
+            restaurant_id: jwt.restaurantId,
+            status: "IN_PREPARATION"
+          });
+        }
+        else if(status && status == "waiting-deliverer"){
+          items = await OrderModel.find({
+            restaurant_id: jwt.restaurantId,
+            status: "WAITING_DELIVERER"
+          });
+        }
+        else {
+        }
       }
       //Get all order for user client
       else if(jwt.roleIdentifier == 'ceseat'){
