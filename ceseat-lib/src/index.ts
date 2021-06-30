@@ -9,6 +9,7 @@ import DeliveryPickableItem from "./components/DeliveryPickableItem.vue";
 import AppHeader from "./components/AppHeader.vue";
 import OrderItem from "./components/OrderItem.vue";
 import OrderList from "./components/OrderList.vue";
+import ProfilePage from "./components/ProfilePage.vue";
 
 import Vuetify from 'vuetify/lib';
 
@@ -31,7 +32,8 @@ const Components = {
     DeliveryPickableItem,
     DeliveryStateItem,
     OrderItem,
-    OrderList
+    OrderList,
+    ProfilePage
   }
 
 /*
@@ -58,6 +60,8 @@ function install(Vue: any) {
   Vue.component("DeliveryStateItem", AppHeader);
   Vue.component("OrderItem", OrderItem);
   Vue.component("OrderList", OrderList);
+  Vue.component("ProfilePage", ProfilePage);
+  
   
   export { MenuCardItem };
   export { LoginForm };
@@ -69,6 +73,6 @@ function install(Vue: any) {
   export { AppHeader };
   export { OrderItem };
   export { OrderList };
-
+  export { ProfilePage };
 
   export default Components;

@@ -48,19 +48,19 @@ export class Address {
 
 export class AddressCreationParams {
 
-    country: string;
+    country?: string;
     
-    town: string;
+    town?: string;
     
-    postalCode: string;
+    postalCode?: string;
     
-    address1: string;
+    address1?: string;
     
-    address2: string;
+    address2?: string;
     
-    longitude: string;
+    longitude?: string;
     
-    latitude: string;
+    latitude?: string;
 
 }
 

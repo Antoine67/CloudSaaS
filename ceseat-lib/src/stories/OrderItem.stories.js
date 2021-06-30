@@ -21,7 +21,7 @@ const exampleOrder =  {
     pricing: {
         paid: false,     
         payment_card_id: 5,
-        comission_fees: 3,
+        commision_fees: 3,
         restaurant_fees: 10,
         delivering_fees: 0.5,
         discount: 10,

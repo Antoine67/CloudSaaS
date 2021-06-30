@@ -8,7 +8,8 @@ declare module 'src/index' {
 	import DeliveryPickableItem from 'src/components/DeliveryPickableItem.vue';
 	import AppHeader from 'src/components/AppHeader.vue';
 	import OrderItem from 'src/components/OrderItem.vue';
-	import OrderList from 'src/components/OrderList.vue'; const Components: {
+	import OrderList from 'src/components/OrderList.vue';
+	import ProfilePage from 'src/components/ProfilePage.vue'; const Components: {
 	    MenuCardItem: any;
 	    LoginForm: any;
 	    GeolocationItem: any;
@@ -19,6 +20,7 @@ declare module 'src/index' {
 	    DeliveryStateItem: any;
 	    OrderItem: any;
 	    OrderList: any;
+	    ProfilePage: any;
 	};
 	export { MenuCardItem };
 	export { LoginForm };
@@ -30,6 +32,7 @@ declare module 'src/index' {
 	export { AppHeader };
 	export { OrderItem };
 	export { OrderList };
+	export { ProfilePage };
 	export default Components;
 
 }

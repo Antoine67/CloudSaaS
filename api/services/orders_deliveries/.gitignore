@@ -5,3 +5,8 @@ node_modules/
 dist/**/*
 
 .env
+
+
+swagger.json
+package-lock.json
+src/route.ts

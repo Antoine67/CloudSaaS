@@ -1,31 +1,88 @@
  <template>
-    <v-card class="mx-auto" max-width="434" tile>
-        <v-img height="100%" src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"></v-img>
-        <v-col>
-        <v-avatar size="100" style="position:absolute; top: 130px">
-            <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-        </v-avatar>
-        </v-col>
-        <v-list-item color="rgba(0, 0, 0, .4)">
-            <v-list-item-content>
-            <v-list-item-title class="title">{{currentUser.username}}</v-list-item-title>
-            <!--<v-list-item-subtitle>Role</v-list-item-subtitle>-->
-            </v-list-item-content>
-        </v-list-item>
-    </v-card>
+    <ProfilePage
+    :user="user"
+    :ModifyUser=ModifyUser
+    :ModifyAddress=ModifyAddress
+    :ModifyNotifications=ModifyNotifications
+    :showMessage=showMessage
+    :submitUser=onSuccessSubmit
+    :submitAddress=onSuccessSubmit
+    :submitNotification=onSuccessSubmit
+
+     />
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { namespace } from "vuex-class";
+import UsersService from "@/services/UsersService"
+import {ProfilePage} from "ceseat-lib"
 const Auth = namespace("Auth");
 
-@Component
+
+@Component({
+    components: {ProfilePage}
+})
 export default class Profile extends Vue {
 
     @Auth.State("user")
     private currentUser!: any;
 
+    @Auth.State("userData")
+    private userData! : any;
+
+    user = {} 
+    
+
+    created() {
+        this.fetchUser();
+    } 
+
+    fetchUser() {
+        UsersService.get(this.userData.userId)
+        .then((response) => {
+            this.user = response.data;
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
+
+    async ModifyUser(userData: any) {
+        return UsersService.update(this.userData.userId, userData)
+        .then((response) => {
+            return Promise.resolve(response)
+        })
+        .catch((e) => {
+           return Promise.reject(e)
+        });
+        //console.log(userData);return Promise.resolve(userData)
+    }
+
+    async ModifyAddress(data: any) {
+        return UsersService.createAddress(this.userData.userId,data)
+        .then((response) => {
+            return Promise.resolve(response)
+        })
+        .catch((e) => {
+           return Promise.reject(e)
+        });
+    }
+
+    async ModifyNotifications(data: any) {
+        return UsersService.update(this.userData.userId, data)
+        .then((response) => {
+            return Promise.resolve(response)
+        })
+        .catch((e) => {
+           return Promise.reject(e)
+        });
+    }
+
+    showMessage (message: any, color: any, title: any, ico: any) {console.log("SHOW MESSAGE TODO : ",message, color, title, ico)}
+
+    //If successfully modified
+    onSuccessSubmit (data: any)  {this.fetchUser()}
 
 }
 </script>
