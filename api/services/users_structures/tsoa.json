@@ -4,22 +4,26 @@
         "outputDirectory": ".",
         "entryFile": "./src/app.ts",
         "basePath": "/api",
-        "host": "localhost:8080",
-        "schemes": ["http"]
+        "host": "localhost:7000",
+        "schemes": ["http"],
+        "securityDefinitions": {
+            "jwt": {
+                "type": "jwt",
+                "name": "jwt"
+            }
+        }
     },
     "spec": {
         "outputDirectory": ".",
         "entryFile": "./src/app.ts",
         "basePath": "/api",
-        "host": "localhost:8080",
+        "host": "localhost:7000",
         "schemes": ["http"]
     },
     "routes": {
         "basePath": "/api",
         "entryFile": "./src/app.ts",
-        "routesDir": "./src"
-    },
-    "ignore": [
-        "**/node_modules/**"
-    ]
+        "routesDir": "./src",
+        "authenticationModule": "./src/authentication.ts"
+    }
 }

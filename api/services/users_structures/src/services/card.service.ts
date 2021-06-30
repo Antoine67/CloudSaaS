@@ -41,7 +41,13 @@ export class CardsService {
     console.log("Card created");
   }
 
-  public async getAllCards(id: string): Promise<any> {
+  public async getAllCards(id: string, userId: number): Promise<any> {
+
+    if(id != userId.toString()){
+        console.log('Cannot get an another user cards')
+        return ;
+    }
+
     //Get the card from database
     const cardRepository = getRepository(Card);
     
@@ -58,7 +64,13 @@ export class CardsService {
     }
   }
 
-  public async getCard(id: string, id_2: string): Promise<any> {
+  public async getCard(id: string, id_2: string, userId: number): Promise<any> {
+
+    if(id != userId.toString()){
+        console.log('Cannot update an another user address')
+        return ;
+    }
+
     //Get the card from database
     const cardRepository = getRepository(Card);
     
@@ -81,7 +93,13 @@ export class CardsService {
     }
   }
 
-  public async deleteCard(id: string, id_2: string): Promise<void> {
+  public async deleteCard(id: string, id_2: string, userId: number): Promise<void> {
+
+    if(id != userId.toString()){
+        console.log('Cannot update an another user address')
+        return ;
+    }
+
     const cardRepository = getRepository(Card);
     try {
         const card = await cardRepository
