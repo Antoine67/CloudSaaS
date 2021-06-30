@@ -7,9 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="#FFE8EDF3">
     <Grid Margin="0,0,0,0">
-        <Grid Margin="0,0,0,380" Background="#FF99B4D1">
-            <Button x:Name="loginButton" Content="Me connecter" HorizontalAlignment="Left" Height="27" Margin="571,0,0,0" VerticalAlignment="Center" Background="#FFE8EDF3" Foreground="#FF7A7777" BorderBrush="{x:Null}" Width="82" Click="loginButton_Click"/>
-            <Button x:Name="registerButton" Content="Créer un compte" HorizontalAlignment="Left" Height="27" Margin="675,0,0,0"  VerticalAlignment="Center" Background="#FFE8EDF3" Foreground="#FF7A7777" BorderBrush="{x:Null}" Width="98" Click="registerButton_Click"/>
-        </Grid>
+        
     </Grid>
 </Window>
