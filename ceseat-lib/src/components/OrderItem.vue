@@ -104,6 +104,12 @@
         </v-list-group>
       </v-list-group>
     </v-list>
+    <v-card-subtitle>
+     <p class="ma-0 pa-0 text-decoration-underline">Récapitulatif :</p>
+     <p class="ma-0 pa-0">Commande : {{order.pricing.restaurant_fees}}€</p>
+     <p class="ma-0 pa-0">CesEat: {{order.pricing.commision_fees}}€</p>
+     <p class="ma-0 pa-0">Livraison: {{order.pricing.delivering_fees}}€</p>
+     </v-card-subtitle>
     <v-card-title prepend-icon="mdi-map-marker">
       {{"Prix Total"}}: {{order.pricing.total}}€
     </v-card-title>

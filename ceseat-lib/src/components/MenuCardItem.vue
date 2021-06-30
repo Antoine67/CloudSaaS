@@ -63,10 +63,7 @@
 </template>
 
 <script lang="ts">
-
-
 import { Component, Prop, Vue } from 'vue-property-decorator';
-
 @Component
 export default class MenuCardItem extends Vue {
   @Prop() private menu!: any;
@@ -74,20 +71,16 @@ export default class MenuCardItem extends Vue {
   @Prop() pay! : (menu: any) => void; 
   @Prop({default: true}) enableAddButton! : boolean;
   @Prop({default: true}) enablePayButton! : boolean;
-
   onAddClick() {
     this.addToCart(this.menu);
   }
-
   onPayClick() {
     this.pay(this.menu);
   }
 }
-
 </script>
 
 <style>
-
 .tight-element {
   margin:0
 }

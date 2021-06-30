@@ -2,7 +2,7 @@ import http from "@/http-common";
 import Product from "@/types/User";
 import authHeader from './auth-header';
 
-class ProductsService {
+class UsersService {
   getAll()  {
     return http.get("/users");
   }
@@ -39,7 +39,16 @@ class ProductsService {
     return http.get(`/users/${id}/cards`);
   }
 
+  createAddress(id: any, data: any) {
+    return http.post(`/users/${id}/addresses`, data);
+  }
+
+  updateAddress(id: any, address_id:any, data: any) {
+    return http.put(`/users/${id}/addresses/${address_id}`, data);
+  }
+
+
 
 }
 
-export default new ProductsService();
+export default new UsersService();

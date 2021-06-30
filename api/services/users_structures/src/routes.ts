@@ -109,13 +109,13 @@ const models: TsoaRoute.Models = {
     },
     "AddressCreationParams": {
         "properties": {
-            "country": { "dataType": "string", "required": true },
-            "town": { "dataType": "string", "required": true },
-            "postalCode": { "dataType": "string", "required": true },
-            "address1": { "dataType": "string", "required": true },
-            "address2": { "dataType": "string", "required": true },
-            "longitude": { "dataType": "string", "required": true },
-            "latitude": { "dataType": "string", "required": true },
+            "country": { "dataType": "string" },
+            "town": { "dataType": "string" },
+            "postalCode": { "dataType": "string" },
+            "address1": { "dataType": "string" },
+            "address2": { "dataType": "string" },
+            "longitude": { "dataType": "string" },
+            "latitude": { "dataType": "string" },
         },
     },
     "AddressUpdateParams": {
