@@ -5,7 +5,7 @@
 	],
 	"definitions": {
 		"Order": {
-			"description": "Order objects allow merchants to show their available\r\nmeals/dessert/... for sale",
+			"description": "Order objects allow merchants to show their available\nmeals/dessert/... for sale",
 			"properties": {
 				"id": {
 					"type": "string",
@@ -173,7 +173,7 @@
 			"type": "object"
 		},
 		"Delivery": {
-			"description": "Delivery objects allow merchants and consumer to know\r\nthe state the state of the delivery",
+			"description": "Delivery objects allow merchants and consumer to know\nthe state the state of the delivery",
 			"properties": {
 				"id": {
 					"type": "string",
@@ -251,7 +251,7 @@
 			"type": "object"
 		},
 		"Rating": {
-			"description": "Rating allow user to rate a restaurant or a deliverer\r\nafter an order completed",
+			"description": "Rating allow user to rate a restaurant or a deliverer\nafter an order completed",
 			"properties": {
 				"id": {
 					"type": "string",
@@ -415,7 +415,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing order.\r\nSupply the unique order ID from either and receive corresponding order details.",
+				"description": "Retrieves the details of an existing order.\nSupply the unique order ID from either and receive corresponding order details.",
 				"summary": "Retrieves a specific existing order",
 				"tags": [
 					"Orders"
@@ -561,7 +561,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing delivery.\r\nSupply the unique delivery ID from either and receive corresponding delivery details.",
+				"description": "Retrieves the details of an existing delivery.\nSupply the unique delivery ID from either and receive corresponding delivery details.",
 				"summary": "Retrieves a specific existing delivery",
 				"tags": [
 					"Deliveries"
@@ -707,7 +707,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing rating.\r\nSupply the unique rating ID from either and receive corresponding rating details.",
+				"description": "Retrieves the details of an existing rating.\nSupply the unique rating ID from either and receive corresponding rating details.",
 				"summary": "Retrieves a specific existing rating",
 				"tags": [
 					"Ratings"

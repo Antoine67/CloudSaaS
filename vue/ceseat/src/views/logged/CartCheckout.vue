@@ -4,10 +4,12 @@
 
 
 
-    <OrderItem v-if="getOrder" :order="getOrder" :deleteFromOrder="deleteFromOrder" />
+    <OrderItem v-if="getOrder" :order="getOrder" :deleteFromOrder="removeFromCart" />
 
 
     <MyCards v-model="selected"/>
+    
+    
 
     <v-btn @click="submit" :disabled="!getNumberInCart">Procéder au paiement</v-btn>
 </v-container>
@@ -64,33 +66,43 @@ export default class CartCheckout extends Vue{
   @Cart.Action
   private removeFromCart!: (menu: Menu) => any
 
+  @Cart.Action
+  private clearCart!: () => any
+
   @Auth.State("userData")
   private userData! : any;
 
   dialog = true
 
-  selected = []
+  selected : any[]
 
 
   submit () {
+      if(!this.selected) {
+          console.log("Aucune CB séléctionnée !") //TODO popup?
+          return;
+      }
+      
       //TODO Handle payment ?
       let order = this.getOrder
       order.status = EOrderState.WAITING_VALIDATION
-      console.log("card ? ",this.selected)
+      order.pricing.payment_card_id = this.selected[0].id
+      order.pricing.paid = true
+      order.customer_id = this.userData.userId
+      
 
-      console.log("POSTING", order)
-      OrdersService.create(this.userData.userId, order)
+      console.log("POSTING", order, JSON.stringify(order))
+      OrdersService.create(order)
         .then((response) => {
-            console.log("todo")
+            console.log("Commande passée !") //TODO popup?
+            this.clearCart()
         })
         .catch((e) => {
+            console.log("Une erreur est survenue") //TODO popup?
             console.log(e);
         });
   }
 
-  deleteFromOrder(menu: any) {
-      this.removeFromCart(menu)
-    }
 
   
 
