@@ -26,14 +26,22 @@ namespace CeseatConnect
         public MainWindow()
         {
             InitializeComponent();
-          //  RunAsync().GetAwaiter().GetResult();
+            
         }
-        static HttpClient client = new HttpClient();
+        
 
-        static void ShowUsers(Users users)
+        
+
+
+
+        /*static void ShowUsers(Users users)
         {
             Console.WriteLine(users.Name);
         }
+
+
+
+
 
         static async Task<Uri> CreateProductAsync(Object user)
         {
@@ -81,7 +89,7 @@ namespace CeseatConnect
                 $"api/users/{id}");
             return response.StatusCode;
         }
-
+        
         static async Task RunAsync()
         {
             // Update port # in the following line.
@@ -126,15 +134,16 @@ namespace CeseatConnect
             Console.ReadLine();
         }
 
+        */      
 
-        private void loginButton_Click(object sender, RoutedEventArgs e)
+        private void BtnClickHome(object sender, RoutedEventArgs e)
         {
-
+            Main.Content = new MainWindow();
         }
 
-        private void registerButton_Click(object sender, RoutedEventArgs e)
+        private void BtnClickStat(object sender, RoutedEventArgs e)
         {
-
+            Main.Content = new Page1(); //Page1 = Statistics
         }
     }
 }
