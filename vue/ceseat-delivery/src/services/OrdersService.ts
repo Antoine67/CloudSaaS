@@ -3,7 +3,7 @@ import Menu from "@/types/Menu";
 
 class OrdersServices {
   getAll()  {
-    return http.get("/orders?status=string");
+    return http.get("/orders?status=deliveries-open");
   }
 
   get(id: string) {

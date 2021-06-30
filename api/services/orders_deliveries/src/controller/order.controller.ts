@@ -28,6 +28,8 @@ export class OrderController extends Controller {
 	 * @param id The order's identifier
 	 * @summary Retrieves a specific existing order
 	 */
+	
+	@Security("jwt")
 	@Get('/{id}')
 	public async get(@Path() id: string): Promise<Order> {
 		return new OrdersService().get(id);
@@ -38,6 +40,8 @@ export class OrderController extends Controller {
 	 * @param requestBody The new order's data
 	 * @summary Create a new order
 	 */
+	
+	@Security("jwt")
 	@Post()
 	public async create(@Body() requestBody: OrderCreationParams) : Promise<void> {
 		
@@ -55,8 +59,9 @@ export class OrderController extends Controller {
 	 * @param requestBody The new order's data
 	 * @summary Update an existing order
 	 */
+	@Security("jwt")
 	@Put('/{id}')
-	public async update( @Path() id: string, @Body() requestBody: OrderUpdateParams) : Promise<void> {
+	public async update(@Path() id: string, @Body() requestBody: OrderUpdateParams) : Promise<void> {
 		this.setStatus(201); // set return status 201
 		new OrdersService().update(id, requestBody);
 		return;
@@ -67,6 +72,8 @@ export class OrderController extends Controller {
 	 * @param id The order's identifier
 	 * @summary Delete a order
 	 */
+	
+	@Security("jwt")
 	@Delete('/{id}')
 	public async remove(@Path() id: string) : Promise<void> {
 		return new OrdersService().delete(id);
