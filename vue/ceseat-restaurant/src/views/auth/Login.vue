@@ -37,6 +37,9 @@ import {LoginForm} from 'ceseat-lib'
 })
 export default class Login extends Vue {
 
+    @Auth.State("userData")
+    private userData! : any;
+
     created() {
         if (this.isLoggedIn) {
         this.$router.push("/profile");
@@ -62,8 +65,12 @@ export default class Login extends Vue {
     }
 
     successLogin() {
-        this.$router.push("/profile");
-
+        if (!this.userData.restaurantId) {
+            this.$router.push("/no-restaurant-dashboard");
+        }
+        else{
+            this.$router.push("/profile");
+        }
     }
 
     private snackbar = {

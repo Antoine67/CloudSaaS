@@ -25,22 +25,6 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn
-        text
-        color="blue accent-4"
-        @click="onValidationOrderClick(order)"
-        v-if="order.status == 'WAITING_VALIDATION'"
-      >
-        Valider la commande
-      </v-btn>
-      <v-btn
-        text
-        color="blue accent-4"
-        @click="onEndPreparationOrderClick(order)"
-        v-else-if="order.status == 'IN_PREPARATION'"
-      >
-        Commande Préparée
-      </v-btn>
       
       <v-btn
         text
@@ -89,12 +73,6 @@ export default class OrdersDashboardArchive extends Vue {
   @Prop() private description! : string
   @Prop() private stateColor! : string
   @Prop() private order! : any
-  @Prop({default: false}) private orderPickedUp! : boolean
-  @Prop({default: true}) private showButtons! : boolean
-
-  @Prop() onValidationOrderClick! : (order: any) => any
-  @Prop() onEndPreparationOrderClick! : (order: any) => any
-
 
   reveal = false
 
