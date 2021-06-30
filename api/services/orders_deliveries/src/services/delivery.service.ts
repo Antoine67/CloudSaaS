@@ -1,4 +1,5 @@
 import { DeliveryModel, Delivery, DeliveryCreationParams, DeliveryUpdateParams } from "../model/delivery";
+import { OrdersService } from "./order.service";
 import {Tags} from 'tsoa';
 
 export class DeliveriesService {
@@ -15,14 +16,14 @@ export class DeliveriesService {
   }
 
   public async create(deliveryCreationParams: DeliveryCreationParams): Promise<boolean> {
+    
+    
 
     const item = new DeliveryModel(deliveryCreationParams)
     console.info(deliveryCreationParams)
     let success = false;
-    await item.save(function(err, delivery) {
-        if (err) success = false;
-        else success = true;
-    });
+    let save = await item.save();
+    console.log(save);
 
     return success;
   }

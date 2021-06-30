@@ -612,7 +612,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
+				"description": "Retrieves the details of an existing user.\r\nSupply the unique user ID from either and receive corresponding user details.",
 				"summary": "Retrieves a specific existing user",
 				"tags": [
 					"Users"
@@ -703,7 +703,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing address.\nSupply the unique address ID from either and receive corresponding address details.",
+				"description": "Retrieves the details of an existing address.\r\nSupply the unique address ID and user ID from either and receive corresponding address details.",
 				"summary": "Retrieves a specific existing address",
 				"tags": [
 					"Users"
@@ -711,13 +711,14 @@
 				"security": [],
 				"parameters": [
 					{
-						"description": "The address's identifier",
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
 						"type": "string"
 					},
 					{
+						"description": "The address's identifier",
 						"in": "path",
 						"name": "id_2",
 						"required": true,
@@ -735,7 +736,7 @@
 						"description": "No content"
 					}
 				},
-				"description": "Update specific address from the unique address ID you provide in query, with the new data you provide in body.",
+				"description": "Update specific address from the unique address ID and user ID you provide in query, with the new data you provide in body.",
 				"summary": "Update an existing address",
 				"tags": [
 					"Users"
@@ -743,13 +744,14 @@
 				"security": [],
 				"parameters": [
 					{
-						"description": "The address's identifier",
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
 						"type": "string"
 					},
 					{
+						"description": "The address's identifier",
 						"in": "path",
 						"name": "id_2",
 						"required": true,
@@ -785,6 +787,7 @@
 				"security": [],
 				"parameters": [
 					{
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -841,7 +844,7 @@
 						"description": "No content"
 					}
 				},
-				"description": "Create a new card by supplying new card's data",
+				"description": "Create a new card by supplying new card's data and the user ID associated",
 				"summary": "Create a new card",
 				"tags": [
 					"Users"
@@ -849,6 +852,7 @@
 				"security": [],
 				"parameters": [
 					{
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -879,7 +883,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing card.\nSupply the unique card ID from either and receive corresponding card details.",
+				"description": "Retrieves the details of an existing card.\r\nSupply the unique card ID and user ID from either and receive corresponding card details.",
 				"summary": "Retrieves a specific existing card",
 				"tags": [
 					"Users"
@@ -887,13 +891,14 @@
 				"security": [],
 				"parameters": [
 					{
-						"description": "The card's identifier",
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
 						"type": "string"
 					},
 					{
+						"description": "The card's identifier",
 						"in": "path",
 						"name": "id_2",
 						"required": true,
@@ -911,7 +916,7 @@
 						"description": "No content"
 					}
 				},
-				"description": "Delete a specific user from the unique user ID you provide.",
+				"description": "Delete a specific user from the unique user ID and card ID you provide.",
 				"summary": "Delete a user",
 				"tags": [
 					"Users"
@@ -926,6 +931,7 @@
 						"type": "string"
 					},
 					{
+						"description": "The card's identifier",
 						"in": "path",
 						"name": "id_2",
 						"required": true,
@@ -951,8 +957,8 @@
 						}
 					}
 				},
-				"description": "Retrieves all existing users.",
-				"summary": "Retrieves all existing users",
+				"description": "Retrieves all existing restaurants.",
+				"summary": "Retrieves all existing restaurants",
 				"tags": [
 					"Restaurants"
 				],
@@ -969,8 +975,8 @@
 						"description": "No content"
 					}
 				},
-				"description": "Create a new card by supplying new card's data",
-				"summary": "Create a new card",
+				"description": "Create a new restaurant by supplying new restaurant's data",
+				"summary": "Create a new restaurant",
 				"tags": [
 					"Restaurants"
 				],
@@ -1001,15 +1007,15 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
-				"summary": "Retrieves a specific existing user",
+				"description": "Retrieves the details of an existing restaurant.\r\nSupply the unique restaurant ID from either and receive corresponding restaurant details.",
+				"summary": "Retrieves a specific existing restaurant",
 				"tags": [
 					"Restaurants"
 				],
 				"security": [],
 				"parameters": [
 					{
-						"description": "The user's identifier",
+						"description": "The restaurant's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1027,15 +1033,15 @@
 						"description": "No content"
 					}
 				},
-				"description": "Update specific user from the unique user ID you provide in query, with the new data you provide in body.",
-				"summary": "Update an existing user",
+				"description": "Update specific restaurant from the unique restaurant ID you provide in query, with the new data you provide in body.",
+				"summary": "Update an existing restaurant",
 				"tags": [
 					"Restaurants"
 				],
 				"security": [],
 				"parameters": [
 					{
-						"description": "The user's identifier",
+						"description": "The restaurant's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1061,15 +1067,15 @@
 						"description": "No content"
 					}
 				},
-				"description": "Delete a specific user from the unique user ID you provide.",
-				"summary": "Delete a user",
+				"description": "Delete a specific restaurant from the unique restaurant ID you provide.",
+				"summary": "Delete a restaurant",
 				"tags": [
 					"Restaurants"
 				],
 				"security": [],
 				"parameters": [
 					{
-						"description": "The user's identifier",
+						"description": "The restaurant's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1092,7 +1098,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing address.\nSupply the unique address ID from either and receive corresponding address details.",
+				"description": "Retrieves the details of an existing address.\r\nSupply the unique address ID with the restaurant ID and receive corresponding address details.",
 				"summary": "Retrieves a specific existing address",
 				"tags": [
 					"Restaurants"
@@ -1100,13 +1106,14 @@
 				"security": [],
 				"parameters": [
 					{
-						"description": "The address's identifier",
+						"description": "The restaurant's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
 						"type": "string"
 					},
 					{
+						"description": "The address's identifier",
 						"in": "path",
 						"name": "id_2",
 						"required": true,
@@ -1124,7 +1131,7 @@
 						"description": "No content"
 					}
 				},
-				"description": "Update specific address from the unique address ID you provide in query, with the new data you provide in body.",
+				"description": "Update specific address from the unique address ID and restaurant ID, with the new data you provide in body.",
 				"summary": "Update an existing address",
 				"tags": [
 					"Restaurants"
@@ -1132,13 +1139,14 @@
 				"security": [],
 				"parameters": [
 					{
-						"description": "The address's identifier",
+						"description": "The restaurant's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
 						"type": "string"
 					},
 					{
+						"description": "The address's identifier",
 						"in": "path",
 						"name": "id_2",
 						"required": true,
@@ -1166,7 +1174,7 @@
 						"description": "No content"
 					}
 				},
-				"description": "Create a new address by supplying new address's data",
+				"description": "Create a new address by supplying new address's data with a specicic restaurant ID",
 				"summary": "Create a new address",
 				"tags": [
 					"Restaurants"
@@ -1174,6 +1182,7 @@
 				"security": [],
 				"parameters": [
 					{
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1204,15 +1213,15 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of all existing card.",
-				"summary": "Retrieves all cards of a specific existing user",
+				"description": "Retrieves the details of all existing employees.",
+				"summary": "Retrieves all employees of a specific existing restaurant",
 				"tags": [
 					"Restaurants"
 				],
 				"security": [],
 				"parameters": [
 					{
-						"description": "The user's identifier",
+						"description": "The restaurant's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1235,21 +1244,22 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing card.\nSupply the unique card ID from either and receive corresponding card details.",
-				"summary": "Retrieves a specific existing card",
+				"description": "Retrieves the details of an existing employee.\r\nSupply the unique restaurant ID and user ID from either and receive corresponding employee details.",
+				"summary": "Retrieves a specific existing employee",
 				"tags": [
 					"Restaurants"
 				],
 				"security": [],
 				"parameters": [
 					{
-						"description": "The card's identifier",
+						"description": "The restaurant's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
 						"type": "string"
 					},
 					{
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "id_2",
 						"required": true,
@@ -1267,20 +1277,22 @@
 						"description": "No content"
 					}
 				},
-				"description": "Create a new card by supplying new card's data",
-				"summary": "Create a new card",
+				"description": "Create a new employee by supplying new employee's data",
+				"summary": "Create a new employee",
 				"tags": [
 					"Restaurants"
 				],
 				"security": [],
 				"parameters": [
 					{
+						"description": "The restaurant's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
 						"type": "string"
 					},
 					{
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "id_2",
 						"required": true,
@@ -1306,21 +1318,22 @@
 						"description": "No content"
 					}
 				},
-				"description": "Delete a specific user from the unique user ID you provide.",
-				"summary": "Delete a user",
+				"description": "Delete a specific employee from the unique restaurant ID and users ID you provide.",
+				"summary": "Delete an employee",
 				"tags": [
 					"Restaurants"
 				],
 				"security": [],
 				"parameters": [
 					{
-						"description": "The user's identifier",
+						"description": "The restaurant's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
 						"type": "string"
 					},
 					{
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "id_2",
 						"required": true,
@@ -1338,21 +1351,22 @@
 						"description": "No content"
 					}
 				},
-				"description": "Update specific address from the unique address ID you provide in query, with the new data you provide in body.",
-				"summary": "Update an existing address",
+				"description": "Update specific employee from the unique restaurant ID and user ID, with the new data you provide in body.",
+				"summary": "Update an existing employee",
 				"tags": [
 					"Restaurants"
 				],
 				"security": [],
 				"parameters": [
 					{
-						"description": "The address's identifier",
+						"description": "The restaurant's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
 						"type": "string"
 					},
 					{
+						"description": "The user's identifier",
 						"in": "path",
 						"name": "id_2",
 						"required": true,
@@ -1436,7 +1450,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing role.\nSupply the unique role ID from either and receive corresponding role details.",
+				"description": "Retrieves the details of an existing role.\r\nSupply the unique role ID from either and receive corresponding role details.",
 				"summary": "Retrieves a specific existing role",
 				"tags": [
 					"Roles"
@@ -1530,8 +1544,8 @@
 						}
 					}
 				},
-				"description": "Retrieves all existing roles.",
-				"summary": "Retrieves all existing roles",
+				"description": "Retrieves all existing employee's roles.",
+				"summary": "Retrieves all existing employee's roles",
 				"tags": [
 					"RoleEmployees"
 				],
@@ -1548,8 +1562,8 @@
 						"description": "No content"
 					}
 				},
-				"description": "Create a new role by supplying new role's data",
-				"summary": "Create a new role",
+				"description": "Create a new employee's role by supplying new employee's role's data",
+				"summary": "Create a new employee's role",
 				"tags": [
 					"RoleEmployees"
 				],
@@ -1580,15 +1594,15 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing role.\nSupply the unique role ID from either and receive corresponding role details.",
-				"summary": "Retrieves a specific existing role",
+				"description": "Retrieves the details of an existing employee's role.\r\nSupply the unique employee's role ID from either and receive corresponding employee's role details.",
+				"summary": "Retrieves a specific existing employee's role",
 				"tags": [
 					"RoleEmployees"
 				],
 				"security": [],
 				"parameters": [
 					{
-						"description": "The role's identifier",
+						"description": "The employee's role's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1606,15 +1620,15 @@
 						"description": "No content"
 					}
 				},
-				"description": "Update specific role from the unique role ID you provide in query, with the new data you provide in body.",
-				"summary": "Update an existing role",
+				"description": "Update specific employee's role from the unique employee's role ID you provide in query, with the new data you provide in body.",
+				"summary": "Update an existing employee's role",
 				"tags": [
 					"RoleEmployees"
 				],
 				"security": [],
 				"parameters": [
 					{
-						"description": "The role's identifier",
+						"description": "The employee's role's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,
@@ -1640,15 +1654,15 @@
 						"description": "No content"
 					}
 				},
-				"description": "Delete a specific role from the unique role ID you provide.",
-				"summary": "Delete a role",
+				"description": "Delete a specific employee's role from the unique employee's role ID you provide.",
+				"summary": "Delete a employee's role",
 				"tags": [
 					"RoleEmployees"
 				],
 				"security": [],
 				"parameters": [
 					{
-						"description": "The role's identifier",
+						"description": "The employee's role's identifier",
 						"in": "path",
 						"name": "id",
 						"required": true,

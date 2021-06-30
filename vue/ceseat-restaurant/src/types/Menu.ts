@@ -1,8 +1,5 @@
-export default interface ProductMenu {
-  step?: string;
-  product_id?: any;
-  quantity?: number;
-}
+
+import Product from "./product"
 
 export default interface Menu {
     id?: any;
@@ -11,5 +8,5 @@ export default interface Menu {
     available?: boolean;
     restaurant_id?: number;
     price?: number;
-    products?: Array<ProductMenu>
+    products?: Array<Product>
   }

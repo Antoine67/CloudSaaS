@@ -3,10 +3,11 @@ import { Controller, ValidationService, FieldErrors, ValidateError, TsoaRoute } 
 import { OrderController } from './controller/order.controller';
 import { DeliveryController } from './controller/delivery.controller';
 import { RatingController } from './controller/rating.controller';
+import { expressAuthentication } from './authentication';
 import * as express from 'express';
 
 const models: TsoaRoute.Models = {
-    "IOrder": {
+    "Order": {
         "properties": {
             "id": { "dataType": "string", "required": true },
             "date": { "dataType": "datetime", "required": true },
@@ -16,7 +17,7 @@ const models: TsoaRoute.Models = {
             "status": { "dataType": "string", "required": true },
             "pricing": { "dataType": "any", "required": true },
             "delivered": { "dataType": "boolean", "required": true },
-            "products": { "dataType": "any", "required": true },
+            "menus": { "dataType": "array", "array": { "dataType": "any" }, "required": true },
         },
     },
     "OrderCreationParams": {
@@ -24,11 +25,11 @@ const models: TsoaRoute.Models = {
             "date": { "dataType": "datetime", "required": true },
             "restaurant_id": { "dataType": "double", "required": true },
             "customer_id": { "dataType": "double", "required": true },
-            "deliverer_id": { "dataType": "double", "required": true },
+            "deliverer_id": { "dataType": "double" },
             "status": { "dataType": "string", "required": true },
             "pricing": { "dataType": "any", "required": true },
             "delivered": { "dataType": "boolean", "required": true },
-            "products": { "dataType": "any", "required": true },
+            "menus": { "dataType": "array", "array": { "dataType": "any" }, "required": true },
         },
     },
     "OrderUpdateParams": {
@@ -40,10 +41,10 @@ const models: TsoaRoute.Models = {
             "status": { "dataType": "string" },
             "pricing": { "dataType": "any" },
             "delivered": { "dataType": "boolean" },
-            "products": { "dataType": "any" },
+            "menus": { "dataType": "array", "array": { "dataType": "any" } },
         },
     },
-    "IDelivery": {
+    "Delivery": {
         "properties": {
             "id": { "dataType": "string", "required": true },
             "order_id": { "dataType": "double", "required": true },
@@ -65,7 +66,7 @@ const models: TsoaRoute.Models = {
             "status": { "dataType": "string" },
         },
     },
-    "IRating": {
+    "Rating": {
         "properties": {
             "id": { "dataType": "string", "required": true },
             "value": { "dataType": "double", "required": true },
@@ -89,8 +90,11 @@ const validationService = new ValidationService(models);
 
 export function RegisterRoutes(app: express.Express) {
     app.get('/api/orders',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
+                status: { "in": "query", "name": "status", "dataType": "string" },
             };
 
             let validatedArgs: any[] = [];
@@ -354,6 +358,49 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
 
+    function authenticateMiddleware(security: TsoaRoute.Security[] = []) {
+        return (request: any, _response: any, next: any) => {
+            let responded = 0;
+            let success = false;
+
+            const succeed = function(user: any) {
+                if (!success) {
+                    success = true;
+                    responded++;
+                    request['user'] = user;
+                    next();
+                }
+            }
+
+            const fail = function(error: any) {
+                responded++;
+                if (responded == security.length && !success) {
+                    error.status = 401;
+                    next(error)
+                }
+            }
+
+            for (const secMethod of security) {
+                if (Object.keys(secMethod).length > 1) {
+                    let promises: Promise<any>[] = [];
+
+                    for (const name in secMethod) {
+                        promises.push(expressAuthentication(request, name, secMethod[name]));
+                    }
+
+                    Promise.all(promises)
+                        .then((users) => { succeed(users[0]); })
+                        .catch(fail);
+                } else {
+                    for (const name in secMethod) {
+                        expressAuthentication(request, name, secMethod[name])
+                            .then(succeed)
+                            .catch(fail);
+                    }
+                }
+            }
+        }
+    }
 
     function isController(object: any): object is Controller {
         return 'getHeaders' in object && 'getStatus' in object && 'setStatus' in object;

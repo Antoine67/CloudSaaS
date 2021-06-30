@@ -39,9 +39,9 @@ class Order {
     * Pricing contained in order
     */
     pricing: {
-      paid: String;
+      paid: Boolean;
  
-      commision_fees: Object;
+      commision_fees: Number;
  
       restaurant_fees: Number;
  
@@ -58,15 +58,9 @@ class Order {
     delivered: boolean;
 
     /**
-    * Products contained in order
+    * Menus contained in order
     */
-    products: {
-      step: String;
-
-      product_id: Object;
-
-      quantity: Number;
-    };
+    menus: Array<any>;
 }
 
 /**
@@ -91,7 +85,7 @@ class OrderCreationParams {
   /**
   * Restaurant uniq indentifier reference
   */
-  deliverer_id: number;
+  deliverer_id?: number;
   
   /**
    * Name which represent the order
@@ -102,9 +96,9 @@ class OrderCreationParams {
   * Pricing contained in order
   */
   pricing: {
-    paid: String;
+    paid: Boolean;
 
-    commision_fees: Object;
+    commision_fees: Number;
 
     restaurant_fees: Number;
 
@@ -121,15 +115,9 @@ class OrderCreationParams {
   delivered: boolean;
 
   /**
-  * Products contained in order
+  * Menus contained in order
   */
-  products: {
-    step: String;
-
-    product_id: Object;
-
-    quantity: Number;
-  };
+   menus: Array<any>;
 }
 
   /**
@@ -165,9 +153,9 @@ class OrderCreationParams {
   * Pricing contained in order
   */
   pricing?: {
-    paid: String;
+    paid: Boolean;
 
-    commision_fees: Object;
+    commision_fees: Number;
 
     restaurant_fees: Number;
 
@@ -184,15 +172,9 @@ class OrderCreationParams {
   delivered?: boolean;
 
   /**
-  * Products contained in order
+  * Menus contained in order
   */
-  products?: {
-    step: String;
-
-    product_id: Object;
-
-    quantity: Number;
-  };
+   menus?: Array<any>;
 }
 
 const OrderSchema = new mongoose.Schema({
@@ -210,11 +192,7 @@ const OrderSchema = new mongoose.Schema({
     total: Number,
   },
   delivered: Boolean,
-  products: {
-    step: String,
-    product_id:  mongoose.Schema.Types.ObjectId ,
-    quantity: Number,
-  },
+  menus: Array,
 });
 
 

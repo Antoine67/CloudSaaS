@@ -1,11 +1,44 @@
 import { OrderModel, Order, OrderCreationParams, OrderUpdateParams } from "../model/order";
 import {Tags} from 'tsoa';
+import { Document } from "mongoose";
 
 export class OrdersService {
 
-  public async getAll(): Promise<Order[]> {
+  public async getAll(jwt: any, status?: string): Promise<Order[]> {
     try {
-      let items: any = await OrderModel.find({})
+      let items: any;
+
+      //Get all orders to take for deliverer
+      if (jwt.roleIdentifier == 'ceseat-delivery' && status){
+        const returnGet = OrderModel.find({
+          deliverer_id: jwt.userId,
+          status: "DELIVERY_IN_PROGRESS"
+        })
+        if(returnGet == null){
+          items = returnGet; 
+        }
+        else {
+          items = await OrderModel.find({
+            deliver_id: null,
+            status: status
+          })
+        }
+      }
+      //Get all order for user client
+      else if(jwt.roleIdentifier == 'ceseat-restaurant'){
+          items = await OrderModel.find({
+            restaurant_id: jwt.restaurantId
+          })
+      }
+      //Get all order for user client
+      else if(jwt.roleIdentifier == 'ceseat'){
+          items = await OrderModel.find({
+            customer_id: jwt.userId
+          })
+      }
+      else{
+        items = await OrderModel.find({})
+      }
       //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })
       return items;
     } catch (err) {
@@ -23,7 +56,6 @@ export class OrdersService {
         if (err) success = false;
         else success = true;
     });
-
     return success;
   }
 

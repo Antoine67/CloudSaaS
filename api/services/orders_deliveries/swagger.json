@@ -4,8 +4,8 @@
 		"application/json"
 	],
 	"definitions": {
-		"IOrder": {
-			"description": "Order objects allow merchants to show their available\nmeals/dessert/... for sale",
+		"Order": {
+			"description": "Order objects allow merchants to show their available\r\nmeals/dessert/... for sale",
 			"properties": {
 				"id": {
 					"type": "string",
@@ -163,8 +163,8 @@
 			},
 			"type": "object"
 		},
-		"IDelivery": {
-			"description": "Delivery objects allow merchants and consumer to know\nthe state the state of the delivery",
+		"Delivery": {
+			"description": "Delivery objects allow merchants and consumer to know\r\nthe state the state of the delivery",
 			"properties": {
 				"id": {
 					"type": "string",
@@ -241,8 +241,8 @@
 			},
 			"type": "object"
 		},
-		"IRating": {
-			"description": "Rating allow user to rate a restaurant or a deliverer\nafter an order completed",
+		"Rating": {
+			"description": "Rating allow user to rate a restaurant or a deliverer\r\nafter an order completed",
 			"properties": {
 				"id": {
 					"type": "string",
@@ -339,7 +339,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/IOrder"
+								"$ref": "#/definitions/Order"
 							}
 						}
 					}
@@ -391,11 +391,11 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/IOrder"
+							"$ref": "#/definitions/Order"
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing order.\nSupply the unique order ID from either and receive corresponding order details.",
+				"description": "Retrieves the details of an existing order.\r\nSupply the unique order ID from either and receive corresponding order details.",
 				"summary": "Retrieves a specific existing order",
 				"tags": [
 					"Orders"
@@ -485,7 +485,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/IDelivery"
+								"$ref": "#/definitions/Delivery"
 							}
 						}
 					}
@@ -537,11 +537,11 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/IDelivery"
+							"$ref": "#/definitions/Delivery"
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing delivery.\nSupply the unique delivery ID from either and receive corresponding delivery details.",
+				"description": "Retrieves the details of an existing delivery.\r\nSupply the unique delivery ID from either and receive corresponding delivery details.",
 				"summary": "Retrieves a specific existing delivery",
 				"tags": [
 					"Deliveries"
@@ -631,7 +631,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/IRating"
+								"$ref": "#/definitions/Rating"
 							}
 						}
 					}
@@ -683,11 +683,11 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/IRating"
+							"$ref": "#/definitions/Rating"
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing rating.\nSupply the unique rating ID from either and receive corresponding rating details.",
+				"description": "Retrieves the details of an existing rating.\r\nSupply the unique rating ID from either and receive corresponding rating details.",
 				"summary": "Retrieves a specific existing rating",
 				"tags": [
 					"Ratings"
@@ -736,7 +736,7 @@
 	],
 	"swagger": "2.0",
 	"securityDefinitions": {},
-	"host": "localhost:8080",
+	"host": "localhost:9000",
 	"schemes": [
 		"http"
 	]
