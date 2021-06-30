@@ -57,7 +57,7 @@ class AuthController {
     const token = jwt.sign(
       { userId: user.id, username: user.username, roleIdentifier: user.role.identifier, restaurantId:  restaurantId},
       config.jwtSecret,
-      { expiresIn: "1h" }
+      { expiresIn: "1d" }
     );
 
     //Send the jwt in the response

@@ -150,10 +150,9 @@ export class UserController extends Controller {
 	  */
 	 @Security("jwt")
 	 @Post('/{id}/cards')
-	 public async createCard( @Path() id: string, @Body() req: CardCreationParams, @Request() expReq: express.Request) : Promise<void> {
-		const jwt = jwtDecrypt(expReq); 
- 
-		 if(new CardsService().createCard(id,req)) {
+	 public async createCard( @Path() id: string, @Body() requestBody: CardCreationParams) : Promise<void> {
+
+		 if(new CardsService().createCard(id,requestBody)) {
 			 this.setStatus(201); // set return status 201
 		 }else {
 			 this.setStatus(500); // set return status 500

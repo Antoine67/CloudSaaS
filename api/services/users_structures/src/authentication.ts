@@ -19,6 +19,7 @@ export function expressAuthentication(
       }
       jwt.verify(token, "@ceseat-auth", function (err: any, decoded: any) {
         if (err) {
+          console.log("aaaa")
           reject(err);
         } else {
           resolve(decoded);
