@@ -9,12 +9,19 @@ import DeliveryPickableItem from "./components/DeliveryPickableItem.vue";
 import AppHeader from "./components/AppHeader.vue";
 import OrderItem from "./components/OrderItem.vue";
 import OrderList from "./components/OrderList.vue";
+import SponsorShip from "./components/SponsorShip.vue";
+
 import Vuetify from 'vuetify/lib';
+
 import { VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn } from 'vuetify/lib';
+
 //Vue.use(Vuetify);
+
 Vue.use(Vuetify, {
     components: { VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn },
 });
+
+
 const Components = {
     MenuCardItem,
     LoginForm,
@@ -25,7 +32,8 @@ const Components = {
     DeliveryPickableItem,
     DeliveryStateItem,
     OrderItem,
-    OrderList
+    OrderList,
+    SponsorShip
 };
 /*
 function install(Vue: any) {
@@ -49,6 +57,8 @@ Vue.component("DeliveryPickableItem", DeliveryPickableItem);
 Vue.component("DeliveryStateItem", AppHeader);
 Vue.component("OrderItem", OrderItem);
 Vue.component("OrderList", OrderList);
+Vue.component("SponsorShip", SponsorShip);
+
 export { MenuCardItem };
 export { LoginForm };
 export { GeolocationItem };
@@ -59,5 +69,8 @@ export { DeliveryStateItem };
 export { AppHeader };
 export { OrderItem };
 export { OrderList };
+export { SponsorShip };
+
+
 export default Components;
 //# sourceMappingURL=index.js.map

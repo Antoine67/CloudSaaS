@@ -491,6 +491,51 @@ paths:
         name: id
         required: true
         type: string
+  "/users/{id}/sponsors":
+    get:
+      operationId: getSponsorCode
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            "$ref": "#/definitions/Sponsor"
+      description: |-
+        Get the sponsor code of a user and and his sponsor.
+      summary: Retrieves a specific user sponsor code
+      tags:
+      - Users
+      security: []
+      parameters:
+      - description: The sponsor's identifier
+        in: path
+        name: id
+        required: true
+        type: string
+    put:
+      operationId: updateSponsorCode
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+      description: Supply the unique sponsor code.
+      summary: Supply the unique sponsor code.
+      tags:
+      - Users
+      security: []
+      parameters:
+      - description: The sponsors's code
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: body
+        name: req
+        required: true
+        schema:
+          "$ref": "#/definitions/SponsorUpdateParams"
   "/users/{id}/addresses/{id_2}":
     get:
       operationId: GetAddress

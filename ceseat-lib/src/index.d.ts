@@ -8,6 +8,7 @@ import DeliveryPickableItem from "./components/DeliveryPickableItem.vue";
 import AppHeader from "./components/AppHeader.vue";
 import OrderItem from "./components/OrderItem.vue";
 import OrderList from "./components/OrderList.vue";
+import SponsorShip from "./components/SponsorShip.vue";
 declare const Components: {
     MenuCardItem: any;
     LoginForm: any;
@@ -19,6 +20,7 @@ declare const Components: {
     DeliveryStateItem: any;
     OrderItem: any;
     OrderList: any;
+    SponsorShip: any;
 };
 export { MenuCardItem };
 export { LoginForm };
@@ -30,4 +32,5 @@ export { DeliveryStateItem };
 export { AppHeader };
 export { OrderItem };
 export { OrderList };
+export { SponsorShip };
 export default Components;
