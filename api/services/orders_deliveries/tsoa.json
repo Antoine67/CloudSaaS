@@ -4,14 +4,14 @@
         "outputDirectory": ".",
         "entryFile": "./src/app.ts",
         "basePath": "/api",
-        "host": "localhost:8080",
+        "host": "localhost:9000",
         "schemes": ["http"]
     },
     "spec": {
         "outputDirectory": ".",
         "entryFile": "./src/app.ts",
         "basePath": "/api",
-        "host": "localhost:8080",
+        "host": "localhost:9000",
         "schemes": ["http"]
     },
     "routes": {

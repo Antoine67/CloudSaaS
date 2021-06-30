@@ -177,6 +177,25 @@ export function RegisterRoutes(app: express.Express) {
             const promise = controller.remove.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
+    app.get('/api/products/restaurants/:id',
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new ProductController();
+
+
+            const promise = controller.getAllFromRestaurantId.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
     app.get('/api/menus',
         authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {

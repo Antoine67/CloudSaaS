@@ -616,7 +616,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
+				"description": "Retrieves the details of an existing user.\r\nSupply the unique user ID from either and receive corresponding user details.",
 				"summary": "Retrieves a specific existing user",
 				"tags": [
 					"Users"
@@ -1051,7 +1051,11 @@
 						}
 					}
 				},
+<<<<<<< HEAD
+				"description": "Retrieves the details of an existing restaurant.\r\nSupply the unique restaurant ID from either and receive corresponding restaurant details.",
+=======
 				"description": "Retrieves the details of an existing restaurant.\nSupply the unique restaurant ID from either and receive corresponding restaurant details.",
+>>>>>>> ba977ea20a01f2851f9b5aaeeab8fb55ba6c3c8d
 				"summary": "Retrieves a specific existing restaurant",
 				"tags": [
 					"Restaurants"
@@ -1142,7 +1146,11 @@
 						}
 					}
 				},
+<<<<<<< HEAD
+				"description": "Retrieves the details of an existing address.\r\nSupply the unique address ID with the restaurant ID and receive corresponding address details.",
+=======
 				"description": "Retrieves the details of an existing address.\nSupply the unique address ID with the restaurant ID and receive corresponding address details.",
+>>>>>>> ba977ea20a01f2851f9b5aaeeab8fb55ba6c3c8d
 				"summary": "Retrieves a specific existing address",
 				"tags": [
 					"Restaurants"
@@ -1288,7 +1296,11 @@
 						}
 					}
 				},
+<<<<<<< HEAD
+				"description": "Retrieves the details of an existing employee.\r\nSupply the unique restaurant ID and user ID from either and receive corresponding employee details.",
+=======
 				"description": "Retrieves the details of an existing employee.\nSupply the unique restaurant ID and user ID from either and receive corresponding employee details.",
+>>>>>>> ba977ea20a01f2851f9b5aaeeab8fb55ba6c3c8d
 				"summary": "Retrieves a specific existing employee",
 				"tags": [
 					"Restaurants"
@@ -1494,7 +1506,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing role.\nSupply the unique role ID from either and receive corresponding role details.",
+				"description": "Retrieves the details of an existing role.\r\nSupply the unique role ID from either and receive corresponding role details.",
 				"summary": "Retrieves a specific existing role",
 				"tags": [
 					"Roles"
@@ -1638,7 +1650,11 @@
 						}
 					}
 				},
+<<<<<<< HEAD
+				"description": "Retrieves the details of an existing employee's role.\r\nSupply the unique employee's role ID from either and receive corresponding employee's role details.",
+=======
 				"description": "Retrieves the details of an existing employee's role.\nSupply the unique employee's role ID from either and receive corresponding employee's role details.",
+>>>>>>> ba977ea20a01f2851f9b5aaeeab8fb55ba6c3c8d
 				"summary": "Retrieves a specific existing employee's role",
 				"tags": [
 					"RoleEmployees"

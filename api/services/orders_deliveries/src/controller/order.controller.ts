@@ -1,7 +1,9 @@
 
-import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
+import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body, Query, Security, Request } from 'tsoa';
+import * as express from 'express';
 
 import { Order, OrderCreationParams, OrderUpdateParams } from "../model/order";
+import jwtDecrypt from "../middleware/jwt"
 import { OrdersService } from "../services/order.service";
 //import { OrdersService } from "../services/order.service";
 
@@ -13,9 +15,11 @@ export class OrderController extends Controller {
 	 * Retrieves all existing orders.
 	 * @summary Retrieves all existing orders
 	 */
+	@Security("jwt")
 	@Get()
-	public async getAll(): Promise<Order[]> {
-		return new OrdersService().getAll();
+	public async getAll(@Request() expReq: express.Request, @Query() status?: string): Promise<Order[]> {
+		const jwt = jwtDecrypt(expReq);
+		return new OrdersService().getAll(jwt, status);
 	}
 
 	/**
