@@ -48,33 +48,9 @@ namespace CeseatConnect
                 StreamReader reader = new StreamReader(stream, Encoding.UTF8);
                 jsonString = reader.ReadToEnd();
             }
-
-            List<Order> order = JsonConvert.DeserializeObject<List<Order>>(jsonString);
+            List<Order> order = (JsonConvert.DeserializeObject<List<Order>>(jsonString)) != null ? JsonConvert.DeserializeObject<List<Order>>(jsonString) : null;
 
             return order;
         }
-
-
-        /*static async Task RunAsync()
-        {
-            // Update port # in the following line.
-            client.BaseAddress = new Uri("http://ceseat-api.fr/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-            try
-            {
-                Order order = new Order();
-                order = await GetOrdersAsync();
-                ShowOrders(order);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            Console.ReadLine();
-        }*/
     }
 }

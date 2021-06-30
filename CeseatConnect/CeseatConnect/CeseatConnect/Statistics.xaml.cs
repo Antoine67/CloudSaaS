@@ -28,17 +28,52 @@ namespace CeseatConnect
             var id_order = ID_Order.Text;
             //Order[] order = null;
             var order = ApiOrders.GetOrder(id_order);
-            PassationCommande.Content = order.status;
+
+            switch (order.status)
+            {
+                case "WAITING_PAYMENT":
+                    Status.Content = "Etat : En attente de payement.";
+                    break;
+                case "WAITING_VALIDATION":
+                    Status.Content = "Etat : En attente de validation.";
+                    break;
+                case "IN_PREPARATION":
+                    Status.Content = "Etat : En cours de préparation.";
+                    break;
+                case "WAITING_DELIVERER":
+                    Status.Content = "Etat : En attente du livreur.";
+                    break;
+                case "DELIVERY_IN_PROGRESS":
+                    Status.Content = "Etat : Livraison en cours.";
+                    break;
+                case "ORDER_DELIVERED":
+                    Status.Content = "Etat : Commande délivrée.";
+                    break;
+                case "ORDER_CANCELLED_CLIENT":
+                    Status.Content = "Etat : Commande annulé par le client.";
+                    break;
+                case "ORDER_CANCELLED_RESTAURANT":
+                    Status.Content = "Etat : Commande annulé par le restaurant.";
+                    break;
+            }
+
+            Price.Content ="Prix total : " + order.pricing.total + "€";
+            //PassationCommande.Content = order.status;
             //PassationCommande.Content = ordering;
         }
 
         private void GetAllOrders(object sender, RoutedEventArgs e)
         {
             var order = ApiOrders.GetOrders();
-            all.Content = order;
+            TotalOrders.Content = order.Count;
+
+            for (int i = 0; i < order.Count; i++)
+            {
+               
+
+            }
+           
+            NbWaitingPayment.Content ="";
         }
-
-
-
     }
 }

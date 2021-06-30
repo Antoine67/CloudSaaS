@@ -8,15 +8,24 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page1">
 
-    <Grid>
-        <TextBox Name="ID_Order" HorizontalAlignment="Left" Margin="304,63,0,0" Text="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
-        <Button Content="Suivre la commande" HorizontalAlignment="Left" Margin="429,63,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Label Name="PassationCommande" Content="Label" HorizontalAlignment="Center" Margin="45,114,0,0" VerticalAlignment="Top" Width="236" Height="23"/>
-        <Label Name="AcceptationCommande" Content="Label" HorizontalAlignment="Center" Margin="45,142,0,0" VerticalAlignment="Top" Width="236" Height="23"/>
-        <Label Name="AcceptationLivraison" Content="Label" HorizontalAlignment="Center" Margin="45,170,0,0" VerticalAlignment="Top" Width="236" Height="23"/>
-        <Label Name="AcquittementLivraison" Content="Label" HorizontalAlignment="Center" Margin="45,198,0,0" VerticalAlignment="Top" Width="236" Height="23"/>
-        <Label Name="ChiffreDaffaire" Content="Label" HorizontalAlignment="Center" Margin="45,226,0,0" VerticalAlignment="Top" Width="236" Height="23"/>
-        <Button Content="Récupérer toutes les commandes" HorizontalAlignment="Left" Margin="304,294,0,0" VerticalAlignment="Top" Height="50" Width="236" Click="GetAllOrders"/>
-        <Label Name="all" Content="Label" HorizontalAlignment="Left" Margin="20,65,0,0" VerticalAlignment="Top"/>
+    <Grid HorizontalAlignment="Left">
+        <TextBox Name="ID_Order" HorizontalAlignment="Left" Margin="18,60,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="162" Height="20"/>
+        <Button Content="Suivre la commande" HorizontalAlignment="Left" Margin="185,60,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Label x:Name="Status" Content="" HorizontalAlignment="Left" Margin="18,102,0,0" VerticalAlignment="Top" Width="278" Height="39"/>
+        <Label x:Name="Price" Content="" HorizontalAlignment="Left" Margin="18,146,0,0" VerticalAlignment="Top" Width="278" Height="39"/>
+        <Button Content="Récupérer toutes les commandes" HorizontalAlignment="Left" Margin="526,60,0,0" VerticalAlignment="Top" Height="20" Width="213" Click="GetAllOrders"/>
+        <Label x:Name="TotalOrders" Content="" HorizontalAlignment="Left" Margin="494,104,0,0" VerticalAlignment="Top" Width="278" Height="39"/>
+        <ComboBox x:Name="Cmbx" HorizontalAlignment="Left" Margin="494,163,0,0" VerticalAlignment="Top" Width="278" Height="237">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding IdOrders}"></TextBlock>
+                        <TextBlock Text="{Binding StatusOrders}" Padding="10,0,0,0"></TextBlock>
+                        <TextBlock Text="{Binding PriceOrders}" Padding="10,0,0,0"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
     </Grid>
 </Page>
