@@ -1,16 +1,34 @@
 <template>
   <v-container>
-    <DeliveryPickableItem v-for="order in orders" :key="order.id"
-    :restaurantText="order.restaurant_id"
-    :stateText="order.status"
-    :dateText="order.date"
-    :orderPickedUp="order.deliverer_id == userData.userId"
-    :onTakeOrderClick=onTakeOrderClick
-    :onDeliveredOrderClick=onDeliveredOrderClick
-    description="TODO 16 rue des peupliers 67637 STRASBOURG"
-    stateColor="blue"
-    :order="order"
-    />
+    <v-container class="grey--text mb-2" >
+        <v-icon :color="$socket.connected ? 'green' : 'red'" > mdi-access-point</v-icon>
+        <span class="ma-1" >{{ $socket.connected ? 'Mise à jour en temps réel' : 'Mise à jour désactivée' }}</span>
+    </v-container>
+    
+    <v-container v-if="orders && orders.length">
+      <v-container v-if="orders.length == 1 && orders[0].status == 'DELIVERY_IN_PROGRESS'" class="text-h4">
+        <p>Ma livraison en cours</p>
+      </v-container>
+       <v-container v-else class="text-h4">
+         <p>Livraisons en attente</p>
+      </v-container>
+      <v-container>
+        <DeliveryPickableItem v-for="order in orders" :key="order.id"
+        :restaurantText="order.restaurant_id"
+        :stateText="order.status"
+        :dateText="order.date"
+        :orderPickedUp="order.deliverer_id == userData.userId"
+        :onTakeOrderClick=onTakeOrderClick
+        :onDeliveredOrderClick=onDeliveredOrderClick
+        :description="`${order.pricing.total}€ - ${order.menus.length} menus`"
+        stateColor="blue"
+        :order="order"
+        />
+      </v-container>
+    </v-container>
+    <v-container v-else>
+      Aucune livraison en attente
+    </v-container>
   </v-container>
 </template>
 
@@ -36,7 +54,7 @@ export default class Deliveries extends Vue {
     OrdersService.getAll()
       .then((response) => {
         this.orders = response.data;
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -47,10 +65,22 @@ export default class Deliveries extends Vue {
     this.fetchOrders();
   }
 
+   mounted() {
+        // subscribe
+        this.$socket.client.on('needUpdate', (payload: any) => {
+           if(payload && payload.type) {
+                if(payload.type == "NEW_ORDER" || payload.type == "ORDER_UPDATE") {
+                    this.fetchOrders();
+                }
+            }
+        })
+
+    }
+
   onTakeOrderClick(order: any){
     OrdersService.update(order.id, { deliverer_id: this.userData.userId, status: "DELIVERY_IN_PROGRESS"})
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         this.fetchOrders();
       })
       .catch((e) => {
