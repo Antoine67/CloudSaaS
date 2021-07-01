@@ -1,0 +1,152 @@
+version: "3.3"
+
+
+services:
+    sql_db_1:
+        build: ./sql
+        environment:
+            SA_PASSWORD: "MssqlPass123"
+            ACCEPT_EULA: "Y"
+            MSSQL_AGENT_ENABLED: "true"
+            MASTER_KEY_PASSWORD: "Pa$$w0rd!?*"
+            HADR_LOGIN_PASSWORD: "Pa$$w0rd123"
+            HADR_CERT_PASSWORD: "Pa$$w0rd1*"
+            HADR_PORT: 5022
+            INIT_WAIT: 40
+            INIT_SCRIPT: "aoag_primary.sql"
+        ports:
+            - "2500:1433"
+        container_name: sql_db_1
+        hostname: sql_db_1
+        volumes:
+            - mssql-server-shared:/var/opt/mssql/shared
+            - mssql-server-backup:/var/opt/mssql/backup
+        networks:
+            - sqlaoag
+    sql_db_2:
+        build: ./sql
+        depends_on:
+            - "sql_db_1"
+        environment:
+            SA_PASSWORD: "MssqlPass123"
+            ACCEPT_EULA: "Y"
+            MSSQL_AGENT_ENABLED: "true"
+            MASTER_KEY_PASSWORD: "Pa$$w0rd!?*"
+            HADR_LOGIN_PASSWORD: "Pa$$w0rd123"
+            HADR_CERT_PASSWORD: "Pa$$w0rd1*"
+            HADR_PORT: 5022
+            INIT_SCRIPT: "aoag_secondary.sql"
+            INIT_WAIT: 40
+        ports:
+            - "2600:1433"
+        container_name: sql_db_2
+        hostname: sql_db_2
+        volumes:
+            - mssql-server-shared:/var/opt/mssql/shared
+            - mssql-server-backup:/var/opt/mssql/backup
+        networks:
+            - sqlaoag
+ 
+            
+    mongo-setup:
+        container_name: mongo-setup
+        image: mongo
+        restart: on-failure
+        networks:
+            default:
+        volumes:
+            - ./mongodb:/scripts
+        entrypoint: [ "/scripts/setup.sh" ] # Make sure this file exists (see below for the setup.sh)
+        depends_on:
+            - mongo1
+            - mongo2
+            - mongo3
+        
+    mongo1:
+        hostname: mongo1
+        container_name: localmongo1
+        image: mongo
+        expose:
+            - 27017
+        ports:
+            - 27017:27017
+        restart: always
+        entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--journal", "--dbpath", "/data/db", "--enableMajorityReadConcern", "false" ]
+        volumes:
+            - /usr/mongo/data1/db:/data/db # This is where your volume will persist. e.g. VOLUME-DIR = ./volumes/mongodb
+            - /usr/mongo/data1/configdb:/data/configdb
+        
+    mongo2:
+        hostname: mongo2
+        container_name: localmongo2
+        image: mongo
+        expose:
+            - 27017
+        ports:
+            - 27018:27017
+        restart: always
+        entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--journal", "--dbpath", "/data/db", "--enableMajorityReadConcern", "false" ]
+        volumes:
+            - /usr/mongo/data2/db:/data/db # Note the data2, it must be different to the original set.
+            - /usr/mongo/data2/configdb:/data/configdb
+       
+    mongo3:
+        hostname: mongo3
+        container_name: localmongo3
+        image: mongo
+        expose:
+            - 27017
+        ports:
+            - 27019:27017
+        restart: always
+        entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--journal", "--dbpath", "/data/db", "--enableMajorityReadConcern", "false" ]
+        volumes:
+            - /usr/mongo/data3/db:/data/db
+            - /usr/mongo/data3/configdb:/data/configdb
+        
+volumes:
+    mssql-server-shared:
+    mssql-server-backup:
+networks:
+    sqlaoag:       
+        
+#    haproxy:
+#        image: eeacms/haproxy
+#        depends_on:
+#            - webapp
+#        ports:
+#            - "80:5000"
+#        environment:
+#            BACKENDS: "webapp"
+#            DNS_ENABLED: "true"
+#            LOG_LEVEL: "info"
+#        container_name: haproxy
+#        hostname: haproxy
+        
+#    webapp:
+#        image: eeacms/hello
+    
+    
+    
+
+
+
+
+  #mongodb_service1:
+  #  container_name: mongodb_service1
+  #  build: ./mongodb/
+  #  ports:
+  #    - '7001:7001' # expose ports - HOST:CONTAINER
+  #  environment:
+  #    - PORT=7001
+      
+  #mongodb_service2:
+  #  container_name: mongodb_service2
+  #  build: ./mongodb/
+  #  ports:
+  #    - '7002:7002' # expose ports - HOST:CONTAINER
+  #  environment:
+  #    - PORT=7002
+
+
+  
