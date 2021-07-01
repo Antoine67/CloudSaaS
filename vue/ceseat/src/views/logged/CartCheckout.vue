@@ -1,6 +1,6 @@
 <template>
 
-<v-container v-if="getNumberInCart" >
+<v-container v-if="getNumberInCart" class="text-center" >
 
 
 
@@ -11,7 +11,19 @@
     
     
 
-    <v-btn @click="submit" :disabled="!getNumberInCart">Procéder au paiement</v-btn>
+    <v-btn
+        @click="submit" :disabled="!getNumberInCart"
+        class="ma-2"
+        color="green darken-2"
+        dark
+        >
+        <v-icon
+            dark
+            left
+        >
+            mdi-cart-arrow-down
+        </v-icon>Procéder au paiement
+    </v-btn>
 </v-container>
 
 <v-dialog v-else v-model="dialog" persistent max-width="500px" min-width="360px">
@@ -76,11 +88,14 @@ export default class CartCheckout extends Vue{
 
   selected : any[]
 
-
   submit () {
       if(!this.selected) {
-          console.log("Aucune CB séléctionnée !") //TODO popup?
-          return;
+        this.$notify({
+            title: 'Erreur',
+            text: 'Aucune carte bancaire séléctionnée, rendez-vous dans "Gérer mes cartes"',
+            type: "error"
+        });
+        return;
       }
       
       //TODO Handle payment ?
@@ -91,14 +106,23 @@ export default class CartCheckout extends Vue{
       order.customer_id = this.userData.userId
       
 
-      console.log("POSTING", order, JSON.stringify(order))
+      //console.log("POSTING", order, JSON.stringify(order))
       OrdersService.create(order)
         .then((response) => {
-            console.log("Commande passée !") //TODO popup?
+             this.$notify({
+                title: 'Succès !',
+                text: 'Votre commande a été passée avec succès',
+                type: "success"
+            });
             this.clearCart()
+            this.$router.push("/my-orders")
         })
         .catch((e) => {
-            console.log("Une erreur est survenue") //TODO popup?
+            this.$notify({
+                title: 'Erreur',
+                text: 'Une erreur est survenue, veuillez réessayez ultérieurement',
+                type: "error"
+            });
             console.log(e);
         });
   }

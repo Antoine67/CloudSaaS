@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <notifications  position="bottom right"/>
     <AppHeader
       :onLogoClick="onLogoClick"
       :onLoginClick="onLoginClick"
