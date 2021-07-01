@@ -67,7 +67,7 @@ class ProductCreationParams {
    /**
     * Restaurant uniq indentifier reference
     */
-   restaurant_id: number;
+   restaurant_id?: number;
 
    /**
     * Price in euros (€)
