@@ -17,8 +17,9 @@ export class MenuController extends Controller {
 	 */
 	@Security("jwt")
 	@Get()
-	public async getAll(): Promise<Menu[]> {
-		return new MenusService().getAll();
+	public async getAll(@Request() expReq: express.Request): Promise<Menu[]> {
+		const jwt = jwtDecrypt(expReq); 
+		return new MenusService().getAll(jwt.restaurantId);
 	}
 
 	/**
@@ -29,8 +30,9 @@ export class MenuController extends Controller {
 	 */
 	@Security("jwt")
 	@Get('/{id}')
-	public async get(@Path() id: string): Promise<Menu> {
-		return new MenusService().get(id);
+	public async get(@Request() expReq: express.Request, @Path() id: string): Promise<Menu> {
+		const jwt = jwtDecrypt(expReq); 
+		return new MenusService().get(id, jwt.restaurantId);
 	}
 	
 	/**
@@ -40,9 +42,10 @@ export class MenuController extends Controller {
 	 */
 	@Security("jwt")
 	@Post()
-	public async create(@Body() requestBody: MenuCreationParams) : Promise<void> {
+	public async create(@Request() expReq: express.Request, @Body() requestBody: MenuCreationParams) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
 		
-		if(new MenusService().create(requestBody)) {
+		if(new MenusService().create(requestBody, jwt.restaurantId)) {
 			this.setStatus(201); // set return status 201
 		}else {
 			this.setStatus(500); // set return status 500
@@ -58,9 +61,10 @@ export class MenuController extends Controller {
 	 */
 	@Security("jwt")
 	@Put('/{id}')
-	public async update( @Path() id: string, @Body() requestBody: MenuUpdateParams) : Promise<void> {
+	public async update(@Request() expReq: express.Request, @Path() id: string, @Body() requestBody: MenuUpdateParams) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
 		this.setStatus(201); // set return status 201
-		new MenusService().update(id, requestBody);
+		new MenusService().update(id, requestBody, jwt.restaurantId);
 		return;
 	}
 
@@ -71,16 +75,19 @@ export class MenuController extends Controller {
 	 */
 	@Security("jwt")
 	@Delete('/{id}')
-	public async remove(@Path() id: string) : Promise<void> {
-		return new MenusService().delete(id);
+	public async remove(@Request() expReq: express.Request, @Path() id: string) : Promise<void> {
+		const jwt = jwtDecrypt(expReq); 
+		return new MenusService().delete(id, jwt.restaurantId);
 	}
 
 	/**
 	 * Retrieves all existing menus from a given restaurant.
 	 * @summary Retrieves all existing menus from a given restaurant
 	 */
+	@Security("jwt")
 	@Get('/restaurants/{id}')
-	public async getAllFromRestaurantId(@Path() id: string): Promise<Menu[]> {
+	public async getAllFromRestaurantId(@Request() expReq: express.Request, @Path() id: string): Promise<Menu[]> {
+		const jwt = jwtDecrypt(expReq); 
 		return new MenusService().getAllFromRestaurantId(id);
 	}
 }

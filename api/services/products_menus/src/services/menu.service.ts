@@ -4,9 +4,9 @@ import {Tags} from 'tsoa';
 
 export class MenusService {
 
-  public async getAll(): Promise<Menu[]> {
+  public async getAll(restaurantId : number): Promise<Menu[]> {
     try {
-      let items: any = await MenuModel.find({})
+      let items: any = await MenuModel.find({restaurant_id: restaurantId})
       //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })
       return items;
     } catch (err) {
@@ -26,7 +26,8 @@ export class MenusService {
     }
   }
 
-  public async create(menuCreationParams: MenuCreationParams): Promise<boolean> {
+  public async create(menuCreationParams: MenuCreationParams, restaurantId : number): Promise<boolean> {
+    menuCreationParams.restaurant_id = restaurantId
 
     const item = new MenuModel(menuCreationParams)
     console.info(menuCreationParams)
@@ -39,16 +40,16 @@ export class MenusService {
     return success;
   }
 
-  public async update(id: string, menuUpdateParams: MenuUpdateParams): Promise<void> {
-    await MenuModel.findByIdAndUpdate({ _id: id }, menuUpdateParams)
+  public async update(id: string, menuUpdateParams: MenuUpdateParams, restaurantId : number): Promise<void> {
+    await MenuModel.findByIdAndUpdate({ _id: id, restaurant_id: restaurantId }, menuUpdateParams)
   }
 
-  public async delete(id: string): Promise<void> {
-    await MenuModel.findByIdAndRemove(id)
+  public async delete(id: string, restaurantId : number): Promise<void> {
+    await MenuModel.findByIdAndRemove({ _id: id, restaurant_id: restaurantId })
   }
 
-  public async get(id: string): Promise<any> {
-    return await MenuModel.findById(id)
+  public async get(id: string, restaurantId : number): Promise<any> {
+    return await MenuModel.findById({ _id: id, restaurant_id: restaurantId })
   }
 
 }
