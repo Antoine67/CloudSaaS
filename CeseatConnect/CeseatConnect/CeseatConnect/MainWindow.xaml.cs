@@ -29,8 +29,8 @@ namespace CeseatConnect
 
         private void TabItem_GotFocus(object sender, RoutedEventArgs e)
         {
-            var res = APIUsers.GetUsers();
-            DataGrid.ItemsSource = res;
+            //var res = APIUsers.GetUsers();
+            //DataGrid.ItemsSource = res;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -39,7 +39,7 @@ namespace CeseatConnect
             //Order[] order = null;
             if (id_order != "")
             {
-                var order = ApiOrders.GetOrder(id_order);
+                var order = ApiOrders.GetOrder(id_order, token);
 
                 switch (order.status)
                 {
@@ -84,7 +84,7 @@ namespace CeseatConnect
 
         private void GetAllOrders(object sender, RoutedEventArgs e)
         {
-            var order = ApiOrders.GetOrders();
+            var order = ApiOrders.GetOrders(token);
             TotalOrders.Content = order.Count;
             List<OrderData> ordersData = new List<OrderData>();
 

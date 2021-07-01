@@ -12,9 +12,11 @@ namespace CeseatConnect
 {
     class ApiOrders
     {
-        public static Order GetOrder(string id)
+        public static Order GetOrder(string id, string token)
         {
             HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("http://ceseat-api.fr/api/orders/" + id));
+            WebReq.PreAuthenticate = true;
+            WebReq.Headers.Add("x-access-token", token);
             WebReq.Method = "GET";
             HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
 
@@ -35,9 +37,11 @@ namespace CeseatConnect
             return order;
         }
 
-        public static List<Order> GetOrders()
+        public static List<Order> GetOrders(string token)
         {
             HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("http://ceseat-api.fr/api/orders"));
+            WebReq.PreAuthenticate = true;
+            WebReq.Headers.Add("x-access-token", token);
             WebReq.Method = "GET";
             HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
 
