@@ -15,17 +15,17 @@
         <Label x:Name="Price" Content="" HorizontalAlignment="Left" Margin="18,146,0,0" VerticalAlignment="Top" Width="278" Height="39"/>
         <Button Content="Récupérer toutes les commandes" HorizontalAlignment="Left" Margin="526,60,0,0" VerticalAlignment="Top" Height="20" Width="213" Click="GetAllOrders"/>
         <Label x:Name="TotalOrders" Content="" HorizontalAlignment="Left" Margin="494,104,0,0" VerticalAlignment="Top" Width="278" Height="39"/>
-        <ComboBox x:Name="Cmbx" HorizontalAlignment="Left" Margin="494,163,0,0" VerticalAlignment="Top" Width="278" Height="237">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding IdOrders}"></TextBlock>
-                        <TextBlock Text="{Binding StatusOrders}" Padding="10,0,0,0"></TextBlock>
-                        <TextBlock Text="{Binding PriceOrders}" Padding="10,0,0,0"></TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+        <Grid>
+            <ListView Margin="476,102,0,139" Name="EveryOrders" RenderTransformOrigin="0.624,0.02">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID Order" Width="100" DisplayMemberBinding="{Binding id}" />
+                        <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding status}" />
+                        <GridViewColumn Header="Price" Width="100" DisplayMemberBinding="{Binding price}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
 
     </Grid>
 </Page>

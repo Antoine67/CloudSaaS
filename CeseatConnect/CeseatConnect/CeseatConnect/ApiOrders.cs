@@ -21,14 +21,16 @@ namespace CeseatConnect
             Console.WriteLine(WebResp.StatusCode);
             Console.WriteLine(WebResp.Server);
 
+            Order order = null;
+
             string jsonString;
             using (Stream stream = WebResp.GetResponseStream())   //modified from your code since the using statement disposes the stream automatically when done
             {
                 StreamReader reader = new StreamReader(stream, Encoding.UTF8);
                 jsonString = reader.ReadToEnd();
             }
-
-            Order order = JsonConvert.DeserializeObject<Order>(jsonString);
+            Console.WriteLine(jsonString);
+            order = (JsonConvert.DeserializeObject<Order>(jsonString)) != null ? JsonConvert.DeserializeObject<Order>(jsonString) : null;
 
             return order;
         }
