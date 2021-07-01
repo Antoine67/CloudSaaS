@@ -66,11 +66,13 @@ class AuthController {
 
   static register = async (req: Request, res: Response) => {
     //Get parameters from the body
-    let { email, password, username, roleIdentifier } = req.body;
+    let { email, password, username, roleIdentifier, name, surname } = req.body;
     let user = new User();
     user.email = email;
     user.password = password;
     user.username = username;
+    user.name = name;
+    user.surname = surname;
     
     let roleObj;
     const roleRepository = getRepository(Role);
