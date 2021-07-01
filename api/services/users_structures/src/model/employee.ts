@@ -31,13 +31,13 @@ export class Employee {
 
 export class EmployeeCreationParams {
     
-    role: number;
+    role: RoleEmployee;
 
 }
 
 export class EmployeeUpdateParams {
     
-    role?: number;
+    role?: RoleEmployee;
 
 }
   

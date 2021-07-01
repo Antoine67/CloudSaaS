@@ -14,6 +14,10 @@ class OrdersServices {
     return http.get("/orders?status=waiting-deliverer");
   }
 
+  getAllPassed()  {
+    return http.get("/orders?status=passed");
+  }
+
   get(id: string) {
     return http.get(`/orders/${id}`);
   }

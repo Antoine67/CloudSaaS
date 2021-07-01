@@ -202,7 +202,7 @@ export default class MyCards extends Vue{
     closeDelete () {
         this.dialogDelete = false
         this.$nextTick(() => {
-            this.editedItem = Object.assign({}, this.defaultItem)
+            this.editedItem = Object.assign({}, {})
             this.editedIndex = -1
         })
     }

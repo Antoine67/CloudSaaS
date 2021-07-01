@@ -4,10 +4,14 @@ import Home from '@/views/public/Home.vue'
 import Login from "@/views/auth/Login.vue";
 import Profile from "@/views/logged/Profile.vue"
 import MyOrders from "@/views/logged/MyOrders.vue"
+import History from "@/views/logged/History.vue"
+import NoRestaurantDashboard from "@/views/logged/NoRestaurantDashboard.vue"
 import RestaurantManagement from "@/views/logged/RestaurantManagement.vue"
+import CreateRestaurant from "@/views/logged/CreateRestaurant.vue"
 import Dashboard from "@/views/logged/Dashboard.vue"
 
 import auth from "@/middlewares/auth"
+import hasRestaurant from "@/middlewares/hasRestaurant"
 
 Vue.use(VueRouter)
 
@@ -35,13 +39,37 @@ const routes: Array<RouteConfig> = [
     name: 'MyOrders',
     component: MyOrders,
     meta: {
-      middleware: auth 
+      middleware: [auth, hasRestaurant]
+    }
+  },
+  {
+    path: '/history',
+    name: 'History',
+    component: History,
+    meta: {
+      middleware: [auth, hasRestaurant]
     }
   },
   {
     path: '/restaurant-management',
     name :'RestaurantManagement',
     component: RestaurantManagement,
+    meta: {
+      middleware: [auth, hasRestaurant]
+    }
+  },
+  {
+    path: '/no-restaurant-dashboard',
+    name :'NoRestaurantDashboard',
+    component: NoRestaurantDashboard,
+    meta: {
+      middleware: auth 
+    }
+  },
+  {
+    path: '/create-restaurant',
+    name :'CreateRestaurant',
+    component: CreateRestaurant,
     meta: {
       middleware: auth 
     }
@@ -51,7 +79,7 @@ const routes: Array<RouteConfig> = [
     name :'Dashboard',
     component: Dashboard,
     meta: {
-      middleware: auth 
+      middleware: [auth, hasRestaurant] 
     }
   },
   {

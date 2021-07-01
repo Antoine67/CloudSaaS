@@ -1,5 +1,6 @@
 
-import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body } from 'tsoa';
+import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body, Security, Request } from 'tsoa';
+import * as express from 'express';
 
 import { Restaurant, RestaurantUpdateParams, RestaurantCreationParams } from "../model/restaurant";
 import { Address, AddressCreationParams, AddressUpdateParams } from "../model/address";
@@ -7,9 +8,9 @@ import { Card, CardCreationParams } from "../model/card";
 import { AddressesService } from "../services/address.service";
 import { CardsService } from "../services/card.service";
 import { RestaurantsService } from "../services/restaurant.service";
-import { Request, Response } from "express";
 import { Employee, EmployeeCreationParams, EmployeeUpdateParams } from "../model/employee";
 import { EmployeesService } from '../services/employee.service';
+import jwtDecrypt from "../middleware/jwt"
 
 @Route('/restaurants')
 @Tags("Restaurants")
@@ -19,6 +20,7 @@ export class RestaurantController extends Controller {
 	 * Retrieves all existing restaurants.
 	 * @summary Retrieves all existing restaurants
 	 */
+	@Security("jwt")
 	@Get()
 	public async getAll(): Promise<Restaurant[]> {
 		return new RestaurantsService().getAll();
@@ -30,6 +32,7 @@ export class RestaurantController extends Controller {
 	 * @param id The restaurant's identifier
 	 * @summary Retrieves a specific existing restaurant
 	 */
+	@Security("jwt")
 	@Get('/{id}')
 	public async get(@Path() id: string): Promise<Restaurant> {
 		return new RestaurantsService().get(id);
@@ -41,8 +44,9 @@ export class RestaurantController extends Controller {
 	 * @param requestBody The new restaurant's data
 	 * @summary Update an existing restaurant
 	 */
+	@Security("jwt")
 	@Put('/{id}')
-	public async update( @Path() id: string, @Body() req: RestaurantUpdateParams) : Promise<void> {
+	public async update(@Path() id: string, @Body() req: RestaurantUpdateParams) : Promise<void> {
 		this.setStatus(201); // set return status 201
 		new RestaurantsService().update(id, req);
 		return;
@@ -53,6 +57,7 @@ export class RestaurantController extends Controller {
 	 * @param id The restaurant's identifier
 	 * @summary Delete a restaurant
 	 */
+	@Security("jwt")
 	@Delete('/{id}')
 	public async remove(@Path() id: string) : Promise<void> {
 		return new RestaurantsService().delete(id);
@@ -63,10 +68,12 @@ export class RestaurantController extends Controller {
      * @param requestBody The new restaurant's data
      * @summary Create a new restaurant
      */
+	@Security("jwt")
     @Post()
-    public async create(@Body() req: RestaurantCreationParams) : Promise<void> {
+    public async create(@Request() expReq: express.Request, @Body() req: RestaurantCreationParams) : Promise<void> {
+		const jwt = jwtDecrypt(expReq);
 
-        if(new RestaurantsService().create(req)) {
+        if(new RestaurantsService().create(jwt, req)) {
             this.setStatus(201); // set return status 201
         }else {
             this.setStatus(500); // set return status 500
@@ -81,6 +88,7 @@ export class RestaurantController extends Controller {
 	 * @param id_2 The address's identifier
 	 * @summary Retrieves a specific existing address
 	 */
+	@Security("jwt")
 	@Get('/{id}/addresses/{id_2}')
 	public async getAddress(@Path() id: string, id_2: string): Promise<Address> {
 		return new AddressesService().getRestaurantAddress(id, id_2);
@@ -92,6 +100,7 @@ export class RestaurantController extends Controller {
 	 * @param requestBody The new address's data
 	 * @summary Create a new address
 	 */
+	@Security("jwt")
 	@Post('/{id}/addresses')
 	public async createAddress( @Path() id: string, @Body() req: AddressCreationParams) : Promise<void> {
 
@@ -110,6 +119,7 @@ export class RestaurantController extends Controller {
 	 * @param requestBody The new address's data
 	 * @summary Update an existing address
 	 */
+	@Security("jwt")
 	 @Put('/{id}/addresses/{id_2}')
 	 public async updateAddress( @Path() id: string, id_2: string, @Body() req: AddressUpdateParams) : Promise<void> {
 		 this.setStatus(201); // set return status 201
@@ -124,6 +134,7 @@ export class RestaurantController extends Controller {
 	  * @param id The restaurant's identifier
 	  * @summary Retrieves all employees of a specific existing restaurant
 	  */
+	@Security("jwt")
 	 @Get('/{id}/users')
 	 public async getAllEmployees(@Path() id: string): Promise<Card> {
 		 return new EmployeesService().getAll(id);
@@ -136,6 +147,7 @@ export class RestaurantController extends Controller {
 	  * @param id_2 The user's identifier
 	  * @summary Retrieves a specific existing employee
 	  */
+	@Security("jwt")
 	  @Get('/{id}/users/{id_2}')
 	  public async getEmployee(@Path() id: string, id_2: string): Promise<Card> {
 		  return new EmployeesService().get(id, id_2);
@@ -148,6 +160,7 @@ export class RestaurantController extends Controller {
 	  * @param requestBody The new employee's data
 	  * @summary Create a new employee
 	  */
+	@Security("jwt")
 	 @Post('/{id}/users/{id_2}')
 	 public async createEmployee( @Path() id: string, id_2: string, @Body() req: EmployeeCreationParams) : Promise<void> {
  
@@ -165,6 +178,7 @@ export class RestaurantController extends Controller {
 	  * @param id_2 The user's identifier
 	  * @summary Delete an employee
 	  */
+	@Security("jwt")
 	 @Delete('/{id}/users/{id_2}')
 	 public async removeEmployee(@Path() id: string, id_2: string) : Promise<void> {
 		 return new EmployeesService().delete(id, id_2);
@@ -177,6 +191,7 @@ export class RestaurantController extends Controller {
 	  * @param requestBody The new employee's data
 	  * @summary Update an existing employee
 	  */
+	@Security("jwt")
 	  @Put('/{id}/users/{id_2}')
 	  public async updateEmployee( @Path() id: string, id_2: string, @Body() req: EmployeeUpdateParams) : Promise<void> {
 		  this.setStatus(201); // set return status 201

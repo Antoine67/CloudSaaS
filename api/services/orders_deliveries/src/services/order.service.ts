@@ -46,14 +46,29 @@ export class OrdersService {
             status: "WAITING_DELIVERER"
           });
         }
-        else {
+        else if(status && status == "passed"){
+          items = await OrderModel.find({
+            restaurant_id: jwt.restaurantId,
+            status: ["DELIVERY_IN_PROGRESS", "ORDER_DELIVERED", "ORDER_CANCELLED_CLIENT", "ORDER_CANCELLED_RESTAURANT"]
+          });
         }
       }
       //Get all order for user client
-      else if(jwt.roleIdentifier == 'ceseat'){
+      else if(jwt.roleIdentifier == 'ceseat'){          
+          
+        if(status && status == "in-progress"){
           items = await OrderModel.find({
-            customer_id: jwt.userId
-          })
+            customer_id: jwt.userId,
+            status: ["WAITING_PAYMENT", "WAITING_VALIDATION", "IN_PREPARATION", "WAITING_DELIVERER", "DELIVERY_IN_PROGRESS"]
+          });
+        }
+        else if(status && status == "passed"){
+          items = await OrderModel.find({
+            customer_id: jwt.userId,
+            status: ["ORDER_DELIVERED", "ORDER_CANCELLED_CLIENT", "ORDER_CANCELLED_RESTAURANT"]
+          });
+        }
+        
       }
       else{
         items = await OrderModel.find({})
