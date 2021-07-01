@@ -59,6 +59,9 @@ import {EOrderState} from "@/types/EOrderState";
 const Cart = namespace("Cart");
 const Auth = namespace("Auth");
 
+import User from "@/types/User"
+import UsersService from "@/services/UsersService"
+
 import OrdersService from "@/services/OrdersService"
 
 @Component({
@@ -86,7 +89,23 @@ export default class CartCheckout extends Vue{
 
   dialog = true
 
+  user : User = {}
+
   selected : any[]
+
+  fetchUser() {
+        UsersService.get(this.userData.userId)
+        .then((response) => {
+            this.user = response.data;
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
+
+   mounted() {
+       this.fetchUser()
+   }
 
   submit () {
       if(!this.selected) {
@@ -98,14 +117,26 @@ export default class CartCheckout extends Vue{
         return;
       }
       
+      
+      if(!this.user.address) {
+        this.$notify({
+            title: 'Erreur',
+            text: 'Aucune adresse renseignée pour la livraison, veuillez en ajouter une (disponible sur votre page de profil)"',
+            type: "error"
+        });
+        return;
+      }
+      
       //TODO Handle payment ?
       let order = this.getOrder
       order.status = EOrderState.WAITING_VALIDATION
       order.pricing.payment_card_id = this.selected[0].id
       order.pricing.paid = true
       order.customer_id = this.userData.userId
-      
 
+      order.address = this.user.address
+      
+        
       //console.log("POSTING", order, JSON.stringify(order))
       OrdersService.create(order)
         .then((response) => {

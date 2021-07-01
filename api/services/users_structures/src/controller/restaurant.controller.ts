@@ -21,11 +21,9 @@ export class RestaurantController extends Controller {
 	 * Retrieves all existing restaurants.
 	 * @summary Retrieves all existing restaurants
 	 */
-	@Security("jwt")
 	@Get()
-	public async getAll(@Request() expReq: express.Request): Promise<Restaurant[]> {
-		const jwt = jwtDecrypt(expReq); 
-		return new RestaurantsService().getAll(isAdmin(jwt));
+	public async getAll(): Promise<Restaurant[]> {
+		return new RestaurantsService().getAll();
 	}
 
 	/**
@@ -34,7 +32,6 @@ export class RestaurantController extends Controller {
 	 * @param id The restaurant's identifier
 	 * @summary Retrieves a specific existing restaurant
 	 */
-	@Security("jwt")
 	@Get('/{id}')
 	public async get(@Path() id: string): Promise<Restaurant> {
 		return new RestaurantsService().get(id);

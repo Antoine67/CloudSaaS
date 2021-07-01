@@ -39,6 +39,10 @@
 					"type": "object",
 					"description": "Pricing contained in order"
 				},
+				"address": {
+					"type": "object",
+					"description": "Address to deliver"
+				},
 				"delivered": {
 					"type": "boolean",
 					"description": "Is the order currently available ?"
@@ -59,6 +63,7 @@
 				"deliverer_id",
 				"status",
 				"pricing",
+				"address",
 				"delivered",
 				"menus"
 			],
@@ -96,6 +101,10 @@
 					"type": "object",
 					"description": "Pricing contained in order"
 				},
+				"address": {
+					"type": "object",
+					"description": "Address to deliver"
+				},
 				"delivered": {
 					"type": "boolean",
 					"description": "Is the order currently available ?"
@@ -114,6 +123,7 @@
 				"customer_id",
 				"status",
 				"pricing",
+				"address",
 				"delivered",
 				"menus"
 			],
@@ -156,6 +166,10 @@
 					"description": "Pricing contained in order",
 					"x-nullable": true
 				},
+				"address": {
+					"type": "object",
+					"description": "Address to deliver"
+				},
 				"delivered": {
 					"type": "boolean",
 					"description": "Is the order currently available ?",
@@ -170,6 +184,9 @@
 					"x-nullable": true
 				}
 			},
+			"required": [
+				"address"
+			],
 			"type": "object"
 		},
 		"Delivery": {

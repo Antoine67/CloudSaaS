@@ -20,7 +20,9 @@
         :orderPickedUp="order.deliverer_id == userData.userId"
         :onTakeOrderClick=onTakeOrderClick
         :onDeliveredOrderClick=onDeliveredOrderClick
-        :description="`${order.pricing.total}€ - ${order.menus.length} menus`"
+        :description="`${order.address.address1} ${order.address.address2} ${order.address.address1} 
+        ${order.address.town}
+        (${order.pricing.total}€ - ${order.menus.length} menus)`"
         stateColor="blue"
         :order="order"
         />
