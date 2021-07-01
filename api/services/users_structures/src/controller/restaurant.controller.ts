@@ -11,6 +11,7 @@ import { RestaurantsService } from "../services/restaurant.service";
 import { Employee, EmployeeCreationParams, EmployeeUpdateParams } from "../model/employee";
 import { EmployeesService } from '../services/employee.service';
 import jwtDecrypt from "../middleware/jwt"
+import isAdmin from "../middleware/isAdmin"
 
 @Route('/restaurants')
 @Tags("Restaurants")
@@ -20,7 +21,6 @@ export class RestaurantController extends Controller {
 	 * Retrieves all existing restaurants.
 	 * @summary Retrieves all existing restaurants
 	 */
-	@Security("jwt")
 	@Get()
 	public async getAll(): Promise<Restaurant[]> {
 		return new RestaurantsService().getAll();
@@ -32,7 +32,6 @@ export class RestaurantController extends Controller {
 	 * @param id The restaurant's identifier
 	 * @summary Retrieves a specific existing restaurant
 	 */
-	@Security("jwt")
 	@Get('/{id}')
 	public async get(@Path() id: string): Promise<Restaurant> {
 		return new RestaurantsService().get(id);

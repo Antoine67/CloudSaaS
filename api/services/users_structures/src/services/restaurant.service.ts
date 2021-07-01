@@ -11,15 +11,16 @@ import {Tags} from 'tsoa';
 
 export class RestaurantsService {
 
-  public async getAll(): Promise<Restaurant[]> {
-    //Get users from database
+  public async getAll(isAdmin?): Promise<Restaurant[]> {
+    //TODO filter permissions for admin and normal user
+    //Get restaurants from database
 		const restaurantRepository = getRepository(Restaurant);
 		const restaurants = await restaurantRepository
         .createQueryBuilder("restaurant")
         .leftJoinAndSelect("restaurant.address", "address")
         .getMany();
 
-		//Send the users object
+		//Send the restaurants object
 		return restaurants;
   }
 

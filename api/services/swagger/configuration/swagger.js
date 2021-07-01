@@ -8,6 +8,13 @@ const swaggerDefinition = {
   },
   host: 'ceseat-api.fr', // the host or url of the app
   basePath: '/api', // the basepath of your endpoint
+  securityDefinitions: {
+    jwt: {
+        type: "apiKey",
+        name: "x-access-token",
+        in: "header"
+    }
+}
 };
 
 // options for the swagger docs

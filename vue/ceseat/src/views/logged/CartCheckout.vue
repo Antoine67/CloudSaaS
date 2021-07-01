@@ -1,6 +1,6 @@
 <template>
 
-<v-container v-if="getNumberInCart" >
+<v-container v-if="getNumberInCart" class="text-center" >
 
 
 
@@ -11,7 +11,19 @@
     
     
 
-    <v-btn @click="submit" :disabled="!getNumberInCart">Procéder au paiement</v-btn>
+    <v-btn
+        @click="submit" :disabled="!getNumberInCart"
+        class="ma-2"
+        color="green darken-2"
+        dark
+        >
+        <v-icon
+            dark
+            left
+        >
+            mdi-cart-arrow-down
+        </v-icon>Procéder au paiement
+    </v-btn>
 </v-container>
 
 <v-dialog v-else v-model="dialog" persistent max-width="500px" min-width="360px">
@@ -47,6 +59,9 @@ import {EOrderState} from "@/types/EOrderState";
 const Cart = namespace("Cart");
 const Auth = namespace("Auth");
 
+import User from "@/types/User"
+import UsersService from "@/services/UsersService"
+
 import OrdersService from "@/services/OrdersService"
 
 @Component({
@@ -74,13 +89,42 @@ export default class CartCheckout extends Vue{
 
   dialog = true
 
+  user : User = {}
+
   selected : any[]
 
+  fetchUser() {
+        UsersService.get(this.userData.userId)
+        .then((response) => {
+            this.user = response.data;
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
+
+   mounted() {
+       this.fetchUser()
+   }
 
   submit () {
       if(!this.selected) {
-          console.log("Aucune CB séléctionnée !") //TODO popup?
-          return;
+        this.$notify({
+            title: 'Erreur',
+            text: 'Aucune carte bancaire séléctionnée, rendez-vous dans "Gérer mes cartes"',
+            type: "error"
+        });
+        return;
+      }
+      
+      
+      if(!this.user.address) {
+        this.$notify({
+            title: 'Erreur',
+            text: 'Aucune adresse renseignée pour la livraison, veuillez en ajouter une (disponible sur votre page de profil)"',
+            type: "error"
+        });
+        return;
       }
       
       //TODO Handle payment ?
@@ -89,16 +133,27 @@ export default class CartCheckout extends Vue{
       order.pricing.payment_card_id = this.selected[0].id
       order.pricing.paid = true
       order.customer_id = this.userData.userId
-      
 
-      console.log("POSTING", order, JSON.stringify(order))
+      order.address = this.user.address
+      
+        
+      //console.log("POSTING", order, JSON.stringify(order))
       OrdersService.create(order)
         .then((response) => {
-            console.log("Commande passée !") //TODO popup?
+             this.$notify({
+                title: 'Succès !',
+                text: 'Votre commande a été passée avec succès',
+                type: "success"
+            });
             this.clearCart()
+            this.$router.push("/my-orders")
         })
         .catch((e) => {
-            console.log("Une erreur est survenue") //TODO popup?
+            this.$notify({
+                title: 'Erreur',
+                text: 'Une erreur est survenue, veuillez réessayez ultérieurement',
+                type: "error"
+            });
             console.log(e);
         });
   }

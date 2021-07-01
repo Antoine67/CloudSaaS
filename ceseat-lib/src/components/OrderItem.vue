@@ -136,7 +136,7 @@ export default class OrderItem extends Vue {
   status_tabs = [
     {id:"WAITING_PAYMENT", name:"en attente de paiement", color:"blue"},
     {id:"WAITING_VALIDATION", name:"en attente de validation", color:"orange"},
-    {id:"WAITING_DELIVERER", name:"en attente du livreur", color:"orange"},
+    {id:"WAITING_DELIVERER", name:"en attente d'un livreur", color:"orange"},
     {id:"DELIVERY_IN_PROGRESS", name:"livraison en cours", color:"orange"},
     {id:"ORDER_DELIVERED", name:"livraison terminée", color:"green"},
     {id:"ORDER_CANCELLED_CLIENT", name:"commande annulée", color:"red"},

@@ -19,7 +19,7 @@ export default class OrdersDashboard extends Vue {
 
   reveal = false
   
-  enumOrdersStatePending = {
+  enumOrdersStatePending : { [index: string]: any; } = {
     "WAITING_PAYMENT": "Commande en attente de paiement",
     "WAITING_VALIDATION":  "Commande en attente de validation",
     "IN_PREPARATION":  "En cours de préparation",
@@ -27,7 +27,7 @@ export default class OrdersDashboard extends Vue {
     "DELIVERY_IN_PROGRESS":  "En cours de livraison",
     "ORDER_DELIVERED": "Commande livrée" }
   
-  enumOrdersState = {
+  enumOrdersState : { [index: string]: any; } = {
     "WAITING_PAYMENT": "Commande payée",
     "WAITING_VALIDATION":  "Commande validée",
     "IN_PREPARATION":  "Commande préparée",
@@ -35,7 +35,7 @@ export default class OrdersDashboard extends Vue {
     "DELIVERY_IN_PROGRESS":  "Commande livrée",
     "ORDER_DELIVERED": "Commande livrée" }
  
-  messages = [];
+  messages : any = [];
 
   mounted() {
     for (const [key, value] of Object.entries(this.enumOrdersState)) {

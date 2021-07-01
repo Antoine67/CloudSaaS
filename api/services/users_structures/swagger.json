@@ -486,8 +486,12 @@
 		"EmployeeCreationParams": {
 			"properties": {
 				"role": {
+<<<<<<< HEAD
 					"$ref": "#/definitions/RoleEmployee",
 					"x-nullable": true
+=======
+					"$ref": "#/definitions/RoleEmployee"
+>>>>>>> 515ef14d3bd8b37a78fd421decf70f3e25d8c962
 				}
 			},
 			"type": "object"
@@ -1776,8 +1780,9 @@
 	"swagger": "2.0",
 	"securityDefinitions": {
 		"jwt": {
-			"type": "jwt",
-			"name": "jwt"
+			"type": "apiKey",
+			"name": "x-access-token",
+			"in": "header"
 		}
 	},
 	"host": "localhost:7000",

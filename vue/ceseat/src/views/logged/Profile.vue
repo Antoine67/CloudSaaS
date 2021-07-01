@@ -51,6 +51,7 @@ export default class Profile extends Vue {
     async ModifyUser(userData: any) {
         return UsersService.update(this.userData.userId, userData)
         .then((response) => {
+            this.fetchUser()
             return Promise.resolve(response)
         })
         .catch((e) => {
@@ -62,6 +63,7 @@ export default class Profile extends Vue {
     async ModifyAddress(data: any) {
         return UsersService.createAddress(this.userData.userId,data)
         .then((response) => {
+            this.fetchUser()
             return Promise.resolve(response)
         })
         .catch((e) => {
@@ -72,6 +74,7 @@ export default class Profile extends Vue {
     async ModifyNotifications(data: any) {
         return UsersService.update(this.userData.userId, data)
         .then((response) => {
+            this.fetchUser()
             return Promise.resolve(response)
         })
         .catch((e) => {
@@ -82,7 +85,7 @@ export default class Profile extends Vue {
     showMessage (message: any, color: any, title: any, ico: any) {console.log("SHOW MESSAGE TODO : ",message, color, title, ico)}
 
     //If successfully modified
-    onSuccessSubmit (data: any)  {this.fetchUser()}
+    onSuccessSubmit (data: any)  {console.log("Success")}
 
 }
 </script>

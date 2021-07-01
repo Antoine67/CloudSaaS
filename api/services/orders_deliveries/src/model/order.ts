@@ -53,6 +53,26 @@ class Order {
     };
 
     /**
+     * Address to deliver
+     */
+
+    address: {
+      country: string;
+ 
+      postal_code: string;
+ 
+      town: string;
+ 
+      address1: string;
+
+      address2: string;
+
+      longitude: string;
+
+      latitude: string;
+    };
+
+    /**
      * Is the order currently available ?
      */
     delivered: boolean;
@@ -108,6 +128,27 @@ class OrderCreationParams {
 
     total: Number
   };
+
+  /**
+   * Address to deliver
+   */
+
+  address: {
+    country?: string;
+
+    postal_code?: string;
+
+    town?: string;
+
+    address1?: string;
+
+    address2?: string;
+
+    longitude?: string;
+
+    latitude?: string;
+  };
+
 
   /**
    * Is the order currently available ?
@@ -167,6 +208,26 @@ class OrderCreationParams {
   };
 
   /**
+   * Address to deliver
+   */
+
+  address: {
+    country?: string;
+
+    postal_code?: string;
+
+    town?: string;
+
+    address1?: string;
+
+    address2?: string;
+
+    longitude?: string;
+
+    latitude?: string;
+  };
+
+  /**
    * Is the order currently available ?
    */
   delivered?: boolean;
@@ -190,6 +251,15 @@ const OrderSchema = new mongoose.Schema({
     delivering_fees: Number,
     discount: Number,
     total: Number,
+  },
+  address: {
+    country: String,
+    postal_code: String,
+    town: String,
+    address1: String,
+    address2: String,
+    longitude: String,
+    latitude: String,
   },
   delivered: Boolean,
   menus: Array,

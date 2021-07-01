@@ -3,7 +3,7 @@
         <v-col>
         <v-container>
             <p class="text-h5 text--primary">
-                Commande en cours
+                Commande(s) en cours
             </p>
         </v-container>
         <v-container>  
@@ -13,7 +13,7 @@
         </v-container>
         <v-container>
             <p class="text-h5 text--primary">
-                Commande passée
+                Commande(s) passée(s)
             </p>
         </v-container>
         <v-container v-if="orders_passed && orders_passed.length > 0">  

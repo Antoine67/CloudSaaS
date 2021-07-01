@@ -1,4 +1,4 @@
-export default interface Menu {
+export default interface Card {
     id?: number;
     name?: string;
     card_number?: string;

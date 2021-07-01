@@ -254,26 +254,25 @@ definitions:
     properties:
       country:
         type: string
+        x-nullable: true
       town:
         type: string
+        x-nullable: true
       postalCode:
         type: string
+        x-nullable: true
       address1:
         type: string
+        x-nullable: true
       address2:
         type: string
+        x-nullable: true
       longitude:
         type: string
+        x-nullable: true
       latitude:
         type: string
-    required:
-    - country
-    - town
-    - postalCode
-    - address1
-    - address2
-    - longitude
-    - latitude
+        x-nullable: true
     type: object
   AddressUpdateParams:
     properties:
@@ -352,16 +351,14 @@ definitions:
   EmployeeCreationParams:
     properties:
       role:
-        type: number
-        format: double
+        "$ref": "#/definitions/RoleEmployee"
     required:
     - role
     type: object
   EmployeeUpdateParams:
     properties:
       role:
-        type: number
-        format: double
+        "$ref": "#/definitions/RoleEmployee"
         x-nullable: true
     type: object
   RoleCreationParams:
@@ -424,7 +421,8 @@ paths:
       summary: Retrieves all existing users
       tags:
       - Users
-      security: []
+      security:
+      - jwt: []
       parameters: []
   "/users/{id}":
     get:
@@ -442,7 +440,8 @@ paths:
       summary: Retrieves a specific existing user
       tags:
       - Users
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The user's identifier
         in: path
@@ -461,7 +460,8 @@ paths:
       summary: Update an existing user
       tags:
       - Users
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The user's identifier
         in: path
@@ -484,7 +484,8 @@ paths:
       summary: Delete a user
       tags:
       - Users
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The user's identifier
         in: path
@@ -503,18 +504,20 @@ paths:
             "$ref": "#/definitions/Address"
       description: |-
         Retrieves the details of an existing address.
-        Supply the unique address ID from either and receive corresponding address details.
+        Supply the unique address ID and user ID from either and receive corresponding address details.
       summary: Retrieves a specific existing address
       tags:
       - Users
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The address's identifier
+      - description: The user's identifier
         in: path
         name: id
         required: true
         type: string
-      - in: path
+      - description: The address's identifier
+        in: path
         name: id_2
         required: true
         type: string
@@ -525,19 +528,21 @@ paths:
       responses:
         '204':
           description: No content
-      description: Update specific address from the unique address ID you provide
-        in query, with the new data you provide in body.
+      description: Update specific address from the unique address ID and user ID
+        you provide in query, with the new data you provide in body.
       summary: Update an existing address
       tags:
       - Users
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The address's identifier
+      - description: The user's identifier
         in: path
         name: id
         required: true
         type: string
-      - in: path
+      - description: The address's identifier
+        in: path
         name: id_2
         required: true
         type: string
@@ -558,9 +563,11 @@ paths:
       summary: Create a new address
       tags:
       - Users
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - in: path
+      - description: The user's identifier
+        in: path
         name: id
         required: true
         type: string
@@ -583,7 +590,8 @@ paths:
       summary: Retrieves all cards of a specific existing user
       tags:
       - Users
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The user's identifier
         in: path
@@ -597,18 +605,22 @@ paths:
       responses:
         '204':
           description: No content
-      description: Create a new card by supplying new card's data
+      description: Create a new card by supplying new card's data and the user ID
+        associated
       summary: Create a new card
       tags:
       - Users
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - in: path
+      - description: The user's identifier
+        in: path
         name: id
         required: true
         type: string
-      - in: body
-        name: req
+      - description: The new card's data
+        in: body
+        name: requestBody
         required: true
         schema:
           "$ref": "#/definitions/CardCreationParams"
@@ -624,18 +636,20 @@ paths:
             "$ref": "#/definitions/Card"
       description: |-
         Retrieves the details of an existing card.
-        Supply the unique card ID from either and receive corresponding card details.
+        Supply the unique card ID and user ID from either and receive corresponding card details.
       summary: Retrieves a specific existing card
       tags:
       - Users
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The card's identifier
+      - description: The user's identifier
         in: path
         name: id
         required: true
         type: string
-      - in: path
+      - description: The card's identifier
+        in: path
         name: id_2
         required: true
         type: string
@@ -646,18 +660,21 @@ paths:
       responses:
         '204':
           description: No content
-      description: Delete a specific user from the unique user ID you provide.
+      description: Delete a specific user from the unique user ID and card ID you
+        provide.
       summary: Delete a user
       tags:
       - Users
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The user's identifier
         in: path
         name: id
         required: true
         type: string
-      - in: path
+      - description: The card's identifier
+        in: path
         name: id_2
         required: true
         type: string
@@ -673,11 +690,12 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/Restaurant"
-      description: Retrieves all existing users.
-      summary: Retrieves all existing users
+      description: Retrieves all existing restaurants.
+      summary: Retrieves all existing restaurants
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters: []
     post:
       operationId: Create
@@ -686,11 +704,12 @@ paths:
       responses:
         '204':
           description: No content
-      description: Create a new card by supplying new card's data
-      summary: Create a new card
+      description: Create a new restaurant by supplying new restaurant's data
+      summary: Create a new restaurant
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
       - in: body
         name: req
@@ -708,14 +727,15 @@ paths:
           schema:
             "$ref": "#/definitions/Restaurant"
       description: |-
-        Retrieves the details of an existing user.
-        Supply the unique user ID from either and receive corresponding user details.
-      summary: Retrieves a specific existing user
+        Retrieves the details of an existing restaurant.
+        Supply the unique restaurant ID from either and receive corresponding restaurant details.
+      summary: Retrieves a specific existing restaurant
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The user's identifier
+      - description: The restaurant's identifier
         in: path
         name: id
         required: true
@@ -727,14 +747,15 @@ paths:
       responses:
         '204':
           description: No content
-      description: Update specific user from the unique user ID you provide in query,
-        with the new data you provide in body.
-      summary: Update an existing user
+      description: Update specific restaurant from the unique restaurant ID you provide
+        in query, with the new data you provide in body.
+      summary: Update an existing restaurant
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The user's identifier
+      - description: The restaurant's identifier
         in: path
         name: id
         required: true
@@ -751,13 +772,15 @@ paths:
       responses:
         '204':
           description: No content
-      description: Delete a specific user from the unique user ID you provide.
-      summary: Delete a user
+      description: Delete a specific restaurant from the unique restaurant ID you
+        provide.
+      summary: Delete a restaurant
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The user's identifier
+      - description: The restaurant's identifier
         in: path
         name: id
         required: true
@@ -774,18 +797,20 @@ paths:
             "$ref": "#/definitions/Address"
       description: |-
         Retrieves the details of an existing address.
-        Supply the unique address ID from either and receive corresponding address details.
+        Supply the unique address ID with the restaurant ID and receive corresponding address details.
       summary: Retrieves a specific existing address
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The address's identifier
+      - description: The restaurant's identifier
         in: path
         name: id
         required: true
         type: string
-      - in: path
+      - description: The address's identifier
+        in: path
         name: id_2
         required: true
         type: string
@@ -796,19 +821,21 @@ paths:
       responses:
         '204':
           description: No content
-      description: Update specific address from the unique address ID you provide
-        in query, with the new data you provide in body.
+      description: Update specific address from the unique address ID and restaurant
+        ID, with the new data you provide in body.
       summary: Update an existing address
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The address's identifier
+      - description: The restaurant's identifier
         in: path
         name: id
         required: true
         type: string
-      - in: path
+      - description: The address's identifier
+        in: path
         name: id_2
         required: true
         type: string
@@ -825,13 +852,16 @@ paths:
       responses:
         '204':
           description: No content
-      description: Create a new address by supplying new address's data
+      description: Create a new address by supplying new address's data with a specicic
+        restaurant ID
       summary: Create a new address
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - in: path
+      - description: The user's identifier
+        in: path
         name: id
         required: true
         type: string
@@ -850,13 +880,14 @@ paths:
           description: Ok
           schema:
             "$ref": "#/definitions/Card"
-      description: Retrieves the details of all existing card.
-      summary: Retrieves all cards of a specific existing user
+      description: Retrieves the details of all existing employees.
+      summary: Retrieves all employees of a specific existing restaurant
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The user's identifier
+      - description: The restaurant's identifier
         in: path
         name: id
         required: true
@@ -872,19 +903,21 @@ paths:
           schema:
             "$ref": "#/definitions/Card"
       description: |-
-        Retrieves the details of an existing card.
-        Supply the unique card ID from either and receive corresponding card details.
-      summary: Retrieves a specific existing card
+        Retrieves the details of an existing employee.
+        Supply the unique restaurant ID and user ID from either and receive corresponding employee details.
+      summary: Retrieves a specific existing employee
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The card's identifier
+      - description: The restaurant's identifier
         in: path
         name: id
         required: true
         type: string
-      - in: path
+      - description: The user's identifier
+        in: path
         name: id_2
         required: true
         type: string
@@ -895,17 +928,20 @@ paths:
       responses:
         '204':
           description: No content
-      description: Create a new card by supplying new card's data
-      summary: Create a new card
+      description: Create a new employee by supplying new employee's data
+      summary: Create a new employee
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - in: path
+      - description: The restaurant's identifier
+        in: path
         name: id
         required: true
         type: string
-      - in: path
+      - description: The user's identifier
+        in: path
         name: id_2
         required: true
         type: string
@@ -921,18 +957,21 @@ paths:
       responses:
         '204':
           description: No content
-      description: Delete a specific user from the unique user ID you provide.
-      summary: Delete a user
+      description: Delete a specific employee from the unique restaurant ID and users
+        ID you provide.
+      summary: Delete an employee
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The user's identifier
+      - description: The restaurant's identifier
         in: path
         name: id
         required: true
         type: string
-      - in: path
+      - description: The user's identifier
+        in: path
         name: id_2
         required: true
         type: string
@@ -943,19 +982,21 @@ paths:
       responses:
         '204':
           description: No content
-      description: Update specific address from the unique address ID you provide
-        in query, with the new data you provide in body.
-      summary: Update an existing address
+      description: Update specific employee from the unique restaurant ID and user
+        ID, with the new data you provide in body.
+      summary: Update an existing employee
       tags:
       - Restaurants
-      security: []
+      security:
+      - jwt: []
       parameters:
-      - description: The address's identifier
+      - description: The restaurant's identifier
         in: path
         name: id
         required: true
         type: string
-      - in: path
+      - description: The user's identifier
+        in: path
         name: id_2
         required: true
         type: string
@@ -1077,8 +1118,8 @@ paths:
             type: array
             items:
               "$ref": "#/definitions/RoleEmployee"
-      description: Retrieves all existing roles.
-      summary: Retrieves all existing roles
+      description: Retrieves all existing employee's roles.
+      summary: Retrieves all existing employee's roles
       tags:
       - RoleEmployees
       security: []
@@ -1090,8 +1131,9 @@ paths:
       responses:
         '204':
           description: No content
-      description: Create a new role by supplying new role's data
-      summary: Create a new role
+      description: Create a new employee's role by supplying new employee's role's
+        data
+      summary: Create a new employee's role
       tags:
       - RoleEmployees
       security: []
@@ -1112,14 +1154,14 @@ paths:
           schema:
             "$ref": "#/definitions/RoleEmployee"
       description: |-
-        Retrieves the details of an existing role.
-        Supply the unique role ID from either and receive corresponding role details.
-      summary: Retrieves a specific existing role
+        Retrieves the details of an existing employee's role.
+        Supply the unique employee's role ID from either and receive corresponding employee's role details.
+      summary: Retrieves a specific existing employee's role
       tags:
       - RoleEmployees
       security: []
       parameters:
-      - description: The role's identifier
+      - description: The employee's role's identifier
         in: path
         name: id
         required: true
@@ -1131,14 +1173,14 @@ paths:
       responses:
         '204':
           description: No content
-      description: Update specific role from the unique role ID you provide in query,
-        with the new data you provide in body.
-      summary: Update an existing role
+      description: Update specific employee's role from the unique employee's role
+        ID you provide in query, with the new data you provide in body.
+      summary: Update an existing employee's role
       tags:
       - RoleEmployees
       security: []
       parameters:
-      - description: The role's identifier
+      - description: The employee's role's identifier
         in: path
         name: id
         required: true
@@ -1155,13 +1197,14 @@ paths:
       responses:
         '204':
           description: No content
-      description: Delete a specific role from the unique role ID you provide.
-      summary: Delete a role
+      description: Delete a specific employee's role from the unique employee's role
+        ID you provide.
+      summary: Delete a employee's role
       tags:
       - RoleEmployees
       security: []
       parameters:
-      - description: The role's identifier
+      - description: The employee's role's identifier
         in: path
         name: id
         required: true

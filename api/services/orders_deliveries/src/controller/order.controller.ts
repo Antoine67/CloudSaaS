@@ -6,6 +6,7 @@ import {sendNotification, sendNeedUpdate, UpdateType, NotifStatus, NotifType} fr
 
 import { Order, OrderCreationParams, OrderUpdateParams } from "../model/order";
 import jwtDecrypt from "../middleware/jwt"
+import isAdmin from "../middleware/isAdmin"
 import { OrdersService } from "../services/order.service";
 //import { OrdersService } from "../services/order.service";
 
@@ -21,7 +22,7 @@ export class OrderController extends Controller {
 	@Get()
 	public async getAll(@Request() expReq: express.Request, @Query() status?: string): Promise<Order[]> {
 		const jwt = jwtDecrypt(expReq);
-		return new OrdersService().getAll(jwt, status);
+		return new OrdersService().getAll(jwt, status, isAdmin(jwt));
 	}
 
 	/**

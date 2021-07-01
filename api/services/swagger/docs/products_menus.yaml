@@ -1,6 +1,6 @@
 ---
 definitions:
-  IProduct:
+  Product:
     description: |-
       Product objects allow merchants to show their available
       meals/dessert/... for sale
@@ -52,6 +52,7 @@ definitions:
         type: number
         format: double
         description: Restaurant uniq indentifier reference
+        x-nullable: true
       price:
         type: number
         format: double
@@ -69,7 +70,6 @@ definitions:
     required:
     - name
     - description
-    - restaurant_id
     - available
     type: object
   ProductUpdateParams:
@@ -104,7 +104,7 @@ definitions:
         description: Ingredients list composing product
         x-nullable: true
     type: object
-  IMenu:
+  Menu:
     description: |-
       Menu objects allow merchants to show their available
       menus for sale
@@ -131,7 +131,9 @@ definitions:
         type: boolean
         description: Is the menu currently available ?
       products:
-        type: object
+        type: array
+        items:
+          "$ref": "#/definitions/Product"
         description: |-
           Products contained on the menu
           TODO
@@ -156,6 +158,7 @@ definitions:
         type: number
         format: double
         description: Restaurant uniq indentifier reference
+        x-nullable: true
       price:
         type: number
         format: double
@@ -165,15 +168,14 @@ definitions:
         type: boolean
         description: Is the menu currently available ?
       products:
-        type: object
-        description: |-
-          Products contained on the menu
-          TODO
+        type: array
+        items:
+          "$ref": "#/definitions/Product"
+        description: Products contained on the menu
         x-nullable: true
     required:
     - name
     - description
-    - restaurant_id
     - available
     type: object
   MenuUpdateParams:
@@ -202,10 +204,10 @@ definitions:
         description: Is the menu currently available ?
         x-nullable: true
       products:
-        type: object
-        description: |-
-          Products contained on the menu
-          TODO
+        type: array
+        items:
+          "$ref": "#/definitions/Product"
+        description: Products contained on the menu
         x-nullable: true
     type: object
 info:
@@ -225,12 +227,13 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/IProduct"
+              "$ref": "#/definitions/Product"
       description: Retrieves all existing products.
       summary: Retrieves all existing products
       tags:
       - Products
-      security: []
+      security:
+      - jwt: []
       parameters: []
     post:
       operationId: Create
@@ -243,7 +246,8 @@ paths:
       summary: Create a new product
       tags:
       - Products
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The new product's data
         in: body
@@ -260,14 +264,15 @@ paths:
         '200':
           description: Ok
           schema:
-            "$ref": "#/definitions/IProduct"
+            "$ref": "#/definitions/Product"
       description: |-
         Retrieves the details of an existing product.
         Supply the unique product ID from either and receive corresponding product details.
       summary: Retrieves a specific existing product
       tags:
       - Products
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The product's identifier
         in: path
@@ -286,7 +291,8 @@ paths:
       summary: Update an existing product
       tags:
       - Products
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The product's identifier
         in: path
@@ -310,7 +316,8 @@ paths:
       summary: Delete a product
       tags:
       - Products
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The product's identifier
         in: path
@@ -328,12 +335,13 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/IMenu"
+              "$ref": "#/definitions/Menu"
       description: Retrieves all existing menus.
       summary: Retrieves all existing menus
       tags:
       - Menus
-      security: []
+      security:
+      - jwt: []
       parameters: []
     post:
       operationId: Create
@@ -346,7 +354,8 @@ paths:
       summary: Create a new menu
       tags:
       - Menus
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The new menu's data
         in: body
@@ -363,14 +372,15 @@ paths:
         '200':
           description: Ok
           schema:
-            "$ref": "#/definitions/IMenu"
+            "$ref": "#/definitions/Menu"
       description: |-
         Retrieves the details of an existing menu.
         Supply the unique menu ID from either and receive corresponding menu details.
       summary: Retrieves a specific existing menu
       tags:
       - Menus
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The menu's identifier
         in: path
@@ -389,7 +399,8 @@ paths:
       summary: Update an existing menu
       tags:
       - Menus
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The menu's identifier
         in: path
@@ -413,10 +424,34 @@ paths:
       summary: Delete a menu
       tags:
       - Menus
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The menu's identifier
         in: path
+        name: id
+        required: true
+        type: string
+  "/menus/restaurants/{id}":
+    get:
+      operationId: GetAllFromRestaurantId
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: Ok
+          schema:
+            type: array
+            items:
+              "$ref": "#/definitions/Menu"
+      description: Retrieves all existing menus from a given restaurant.
+      summary: Retrieves all existing menus from a given restaurant
+      tags:
+      - Menus
+      security:
+      - jwt: []
+      parameters:
+      - in: path
         name: id
         required: true
         type: string

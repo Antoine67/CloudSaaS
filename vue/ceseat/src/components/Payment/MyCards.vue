@@ -100,7 +100,21 @@
     </v-card>
 </v-dialog>
 
-<v-btn @click="popup=true">Gérer mes cartes</v-btn>
+
+<v-btn
+    @click="popup=true"
+    class="ma-2"
+    color="blue darken-2"
+    dark
+    >
+    <v-icon
+        dark
+        left
+    >
+        mdi-credit-card-search-outline
+    </v-icon>Gérer mes cartes
+</v-btn>
+
 </v-container>
 
       
@@ -167,6 +181,7 @@ export default class MyCards extends Vue{
             this.fetchCards()
         })
         .catch((e) => {
+            this.fetchCards()
             console.log(e);
         });
         

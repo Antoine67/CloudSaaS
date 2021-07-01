@@ -109,7 +109,7 @@ export default class RestaurantForm extends Vue {
         this.$refs.form.resetValidation();
     }
 
-    restaurant = { 
+    restaurant : any  = { 
         title: null,
         description: null,
         rib: null        

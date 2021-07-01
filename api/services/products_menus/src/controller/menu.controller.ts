@@ -84,10 +84,8 @@ export class MenuController extends Controller {
 	 * Retrieves all existing menus from a given restaurant.
 	 * @summary Retrieves all existing menus from a given restaurant
 	 */
-	@Security("jwt")
 	@Get('/restaurants/{id}')
-	public async getAllFromRestaurantId(@Request() expReq: express.Request, @Path() id: string): Promise<Menu[]> {
-		const jwt = jwtDecrypt(expReq); 
+	public async getAllFromRestaurantId(@Path() id: string): Promise<Menu[]> {
 		return new MenusService().getAllFromRestaurantId(id);
 	}
 }
