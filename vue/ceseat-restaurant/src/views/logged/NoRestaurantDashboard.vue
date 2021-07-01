@@ -5,6 +5,7 @@
             <p class="text-h5 text--primary">
                 Vous n'êtes affilié à aucun restaurant
             </p>
+            <v-btn @click="$router.push('/create-restaurant')"> Creer un restaurant </v-btn>
         </v-container>
         </v-col>
     </v-container>
