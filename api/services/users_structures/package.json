@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./dist/main.js",
-    "dev2": "set debug=* && ts-node-dev --respawn --transpile-only ./src/main.ts",
-    "start": "node  ./dist/main.js",
+    "start": "set debug=* && ts-node-dev --respawn --transpile-only ./src/main.ts",
     "build": "tsoa routes && tsoa spec-and-routes && tsc",
     "generate": "tsoa swagger",
     "clean": "tsc --build --clean",

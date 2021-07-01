@@ -93,11 +93,29 @@ export class RoleEmployeesService {
 
   public async get(id: string): Promise<any> {
     //Get the role from database
+    
     const roleRepository = getRepository(RoleEmployee);
     try {
       const role = await roleRepository.findOneOrFail(id, {
         select: ["id", "identifier", "title"]
       });
+      return role;
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  public async getByIdentifier(identifier: string): Promise<any> {
+    //Get the role from database
+
+    
+    const roleRepository = getRepository(RoleEmployee);
+    try {
+      const role = await roleRepository
+            .createQueryBuilder("roleEmployee")
+            .where("roleEmployee.identifier = :identifier", { identifier: identifier })
+            .getOne();
+    
       return role;
     } catch (error) {
         console.log(error);

@@ -40,7 +40,6 @@ export class OrderController extends Controller {
 	 * @param requestBody The new order's data
 	 * @summary Create a new order
 	 */
-	
 	@Security("jwt")
 	@Post()
 	public async create(@Body() requestBody: OrderCreationParams) : Promise<void> {
