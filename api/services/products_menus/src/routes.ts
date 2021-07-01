@@ -21,7 +21,7 @@ const models: TsoaRoute.Models = {
         "properties": {
             "name": { "dataType": "string", "required": true },
             "description": { "dataType": "string", "required": true },
-            "restaurant_id": { "dataType": "double", "required": true },
+            "restaurant_id": { "dataType": "double" },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean", "required": true },
             "ingredients": { "dataType": "array", "array": { "dataType": "string" } },
@@ -52,7 +52,7 @@ const models: TsoaRoute.Models = {
         "properties": {
             "name": { "dataType": "string", "required": true },
             "description": { "dataType": "string", "required": true },
-            "restaurant_id": { "dataType": "double", "required": true },
+            "restaurant_id": { "dataType": "double" },
             "price": { "dataType": "double" },
             "available": { "dataType": "boolean", "required": true },
             "products": { "dataType": "array", "array": { "ref": "Product" } },
@@ -181,6 +181,7 @@ export function RegisterRoutes(app: express.Express) {
         authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -200,6 +201,7 @@ export function RegisterRoutes(app: express.Express) {
         authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
             };
 
@@ -220,6 +222,7 @@ export function RegisterRoutes(app: express.Express) {
         authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
                 requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "MenuCreationParams" },
             };
 
@@ -240,6 +243,7 @@ export function RegisterRoutes(app: express.Express) {
         authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
                 requestBody: { "in": "body", "name": "requestBody", "required": true, "ref": "MenuUpdateParams" },
             };
@@ -261,6 +265,7 @@ export function RegisterRoutes(app: express.Express) {
         authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
             };
 
@@ -278,8 +283,10 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/menus/restaurants/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
             };
 

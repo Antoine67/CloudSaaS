@@ -156,12 +156,12 @@ const models: TsoaRoute.Models = {
     },
     "EmployeeCreationParams": {
         "properties": {
-            "role": { "dataType": "double", "required": true },
+            "role": { "ref": "RoleEmployee", "required": true },
         },
     },
     "EmployeeUpdateParams": {
         "properties": {
-            "role": { "dataType": "double" },
+            "role": { "ref": "RoleEmployee" },
         },
     },
     "RoleCreationParams": {
@@ -430,6 +430,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/restaurants',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
             };
@@ -448,6 +449,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/restaurants/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -467,6 +469,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.put('/api/restaurants/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -487,6 +490,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.delete('/api/restaurants/:id',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -506,8 +510,10 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/restaurants',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
                 req: { "in": "body", "name": "req", "required": true, "ref": "RestaurantCreationParams" },
             };
 
@@ -525,6 +531,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/restaurants/:id/addresses/:id_2',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -545,6 +552,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/restaurants/:id/addresses',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -565,6 +573,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.put('/api/restaurants/:id/addresses/:id_2',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -586,6 +595,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/restaurants/:id/users',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -605,6 +615,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/restaurants/:id/users/:id_2',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -625,6 +636,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.post('/api/restaurants/:id/users/:id_2',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -646,6 +658,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.delete('/api/restaurants/:id/users/:id_2',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
@@ -666,6 +679,7 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.put('/api/restaurants/:id/users/:id_2',
+        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
