@@ -4,7 +4,9 @@ import { validate } from "class-validator";
 
 import { Restaurant, RestaurantUpdateParams, RestaurantCreationParams } from "../model/restaurant";
 import { AddressesService } from "../services/address.service";
+import { EmployeesService } from "../services/employee.service";
 import {Tags} from 'tsoa';
+import { RoleEmployeesService } from "./roleEmployee.service";
 
 
 export class RestaurantsService {
@@ -21,7 +23,7 @@ export class RestaurantsService {
 		return restaurants;
   }
 
-  public async create(requestBody: RestaurantCreationParams): Promise<boolean> {
+  public async create(jwt: any, requestBody: RestaurantCreationParams): Promise<boolean> {
 
     const restaurant = new Restaurant()
     for (const [key, value] of Object.entries(requestBody)) {
@@ -50,8 +52,12 @@ export class RestaurantsService {
     }
 
     try {
+      if(jwt.restaurantId == null){
         let returnRestaurant = await restaurantRepository.save(restaurant);
+        const roleEmployee = await new RoleEmployeesService().getByIdentifier("creator");
+        new EmployeesService().create(returnRestaurant.id.toString(), jwt.userId, { role: roleEmployee });
         new AddressesService().createRestaurantAddress(returnRestaurant.id.toString(), emptyAddress)
+      }
     } catch (e) {
         console.log(e);
         return;
