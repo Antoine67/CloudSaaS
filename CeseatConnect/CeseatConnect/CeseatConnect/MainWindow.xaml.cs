@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace CeseatConnect
 {
@@ -37,8 +38,9 @@ namespace CeseatConnect
         {
             var id_order = ID_Order.Text;
             //Order[] order = null;
-            if (id_order != "")
+            if (id_order != "" && !id_order.Contains(" "))
             {
+
                 var order = ApiOrders.GetOrder(id_order, token);
 
                 switch (order.status)
@@ -73,6 +75,13 @@ namespace CeseatConnect
                 }
 
                 Price.Content = "Prix total : " + order.pricing.total + "€";
+            }
+            else
+            {
+                Status.Content = @"Votre ID contient un espace, 
+veuillez le supprimer.";
+                Status.Foreground = Brushes.Red;
+                Price.Content = "";
             }
 
 
