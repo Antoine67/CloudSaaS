@@ -349,36 +349,34 @@
 		"AddressCreationParams": {
 			"properties": {
 				"country": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"town": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"postalCode": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"address1": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"address2": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"longitude": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"latitude": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				}
 			},
-			"required": [
-				"country",
-				"town",
-				"postalCode",
-				"address1",
-				"address2",
-				"longitude",
-				"latitude"
-			],
 			"type": "object"
 		},
 		"AddressUpdateParams": {
@@ -488,20 +486,16 @@
 		"EmployeeCreationParams": {
 			"properties": {
 				"role": {
-					"type": "number",
-					"format": "double"
+					"$ref": "#/definitions/RoleEmployee",
+					"x-nullable": true
 				}
 			},
-			"required": [
-				"role"
-			],
 			"type": "object"
 		},
 		"EmployeeUpdateParams": {
 			"properties": {
 				"role": {
-					"type": "number",
-					"format": "double",
+					"$ref": "#/definitions/RoleEmployee",
 					"x-nullable": true
 				}
 			},
@@ -599,7 +593,14 @@
 						"jwt": []
 					}
 				],
-				"parameters": []
+				"parameters": [
+					{
+						"in": "query",
+						"name": "byEmail",
+						"required": false,
+						"type": "string"
+					}
+				]
 			}
 		},
 		"/users/{id}": {
@@ -616,7 +617,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing user.\nSupply the unique user ID from either and receive corresponding user details.",
+				"description": "Retrieves the details of an existing user.\r\nSupply the unique user ID from either and receive corresponding user details.",
 				"summary": "Retrieves a specific existing user",
 				"tags": [
 					"Users"
@@ -719,7 +720,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing address.\nSupply the unique address ID and user ID from either and receive corresponding address details.",
+				"description": "Retrieves the details of an existing address.\r\nSupply the unique address ID and user ID from either and receive corresponding address details.",
 				"summary": "Retrieves a specific existing address",
 				"tags": [
 					"Users"
@@ -920,7 +921,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing card.\nSupply the unique card ID and user ID from either and receive corresponding card details.",
+				"description": "Retrieves the details of an existing card.\r\nSupply the unique card ID and user ID from either and receive corresponding card details.",
 				"summary": "Retrieves a specific existing card",
 				"tags": [
 					"Users"
@@ -1007,7 +1008,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": []
 			},
 			"post": {
@@ -1025,7 +1030,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "body",
@@ -1052,12 +1061,16 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing restaurant.\nSupply the unique restaurant ID from either and receive corresponding restaurant details.",
+				"description": "Retrieves the details of an existing restaurant.\r\nSupply the unique restaurant ID from either and receive corresponding restaurant details.",
 				"summary": "Retrieves a specific existing restaurant",
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1083,7 +1096,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1117,7 +1134,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1143,12 +1164,16 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing address.\nSupply the unique address ID with the restaurant ID and receive corresponding address details.",
+				"description": "Retrieves the details of an existing address.\r\nSupply the unique address ID with the restaurant ID and receive corresponding address details.",
 				"summary": "Retrieves a specific existing address",
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1181,7 +1206,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1224,7 +1253,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The user's identifier",
@@ -1263,7 +1296,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1289,12 +1326,16 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing employee.\nSupply the unique restaurant ID and user ID from either and receive corresponding employee details.",
+				"description": "Retrieves the details of an existing employee.\r\nSupply the unique restaurant ID and user ID from either and receive corresponding employee details.",
 				"summary": "Retrieves a specific existing employee",
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1327,7 +1368,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1368,7 +1413,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1401,7 +1450,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1495,7 +1548,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing role.\nSupply the unique role ID from either and receive corresponding role details.",
+				"description": "Retrieves the details of an existing role.\r\nSupply the unique role ID from either and receive corresponding role details.",
 				"summary": "Retrieves a specific existing role",
 				"tags": [
 					"Roles"
@@ -1639,7 +1692,7 @@
 						}
 					}
 				},
-				"description": "Retrieves the details of an existing employee's role.\nSupply the unique employee's role ID from either and receive corresponding employee's role details.",
+				"description": "Retrieves the details of an existing employee's role.\r\nSupply the unique employee's role ID from either and receive corresponding employee's role details.",
 				"summary": "Retrieves a specific existing employee's role",
 				"tags": [
 					"RoleEmployees"

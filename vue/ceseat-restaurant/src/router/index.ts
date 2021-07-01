@@ -7,6 +7,7 @@ import MyOrders from "@/views/logged/MyOrders.vue"
 import History from "@/views/logged/History.vue"
 import NoRestaurantDashboard from "@/views/logged/NoRestaurantDashboard.vue"
 import RestaurantManagement from "@/views/logged/RestaurantManagement.vue"
+import ProductsMenusManagement from "@/views/logged/ProductsMenusManagement.vue"
 import CreateRestaurant from "@/views/logged/CreateRestaurant.vue"
 import Dashboard from "@/views/logged/Dashboard.vue"
 
@@ -46,6 +47,14 @@ const routes: Array<RouteConfig> = [
     path: '/history',
     name: 'History',
     component: History,
+    meta: {
+      middleware: [auth, hasRestaurant]
+    }
+  },
+  {
+    path: '/products-menus-management',
+    name :'ProductsMenusManagement',
+    component: ProductsMenusManagement,
     meta: {
       middleware: [auth, hasRestaurant]
     }

@@ -5,6 +5,7 @@ import { validate } from "class-validator";
 import { Employee, EmployeeCreationParams, EmployeeUpdateParams } from "../model/employee";
 import { UsersService } from "../services/user.service";
 import { RestaurantsService } from "../services/restaurant.service";
+import { RoleEmployeesService } from "./roleEmployee.service";
 import {Tags} from 'tsoa';
 
 
@@ -29,10 +30,14 @@ export class EmployeesService {
     const employeeRepository = getRepository(Employee);
     var returnRestaurant = await new RestaurantsService().get(id);
     var returnUser = await new UsersService().get(id_2);
+    if(!requestBody.role){
+      requestBody.role = await new RoleEmployeesService().getByIdentifier("default");
+    }
     if(returnUser != null && returnRestaurant){
         try {
             employee.user = returnUser;
             employee.restaurant = returnRestaurant;
+            employee.role = requestBody.role;
             await employeeRepository.save(employee);
         } catch (e) {
             console.log(e);
@@ -52,8 +57,8 @@ export class EmployeesService {
         const employees = await employeeRepository
             .createQueryBuilder("employee")
             .leftJoinAndSelect("employee.user", "user")
-            .leftJoinAndSelect("employee.restaurant", "restaurant")
-            .where("restaurant.id = :id", { id: id })
+            .leftJoinAndSelect("employee.role", "role")
+            .where("employee.restaurantId = :id", { id: id })
             .getMany();
         
         return employees
@@ -71,6 +76,7 @@ export class EmployeesService {
             .createQueryBuilder("employee")
             .leftJoinAndSelect("employee.user", "user")
             .leftJoinAndSelect("employee.restaurant", "restaurant")
+            .leftJoinAndSelect("employee.role", "role")
             .where("restaurant.id = :id", { id: id })
             .where("user.id = :id", { id: id_2 })
             .getOne();
@@ -120,6 +126,7 @@ export class EmployeesService {
             employee[key] = value;
         }
       }
+      employee.role = await new RoleEmployeesService().get(requestBody.roleId);
 
       const errors = await validate(employee);
       if (errors.length > 0) {
