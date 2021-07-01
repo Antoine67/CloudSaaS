@@ -93,8 +93,8 @@ export class OrdersService {
     return success;
   }
 
-  public async update(id: string, orderUpdateParams: OrderUpdateParams): Promise<void> {
-    await OrderModel.findByIdAndUpdate({ _id: id }, orderUpdateParams)
+  public async update(id: string, orderUpdateParams: OrderUpdateParams): Promise<Order> {
+    return await OrderModel.findByIdAndUpdate({ _id: id }, orderUpdateParams) as any
   }
 
   public async delete(id: string): Promise<void> {

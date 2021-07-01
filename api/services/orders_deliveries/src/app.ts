@@ -7,6 +7,7 @@ import './controller/delivery.controller';
 import './controller/rating.controller';
 
 
+
 import { requestLoggerMiddleware } from './request.logger.middleware';
 
 
@@ -23,6 +24,7 @@ app.use(bodyparser.urlencoded({
 
 app.use(requestLoggerMiddleware);
 RegisterRoutes(app);
+
 
 
 try {

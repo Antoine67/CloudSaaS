@@ -2,6 +2,8 @@
 import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body, Query, Security, Request } from 'tsoa';
 import * as express from 'express';
 
+import {sendNotification, sendNeedUpdate, UpdateType, NotifStatus, NotifType} from '../socket'
+
 import { Order, OrderCreationParams, OrderUpdateParams } from "../model/order";
 import jwtDecrypt from "../middleware/jwt"
 import { OrdersService } from "../services/order.service";
@@ -42,9 +44,11 @@ export class OrderController extends Controller {
 	 */
 	@Security("jwt")
 	@Post()
-	public async create(@Body() requestBody: OrderCreationParams) : Promise<void> {
-		
+	public async create(@Body() requestBody: OrderCreationParams, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq);
 		if(new OrdersService().create(requestBody)) {
+			sendNeedUpdate(jwt.restaurantId, UpdateType.ORDER_UPDATE )
+			sendNotification("Nouvelle commande en attente de prise en charge", NotifStatus.INFO, NotifType.RESTAURANT, requestBody.restaurant_id)
 			this.setStatus(201); // set return status 201
 		}else {
 			this.setStatus(500); // set return status 500
@@ -60,9 +64,21 @@ export class OrderController extends Controller {
 	 */
 	@Security("jwt")
 	@Put('/{id}')
-	public async update(@Path() id: string, @Body() requestBody: OrderUpdateParams) : Promise<void> {
+	public async update(@Path() id: string, @Body() requestBody: OrderUpdateParams, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq);
 		this.setStatus(201); // set return status 201
-		new OrdersService().update(id, requestBody);
+		const newOrder = await new OrdersService().update(id, requestBody);
+		
+		
+		sendNeedUpdate(jwt.restaurantId, UpdateType.ORDER_UPDATE )
+		switch(requestBody.status) {
+			case 'WAITING_DELIVERER':
+				sendNotification("Nouvelle commande disponible", NotifStatus.INFO, NotifType.DELIVERER, newOrder.restaurant_id)
+				break
+			case 'WAITING_VALIDATION':
+				sendNotification("Nouvelle commande en attente de prise en charge", NotifStatus.INFO, NotifType.RESTAURANT, newOrder.restaurant_id)
+				break
+		}
 		return;
 	}
 
@@ -74,7 +90,10 @@ export class OrderController extends Controller {
 	
 	@Security("jwt")
 	@Delete('/{id}')
-	public async remove(@Path() id: string) : Promise<void> {
-		return new OrdersService().delete(id);
+	public async remove(@Path() id: string, @Request() expReq: express.Request) : Promise<void> {
+		const jwt = jwtDecrypt(expReq);
+		const d = new OrdersService().delete(id);
+		sendNeedUpdate(jwt.restaurantId, UpdateType.ORDER_UPDATE )
+		return d;
 	}
 }
