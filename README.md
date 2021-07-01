@@ -8,6 +8,11 @@
 - `vue` : 3 applications Vue 2 destinées aux utilisateurs finaux, restaurateurs et livreurs
 
 
+## Diagramme de déploiement (UML)
+
+![Schéma deploiement](./images/Diagramme%20de%20déploiement%20v1.jpg)
+
+
 ## Architecture
 
 ![Schéma architecture](./images/schema.png)
