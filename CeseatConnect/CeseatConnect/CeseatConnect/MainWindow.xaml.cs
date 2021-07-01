@@ -12,6 +12,7 @@ namespace CeseatConnect
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string token;
         public MainWindow()
         {
             ConnexionForm connexionForm = new ConnexionForm(this);

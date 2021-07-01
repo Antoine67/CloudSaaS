@@ -24,24 +24,21 @@ namespace CeseatConnect
             return res;
         }
 
-        public static HttpWebResponse LoginUsers(byte[] user)
+        public static async Task<string> LoginUsers(List<KeyValuePair<string, string>> user)
         {
-            var request = (HttpWebRequest)WebRequest.Create("http://localhost:5000/api/auth/login");
-
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = user.Length;
-
-            using (var stream = request.GetRequestStream())
+            string token;
+            try
             {
-                stream.Write(user, 0, user.Length);
+                HttpClient clientAuth = new HttpClient();
+                HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5000/api/auth/login") { Content = new FormUrlEncodedContent(user) };
+                HttpResponseMessage res = await clientAuth.SendAsync(req).ConfigureAwait(false);
+                token = await res.Content.ReadAsStringAsync();
             }
-
-            var response = (HttpWebResponse)request.GetResponse();
-
-            //var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            return response;
-
+            catch (Exception)
+            {
+                throw;
+            }
+            return token;
         }
         public static List<Users> GetUsers()
         {

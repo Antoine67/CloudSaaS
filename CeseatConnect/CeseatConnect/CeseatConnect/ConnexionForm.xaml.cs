@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http;
@@ -22,7 +23,7 @@ namespace CeseatConnect
     public partial class ConnexionForm : Window
     {
         MainWindow mainWindow;
-        bool connected;
+        private bool connected;
         public ConnexionForm(MainWindow window)
         {
             InitializeComponent();
@@ -63,27 +64,28 @@ namespace CeseatConnect
         {
             if (passwordTextBox != null && emailTextBox != null)
             {
-                /* var user = new List<KeyValuePair<string, string>>();
+                 var user = new List<KeyValuePair<string, string>>();
                  user.Add(new KeyValuePair<string, string>("email", emailTextBoxlogin.Text));
                  user.Add(new KeyValuePair<string, string>("password", passwordTextBoxlogin.Password));
-                 user.Add(new KeyValuePair<string, string>("roleIdentifier", "ceseat-technic"));*/
+                 user.Add(new KeyValuePair<string, string>("roleIdentifier", "ceseat-technic"));
 
-                var user = "email=" + Uri.EscapeDataString(emailTextBox.Text);
-                user += "&password=" + Uri.EscapeDataString(passwordTextBox.Password);
-                user += "&roleIdentifier=" + Uri.EscapeDataString("ceseat-technic");
-                var data = Encoding.ASCII.GetBytes(user);
-
-                var response = APIUsers.LoginUsers(data);
-                this.connected = true;
-                if (connected)
+                var response = APIUsers.LoginUsers(user).Result;
+                if (response != "")
                 {
-                    this.DialogResult = true;
-                    this.Close();
+                    response = response.Split('"')[3];
+                    if (response != "Invalid user")
+                    {
+                        mainWindow.token = response;
+                        connected = true;
+                        this.DialogResult = true;
+                        this.Close();
+                    }
+                    else
+                    {
+                        //display error
+                    }
                 }
-                else
-                {
-                    //display error
-                }
+     
             }
         }
 
