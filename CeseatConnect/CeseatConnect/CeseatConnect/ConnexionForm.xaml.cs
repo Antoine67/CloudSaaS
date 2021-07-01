@@ -63,13 +63,18 @@ namespace CeseatConnect
         {
             if (passwordTextBox != null && emailTextBox != null)
             {
-                var user = new List<KeyValuePair<string, string>>();
-                user.Add(new KeyValuePair<string, string>("email", emailTextBoxlogin.Text));
-                user.Add(new KeyValuePair<string, string>("password", passwordTextBoxlogin.Password));
-                user.Add(new KeyValuePair<string, string>("roleIdentifier", "ceseat-technic"));
+                /* var user = new List<KeyValuePair<string, string>>();
+                 user.Add(new KeyValuePair<string, string>("email", emailTextBoxlogin.Text));
+                 user.Add(new KeyValuePair<string, string>("password", passwordTextBoxlogin.Password));
+                 user.Add(new KeyValuePair<string, string>("roleIdentifier", "ceseat-technic"));*/
 
-                var response = APIUsers.LoginUsersAsync(user);
-                this.connected = true;//response.IsCompletedSuccessfully;
+                var user = "email=" + Uri.EscapeDataString(emailTextBox.Text);
+                user += "&password=" + Uri.EscapeDataString(passwordTextBox.Password);
+                user += "&roleIdentifier=" + Uri.EscapeDataString("ceseat-technic");
+                var data = Encoding.ASCII.GetBytes(user);
+
+                var response = APIUsers.LoginUsers(data);
+                this.connected = true;
                 if (connected)
                 {
                     this.DialogResult = true;

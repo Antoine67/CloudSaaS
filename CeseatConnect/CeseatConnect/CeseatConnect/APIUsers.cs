@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -22,30 +24,50 @@ namespace CeseatConnect
             return res;
         }
 
-        public static async Task<HttpResponseMessage> LoginUsersAsync(List<KeyValuePair<string, string>> user)
+        public static HttpWebResponse LoginUsers(byte[] user)
         {
-            HttpClient clientAuth = new HttpClient();
-            HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5000/api/auth/login") { Content = new FormUrlEncodedContent(user) };
-            HttpResponseMessage res = await clientAuth.SendAsync(req);
-            return res;
-        }
-        public static async Task<Users> GetUsersAsync()
-        {
-            Users users = null;
-            HttpClient clientAuth = new HttpClient();
-            HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Get, "http://ceseat-api.fr/api/users");
-            HttpResponseMessage res = await clientAuth.SendAsync(req);
-            if (res.IsSuccessStatusCode)
+            var request = (HttpWebRequest)WebRequest.Create("http://localhost:5000/api/auth/login");
+
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = user.Length;
+
+            using (var stream = request.GetRequestStream())
             {
-                users = await res.Content.ReadAsAsync<Users>();
+                stream.Write(user, 0, user.Length);
             }
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            //var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            return response;
+
+        }
+        public static List<Users> GetUsers()
+        {
+            HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("http://ceseat-api.fr/api/users"));
+            WebReq.Method = "GET";
+            HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
+
+            Console.WriteLine(WebResp.StatusCode);
+            Console.WriteLine(WebResp.Server);
+
+            string jsonString;
+            using (Stream stream = WebResp.GetResponseStream())
+            {
+                StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8);
+                jsonString = reader.ReadToEnd();
+            }
+
+            List<Users> users = JsonConvert.DeserializeObject<List<Users>>(jsonString);
+
             return users;
         }
 
         static async Task<Users> UpdateProductAsync(Users users)
         {
             HttpResponseMessage response = await client.PutAsJsonAsync(
-                $"api/users/{users.Id}", users);
+                $"api/users/{users.id}", users);
             response.EnsureSuccessStatusCode();
 
             // Deserialize the updated product from the response body.
@@ -60,46 +82,7 @@ namespace CeseatConnect
             return response.StatusCode;
         }
 
-        static async Task RunAsync()
-        {
-            // Update port # in the following line.
-            client.BaseAddress = new Uri("http://ceseat-api.fr/");
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-
-            try
-            {
-                // Create a new product
-                Users users;
-
-                
-                //var url = await CreateUsersAsync(user);
-
-
-
-                // Get the product
-                users = await GetUsersAsync();
-
-
-                // Update the product
-                Console.WriteLine("Updating price...");
-                users.Suspended = false;
-                await UpdateProductAsync(users);
-
-                // Get the updated product
-                users = await GetUsersAsync();
-
-                // Delete the product
-                var statusCode = await DeleteProductAsync("1");
-                Console.WriteLine($"Deleted (HTTP Status = {(int)statusCode})");
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }   
+       
     }
 }
 
