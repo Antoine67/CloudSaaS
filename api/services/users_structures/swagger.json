@@ -349,36 +349,34 @@
 		"AddressCreationParams": {
 			"properties": {
 				"country": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"town": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"postalCode": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"address1": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"address2": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"longitude": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				},
 				"latitude": {
-					"type": "string"
+					"type": "string",
+					"x-nullable": true
 				}
 			},
-			"required": [
-				"country",
-				"town",
-				"postalCode",
-				"address1",
-				"address2",
-				"longitude",
-				"latitude"
-			],
 			"type": "object"
 		},
 		"AddressUpdateParams": {
@@ -488,8 +486,7 @@
 		"EmployeeCreationParams": {
 			"properties": {
 				"role": {
-					"type": "number",
-					"format": "double"
+					"$ref": "#/definitions/RoleEmployee"
 				}
 			},
 			"required": [
@@ -500,8 +497,7 @@
 		"EmployeeUpdateParams": {
 			"properties": {
 				"role": {
-					"type": "number",
-					"format": "double",
+					"$ref": "#/definitions/RoleEmployee",
 					"x-nullable": true
 				}
 			},
@@ -1007,7 +1003,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": []
 			},
 			"post": {
@@ -1025,7 +1025,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "body",
@@ -1057,7 +1061,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1083,7 +1091,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1117,7 +1129,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1148,7 +1164,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1181,7 +1201,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1224,7 +1248,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The user's identifier",
@@ -1263,7 +1291,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1294,7 +1326,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1327,7 +1363,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1368,7 +1408,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1401,7 +1445,11 @@
 				"tags": [
 					"Restaurants"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The restaurant's identifier",
@@ -1723,8 +1771,9 @@
 	"swagger": "2.0",
 	"securityDefinitions": {
 		"jwt": {
-			"type": "jwt",
-			"name": "jwt"
+			"type": "apiKey",
+			"name": "x-access-token",
+			"in": "header"
 		}
 	},
 	"host": "localhost:7000",

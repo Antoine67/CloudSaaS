@@ -1,6 +1,6 @@
 ---
 definitions:
-  IOrder:
+  Order:
     description: |-
       Order objects allow merchants to show their available
       meals/dessert/... for sale
@@ -33,9 +33,11 @@ definitions:
       delivered:
         type: boolean
         description: Is the order currently available ?
-      products:
-        type: object
-        description: Products contained in order
+      menus:
+        type: array
+        items:
+          type: object
+        description: Menus contained in order
     required:
     - id
     - date
@@ -45,7 +47,7 @@ definitions:
     - status
     - pricing
     - delivered
-    - products
+    - menus
     type: object
   OrderCreationParams:
     description: Order object for creation
@@ -66,6 +68,7 @@ definitions:
         type: number
         format: double
         description: Restaurant uniq indentifier reference
+        x-nullable: true
       status:
         type: string
         description: Name which represent the order
@@ -75,18 +78,19 @@ definitions:
       delivered:
         type: boolean
         description: Is the order currently available ?
-      products:
-        type: object
-        description: Products contained in order
+      menus:
+        type: array
+        items:
+          type: object
+        description: Menus contained in order
     required:
     - date
     - restaurant_id
     - customer_id
-    - deliverer_id
     - status
     - pricing
     - delivered
-    - products
+    - menus
     type: object
   OrderUpdateParams:
     description: Order object for update
@@ -123,12 +127,14 @@ definitions:
         type: boolean
         description: Is the order currently available ?
         x-nullable: true
-      products:
-        type: object
-        description: Products contained in order
+      menus:
+        type: array
+        items:
+          type: object
+        description: Menus contained in order
         x-nullable: true
     type: object
-  IDelivery:
+  Delivery:
     description: |-
       Delivery objects allow merchants and consumer to know
       the state the state of the delivery
@@ -190,7 +196,7 @@ definitions:
         description: Is the delivery currently available ?
         x-nullable: true
     type: object
-  IRating:
+  Rating:
     description: |-
       Rating allow user to rate a restaurant or a deliverer
       after an order completed
@@ -269,13 +275,18 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/IOrder"
+              "$ref": "#/definitions/Order"
       description: Retrieves all existing orders.
       summary: Retrieves all existing orders
       tags:
       - Orders
-      security: []
-      parameters: []
+      security:
+      - jwt: []
+      parameters:
+      - in: query
+        name: status
+        required: false
+        type: string
     post:
       operationId: Create
       produces:
@@ -287,7 +298,8 @@ paths:
       summary: Create a new order
       tags:
       - Orders
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The new order's data
         in: body
@@ -304,14 +316,15 @@ paths:
         '200':
           description: Ok
           schema:
-            "$ref": "#/definitions/IOrder"
+            "$ref": "#/definitions/Order"
       description: |-
         Retrieves the details of an existing order.
         Supply the unique order ID from either and receive corresponding order details.
       summary: Retrieves a specific existing order
       tags:
       - Orders
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The order's identifier
         in: path
@@ -330,7 +343,8 @@ paths:
       summary: Update an existing order
       tags:
       - Orders
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The order's identifier
         in: path
@@ -354,7 +368,8 @@ paths:
       summary: Delete a order
       tags:
       - Orders
-      security: []
+      security:
+      - jwt: []
       parameters:
       - description: The order's identifier
         in: path
@@ -372,7 +387,7 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/IDelivery"
+              "$ref": "#/definitions/Delivery"
       description: Retrieves all existing deliveries.
       summary: Retrieves all existing deliveries
       tags:
@@ -407,7 +422,7 @@ paths:
         '200':
           description: Ok
           schema:
-            "$ref": "#/definitions/IDelivery"
+            "$ref": "#/definitions/Delivery"
       description: |-
         Retrieves the details of an existing delivery.
         Supply the unique delivery ID from either and receive corresponding delivery details.
@@ -475,7 +490,7 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/IRating"
+              "$ref": "#/definitions/Rating"
       description: Retrieves all existing ratings.
       summary: Retrieves all existing ratings
       tags:
@@ -510,7 +525,7 @@ paths:
         '200':
           description: Ok
           schema:
-            "$ref": "#/definitions/IRating"
+            "$ref": "#/definitions/Rating"
       description: |-
         Retrieves the details of an existing rating.
         Supply the unique rating ID from either and receive corresponding rating details.

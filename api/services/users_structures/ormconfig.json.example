@@ -1,7 +1,7 @@
 {
    "name": "default",
    "type": "mssql",
-   "host": "172.29.91.225",
+   "host": "192.168.1.10",
    "port": 1433,
    "username": "MyLogin",
    "password": "123eieiaUAUU",
@@ -14,11 +14,14 @@
       "validateConnection": false,
       "trustServerCertificate": true
    },
+"migrations": [
+   "src/migration/**/*.ts"
+],
+"entities": [
+   "src/model/**/*.ts"
+],
 
    "logging": false,
-   "entities": [
-      "dist/model/**/*.js"
-   ],
    "cli": {
       "entitiesDir": "src/entity",
       "migrationsDir": "src/migration",

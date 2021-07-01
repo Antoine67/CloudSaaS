@@ -387,7 +387,11 @@
 				"tags": [
 					"Orders"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The new order's data",
@@ -420,7 +424,11 @@
 				"tags": [
 					"Orders"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The order's identifier",
@@ -446,7 +454,11 @@
 				"tags": [
 					"Orders"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The order's identifier",
@@ -481,7 +493,11 @@
 				"tags": [
 					"Orders"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The order's identifier",
@@ -757,11 +773,12 @@
 	"swagger": "2.0",
 	"securityDefinitions": {
 		"jwt": {
-			"type": "jwt",
-			"name": "jwt"
+			"type": "apiKey",
+			"name": "x-access-token",
+			"in": "header"
 		}
 	},
-	"host": "localhost:9000",
+	"host": "localhost:7000",
 	"schemes": [
 		"http"
 	]

@@ -4,7 +4,7 @@
 		"application/json"
 	],
 	"definitions": {
-		"IProduct": {
+		"Product": {
 			"description": "Product objects allow merchants to show their available\nmeals/dessert/... for sale",
 			"properties": {
 				"id": {
@@ -66,7 +66,8 @@
 				"restaurant_id": {
 					"type": "number",
 					"format": "double",
-					"description": "Restaurant uniq indentifier reference"
+					"description": "Restaurant uniq indentifier reference",
+					"x-nullable": true
 				},
 				"price": {
 					"type": "number",
@@ -90,7 +91,6 @@
 			"required": [
 				"name",
 				"description",
-				"restaurant_id",
 				"available"
 			],
 			"type": "object"
@@ -136,7 +136,7 @@
 			},
 			"type": "object"
 		},
-		"IMenu": {
+		"Menu": {
 			"description": "Menu objects allow merchants to show their available\nmenus for sale",
 			"properties": {
 				"id": {
@@ -167,7 +167,10 @@
 					"description": "Is the menu currently available ?"
 				},
 				"products": {
-					"type": "object",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Product"
+					},
 					"description": "Products contained on the menu\nTODO",
 					"x-nullable": true
 				}
@@ -195,7 +198,8 @@
 				"restaurant_id": {
 					"type": "number",
 					"format": "double",
-					"description": "Restaurant uniq indentifier reference"
+					"description": "Restaurant uniq indentifier reference",
+					"x-nullable": true
 				},
 				"price": {
 					"type": "number",
@@ -208,15 +212,17 @@
 					"description": "Is the menu currently available ?"
 				},
 				"products": {
-					"type": "object",
-					"description": "Products contained on the menu\nTODO",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Product"
+					},
+					"description": "Products contained on the menu",
 					"x-nullable": true
 				}
 			},
 			"required": [
 				"name",
 				"description",
-				"restaurant_id",
 				"available"
 			],
 			"type": "object"
@@ -252,8 +258,11 @@
 					"x-nullable": true
 				},
 				"products": {
-					"type": "object",
-					"description": "Products contained on the menu\nTODO",
+					"type": "array",
+					"items": {
+						"$ref": "#/definitions/Product"
+					},
+					"description": "Products contained on the menu",
 					"x-nullable": true
 				}
 			},
@@ -280,7 +289,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/IProduct"
+								"$ref": "#/definitions/Product"
 							}
 						}
 					}
@@ -290,7 +299,11 @@
 				"tags": [
 					"Products"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": []
 			},
 			"post": {
@@ -308,7 +321,11 @@
 				"tags": [
 					"Products"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The new product's data",
@@ -332,7 +349,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/IProduct"
+							"$ref": "#/definitions/Product"
 						}
 					}
 				},
@@ -341,7 +358,11 @@
 				"tags": [
 					"Products"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The product's identifier",
@@ -367,7 +388,11 @@
 				"tags": [
 					"Products"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The product's identifier",
@@ -402,7 +427,11 @@
 				"tags": [
 					"Products"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The product's identifier",
@@ -426,7 +455,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/IMenu"
+								"$ref": "#/definitions/Menu"
 							}
 						}
 					}
@@ -436,7 +465,11 @@
 				"tags": [
 					"Menus"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": []
 			},
 			"post": {
@@ -454,7 +487,11 @@
 				"tags": [
 					"Menus"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The new menu's data",
@@ -478,7 +515,7 @@
 					"200": {
 						"description": "Ok",
 						"schema": {
-							"$ref": "#/definitions/IMenu"
+							"$ref": "#/definitions/Menu"
 						}
 					}
 				},
@@ -487,7 +524,11 @@
 				"tags": [
 					"Menus"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The menu's identifier",
@@ -513,7 +554,11 @@
 				"tags": [
 					"Menus"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The menu's identifier",
@@ -548,7 +593,11 @@
 				"tags": [
 					"Menus"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"description": "The menu's identifier",
@@ -572,7 +621,7 @@
 						"schema": {
 							"type": "array",
 							"items": {
-								"$ref": "#/definitions/IMenu"
+								"$ref": "#/definitions/Menu"
 							}
 						}
 					}
@@ -582,7 +631,11 @@
 				"tags": [
 					"Menus"
 				],
-				"security": [],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
 				"parameters": [
 					{
 						"in": "path",
@@ -598,7 +651,13 @@
 		"application/json"
 	],
 	"swagger": "2.0",
-	"securityDefinitions": {},
+	"securityDefinitions": {
+		"jwt": {
+			"type": "apiKey",
+			"name": "x-access-token",
+			"in": "header"
+		}
+	},
 	"host": "localhost:7000",
 	"schemes": [
 		"http"
