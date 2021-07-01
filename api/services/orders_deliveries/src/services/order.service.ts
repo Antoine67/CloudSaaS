@@ -3,8 +3,23 @@ import {Tags} from 'tsoa';
 import { Document } from "mongoose";
 
 export class OrdersService {
+  
+  STATUS : { [index: string]: any; }  = {
+    "deliveries-open":  "DELIVERY_IN_PROGRESS",
+    "validation-open": "WAITING_VALIDATION",
+    "validation-closed" : "IN_PREPARATION" ,
+    "waiting-deliverer" : "WAITING_DELIVERER",
+    "passed" : ["DELIVERY_IN_PROGRESS", "ORDER_DELIVERED", "ORDER_CANCELLED_CLIENT", "ORDER_CANCELLED_RESTAURANT"],
+    "in-progress": ["WAITING_PAYMENT", "WAITING_VALIDATION", "IN_PREPARATION", "WAITING_DELIVERER", "DELIVERY_IN_PROGRESS"]
+  }
 
-  public async getAll(jwt: any, status?: string): Promise<Order[]> {
+  public async getAll(jwt: any, status?: string, isAdmin? : boolean): Promise<Order[]> {
+    console.log("isAdmin", isAdmin)
+    if(isAdmin) {
+      const query : any= {}
+      if(status) query.status = this.STATUS[status] 
+      return await OrderModel.find(query) as any []
+    }
     try {
       let items: any;
 
@@ -70,9 +85,7 @@ export class OrdersService {
         }
         
       }
-      else{
-        items = await OrderModel.find({})
-      }
+      
       //items = items.map((item: { _id: string; description: string; available: boolean }) => { return { _id: item._id, description: item.description, available: item.available } })
       return items;
     } catch (err) {

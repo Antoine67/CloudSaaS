@@ -9,6 +9,7 @@ import { CardsService } from "../services/card.service";
 import { UsersService } from "../services/user.service";
 import * as express from 'express';
 import jwtDecrypt from "../middleware/jwt"
+import isAdmin from "../middleware/isAdmin"
 
 @Route('/users')
 @Tags("Users")
@@ -22,7 +23,7 @@ export class UserController extends Controller {
 	@Get()
 	public async getAll(@Request() expReq: express.Request): Promise<User[]> {
 		const jwt = jwtDecrypt(expReq); 
-		return new UsersService().getAll();
+		return new UsersService().getAll(isAdmin(jwt));
 	}
 
 	/**

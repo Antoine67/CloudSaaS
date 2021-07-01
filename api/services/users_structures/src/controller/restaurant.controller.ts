@@ -11,6 +11,7 @@ import { RestaurantsService } from "../services/restaurant.service";
 import { Employee, EmployeeCreationParams, EmployeeUpdateParams } from "../model/employee";
 import { EmployeesService } from '../services/employee.service';
 import jwtDecrypt from "../middleware/jwt"
+import isAdmin from "../middleware/isAdmin"
 
 @Route('/restaurants')
 @Tags("Restaurants")
@@ -22,8 +23,9 @@ export class RestaurantController extends Controller {
 	 */
 	@Security("jwt")
 	@Get()
-	public async getAll(): Promise<Restaurant[]> {
-		return new RestaurantsService().getAll();
+	public async getAll(@Request() expReq: express.Request): Promise<Restaurant[]> {
+		const jwt = jwtDecrypt(expReq); 
+		return new RestaurantsService().getAll(isAdmin(jwt));
 	}
 
 	/**

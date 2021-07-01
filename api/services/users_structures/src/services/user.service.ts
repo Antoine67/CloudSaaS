@@ -8,7 +8,8 @@ import {Tags} from 'tsoa';
 
 export class UsersService {
 
-  public async getAll(): Promise<User[]> {
+  public async getAll(isAdmin? : boolean): Promise<User[]> {
+    //TODO filter permissions for admin and normal user
     //Get users from database
 		const userRepository = getRepository(User);
 		const users = await userRepository
