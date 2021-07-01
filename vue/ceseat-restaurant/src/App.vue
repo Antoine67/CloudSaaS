@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <notifications  position="bottom right"/>
     <AppHeader
       :onLogoClick="onLogoClick"
       :onLoginClick="onLoginClick"
@@ -76,3 +77,9 @@ export default class App extends Vue{
 
 }
 </script>
+
+<style scoped>
+  .notification-popup {
+
+  }
+</style>
