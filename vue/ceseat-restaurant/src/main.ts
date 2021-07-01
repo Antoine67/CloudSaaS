@@ -9,13 +9,13 @@ import '@/plugins/ceseat-lib'
 import VueApexCharts from 'vue-apexcharts'
 
 import VueSocketIOExt from 'vue-socket.io-extended';
-import { io } from 'socket.io-client';
+import  io  from 'socket.io-client';
 import Notifications from 'vue-notification'
 
 Vue.use(Notifications)
 
 Vue.use(VueSocketIOExt, io('http://ceseat-api.fr', {
-  cors: ['*'],
+  
 }));
 
 

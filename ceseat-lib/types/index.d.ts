@@ -9,7 +9,8 @@ declare module 'ceseat-lib' {
 	import AppHeader from 'src/components/AppHeader.vue';
 	import OrderItem from 'src/components/OrderItem.vue';
 	import OrderList from 'src/components/OrderList.vue';
-	import ProfilePage from 'src/components/ProfilePage.vue'; const Components: {
+	import ProfilePage from 'src/components/ProfilePage.vue';
+	const Components: {
 	    MenuCardItem: any;
 	    LoginForm: any;
 	    GeolocationItem: any;
@@ -36,20 +37,7 @@ declare module 'ceseat-lib' {
 	export default Components;
 
 }
-declare module 'src/shims-tsx' {
-	import Vue, { VNode } from 'vue' global {
-	  namespace JSX {
-	    // tslint:disable no-empty-interface
-	    interface Element extends VNode {}
-	    // tslint:disable no-empty-interface
-	    interface ElementClass extends Vue {}
-	    interface IntrinsicElements {
-	      [elem: string]: any
-	    }
-	  }
-	}
 
-}
 /*declare module '*.vue' {
   import Vue from 'vue'
   export default Vue

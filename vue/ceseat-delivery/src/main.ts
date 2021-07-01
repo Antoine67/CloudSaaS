@@ -6,7 +6,7 @@ import store from './store'
 import vuetify from '@/plugins/vuetify'
 
 import VueSocketIOExt from 'vue-socket.io-extended';
-import { io } from 'socket.io-client';
+import  io  from 'socket.io-client';
 import Notifications from 'vue-notification'
 
 import '@/plugins/ceseat-lib'
@@ -17,7 +17,7 @@ Vue.config.productionTip = false
 Vue.use(Notifications)
 
 Vue.use(VueSocketIOExt, io('http://ceseat-api.fr', {
-  cors: ['*'],
+  
 }));
 
 Vue.use(VueApexCharts)

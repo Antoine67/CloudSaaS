@@ -1,5 +1,4 @@
-
-import Product from "./product"
+import Product from "./Product"
 
 export default interface Menu {
     id?: any;
