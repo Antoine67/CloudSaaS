@@ -105,7 +105,18 @@ veuillez le supprimer.";
 
             //NbWaitingPayment.Content ="";
         }
+
+
+        
     }
+
+
+
+
+
+
+
+
 
 
     public class OrderData

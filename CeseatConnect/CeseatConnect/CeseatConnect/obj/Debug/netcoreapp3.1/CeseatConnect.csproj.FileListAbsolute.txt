@@ -92,3 +92,6 @@ C:\Users\frede\source\projet_logiciel\CloudSaaS\CeseatConnect\CeseatConnect\Cese
 C:\Users\frede\source\projet_logiciel\CloudSaaS\CeseatConnect\CeseatConnect\CeseatConnect\obj\Debug\netcoreapp3.1\CeseatConnect.csproj.CoreCompileInputs.cache
 C:\Users\frede\source\projet_logiciel\CloudSaaS\CeseatConnect\CeseatConnect\CeseatConnect\obj\Debug\netcoreapp3.1\CeseatConnect.csproj.CopyComplete
 C:\Users\frede\source\projet_logiciel\CloudSaaS\CeseatConnect\CeseatConnect\CeseatConnect\obj\Debug\netcoreapp3.1\CeseatConnect.genruntimeconfig.cache
+C:\Users\frede\source\projet_logiciel\CloudSaaS\CeseatConnect\CeseatConnect\CeseatConnect\bin\Debug\netcoreapp3.1\MaterialDesignColors.dll
+C:\Users\frede\source\projet_logiciel\CloudSaaS\CeseatConnect\CeseatConnect\CeseatConnect\bin\Debug\netcoreapp3.1\MaterialDesignThemes.Wpf.dll
+C:\Users\frede\source\projet_logiciel\CloudSaaS\CeseatConnect\CeseatConnect\CeseatConnect\obj\Debug\netcoreapp3.1\App.baml

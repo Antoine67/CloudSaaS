@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "DfASYJ3JYBs9nP6NbvoWgl5Vl0y7+zNsmS/qFauj0p236Wtdz6rkf9v+mCcLeHYrF4OHvLwdkj8+sMeNdrGxzw==",
+  "dgSpecHash": "kT4PP1q4FcrPZDFC8uW+y8QhyH3gua1ZDEke+c/BIRv+mPzY4rXG8uxmCz+76xl3254bgaULcvOsDCwRlaBOdQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\frede\\source\\projet_logiciel\\CloudSaaS\\CeseatConnect\\CeseatConnect\\CeseatConnect\\CeseatConnect.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\frede\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\frede\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",
+    "C:\\Users\\frede\\.nuget\\packages\\materialdesigncolors\\2.0.1\\materialdesigncolors.2.0.1.nupkg.sha512",
+    "C:\\Users\\frede\\.nuget\\packages\\materialdesignthemes\\4.1.0\\materialdesignthemes.4.1.0.nupkg.sha512",
     "C:\\Users\\frede\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.7\\microsoft.aspnet.webapi.client.5.2.7.nupkg.sha512",
     "C:\\Users\\frede\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.0.0\\microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
     "C:\\Users\\frede\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

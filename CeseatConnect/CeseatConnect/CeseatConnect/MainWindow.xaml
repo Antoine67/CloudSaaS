@@ -10,7 +10,13 @@
         <TabControl>
             <TabItem Header="Performances">
                 <Grid Background="#FFE5E5E5">
-                    <WebBrowser Source="http://localhost/proxy-stats"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="111*"/>
+                        <ColumnDefinition Width="24*"/>
+                        <ColumnDefinition Width="38*"/>
+                        <ColumnDefinition Width="224*"/>
+                    </Grid.ColumnDefinitions>
+                    <WebBrowser Source="http://localhost/proxy-stats" Grid.ColumnSpan="4"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Gestion Utilisateur" GotFocus="TabItem_GotFocus">
@@ -38,9 +44,15 @@
                         </ListView>
                     </Grid>
                 </Grid>
-            </TabItem>           
+            </TabItem>
+            <TabItem Header="Statistiques" GotFocus="TabItem_GotFocus" Margin="-2,-2,-2,0">
+                <Grid HorizontalAlignment="Left">
+
+                </Grid>
+            </TabItem>
+
         </TabControl>
-        
+
 
 
 

@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v3.1": {
       "CeseatConnect/1.0.0": {
         "dependencies": {
+          "MaterialDesignThemes": "4.1.0",
           "Microsoft.AspNet.WebApi.Client": "5.2.7",
           "Microsoft.Data.SqlClient": "3.0.0",
           "Newtonsoft.Json": "13.0.1"
@@ -47,6 +48,25 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.3.0.0",
             "fileVersion": "1.300.20.56202"
+          }
+        }
+      },
+      "MaterialDesignColors/2.0.1": {
+        "runtime": {
+          "lib/netcoreapp3.1/MaterialDesignColors.dll": {
+            "assemblyVersion": "2.0.1.2556",
+            "fileVersion": "2.0.1.2556"
+          }
+        }
+      },
+      "MaterialDesignThemes/4.1.0": {
+        "dependencies": {
+          "MaterialDesignColors": "2.0.1"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/MaterialDesignThemes.Wpf.dll": {
+            "assemblyVersion": "4.1.0.2556",
+            "fileVersion": "4.1.0.2556"
           }
         }
       },
@@ -967,6 +987,20 @@
       "sha512": "sha512-l1SYfZKOFBuUFG7C2SWHmJcrQQaiXgBdVCycx4vcZQkC6efDVt7mzZ5pfJAFEJDBUq7mjRQ0RPq9ZDGdSswqMg==",
       "path": "azure.identity/1.3.0",
       "hashPath": "azure.identity.1.3.0.nupkg.sha512"
+    },
+    "MaterialDesignColors/2.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Azl8nN23SD6QPE0PdsfpKiIqWTvH7rzXwgXPiFSEt91NFOrwB5cx3iq/sbINWMZunhXJ32+jVUHiV03B8eJbZw==",
+      "path": "materialdesigncolors/2.0.1",
+      "hashPath": "materialdesigncolors.2.0.1.nupkg.sha512"
+    },
+    "MaterialDesignThemes/4.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WqrO9AbtdE4pLPtDk/C5BZRnkgWFwVGyUHWj7tRJrgnKl089DEobVXBCLeqp2mkgBeFHj4Xe3AfWyhmlnO6AZA==",
+      "path": "materialdesignthemes/4.1.0",
+      "hashPath": "materialdesignthemes.4.1.0.nupkg.sha512"
     },
     "Microsoft.AspNet.WebApi.Client/5.2.7": {
       "type": "package",
