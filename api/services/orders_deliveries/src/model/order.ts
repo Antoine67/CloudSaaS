@@ -211,7 +211,7 @@ class OrderCreationParams {
    * Address to deliver
    */
 
-  address: {
+  address?: {
     country?: string;
 
     postal_code?: string;
