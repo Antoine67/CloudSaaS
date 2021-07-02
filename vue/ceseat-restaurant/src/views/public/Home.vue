@@ -1,13 +1,13 @@
 <template>
-  <v-container fluid>
-    //TODO qqchose comme :
-    Bienvenue sur l'application dédiée aux restaurants CesEat
+  <v-container fluid class="text-h5 pa-5">
+    
+    Bienvenue sur l'application dédiée aux restaurants CesEat<br/><br/>
 
-    Commencez par vous identifier <router-link to="/login" >ici</router-link>
+    Commencez par vous identifier <router-link to="/login" >ici</router-link><br/><br/>
 
-    Vous souhaitez uniquement commander un repas ? Alors rendez-vous <a href="http://ceseat.fr"> ici </a>
+    Vous souhaitez uniquement commander un repas ? Alors rendez-vous <a href="http://ceseat.fr"> ici </a><br/><br/>
 
-    Vous êtes livreur et souhaitez délivrer de délicieux plats ? Alors rendez-vous <a href="http://ceseat-delivery.fr"> ici </a>
+    Vous êtes livreur et souhaitez délivrer de délicieux plats ? Alors rendez-vous <a href="http://ceseat-delivery.fr"> ici </a><br/><br/>
     
   </v-container>
 </template>
