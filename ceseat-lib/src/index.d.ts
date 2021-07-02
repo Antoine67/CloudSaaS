@@ -9,6 +9,7 @@ import AppHeader from "./components/AppHeader.vue";
 import OrderItem from "./components/OrderItem.vue";
 import OrderList from "./components/OrderList.vue";
 import ProfilePage from "./components/ProfilePage.vue";
+import Sponsorship from "./components/Sponsorship.vue";
 declare const Components: {
     MenuCardItem: any;
     LoginForm: any;
@@ -21,6 +22,7 @@ declare const Components: {
     OrderItem: any;
     OrderList: any;
     ProfilePage: any;
+    Sponsorship: any;
 };
 export { MenuCardItem };
 export { LoginForm };
@@ -33,4 +35,5 @@ export { AppHeader };
 export { OrderItem };
 export { OrderList };
 export { ProfilePage };
+export { Sponsorship };
 export default Components;

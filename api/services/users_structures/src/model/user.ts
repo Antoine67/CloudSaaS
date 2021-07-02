@@ -69,6 +69,9 @@ export class User {
     /*@OneToMany(type => User, user => user.user)
     userSponsor: User;*/
 
+    @Column({default: -1})
+    sponsorId: number;
+
     @Column()
     @IsNotEmpty()
     suspended: boolean;
@@ -121,3 +124,6 @@ export class UserUpdateParams {
     notification?: boolean;
 }
   
+export class SponsorCode {
+	sponsorshipCode : string;
+}

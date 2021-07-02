@@ -72,6 +72,7 @@ export default class App extends Vue{
       { text: 'Accueil', icon: 'mdi-clipboard-list', onClick: () => {this.$router.push('/')} },
       { text: 'Mon profil', icon: 'mdi-account', onClick: () => {this.$router.push('/profile')} },
       { text: 'Dashboard', icon: 'mdi-view-dashboard', onClick: () => {this.$router.push('/my-orders')} },
+      { text: 'Parrainage', icon: 'mdi-face-recognition', onClick: () => {this.$router.push('/sponsorship')} },
       { text: 'Déconnexion', icon: 'mdi-account-remove', onClick: () => {this.logOut();} },
     ],
   }

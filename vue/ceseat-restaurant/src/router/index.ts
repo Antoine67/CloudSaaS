@@ -10,6 +10,7 @@ import RestaurantManagement from "@/views/logged/RestaurantManagement.vue"
 import ProductsMenusManagement from "@/views/logged/ProductsMenusManagement.vue"
 import CreateRestaurant from "@/views/logged/CreateRestaurant.vue"
 import Dashboard from "@/views/logged/Dashboard.vue"
+import SponsorshipPage from "@/views/logged/SponsorshipPage.vue"
 
 import auth from "@/middlewares/auth"
 import hasRestaurant from "@/middlewares/hasRestaurant"
@@ -65,6 +66,14 @@ const routes: Array<RouteConfig> = [
     component: RestaurantManagement,
     meta: {
       middleware: [auth, hasRestaurant]
+    }
+  },
+  {
+    path: '/sponsorship',
+    name: 'SponsorshipPage',
+    component: SponsorshipPage,
+    meta: {
+      middleware: auth 
     }
   },
   {

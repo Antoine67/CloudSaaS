@@ -69,6 +69,7 @@ export default class App extends Vue{
       { text: 'Dashboard', icon: 'mdi-view-dashboard', onClick: () => {this.$router.push('/dashboard')} },
       { text: 'Gestion des produits', icon: 'mdi-food', onClick: () => {this.$router.push('/products-menus-management')} },
       { text: 'Gestion des commande', icon: 'mdi-clipboard-list', onClick: () => {this.$router.push('/my-orders')} },
+      { text: 'Parrainage', icon: 'mdi-face-recognition', onClick: () => {this.$router.push('/sponsorship')} },
       { text: 'Gestion du restaurant', icon: 'mdi-silverware-fork-knife', onClick: () => {this.$router.push('/restaurant-management')} },
       { text: 'Déconnexion', icon: 'mdi-account-remove', onClick: () => {this.logOut();} },
       
