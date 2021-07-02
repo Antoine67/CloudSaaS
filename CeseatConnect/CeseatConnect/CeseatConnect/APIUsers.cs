@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -8,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Collections.Specialized;
 
 namespace CeseatConnect
 {
@@ -15,13 +17,23 @@ namespace CeseatConnect
     {
 
         static HttpClient client = new HttpClient();
-   
+        public static String api;
+        public static String apiAuth;
         public static async Task<HttpResponseMessage> RegisterUsersAsync(List<KeyValuePair<string, string>> user)
         {
-            HttpClient clientAuth = new HttpClient();
-            HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5000/api/auth/register") { Content = new FormUrlEncodedContent(user) };
-            HttpResponseMessage res = await clientAuth.SendAsync(req);
-            return res;
+            try
+            {
+                HttpClient clientAuth = new HttpClient();
+                HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, apiAuth + "api/auth/register") { Content = new FormUrlEncodedContent(user) };
+                HttpResponseMessage res = await clientAuth.SendAsync(req);
+                return res;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw;
+            }
+            
         }
 
         public static async Task<string> LoginUsers(List<KeyValuePair<string, string>> user)
@@ -30,53 +42,122 @@ namespace CeseatConnect
             try
             {
                 HttpClient clientAuth = new HttpClient();
-                HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, "http://localhost:5000/api/auth/login") { Content = new FormUrlEncodedContent(user) };
+                HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, apiAuth + "api/auth/login") { Content = new FormUrlEncodedContent(user) };
                 HttpResponseMessage res = await clientAuth.SendAsync(req).ConfigureAwait(false);
                 token = await res.Content.ReadAsStringAsync();
             }
-            catch (Exception)
+            catch (Exception e )
             {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 throw;
             }
             return token;
         }
-        public static List<Users> GetUsers()
+        public static List<Users> GetUsers(string token)
         {
-            HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format("http://ceseat-api.fr/api/users"));
-            WebReq.Method = "GET";
-            HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
-
-            Console.WriteLine(WebResp.StatusCode);
-            Console.WriteLine(WebResp.Server);
-
-            string jsonString;
-            using (Stream stream = WebResp.GetResponseStream())
+            try
             {
-                StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8);
-                jsonString = reader.ReadToEnd();
+                HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format(api + "api/users"));
+                WebReq.Method = "GET";
+                WebReq.PreAuthenticate = true;
+                WebReq.Headers.Add("x-access-token", token);
+                WebReq.Accept = "application/json";
+                HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
+
+                string jsonString;
+                using (Stream stream = WebResp.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8);
+                    jsonString = reader.ReadToEnd();
+                }
+
+                List<Users> users = JsonConvert.DeserializeObject<List<Users>>(jsonString);
+
+                return users;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                throw;
             }
 
-            List<Users> users = JsonConvert.DeserializeObject<List<Users>>(jsonString);
+        }
+        public static List<Role> GetRoles(string token)
+        {
+            try
+            {
+                HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format(api + "api/roles"));
+                WebReq.Method = "GET";
+                WebReq.PreAuthenticate = true;
+                WebReq.Headers.Add("x-access-token", token);
+                WebReq.Accept = "application/json";
+                HttpWebResponse WebResp = (HttpWebResponse)WebReq.GetResponse();
 
-            return users;
+                string jsonString;
+                using (Stream stream = WebResp.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8);
+                    jsonString = reader.ReadToEnd();
+                }
+
+                List<Role> roles = JsonConvert.DeserializeObject<List<Role>>(jsonString);
+
+                return roles;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw;
+            }
+            
+        }
+        public static HttpWebResponse PutUsers(string token, string id, byte[] users)
+        {
+            try
+            {
+                HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format(api + "api/users/" + id));
+                WebReq.Method = "PUT";
+                WebReq.PreAuthenticate = true;
+                WebReq.Headers.Add("x-access-token", token);
+                WebReq.ContentType = "application/x-www-form-urlencoded";
+
+                using (var requestStream = WebReq.GetRequestStream())
+                {
+                    requestStream.Write(users, 0, users.Length);
+                }
+                var response = (HttpWebResponse)WebReq.GetResponse();
+
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw;
+            }
+            
         }
 
-        static async Task<Users> UpdateProductAsync(Users users)
+        public static HttpWebResponse DeleteUser(string token,int id)
         {
-            HttpResponseMessage response = await client.PutAsJsonAsync(
-                $"api/users/{users.id}", users);
-            response.EnsureSuccessStatusCode();
+            try
+            {
+                HttpWebRequest WebReq = (HttpWebRequest)WebRequest.Create(string.Format(api + "api/users/" + id.ToString()));
+                WebReq.Method = "DELETE";
+                WebReq.PreAuthenticate = true;
+                WebReq.Headers.Add("x-access-token", token);
 
-            // Deserialize the updated product from the response body.
-            users = await response.Content.ReadAsAsync<Users>();
-            return users;
-        }
+                var response = (HttpWebResponse)WebReq.GetResponse();
 
-        static async Task<HttpStatusCode> DeleteProductAsync(string id)
-        {
-            HttpResponseMessage response = await client.DeleteAsync(
-                $"api/users/{id}");
-            return response.StatusCode;
+                return response;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw;
+            }
+            
         }
 
        

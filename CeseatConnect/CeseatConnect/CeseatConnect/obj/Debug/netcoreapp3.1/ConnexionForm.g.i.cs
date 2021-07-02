@@ -132,7 +132,7 @@ namespace CeseatConnect {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/CeseatConnect;V1.0.0.0;component/connexionform.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/CeseatConnect;component/connexionform.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\ConnexionForm.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
