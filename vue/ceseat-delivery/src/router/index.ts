@@ -5,6 +5,7 @@ import Login from "@/views/auth/Login.vue";
 import Profile from "@/views/logged/Profile.vue"
 import Dashboard from "@/views/logged/Dashboard.vue"
 import Deliveries from "@/views/logged/Deliveries.vue"
+import SponsorshipPage from "@/views/logged/SponsorshipPage.vue"
 
 import auth from "@/middlewares/auth"
 
@@ -41,6 +42,14 @@ const routes: Array<RouteConfig> = [
     path: '/Dashboard',
     name :'Dashboard',
     component: Dashboard,
+    meta: {
+      middleware: auth 
+    }
+  },
+  {
+    path: '/sponsorship',
+    name: 'SponsorshipPage',
+    component: SponsorshipPage,
     meta: {
       middleware: auth 
     }

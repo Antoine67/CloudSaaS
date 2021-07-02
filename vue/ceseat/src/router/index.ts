@@ -6,6 +6,7 @@ import MyOrders from "@/views/logged/MyOrders.vue";
 import RestaurantDetails from "@/views/public/RestaurantDetails.vue"
 import Login from "@/views/auth/Login.vue";
 import Profile from "@/views/logged/Profile.vue"
+import SponsorshipPage from "@/views/logged/SponsorshipPage.vue"
 
 import auth from "@/middlewares/auth"
 
@@ -47,6 +48,14 @@ const routes: Array<RouteConfig> = [
     path: '/checkout',
     name: 'Checkout',
     component: CartCheckout,
+    meta: {
+      middleware: auth 
+    }
+  },
+  {
+    path: '/sponsorship',
+    name: 'SponsorshipPage',
+    component: SponsorshipPage,
     meta: {
       middleware: auth 
     }

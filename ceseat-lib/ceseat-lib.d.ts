@@ -9,7 +9,8 @@ declare module 'src/index' {
 	import AppHeader from 'src/components/AppHeader.vue';
 	import OrderItem from 'src/components/OrderItem.vue';
 	import OrderList from 'src/components/OrderList.vue';
-	import ProfilePage from 'src/components/ProfilePage.vue'; const Components: {
+	import ProfilePage from 'src/components/ProfilePage.vue';
+	import Sponsorship from 'src/components/Sponsorship.vue'; const Components: {
 	    MenuCardItem: any;
 	    LoginForm: any;
 	    GeolocationItem: any;
@@ -21,6 +22,7 @@ declare module 'src/index' {
 	    OrderItem: any;
 	    OrderList: any;
 	    ProfilePage: any;
+	    Sponsorship: any;
 	};
 	export { MenuCardItem };
 	export { LoginForm };
@@ -33,6 +35,7 @@ declare module 'src/index' {
 	export { OrderItem };
 	export { OrderList };
 	export { ProfilePage };
+	export { Sponsorship };
 	export default Components;
 
 }
