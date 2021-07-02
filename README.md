@@ -19,6 +19,6 @@
 
 ## MCD MongoDB - SQL SERVEUR
 
-![Schéma MCD](./images/MCD MongoDB - SQL SERVER.png)
+![Schéma MCD](./images/MCDMongoDB_SQL%20SERVER.png)
 
 
