@@ -1,5 +1,5 @@
 
-import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body, Security, Request } from 'tsoa';
+import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body, Security, Request, Query } from 'tsoa';
 
 import { User, UserUpdateParams, SponsorCode } from "../model/user";
 import { Address, AddressCreationParams, AddressUpdateParams } from "../model/address";
@@ -23,9 +23,9 @@ export class UserController extends Controller {
 	 */
 	@Security("jwt")
 	@Get()
-	public async getAll(@Request() expReq: express.Request): Promise<User[]> {
+	public async getAll(@Request() expReq: express.Request, @Query() byEmail?: string): Promise<User[]> {
 		const jwt = jwtDecrypt(expReq); 
-		return new UsersService().getAll(isAdmin(jwt));
+		return new UsersService().getAll(byEmail);
 	}
 
 	/**

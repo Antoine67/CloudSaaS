@@ -8,15 +8,26 @@ import {Tags} from 'tsoa';
 
 export class UsersService {
 
-  public async getAll(isAdmin? : boolean): Promise<User[]> {
-    //TODO filter permissions for admin and normal user
+  public async getAll(byEmail?: string): Promise<User[]> {
     //Get users from database
 		const userRepository = getRepository(User);
-		const users = await userRepository
-      .createQueryBuilder("user")
-      .leftJoinAndSelect("user.address", "address")
-      .leftJoinAndSelect("user.role", "role")
-      .getMany();
+    let users
+    if(byEmail){
+      users = await userRepository
+        .createQueryBuilder("user")
+        .leftJoinAndSelect("user.address", "address")
+        .leftJoinAndSelect("user.role", "role")
+        .where("user.email = :email", { email: byEmail })
+        .getOne();
+    }
+    else{
+      users = await userRepository
+        .createQueryBuilder("user")
+        .leftJoinAndSelect("user.address", "address")
+        .leftJoinAndSelect("user.role", "role")
+        .getMany();
+    }   
+		
 
 		//Send the users object
 		return users;

@@ -89,11 +89,6 @@
                       color="success"
                       hide-details
                     ></v-checkbox>
-
-                   
-
-                    
-
                   </v-col>
                 </v-row>
                 <v-row>

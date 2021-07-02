@@ -162,12 +162,12 @@ const models: TsoaRoute.Models = {
     },
     "EmployeeCreationParams": {
         "properties": {
-            "role": { "ref": "RoleEmployee", "required": true },
+            "role": { "ref": "RoleEmployee" },
         },
     },
     "EmployeeUpdateParams": {
         "properties": {
-            "role": { "ref": "RoleEmployee" },
+            "roleId": { "dataType": "string" },
         },
     },
     "RoleCreationParams": {
@@ -203,6 +203,7 @@ export function RegisterRoutes(app: express.Express) {
         function(request: any, response: any, next: any) {
             const args = {
                 expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
+                byEmail: { "in": "query", "name": "byEmail", "dataType": "string" },
             };
 
             let validatedArgs: any[] = [];

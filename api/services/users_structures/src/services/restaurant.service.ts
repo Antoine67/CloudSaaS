@@ -5,8 +5,8 @@ import { validate } from "class-validator";
 import { Restaurant, RestaurantUpdateParams, RestaurantCreationParams } from "../model/restaurant";
 import { AddressesService } from "../services/address.service";
 import { EmployeesService } from "../services/employee.service";
-import {Tags} from 'tsoa';
 import { RoleEmployeesService } from "./roleEmployee.service";
+import {Tags} from 'tsoa';
 
 
 export class RestaurantsService {
