@@ -40,6 +40,10 @@
 import { Component, Vue, Prop } from "vue-property-decorator";
 import RestaurantsService from "@/services/RestaurantsService"
 
+import { namespace } from "vuex-class";
+
+const Auth = namespace("Auth");
+
 @Component
 export default class RestaurantForm extends Vue {
 
@@ -48,6 +52,9 @@ export default class RestaurantForm extends Vue {
     @Prop() returnClick!: () => any;
 
     @Prop() roleIdentifier!: string;
+
+    @Auth.Action
+    private signOut!: () => void;
 
 
     private loading = false;
@@ -89,7 +96,15 @@ export default class RestaurantForm extends Vue {
                 .then((response: any) => {
                     this.loading = false;
                     console.log(response.data);
-                    this.$router.push("/profile");
+                    this.signOut()
+                    this.$router.push("/login");
+                    this.$notify({
+                        title: 'Restaurant créé avec succès',
+                        text: 'Reconnectez-vous pour accéder aux information de votre restaurant nouvellement créé',
+                        type: "success"
+                    });
+                    
+                    
                 })
                 .catch((e: any) => {
                     this.loading = false;
