@@ -16,6 +16,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import OrdersService from "@/services/OrdersService"
 
 import { namespace } from "vuex-class";
 
@@ -26,7 +27,7 @@ export default class Dashboard extends Vue{
 
    salesSeries = [{
         name: 'Commandes',
-        data: [30, 40, 45, 50, 49, 60]
+        data: []
       }]
 
     salesOptions = {
@@ -37,7 +38,7 @@ export default class Dashboard extends Vue{
           }
         },
         xaxis: {
-          categories: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin"]
+          categories: ['']
         },
         title: {
           text: "Nombre de commandes par mois"
@@ -90,6 +91,63 @@ export default class Dashboard extends Vue{
       }]
     }
 
+    classify(){
+      
+      let currentDate = new Date()
+      currentDate.setMonth(currentDate.getMonth() - 10)
+
+      let dateArray = []
+      
+      for (let i = 0; i < 9; i++) {
+        currentDate.setMonth(currentDate.getMonth() + 1)
+        dateArray[new Date(currentDate).getMonth()+1 + "-" + new Date(currentDate).getFullYear()] = 0
+      }
+      this.orders.forEach(function(currentOrder) {
+        //console.log("glag",new Date(currentOrder.date).getMonth());
+        const monthYearText = new Date(currentOrder.date).getMonth() + "-" + new Date(currentOrder.date).getFullYear()
+        if(monthYearText in dateArray){
+            dateArray[monthYearText] = dateArray[monthYearText] + 1
+        }
+      });
+
+      for (const [key, value] of Object.entries(dateArray)) {
+        this.salesSeries[0].data.push(value)
+        this.salesOptions.xaxis.categories.push(key.toString())
+      }
+
+
+      this.salesSeries[0].data.push(0)
+
+      dateArray.forEach(function callback(value, index) {
+        console.log("test",value)
+        this.salesSeries[0].data.push(value)
+        this.salesOptions.xaxis.categories.push(index)
+      });
+
+      console.log("flag", this.salesSeries[0].data, this.salesOptions.xaxis.categories)
+    }
+
+
+    fetchOrders(){
+        OrdersService.getAllPassed()
+        .then((response) => {
+            this.orders = response.data;
+            console.log(response.data);
+            this.classify()
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
+
+
+    created() {
+        this.fetchOrders();
+    }
+
+    
+
+    orders = []
 
 
 }
