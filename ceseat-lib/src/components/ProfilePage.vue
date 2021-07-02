@@ -10,11 +10,11 @@
             <v-list-item-content>
             <v-list-item-title class="title" >{{user.surname +" "+user.name}}</v-list-item-title>
             <div class="d-flex align-center justify-space-between"> 
-            <v-list-item-subtitle>{{user.role.title}}</v-list-item-subtitle>  
+            <v-list-item-subtitle v-if="user.role">{{user.role.title}}</v-list-item-subtitle>  
             <div class="d-flex align-center justify-space-between">
             <v-list-item-subtitle>Activer les notifications</v-list-item-subtitle>     
             <v-switch
-            v-model="user.notifications"  
+            v-model="notifications"  
             @click="onModifyNotificationsClick();"  
             ></v-switch>
             </div>
@@ -300,6 +300,8 @@ export default class ProductItem extends Vue {
   @Prop() submitAddress!: () => any;
   @Prop() submitNotification!: () => any;
 
+  @Prop() notifications! : boolean
+
 
   dialogUser = false;
   dialogAddress= false;
@@ -367,7 +369,7 @@ export default class ProductItem extends Vue {
   }
 }
   onModifyNotificationsClick(){
-      this.ModifyNotifications({notifications: this.user.notifications}).then(
+      this.ModifyNotifications({notifications: this.notifications}).then(
           (data: any) => {
               //this.showMessage("Connexion réussie", "success")
             this.submitNotification();

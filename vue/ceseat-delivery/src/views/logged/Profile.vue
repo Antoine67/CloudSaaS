@@ -1,6 +1,7 @@
  <template>
     <ProfilePage
     :user="user"
+    :notifications="user.notification"
     :ModifyUser=ModifyUser
     :ModifyAddress=ModifyAddress
     :ModifyNotifications=ModifyNotifications

@@ -1,6 +1,7 @@
  <template>
     <ProfilePage
     :user="user"
+    :notifications="user.notification"
     :ModifyUser=ModifyUser
     :ModifyAddress=ModifyAddress
     :ModifyNotifications=ModifyNotifications
@@ -15,6 +16,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { namespace } from "vuex-class";
+import User from "@/types/User"
 import UsersService from "@/services/UsersService"
 import {ProfilePage} from "ceseat-lib"
 const Auth = namespace("Auth");
@@ -31,7 +33,7 @@ export default class Profile extends Vue {
     @Auth.State("userData")
     private userData! : any;
 
-    user = {} 
+    user : User = {} 
     
 
     created() {

@@ -16,6 +16,7 @@ const exampleUser =  {"id":1,"username":"testtest","name":null,"surname":null,"a
 export const Default = Template.bind({});
 Default.args = {
     user : exampleUser,
+    notifications : exampleUser.notification,
     ModifyUser:(data) => {console.log(data);return Promise.resolve(data)},
     ModifyAddress:(data) => {console.log(data);return Promise.resolve(data)},
     ModifyNotifications:(data) => {console.log(data);return Promise.resolve(data)},
