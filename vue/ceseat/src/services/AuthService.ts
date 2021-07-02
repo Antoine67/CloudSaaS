@@ -34,8 +34,8 @@ class AuthService {
       username,
       email,
       password,
-      firstName,
-      lastName,
+      name: firstName,
+      surname: lastName,
       roleIdentifier
     });
   }
