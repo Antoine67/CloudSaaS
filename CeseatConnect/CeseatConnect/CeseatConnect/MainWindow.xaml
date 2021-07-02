@@ -13,12 +13,21 @@
                     <WebBrowser Source="http://localhost/proxy-stats"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Gestion Utilisateur" GotFocus="TabItem_GotFocus">
+            <TabItem Header="Gestion Utilisateur">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="DataGrid"/>
+                    <Button Content="Ajouter" Margin="0,26,739,358" Click="Button_Click_1"/>
+                    <Button Content="Supprimer" Margin="55,26,676,358" Click="RemoveUser_Click"/>
+                    <DataGrid x:Name="DataGrid" Initialized="DataGrid_Initialized" CellEditEnding="DataGrid_CellEditEnding" Margin="0,53,0,0" LoadingRow="DataGrid_LoadingRow" SelectionChanged="DataGrid_SelectionChanged" />
+                    <TextBox x:Name="email" Text="Email" TextWrapping="Wrap" Margin="123,26,594,358"/>
+                    <PasswordBox x:Name="password" Password="Password"  Margin="205,26,512,358"/>
+                    <TextBox x:Name="username" Text="Username" TextWrapping="Wrap" Margin="287,26,430,358"/>
+                    <TextBox x:Name="roleIdentifier" Text="roleIdentifier" TextWrapping="Wrap" Margin="369,26,348,358"/>
+                    <TextBox x:Name="name" Text="Name" TextWrapping="Wrap" Margin="451,26,266,358"/>
+                    <TextBox x:Name="surname" Text="Surname" TextWrapping="Wrap" Margin="533,26,184,358"/>
+
                 </Grid>
             </TabItem>
-            <TabItem Header="Suivi de Commande" GotFocus="TabItem_GotFocus">
+            <TabItem Header="Suivi de Commande" >
                 <Grid HorizontalAlignment="Left">
                     <TextBox Name="ID_Order" HorizontalAlignment="Left" Margin="18,60,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="162" Height="20"/>
                     <Button Content="Suivre la commande" HorizontalAlignment="Left" Margin="185,60,0,0" VerticalAlignment="Top" Click="Button_Click"/>
@@ -38,9 +47,10 @@
                         </ListView>
                     </Grid>
                 </Grid>
-            </TabItem>           
+            </TabItem>
         </TabControl>
-        
+
+
 
 
 

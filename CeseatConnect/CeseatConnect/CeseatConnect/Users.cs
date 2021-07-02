@@ -15,11 +15,14 @@ namespace CeseatConnect
         public bool notification { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }
-        public Address address { get; set; }
-        public Role role { get; set; }
+        public int addressId { get; set; }
+        public int roleId { get; set; }
         public string username { get; set; }
+        public string surname { get; set; }
         public string name { get; set; }
         public bool suspended { get; set; }
+        public string identifier { get; set; }
+        public string title { get; set; }
     }
     class Role
     {
