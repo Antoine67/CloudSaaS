@@ -13,6 +13,9 @@
         {{ item.available ? 'Disponible' : 'Indisponible' }}
       </v-chip>
     </template>
+    <template v-slot:item.products="{ item }">
+        <span v-for="(p,idx) in item.products" :key="idx">{{p.name}} </span>
+    </template>
     <template v-slot:top>
       <v-toolbar
         flat
@@ -90,11 +93,11 @@
                       hide-details
                     ></v-checkbox>
 
-                   
-
-                    
-
                   </v-col>
+                </v-row>
+                
+                <v-row>
+                  <ListEditingMenu v-model="editedItem.products" hide-details/>
                 </v-row>
                 
               </v-container>
@@ -155,11 +158,14 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import ListEditingMenu from "@/components/RestaurantManagement/ListEditingMenu.vue"
 import Menu from '@/types/Menu'
+import Product from '@/types/Product'
 import { namespace } from "vuex-class";
 import MenusService from "@/services/MenusService"
+import ProductsService from "@/services/ProductsService"
 @Component({
-  components: {  }
+  components: { ListEditingMenu }
 })
 export default class MenusManagementItem extends Vue{
 
@@ -239,6 +245,7 @@ export default class MenusManagementItem extends Vue{
         });
 
     } else {
+      console.log("flag",this.editedItem)
       
       MenusService.create(this.editedItem)
         .then((response) => {
@@ -259,7 +266,8 @@ export default class MenusManagementItem extends Vue{
   }
 
 
-beforeMount() {
+  beforeMount() {
+
     MenusService.getAll()
       .then((response) => {
         this.menus = response.data;
@@ -270,7 +278,7 @@ beforeMount() {
       });
   }
 
-  menus : Menu[] = [] 
+  menus : Menu[] = []
 
   get formTitle () {
         return this.editedIndex === -1 ? 'Nouveau menu' : 'Edition menu'
