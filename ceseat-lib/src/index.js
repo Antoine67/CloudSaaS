@@ -10,6 +10,7 @@ import AppHeader from "./components/AppHeader.vue";
 import OrderItem from "./components/OrderItem.vue";
 import OrderList from "./components/OrderList.vue";
 import ProfilePage from "./components/ProfilePage.vue";
+import Sponsorship from "./components/Sponsorship.vue";
 import Vuetify from 'vuetify/lib';
 import { VTabs, VTabsSlider, VTab, VIcon, VCol, VRow, VCard, VCardText, VForm, VBtn } from 'vuetify/lib';
 //Vue.use(Vuetify);
@@ -27,7 +28,8 @@ const Components = {
     DeliveryStateItem,
     OrderItem,
     OrderList,
-    ProfilePage
+    ProfilePage,
+    Sponsorship
 };
 /*
 function install(Vue: any) {
@@ -52,6 +54,7 @@ Vue.component("DeliveryStateItem", AppHeader);
 Vue.component("OrderItem", OrderItem);
 Vue.component("OrderList", OrderList);
 Vue.component("ProfilePage", ProfilePage);
+Vue.component("Sponsorship", Sponsorship);
 export { MenuCardItem };
 export { LoginForm };
 export { GeolocationItem };
@@ -63,5 +66,6 @@ export { AppHeader };
 export { OrderItem };
 export { OrderList };
 export { ProfilePage };
+export { Sponsorship };
 export default Components;
 //# sourceMappingURL=index.js.map

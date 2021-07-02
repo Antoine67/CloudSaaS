@@ -24,20 +24,20 @@ export class Employee {
     @ManyToOne(type => Restaurant, restaurant => restaurant.id, { primary: true, })
     restaurant: Restaurant;
 
-    @ManyToOne(type => RoleEmployee, roleEmployee => roleEmployee.employee, {eager: true})
+    @ManyToOne(type => RoleEmployee, roleEmployee => roleEmployee.employee)
     @JoinColumn()
     role: RoleEmployee;
 }
 
 export class EmployeeCreationParams {
     
-    role: RoleEmployee;
+    role?: RoleEmployee;
 
 }
 
 export class EmployeeUpdateParams {
     
-    role?: RoleEmployee;
+    roleId?: string;
 
 }
   

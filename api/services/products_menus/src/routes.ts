@@ -283,10 +283,8 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/menus/restaurants/:id',
-        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
-                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
             };
 

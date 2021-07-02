@@ -89,8 +89,16 @@ class AuthController {
     user.suspended = false;
     user.notification = true;
 
-    console.log("ROLE", roleObj);
-    console.log("USER", user);
+    user.sponsorshipCode = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 7);
+    
+
+
+
+    //console.log("ROLE", roleObj);
+    //console.log("USER", user);
+
+    console.log("aaa",user)
+
 
     //Validade if the parameters are ok
     const errors = await validate(user);
@@ -115,6 +123,7 @@ class AuthController {
     //If all ok, send 201 response
     res.status(201).send({message:"User created"});
   };
+
 
   static changePassword = async (req: Request, res: Response) => {
     //Get ID from JWT

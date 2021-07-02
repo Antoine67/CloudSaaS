@@ -7,6 +7,10 @@ class UsersService {
     return http.get("/users");
   }
 
+  getByEmail(email: string)  {
+    return http.get(`/users?byEmail=${email}`);
+  }
+
   get(id: string) {
     return http.get(`/users/${id}`);
   }
@@ -45,6 +49,10 @@ class UsersService {
 
   updateAddress(id: any, address_id:any, data: any) {
     return http.put(`/users/${id}/addresses/${address_id}`, data);
+  }
+
+  updateSponsor(id: any, data: any) {
+    return http.post(`/users/${id}/sponsor/`, data);
   }
 
 

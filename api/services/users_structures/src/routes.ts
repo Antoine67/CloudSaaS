@@ -24,6 +24,7 @@ const models: TsoaRoute.Models = {
             "siret": { "dataType": "string", "required": true },
             "rib": { "dataType": "string", "required": true },
             "sponsorshipCode": { "dataType": "string", "required": true },
+            "sponsorId": { "dataType": "double", "required": true },
             "suspended": { "dataType": "boolean", "required": true },
             "notification": { "dataType": "boolean", "required": true },
             "createdAt": { "dataType": "datetime", "required": true },
@@ -107,6 +108,11 @@ const models: TsoaRoute.Models = {
             "notification": { "dataType": "boolean" },
         },
     },
+    "SponsorCode": {
+        "properties": {
+            "sponsorshipCode": { "dataType": "string", "required": true },
+        },
+    },
     "AddressCreationParams": {
         "properties": {
             "country": { "dataType": "string" },
@@ -156,12 +162,12 @@ const models: TsoaRoute.Models = {
     },
     "EmployeeCreationParams": {
         "properties": {
-            "role": { "ref": "RoleEmployee", "required": true },
+            "role": { "ref": "RoleEmployee" },
         },
     },
     "EmployeeUpdateParams": {
         "properties": {
-            "role": { "ref": "RoleEmployee" },
+            "roleId": { "dataType": "string" },
         },
     },
     "RoleCreationParams": {
@@ -197,6 +203,7 @@ export function RegisterRoutes(app: express.Express) {
         function(request: any, response: any, next: any) {
             const args = {
                 expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
+                byEmail: { "in": "query", "name": "byEmail", "dataType": "string" },
             };
 
             let validatedArgs: any[] = [];
@@ -274,6 +281,28 @@ export function RegisterRoutes(app: express.Express) {
 
 
             const promise = controller.remove.apply(controller, validatedArgs as any);
+            promiseHandler(controller, promise, response, next);
+        });
+    app.post('/api/users/:id/sponsor',
+        authenticateMiddleware([{ "jwt": [] }]),
+        function(request: any, response: any, next: any) {
+            const args = {
+                id: { "in": "path", "name": "id", "required": true, "dataType": "string" },
+                req: { "in": "body", "name": "req", "required": true, "ref": "SponsorCode" },
+                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
+            };
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request);
+            } catch (err) {
+                return next(err);
+            }
+
+            const controller = new UserController();
+
+
+            const promise = controller.createSponsor.apply(controller, validatedArgs as any);
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/users/:id/addresses/:id_2',
@@ -430,10 +459,8 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/restaurants',
-        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
-                expReq: { "in": "request", "name": "expReq", "required": true, "dataType": "object" },
             };
 
             let validatedArgs: any[] = [];
@@ -450,7 +477,6 @@ export function RegisterRoutes(app: express.Express) {
             promiseHandler(controller, promise, response, next);
         });
     app.get('/api/restaurants/:id',
-        authenticateMiddleware([{ "jwt": [] }]),
         function(request: any, response: any, next: any) {
             const args = {
                 id: { "in": "path", "name": "id", "required": true, "dataType": "string" },

@@ -10,7 +10,7 @@ declare module 'ceseat-lib' {
 	import OrderItem from 'src/components/OrderItem.vue';
 	import OrderList from 'src/components/OrderList.vue';
 	import ProfilePage from 'src/components/ProfilePage.vue';
-	const Components: {
+	import Sponsorship from 'src/components/Sponsorship.vue'; const Components: {
 	    MenuCardItem: any;
 	    LoginForm: any;
 	    GeolocationItem: any;
@@ -22,6 +22,7 @@ declare module 'ceseat-lib' {
 	    OrderItem: any;
 	    OrderList: any;
 	    ProfilePage: any;
+	    Sponsorship: any;
 	};
 	export { MenuCardItem };
 	export { LoginForm };
@@ -34,10 +35,10 @@ declare module 'ceseat-lib' {
 	export { OrderItem };
 	export { OrderList };
 	export { ProfilePage };
+	export { Sponsorship };
 	export default Components;
 
 }
-
 /*declare module '*.vue' {
   import Vue from 'vue'
   export default Vue

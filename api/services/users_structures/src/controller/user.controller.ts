@@ -1,7 +1,7 @@
 
-import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body, Security, Request } from 'tsoa';
+import { Controller, Route, Get, Post, BodyProp, Put, Delete, Path, Tags, Example, Body, Security, Request, Query } from 'tsoa';
 
-import { User, UserUpdateParams } from "../model/user";
+import { User, UserUpdateParams, SponsorCode } from "../model/user";
 import { Address, AddressCreationParams, AddressUpdateParams } from "../model/address";
 import { Card, CardCreationParams } from "../model/card";
 import { AddressesService } from "../services/address.service";
@@ -10,6 +10,8 @@ import { UsersService } from "../services/user.service";
 import * as express from 'express';
 import jwtDecrypt from "../middleware/jwt"
 import isAdmin from "../middleware/isAdmin"
+
+
 
 @Route('/users')
 @Tags("Users")
@@ -21,9 +23,9 @@ export class UserController extends Controller {
 	 */
 	@Security("jwt")
 	@Get()
-	public async getAll(@Request() expReq: express.Request): Promise<User[]> {
+	public async getAll(@Request() expReq: express.Request, @Query() byEmail?: string): Promise<User[]> {
 		const jwt = jwtDecrypt(expReq); 
-		return new UsersService().getAll(isAdmin(jwt));
+		return new UsersService().getAll(byEmail);
 	}
 
 	/**
@@ -64,6 +66,23 @@ export class UserController extends Controller {
 	public async remove(@Path() id: string, @Request() expReq: express.Request) : Promise<void> {
 		const jwt = jwtDecrypt(expReq); 
 		return new UsersService().delete(id);
+	}
+
+	/**
+	 * Post a new sponshorship code
+	 * @param id The user's identifier
+	 * @summary Create a sponshorship
+	 */
+	@Security("jwt")
+	@Post('{id}/sponsor')
+	public async createSponsor(@Path() id: string, @Body() req: SponsorCode,  @Request() expReq: express.Request) : Promise<void> {
+		let data =  await new UsersService().createSponsor(id, req);
+		if(data) {
+			this.setStatus(201); // set return status 201
+		}else {
+			this.setStatus(500); // set return status 201
+			return
+		}
 	}
 
 	/**

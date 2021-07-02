@@ -1,25 +1,31 @@
 <template>
-  <v-container>
-      <ProductsManagementItem class="spacing-playground ma-6"/>
-      <v-divider/>
-       <MenusManagementItem class="spacing-playground ma-6"/>
-   
-  </v-container>
+    <v-container>
+        <v-col>
+        <v-container>
+            <EmployeesManagementItem class="spacing-playground ma-6"/>
+        </v-container>
+        </v-col>
+    </v-container>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
 
-import ProductsManagementItem from '@/components/RestaurantManagement/ProductsManagementItem.vue'
-import MenusManagementItem from '@/components/RestaurantManagement/MenusManagementItem.vue'
 
+import { Component, Vue, Prop } from "vue-property-decorator";
 import { namespace } from "vuex-class";
+import EmployeesManagementItem from "@/components/EmployeesManagementItem.vue"
+const Auth = namespace("Auth");
 
 @Component({
-  components: { ProductsManagementItem, MenusManagementItem  }
+  components: { EmployeesManagementItem }
 })
-export default class RestaurantManagement extends Vue{
+
+export default class RestaurantManagement extends Vue {
+
+    @Auth.State("user")
+    private currentUser!: any;
 
 
+    
 }
 </script>
