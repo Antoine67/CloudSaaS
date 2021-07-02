@@ -9,6 +9,10 @@ using System.Text;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
+using LiveCharts;
+using LiveCharts.Defaults; //Contains the already defined types
+using LiveCharts.Wpf;
+using Microsoft.Win32;
 
 namespace CeseatConnect
 {
@@ -31,6 +35,7 @@ namespace CeseatConnect
             {
                 InitializeComponent();
                 WebBrowser.Source = new Uri(ConfigurationManager.AppSettings.Get("ServeurMonitoring"));
+                InitGraph();
             }
             else
             {
@@ -232,6 +237,58 @@ namespace CeseatConnect
             //here we get the actual data item behind the selected row
             //var item = dg.ItemContainerGenerator.ItemFromContainer(currentRow);
         }
+
+
+        //GRAPHS
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> Formatter { get; set; }
+
+
+        public void InitGraph()
+        {
+
+            SeriesCollection = new SeriesCollection
+            {
+
+            };
+
+
+
+
+            var order = ApiOrders.GetOrders(token);
+            TotalOrders.Content = order.Count;
+            List<OrderData> ordersData = new List<OrderData>();
+
+            Dictionary<string, int> orderCount = new Dictionary<string, int>();
+
+            for (int i = 0; i < order.Count; i++)
+            {
+                ordersData.Add(new OrderData() { id = order[i].id, status = order[i].status, price = order[i].pricing.total + " €" });
+                if(orderCount.ContainsKey(order[i].status))
+                {
+                    orderCount[order[i].status] = orderCount[order[i].status]  + 1;
+                }else
+                {
+                    orderCount[order[i].status] = 1;
+                }
+            }
+
+            foreach (KeyValuePair<string, int> entry in orderCount)
+            {
+                SeriesCollection.Add(new ColumnSeries
+                {
+                    Title = entry.Key,
+                    Values = new ChartValues<double> { entry.Value }
+                });
+            }
+
+
+
+
+            DataContext = this;
+        }
+
     }
     public class OrderData
     {
@@ -241,4 +298,12 @@ namespace CeseatConnect
 
         public string price { get; set; }
     }
+
+
+
+
+
+
+
+
 }
